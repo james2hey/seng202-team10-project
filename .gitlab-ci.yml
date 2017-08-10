@@ -9,3 +9,4 @@ generate_artifacts:
  artifacts:
   paths:
    - mavenproj/target/mavenproj*.jar
+   - mavenproj/src/main/java/seng202/team10/App.java
