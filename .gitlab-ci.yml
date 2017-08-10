@@ -8,4 +8,4 @@ generate_artifacts:
   - mvn -B -f mavenproj clean site package
  artifacts:
   paths:
-   - mavenproj/target/s202*.jar
+   - mavenproj/target/mavenproj*.jar
