@@ -1,7 +1,7 @@
 package mapElements;
 
 /**
- * Holds data for key locations on the NY map
+ * Holds data for key locations on the NY map.
   */
 
 public class MapKeyLocations {
@@ -11,11 +11,23 @@ public class MapKeyLocations {
     String city;
 
     /**
-     * This method does something
+     * Getters and setters.
      */
 
     public int getLongitude() {
-        return
+        return longitude;
+    }
+
+    public void setLongitude(int input) {
+        longitude = input;
+    }
+
+    public int getLatitute() {
+        return latitute;
+    }
+
+    public void setLatitute(int input) {
+        latitute = input;
     }
 
 }
