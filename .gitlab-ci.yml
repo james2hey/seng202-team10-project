@@ -1,12 +1,12 @@
 junit:
  stage: test
  script:
-  - mvn -B -f "Main Build" clean test
+  - mvn -B -f MainBuild clean test
 generate_artifacts:
  stage: deploy
  script:
-  - mvn -B -f "Main Build" clean site package
+  - mvn -B -f MainBuild clean site package
  artifacts:
   paths:
-   - "Main Build/target/Main Build*.jar"
-   - "Main Build/src/main/java/seng202/team10/App.java"
+   - MainBuild/target/MainBuild*.jar
+   - MainBuild/src/main/java/seng202/team10/Main.java
