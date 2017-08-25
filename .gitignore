@@ -1,0 +1,16 @@
+MainBuild/target/
+MainBuild/pom.xml.tag
+MainBuild/pom.xml.releaseBackup
+MainBuild/pom.xml.versionsBackup
+MainBuild/pom.xml.next
+MainBuild/release.properties
+MainBuild/dependency-reduced-pom.xml
+MainBuild/buildNumber.properties
+MainBuild/.mvn/timing.properties
+
+.git/
+.idea
+
+# Avoid ignoring Maven wrapper jar file (.jar files are usually ignored)
+!/MainBuild/.mvn/wrapper/maven-wrapper.jar
+
