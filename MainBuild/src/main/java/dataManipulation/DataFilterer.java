@@ -1,8 +1,11 @@
 package dataManipulation;
 
+import java.sql.*;
 import java.util.ArrayList;
+////////////////////////////////
 
 import mapElements.Route;
+import mapElements.MapKeyLocations;
 
 
 /**
@@ -10,14 +13,63 @@ import mapElements.Route;
  */
 public class DataFilterer {
 
-    private String databaseCommand;
+    private static String databaseCommand;
+    private static ArrayList<Route> routes = new ArrayList<Route>();
 
+    /**
+     * filterByGender gets all route records that have the corresponding gender to the method parameter.
+     *
+     * @param gender gender of data records to be filtered.
+     * @return ArrayList<Route>
+     */
+    public static ArrayList<Route> filterByGender(String gender) {
 
-    public static ArrayList<Route> filterByGender() { return ArrayList; }
+        int genderInteger = -1;
+        if (gender == "F") {
+            genderInteger = 2;
+        } else if (gender == "M") {
+            genderInteger = 1;
+        }
 
-    public static ArrayList<Route> filterByDate() { return ArrayList; }
+        databaseCommand = "SELECT trip_duration, start_time, stop_time, start_date, stop_date, start_station_name, " +
+                "end_station_name, start_station_latitude, start_station_longitude, end_station_latitude, " +
+                "end_station_latitude FROM route_data WHERE gender = ?";
 
-    public static ArrayList<Route> filterByAge() { return ArrayList; }
+        try(Connection conn = this.connect();
+            PreparedStatement pstmt = conn.prepareStatement(databaseCommand)) {
 
-    public static ArrayList<Route> filterByTime() { return ArrayList; }
+            //set value using parameter
+            pstmt.setInt(1, genderInteger);
+
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                routes.add(Route(rs.getString("trip_duration"), rs.getString("start_time"),
+                        rs.getString("stop_time"), rs.getString("start_date"),
+                        rs.getString("stop_date"), rs.getString("start_station_name"),
+                        rs.getString("end_station_name"), rs.getString("start_station_latitude"),
+                        rs.getString("start_station_longitude"),
+                        rs.getString("end_station_latitude"),
+                        rs.getString("end_station_longitude")));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return routes;
+    }
+
+    public static ArrayList<Route> filterByDate(String date) {
+        ArrayList<Route> filteredData;
+        return filteredData;
+    }
+
+    public static ArrayList<Route> filterByAge(int age) {
+        ArrayList<Route> filteredData;
+        return filteredData;
+    }
+
+    public static ArrayList<Route> filterByTime(String time) {
+        ArrayList<Route> filteredData;
+        return filteredData;
+    }
 }
