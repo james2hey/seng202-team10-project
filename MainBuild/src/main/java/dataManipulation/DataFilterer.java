@@ -13,11 +13,11 @@ public class DataFilterer {
     private String databaseCommand;
 
 
-    public static ArrayList<Route> filterByGender() { return ArrayList; }
+    public static ArrayList<Route> filterByGender() { return null; }
 
-    public static ArrayList<Route> filterByDate() { return ArrayList; }
+    public static ArrayList<Route> filterByDate() { return null; }
 
-    public static ArrayList<Route> filterByAge() { return ArrayList; }
+    public static ArrayList<Route> filterByAge() { return null; }
 
-    public static ArrayList<Route> filterByTime() { return ArrayList; }
+    public static ArrayList<Route> filterByTime() { return null; }
 }
