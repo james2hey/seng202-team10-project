@@ -86,4 +86,28 @@ public class DatabaseManager {
         }
     }
 
+    public static void addItem(String sql) {
+        try {
+            stmt.executeUpdate(sql);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    static String sql_retailers = "CREATE TABLE IF NOT EXISTS retailer(" +
+            "   RETAILER_NAME      VARCHAR(50) NOT NULL" +
+            "  ,ADDRESS            VARCHAR(50)" +
+            "  ,LAT                NUMERIC(9,6) NOT NULL" +
+            "  ,LONG               NUMERIC(9,6) NOT NULL" +
+            "  ,CITY               VARCHAR(20)" +
+            "  ,STATE              VARCHAR(2)" +
+            "  ,ZIP                INTEGER" +
+            "  ,Main_Type          VARCHAR(50)" +
+            "  ,Secondary_Type     VARCHAR(50)" +
+            "  ,PRIMARY KEY(RETAILER_NAME, ADDRESS))";
+    public static void addRetailer(String RETAILER_NAME, String ADDRESS , double LAT, double LONG, String CITY,
+                                   String STATE, int ZIP, String MAIN_TYPE, String SECONDARY_TYPE) {
+
+
+    }
+
 }

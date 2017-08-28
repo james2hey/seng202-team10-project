@@ -1,5 +1,6 @@
 package main;
 
+import com.opencsv.CSVReader;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -22,5 +23,6 @@ public class Main {
         //launch(args);
         DatabaseManager.connect();
         DatabaseManager.printTables();
+        CSV_Importer.readcsv("/home/cosc/student/jes143/Downloads/Lower_Manhattan_Retailers.csv");
     }
 }
