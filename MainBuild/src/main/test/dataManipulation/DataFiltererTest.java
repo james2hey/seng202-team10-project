@@ -6,6 +6,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class DataFiltererTest {
     @Test
+    void generateRouteArray() {
+
+    }
+
+    @Test
     void filterByGender() {
 
     }
