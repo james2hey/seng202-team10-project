@@ -5,5 +5,5 @@ package mapElements;
  */
 
 public class Station {
-    int number;
+    int number, latitude, longitude;
 }

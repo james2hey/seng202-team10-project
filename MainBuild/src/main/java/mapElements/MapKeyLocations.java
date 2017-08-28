@@ -5,29 +5,26 @@ package mapElements;
   */
 
 public class MapKeyLocations {
-    int longitude;
-    int latitute;
-    String name;
-    String city;
+    private int longitude;
+    private int latitute;
+    private String name;
+    private String city;
 
     /**
-     * Getters and setters.
+     * Getters
      */
+    //I dont think we need setters. They're set in their own class and their position shouldn't change.
 
     public int getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(int input) {
-        longitude = input;
-    }
-
-    public int getLatitute() {
+    public int getLatitute()
+    {
         return latitute;
     }
 
-    public void setLatitute(int input) {
-        latitute = input;
-    }
-
+    /**
+     * Calculates the distance between two locations
+     */
 }
