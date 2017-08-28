@@ -1,4 +1,4 @@
-package mapElements;
+package dataAnalysis;
 
 /**
  * Has methods for all main functionality of the routing.
@@ -21,6 +21,14 @@ public class Route {
      */
     public int calculateDistance(Location location1, Location location2) {
         return 0;
+    }
+
+
+    /**Ranks a bike trip based on its distance
+     *
+     */
+    public void rank() {
+
     }
 
 

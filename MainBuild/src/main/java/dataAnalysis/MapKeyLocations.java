@@ -1,14 +1,14 @@
-package mapElements;
+package dataAnalysis;
 
 /**
  * Holds data for key locations on the NY map.
   */
 
 public class MapKeyLocations {
-    int longitude;
-    int latitute;
-    String name;
-    String city;
+    private int longitude;
+    private int latitute;
+    private String name;
+    private String city;
 
     /**
      * Constructor for MapKeyLocations.

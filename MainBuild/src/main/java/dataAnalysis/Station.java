@@ -1,4 +1,4 @@
-package mapElements;
+package dataAnalysis;
 
 /**
  * Does...

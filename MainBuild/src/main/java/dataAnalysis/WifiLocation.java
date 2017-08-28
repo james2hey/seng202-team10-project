@@ -1,4 +1,4 @@
-package mapElements;
+package dataAnalysis;
 
 /**
  *  Provides a structure for wifi locations found in the database.
@@ -22,7 +22,7 @@ public class WifiLocation {
 
     /**Should queary for a wifi location from given input. The database should be queried for this.
      */
-    public void find() { //Will return a trip not void
+    public void find() { //Will return Route, not void.
     }
 
 

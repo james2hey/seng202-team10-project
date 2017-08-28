@@ -1,4 +1,4 @@
-package mapElements;
+package dataAnalysis;
 
 /**
  * Provides a structure for retail locations found in the database.
