@@ -33,7 +33,8 @@ public class DataFilterer {
 
         databaseCommand = "SELECT trip_duration, start_time, stop_time, start_date, stop_date, start_station_name, " +
                 "end_station_name, start_station_latitude, start_station_longitude, end_station_latitude, " +
-                "end_station_latitude FROM route_data WHERE gender = ?";
+                "end_station_latitude, gender, date_of_birth, start_station_id, end_station_id FROM route_data WHERE " +
+                "gender = ?";
 
         try(Connection conn = this.connect();
             PreparedStatement pstmt = conn.prepareStatement(databaseCommand)) {
@@ -44,13 +45,15 @@ public class DataFilterer {
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                routes.add(Route(rs.getString("trip_duration"), rs.getString("start_time"),
+                routes.add(new Route(rs.getInt("trip_duration"), rs.getInt("start_time"),
                         rs.getString("stop_time"), rs.getString("start_date"),
                         rs.getString("stop_date"), rs.getString("start_station_name"),
                         rs.getString("end_station_name"), rs.getString("start_station_latitude"),
                         rs.getString("start_station_longitude"),
                         rs.getString("end_station_latitude"),
-                        rs.getString("end_station_longitude")));
+                        rs.getString("end_station_longitude"), rs.getString("gender"),
+                        rs.getString("date_of_birth"), rs.getString("start_station_id"),
+                        rs.getString("end_station_id")));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
