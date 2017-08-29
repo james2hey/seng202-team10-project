@@ -28,6 +28,21 @@ public class Route {
         startDate = date;
     }
 
+    /**
+     * Constructor for Route class, used by Datafilterer class when filtering records from the database.
+     */
+    public Route(int tripDuration, int stTime, int spTime, int stDate, int spDate, double stStationLat,
+                 double stStationLong, double endStationLat, double endStationLong, int stStationID, int endStationID) {
+        duration = tripDuration;
+        startTime = stTime;
+        startDate = stDate;
+        stopTime = spTime;
+        stopDate = spDate;
+        startLocation = new StationLocation(stStationID, stStationLat, stStationLong);
+        endLocation = new StationLocation(endStationID, endStationLat, endStationLong);
+        calculateDistance(startLocation, endLocation);
+    }
+
     //Getters for duration and distance.
 
     public int getDuration() {

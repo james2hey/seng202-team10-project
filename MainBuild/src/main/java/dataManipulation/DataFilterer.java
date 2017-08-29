@@ -54,14 +54,12 @@ public class DataFilterer {
         try {
             while (rs.next()) {
                 routes.add(new Route(rs.getInt("trip_duration"), rs.getInt("start_time"),
-                        rs.getString("stop_time"), rs.getString("start_date"),
-                        rs.getString("stop_date"), rs.getString("start_station_name"),
-                        rs.getString("end_station_name"), rs.getString("start_station_latitude"),
-                        rs.getString("start_station_longitude"),
-                        rs.getString("end_station_latitude"),
-                        rs.getString("end_station_longitude"), rs.getString("gender"),
-                        rs.getString("date_of_birth"), rs.getString("start_station_id"),
-                        rs.getString("end_station_id")));
+                        rs.getInt("stop_time"), rs.getInt("start_date"),
+                        rs.getInt("stop_date"), rs.getDouble("start_station_latitude"),
+                        rs.getDouble("start_station_longitude"),
+                        rs.getDouble("end_station_latitude"),
+                        rs.getDouble("end_station_longitude"), rs.getInt("start_station_id"),
+                        rs.getInt("end_station_id")));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());

@@ -11,6 +11,7 @@ MainBuild/.idea
 
 .git/
 .idea
+*.iml
 
 # Avoid ignoring Maven wrapper jar file (.jar files are usually ignored)
 !/MainBuild/.mvn/wrapper/maven-wrapper.jar

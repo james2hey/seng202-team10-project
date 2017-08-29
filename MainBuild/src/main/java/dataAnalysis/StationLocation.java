@@ -7,7 +7,7 @@ package dataAnalysis;
 public class StationLocation extends Location {
     int number;
 
-    public StationLocation(int stationNumber, int stationLatitude, int stationLongitude) {
+    public StationLocation(int stationNumber, double stationLatitude, double stationLongitude) {
         number = stationNumber;
         latitude = stationLatitude;
         longitude = stationLongitude;
