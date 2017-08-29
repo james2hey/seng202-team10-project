@@ -1,4 +1,4 @@
-package sample;
+package main;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -16,8 +16,17 @@ public class Main extends Application {
         primaryStage.show();
     }
 
+    /**Initializes the user and does __________
+     */
+    public static void initUser() {
+        //GUI - Find user type "Cyclist" used as example.
+        User user = new User("Cyclist");
+
+    }
+
 
     public static void main(String[] args) {
         launch(args);
+        initUser();
     }
 }
