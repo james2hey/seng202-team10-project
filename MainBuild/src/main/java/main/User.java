@@ -63,6 +63,7 @@ public class User {
      * @param retail
      */
     public void removeFavouriteRetail(RetailLocation retail) {
+
         //Write tests first.
     }
 

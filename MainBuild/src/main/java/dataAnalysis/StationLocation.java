@@ -13,6 +13,7 @@ public class StationLocation extends Location {
         longitude = stationLongitude;
     }
 
+
     public int getNumber() {
         return number;
     }

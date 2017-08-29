@@ -8,6 +8,7 @@ public abstract class Location {
     int latitude, longitude;
     String name;
 
+
     public Location() {
     }
 }

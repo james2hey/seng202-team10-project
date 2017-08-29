@@ -28,6 +28,7 @@ public class RetailLocation extends Location {
     }
 
 
+
     /**
      * Finds the latitude and longitude of the retails location from the given address.
      */

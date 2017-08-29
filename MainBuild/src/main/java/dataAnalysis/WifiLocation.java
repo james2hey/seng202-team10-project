@@ -28,6 +28,7 @@ public class WifiLocation extends Location {
         SSIF = wifiSSIF;
     }
 
+
     /**Should query for a wifi location from given input. The database should be queried for this.
      */
     public void find() { //Will return Route, not void.
