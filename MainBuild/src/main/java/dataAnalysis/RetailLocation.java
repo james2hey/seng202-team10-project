@@ -4,9 +4,8 @@ package dataAnalysis;
  * Provides a structure for retail locations found in the database.
  */
 
-public class RetailLocation {
-    private int latitude, longitude;
-    private String name, street, city;
+public class RetailLocation extends Location {
+    private String street, city;
 
     //RetailLocation constructor
     public RetailLocation(String retailName, String retailStreet, String retailCity) {
@@ -14,6 +13,20 @@ public class RetailLocation {
         street = retailStreet;
         city = retailCity;
     }
+
+    //Getters
+    public String getName() {
+        return name;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
 
     /**
      * Finds the latitude and longitude of the retails location from the given address.

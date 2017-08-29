@@ -28,23 +28,16 @@ public class MapKeyLocations {
     }
 
     /**
-     * Getters and setters.
+     * Getters, no need for setters as the latitude and longitude is set in
+     * the location class.
      */
 
     public int getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(int input) {
-        longitude = input;
-    }
-
     public int getLatitute() {
         return latitute;
-    }
-
-    public void setLatitute(int input) {
-        latitute = input;
     }
 
 }
