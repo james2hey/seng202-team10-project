@@ -35,7 +35,10 @@ public class DataFilterer {
      */
     private Connection connect() {
 
-        String url = "";
+        String home = System.getProperty("user.home");
+        java.nio.file.Path path = java.nio.file.Paths.get(home, "database.db");
+        String url = "jdbc:sqlite:" + path;
+
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(url);
