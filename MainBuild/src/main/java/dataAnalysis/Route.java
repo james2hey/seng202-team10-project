@@ -9,6 +9,7 @@ package dataAnalysis;
 
 public class Route {
     private int duration, startTime, startDate, stopTime, stopDate, distance;
+    private String name;
     private Location startLocation, endLocation, viaLocation;
 
     //Two types of constructors as there is not always a viaLocation.
@@ -49,10 +50,11 @@ public class Route {
         return duration;
     }
 
-    public int getDistance() {
+    public int getDistance() {return distance;}
 
-        return distance;
-    }
+    public String getName() {return name;}
+
+    public void setName(String input) {name = input;}
 
     /**
      * Calculates the distance between two locations based on the difference between
