@@ -5,8 +5,8 @@ package dataAnalysis;
  * be generalised as a location and then further extended.
  */
 public abstract class Location {
-    double latitude, longitude;
-    String name;
+    public double latitude, longitude;
+    public String name;
 
 
     public Location() {

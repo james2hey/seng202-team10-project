@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * User class tests. Many of the user methods are very simple, making them unnecessary
  * to test.
  */
-class UserTest {
+class CyclistTest {
 
     /**
      * Creates a trivial RetailLocation.
