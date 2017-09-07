@@ -53,7 +53,7 @@ public class DataFilterer {
      *
      * @param rs rs is a result set of data records from a query to the database.
      */
-    private void generateRouteArray(ResultSet rs) {
+    private ArrayList<Route> generateRouteArray(ResultSet rs) {
         try {
             while (rs.next()) {
                 routes.add(new Route(rs.getInt("trip_duration"), rs.getInt("start_time"),
@@ -67,6 +67,7 @@ public class DataFilterer {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        return routes;
     }
 
 
@@ -76,7 +77,7 @@ public class DataFilterer {
      *
      * @param gender gender of type String. Specifies the gender to filter records by.
      */
-    public void filterByGender(String gender) {
+    public ArrayList<Route> filterByGender(String gender) {
 
         int genderInteger = 0;
 
@@ -103,6 +104,7 @@ public class DataFilterer {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        return routes;
     }
 
 
@@ -115,7 +117,7 @@ public class DataFilterer {
      * @param lowerDate lowerDate is of type Date from the sql package. It is the lower limit that a route was
      *                  started on, specified by the user.
      */
-    public void filterByDate(Date upperDate, Date lowerDate) {
+    public ArrayList<Route> filterByDate(Date upperDate, Date lowerDate) {
 
         databaseCommand = "SELECT trip_duration, start_time, stop_time, start_date, stop_date, start_station_name, " +
                 "end_station_name, start_station_latitude, start_station_longitude, end_station_latitude, " +
@@ -135,6 +137,7 @@ public class DataFilterer {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        return routes;
     }
 
 
@@ -147,7 +150,7 @@ public class DataFilterer {
      * @param lowerAge lowerAge is of type int. It is the lower age limit of the person that completed a route, that the
      *                 user wants to filter by.
      */
-    public void filterByAge(int upperAge, int lowerAge) {
+    public ArrayList<Route> filterByAge(int upperAge, int lowerAge) {
 
         int year = Year.now().getValue();
         int LowerRequiredYear = year - upperAge;
@@ -171,6 +174,7 @@ public class DataFilterer {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        return routes;
     }
 
 
@@ -183,7 +187,7 @@ public class DataFilterer {
      * @param lowerTime lowerTime is of type Time from the sql package. It is the lower time limit of starting a route
      *                  the user wants to filter by.
      */
-    public void filterByTime(Time upperTime, Time lowerTime) {
+    public ArrayList<Route> filterByTime(Time upperTime, Time lowerTime) {
 
         databaseCommand = "SELECT trip_duration, start_time, stop_time, start_date, stop_date, start_station_name, " +
                 "end_station_name, start_station_latitude, start_station_longitude, end_station_latitude, " +
@@ -203,5 +207,39 @@ public class DataFilterer {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        return routes;
+    }
+
+
+    /**
+     * filterByDuration takes a minimum duration limit and maximum duration limit and query's the database to return all
+     * records with a duration that falls within the two limits.
+     *
+     * @param upperDuration upperDuration is of type int. It is the upper duration of a route that the user wants to
+     *                      filter by.
+     * @param lowerDuration lowerDuration is of type int. It is the lower duration of a route that the user wants to
+     *                      filter by.
+     */
+    public ArrayList<Route> filterByDuration(int upperDuration, int lowerDuration) {
+
+        databaseCommand = "SELECT trip_duration, start_time, stop_time, start_date, stop_date, start_station_name, " +
+                "end_station_name, start_station_latitude, start_station_longitude, end_station_latitude, " +
+                "end_station_latitude, gender, date_of_birth, start_station_id, end_station_id FROM route_data WHERE " +
+                "start_time BETWEEN ? AND ?";
+
+        try(Connection conn = this.connect();
+            PreparedStatement pstmt = conn.prepareStatement(databaseCommand)) {
+
+            //set value using parameter
+            pstmt.setInt(1, lowerDuration);
+            pstmt.setInt(2, upperDuration);
+
+            ResultSet rs = pstmt.executeQuery();
+            generateRouteArray(rs);
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return routes;
     }
 }

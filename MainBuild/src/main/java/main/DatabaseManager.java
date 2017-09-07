@@ -11,7 +11,8 @@ import java.sql.*;
 public class DatabaseManager {
 
     static String sql_trips = "CREATE TABLE IF NOT EXISTS route_information(" +
-            "   tripduration            INTEGER" +
+            "   trip_id                 DOUBLE" +
+            "  ,tripduration            INTEGER" +
             "  ,starttime               VARCHAR(19)" +
             "  ,stoptime                VARCHAR(19)" +
             "  ,start_station_id        INTEGER" +
@@ -25,7 +26,8 @@ public class DatabaseManager {
             "  ,bikeid                  INTEGER" +
             "  ,usertype                VARCHAR(10)" +
             "  ,birth_year              INTEGER" +
-            "  ,gender                  INTEGER)";
+            "  ,gender                  INTEGER" +
+            "  ,PRIMARY KEY(trip_id))";
 
     static String sql_retailers = "CREATE TABLE IF NOT EXISTS retailer(" +
             "   RETAILER_NAME      VARCHAR(50) NOT NULL" +
@@ -40,7 +42,8 @@ public class DatabaseManager {
             "  ,PRIMARY KEY(RETAILER_NAME, ADDRESS))";
 
     static String sql_wifis = "CREATE TABLE IF NOT EXISTS wifi_location(" +
-            "   COST       VARCHAR(12)" +
+            "   WIFI_ID    DOUBLE" +
+            "  ,COST       VARCHAR(12)" +
             "  ,PROVIDER   VARCHAR(20)" +
             "  ,ADDRESS    VARCHAR(50)" +
             "  ,LAT        NUMERIC(9,6) NOT NULL" +
@@ -49,17 +52,22 @@ public class DatabaseManager {
             "  ,CITY       VARCHAR(8)" +
             "  ,SSID       VARCHAR(50) NOT NULL" +
             "  ,SUBURB     VARCHAR(20)" +
-            "  ,ZIP        VARCHAR(8))";
+            "  ,ZIP        VARCHAR(8)" +
+            "  ,PRIMARY KEY(WIFI_ID))";
 
     static String addRetailerString = "insert into retailer values(?,?,?,?,?,?,?,?,?)";
-    static String addWifiString = "insert into wifi_location values(?,?,?,?,?,?,?,?,?,?)";
-    static String addTripString = "insert into route_information values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    static String addWifiString = "insert into wifi_location values(?,?,?,?,?,?,?,?,?,?,?)";
+    static String addTripString = "insert into route_information values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     static Connection conn = null;
     static Statement stmt = null;
     static PreparedStatement addRetailer = null;
     static PreparedStatement addWifi = null;
     static PreparedStatement addTrip = null;
     static int edits = 1000;
+
+    static int wifi_count;
+    static int retailer_count;
+    static int trip_count;
 
     public static void connect() {
 
@@ -78,6 +86,28 @@ public class DatabaseManager {
             addWifi = conn.prepareStatement(addWifiString);
             addTrip = conn.prepareStatement(addTripString);
 
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void countRows() {
+        try {
+            ResultSet rs;
+            rs = stmt.executeQuery("SELECT COUNT(*) FROM wifi_location;");
+            while (rs.next()) {
+                wifi_count = rs.getInt(1);
+            }
+
+            rs = stmt.executeQuery("SELECT COUNT(*) FROM retailer;");
+            while (rs.next()) {
+                retailer_count = rs.getInt(1);
+            }
+
+            rs = stmt.executeQuery("SELECT COUNT(*) FROM route_information;");
+            while (rs.next()) {
+                trip_count = rs.getInt(1);
+            }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -145,6 +175,7 @@ public class DatabaseManager {
             if (edits == 0) {
                 conn.commit();
             }
+            retailer_count += 1;
 
 
         } catch (SQLException e) {
@@ -162,22 +193,24 @@ public class DatabaseManager {
                                String SSID, String SUBURB, String ZIP) {
         try {
             conn.setAutoCommit(false);
-            addWifi.setString(1, COST);
-            addWifi.setString(2, PROVIDER);
-            addWifi.setString(3, ADDRESS);
-            addWifi.setDouble(4, LAT);
-            addWifi.setDouble(5, LONG);
-            addWifi.setString(6, REMARKS);
-            addWifi.setString(7, CITY);
-            addWifi.setString(8, SSID);
-            addWifi.setString(9, SUBURB);
-            addWifi.setString(10, ZIP);
+            addWifi.setDouble(1, wifi_count + 1);
+            addWifi.setString(2, COST);
+            addWifi.setString(3, PROVIDER);
+            addWifi.setString(4, ADDRESS);
+            addWifi.setDouble(5, LAT);
+            addWifi.setDouble(6, LONG);
+            addWifi.setString(7, REMARKS);
+            addWifi.setString(8, CITY);
+            addWifi.setString(9, SSID);
+            addWifi.setString(10, SUBURB);
+            addWifi.setString(11, ZIP);
             addWifi.executeUpdate();
             edits --;
 
             if (edits == 0) {
                 conn.commit();
             }
+            wifi_count += 1;
 
         } catch (SQLException e) {
             try {
@@ -196,6 +229,7 @@ public class DatabaseManager {
                                double end_longitude, String bikeid, String usertype, int birth_year, int gender) {
         try {
             conn.setAutoCommit(false);
+            addTrip.setDouble(1, trip_count + 1);
             addTrip.setInt(1, tripduration);
             addTrip.setString(2, starttime);
             addTrip.setString(3, stoptime);
@@ -220,6 +254,7 @@ public class DatabaseManager {
             if (edits == 0) {
                 conn.commit();
             }
+            trip_count += 1;
 
         } catch (SQLException e) {
             try {

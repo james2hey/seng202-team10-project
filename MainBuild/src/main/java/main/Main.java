@@ -22,7 +22,7 @@ public class Main {
      */
     public static void initUser() {
         //GUI - Find user type "Cyclist" used as example.
-        User user = new User("Cyclist");
+        //User user = new User("Cyclist");
 
     }
 
@@ -30,8 +30,9 @@ public class Main {
     public static void main(String[] args) {
         //launch(args);
         DatabaseManager.connect();
+        DatabaseManager.countRows();
         initUser();
-        //CSV_Importer.readcsv("/home/cosc/student/jes143/Downloads/Lower_Manhattan_Retailers.csv", 1);
+        CSV_Importer.readcsv("/home/cosc/student/mki58/Downloads/Lower_Manhattan_Retailers.csv", 1);
         //CSV_Importer.readcsv("/home/cosc/student/jes143/Downloads/NYC_Free_Public_WiFi_03292017.csv", 2);
         //CSV_Importer.readcsv("/home/cosc/student/jes143/Downloads/201707-citibike-tripdata.csv", 3);
         DatabaseManager.commit();
