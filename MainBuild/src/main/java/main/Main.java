@@ -17,6 +17,7 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root, 300, 275));
         primaryStage.show();
         DatabaseManager.connect();
+        DatabaseManager.countRows();   //function used to determine key for new records --MUST RUN ON START--
         initUser();
         CSV_Importer.readcsv(getClass().getClassLoader().getResource("Lower_Manhattan_Retailers.csv").getFile(), 1);
         CSV_Importer.readcsv(getClass().getClassLoader().getResource("NYC_Free_Public_WiFi_03292017.csv").getFile(), 2);
