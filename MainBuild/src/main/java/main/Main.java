@@ -37,6 +37,7 @@ public class Main extends Application {
 //    public static void main(String[] args) {
 //        //launch(args);
 //        DatabaseManager.connect();
+//        DatabaseManager.countRows();   //function used to determine key for new records --MUST RUN ON START--
 //        initUser();
 //        //CSV_Importer.readcsv("/home/cosc/student/jes143/Downloads/Lower_Manhattan_Retailers.csv", 1);
 //        //CSV_Importer.readcsv("/home/cosc/student/jes143/Downloads/NYC_Free_Public_WiFi_03292017.csv", 2);

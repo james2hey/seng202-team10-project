@@ -44,4 +44,13 @@ class DataFiltererTest {
         //assertTrue();
     }
 
+    @Test
+    void filterByDuration() {
+        DataFilterer dataFilterer = new DataFilterer();
+        int upperDuration = 65;
+        int lowerDuration = 20;
+        dataFilterer.filterByDuration(upperDuration, lowerDuration);
+        //assertTrue();
+    }
+
 }

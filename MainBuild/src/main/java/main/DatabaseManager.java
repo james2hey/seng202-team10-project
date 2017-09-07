@@ -65,6 +65,7 @@ public class DatabaseManager {
     static PreparedStatement addTrip = null;
     static int edits = 1000;
 
+
     static int wifi_count;
     static int retailer_count;
     static int trip_count;

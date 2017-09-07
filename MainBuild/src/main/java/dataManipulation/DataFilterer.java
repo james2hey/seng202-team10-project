@@ -230,6 +230,7 @@ public class DataFilterer {
         try(Connection conn = this.connect();
             PreparedStatement pstmt = conn.prepareStatement(databaseCommand)) {
 
+
             //set value using parameter
             pstmt.setInt(1, lowerDuration);
             pstmt.setInt(2, upperDuration);
