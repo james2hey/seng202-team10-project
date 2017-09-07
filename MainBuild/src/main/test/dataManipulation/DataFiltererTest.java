@@ -1,6 +1,6 @@
 package dataManipulation;
 
-import org.junit;
+import org.junit.jupiter.api.Test;
 
 import java.sql.Date;
 import java.sql.Time;
@@ -14,7 +14,7 @@ class DataFiltererTest {
         DataFilterer dataFilterer = new DataFilterer();
         String gender = "M";
         dataFilterer.filterByGender(gender);
-        assertTrue();
+        //assertTrue();
     }
 
     @Test
@@ -23,7 +23,7 @@ class DataFiltererTest {
         Date upperLimit = new Date(2017, 5, 20);
         Date lowerLimit = new Date(2017, 5, 19);
         dataFilterer.filterByDate(upperLimit, lowerLimit);
-        assertTrue();
+        //assertTrue();
     }
 
     @Test
@@ -32,7 +32,7 @@ class DataFiltererTest {
         int upperLimit = 65;
         int lowerLimit = 20;
         dataFilterer.filterByAge(upperLimit, lowerLimit);
-        assertTrue();
+        //assertTrue();
     }
 
     @Test
@@ -41,7 +41,7 @@ class DataFiltererTest {
         Time upperLimit = new Time(11, 0, 0);
         Time lowerLimit = new Time(10,0,0);
         dataFilterer.filterByTime(upperLimit, lowerLimit);
-        assertTrue();
+        //assertTrue();
     }
 
 }
