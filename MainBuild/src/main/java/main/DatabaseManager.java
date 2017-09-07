@@ -11,8 +11,7 @@ import java.sql.*;
 public class DatabaseManager {
 
     static String sql_trips = "CREATE TABLE IF NOT EXISTS route_information(" +
-            "   trip_id                 DOUBLE" +
-            "  ,tripduration            INTEGER" +
+            "  tripduration            INTEGER" +
             "  ,starttime               VARCHAR(19)" +
             "  ,stoptime                VARCHAR(19)" +
             "  ,start_station_id        INTEGER" +
@@ -27,7 +26,7 @@ public class DatabaseManager {
             "  ,usertype                VARCHAR(10)" +
             "  ,birth_year              INTEGER" +
             "  ,gender                  INTEGER" +
-            "  ,PRIMARY KEY(trip_id))";
+            "  ,PRIMARY KEY(starttime, bikeid))";
 
     static String sql_retailers = "CREATE TABLE IF NOT EXISTS retailer(" +
             "   RETAILER_NAME      VARCHAR(50) NOT NULL" +
@@ -57,7 +56,7 @@ public class DatabaseManager {
 
     static String addRetailerString = "insert into retailer values(?,?,?,?,?,?,?,?,?)";
     static String addWifiString = "insert into wifi_location values(?,?,?,?,?,?,?,?,?,?,?)";
-    static String addTripString = "insert into route_information values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    static String addTripString = "insert into route_information values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     static Connection conn = null;
     static Statement stmt = null;
     static PreparedStatement addRetailer = null;
@@ -190,11 +189,11 @@ public class DatabaseManager {
         }
     }
 
-    public static void addWifi(String COST, String PROVIDER, String ADDRESS, double LAT, double LONG, String REMARKS, String CITY,
+    public static void addWifi(String ID, String COST, String PROVIDER, String ADDRESS, double LAT, double LONG, String REMARKS, String CITY,
                                String SSID, String SUBURB, String ZIP) {
         try {
             conn.setAutoCommit(false);
-            addWifi.setDouble(1, wifi_count + 1);
+            addWifi.setString(1, ID);
             addWifi.setString(2, COST);
             addWifi.setString(3, PROVIDER);
             addWifi.setString(4, ADDRESS);
@@ -230,7 +229,6 @@ public class DatabaseManager {
                                double end_longitude, String bikeid, String usertype, int birth_year, int gender) {
         try {
             conn.setAutoCommit(false);
-            addTrip.setDouble(1, trip_count + 1);
             addTrip.setInt(1, tripduration);
             addTrip.setString(2, starttime);
             addTrip.setString(3, stoptime);

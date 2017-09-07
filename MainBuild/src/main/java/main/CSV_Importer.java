@@ -18,16 +18,16 @@ public class CSV_Importer {
         try {
             CSVReader reader = new CSVReader(new FileReader(file), ',');
 
-            String[] record = null;
+            String[] record;
             reader.readNext(); // Skip first line as it's the desc
             while ((record = reader.readNext()) != null) {
-                System.out.println(record[0]);
+                //System.out.println(record[0]);
                 if (type == 1) {
                     DatabaseManager.addRetailer(record[0], record[1], 0.0, 0.0, record[3], record[4], record[5], record[7], record[8]);
                 } else if (type == 2) {
                     double lat = Double.parseDouble(record[7]);
                     double lon = Double.parseDouble(record[8]);
-                    DatabaseManager.addWifi(record[3], record[4], record[6], lat, lon, record[12], record[13], record[14], record[18], record[22]);
+                    DatabaseManager.addWifi(record [0], record[3], record[4], record[6], lat, lon, record[12], record[13], record[14], record[18], record[22]);
                 } else if (type == 3) {
                     int duration = Integer.parseInt(record[0]);
                     double start_lat = Double.parseDouble(record[5]);
