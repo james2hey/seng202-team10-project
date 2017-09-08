@@ -128,6 +128,22 @@ public class Cyclist extends User {
         favouriteRetailLocations.clear();
         favouriteWifiLocations.clear();
     }
+    //_____________________________________________CALCULATIONS_________________________________________________
+
+    /**
+     * Finds the routes that are used the most out of cyclists routeList.
+     */
+    public String findMostUsedRoutes() {
+        String mostUsedRoutes = "";
+//        for(int i = 0; i < routeList.size(); i++) {
+//            if(routeList.get(i).getTimesTaken() > 5) { //5 arbitrary, to be changed to what?
+//                mostUsedRoutes.concat(routeList.get(i).getName() + ", ");
+//            }
+//        }
+        return mostUsedRoutes;
+    }
+
+
     //_____________________________________________USE CASE METHODS_____________________________________________
 
     /**
@@ -159,7 +175,7 @@ public class Cyclist extends User {
     public void graphData() {}
 
     /**
-     * TBC
+     * Saves the Cyclists settings to the database.
      */
     public void storeData() {}
 
