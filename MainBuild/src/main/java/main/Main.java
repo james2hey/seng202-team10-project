@@ -17,11 +17,11 @@ public class Main extends Application {
         DatabaseManager.connect();
         DatabaseManager.countRows();   //function used to determine key for new records --MUST RUN ON START--
         initUser();
-        CSV_Importer.readcsv(getClass().getClassLoader().getResource("Lower_Manhattan_Retailers.csv").getFile(), 1);
+        CSV_Importer.readcsv(getClass().getClassLoader().getResource("Lower_Manhattan_Retailers-test.csv").getFile(), 1);
         DatabaseManager.commit();
-        CSV_Importer.readcsv(getClass().getClassLoader().getResource("NYC_Free_Public_WiFi_03292017.csv").getFile(), 2);
+        CSV_Importer.readcsv(getClass().getClassLoader().getResource("NYC_Free_Public_WiFi_03292017-test.csv").getFile(), 2);
         DatabaseManager.commit();
-        CSV_Importer.readcsv(getClass().getClassLoader().getResource("201601-citibike-tripdata.csv").getFile(), 3);
+        CSV_Importer.readcsv(getClass().getClassLoader().getResource("201601-citibike-tripdata-test.csv").getFile(), 3);
         DatabaseManager.commit();
         DatabaseManager.printTables();
     }

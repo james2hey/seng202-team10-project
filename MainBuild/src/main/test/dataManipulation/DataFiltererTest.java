@@ -21,7 +21,7 @@ public class DataFiltererTest {
         DataFilterer dataFilterer = new DataFilterer();
         String gender = "M";
         ArrayList<Route> routes = dataFilterer.filterByGender(gender);
-        System.out.println(routes);
+        System.out.println(routes.get(0).getDuration());
         assertTrue(1 == 1);
     }
 
