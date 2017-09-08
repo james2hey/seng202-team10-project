@@ -11,9 +11,11 @@ import java.sql.*;
 public class DatabaseManager {
 
     static String sql_trips = "CREATE TABLE IF NOT EXISTS route_information(" +
-            "  tripduration            INTEGER" +
-            "  ,starttime               VARCHAR(19)" +
-            "  ,stoptime                VARCHAR(19)" +
+            "   tripduration             INTEGER" +
+            "  ,start_date               VARCHAR(19)" +
+            "  ,start_time               VARCHAR(19)" +
+            "  ,end_date                 VARCHAR(19)" +
+            "  ,end_time                 VARCHAR(19)" +
             "  ,start_station_id        INTEGER" +
             "  ,start_station_name      VARCHAR(21)" +
             "  ,start_latitude          NUMERIC(9,6) NOT NULL" +
@@ -56,7 +58,7 @@ public class DatabaseManager {
 
     static String addRetailerString = "insert into retailer values(?,?,?,?,?,?,?,?,?)";
     static String addWifiString = "insert into wifi_location values(?,?,?,?,?,?,?,?,?,?,?)";
-    static String addTripString = "insert into route_information values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    static String addTripString = "insert into route_information values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     static Connection conn = null;
     static Statement stmt = null;
     static PreparedStatement addRetailer = null;
@@ -223,30 +225,32 @@ public class DatabaseManager {
         }
     }
 
-    public static void addTrip(int tripduration, String starttime, String stoptime, String start_station_id,
+    public static void addTrip(int tripduration, String start_date, String start_time, String end_date, String end_time, String start_station_id,
                                String start_station_name, double start_latitude, double start_longitude,
                                String end_station_id, String end_station_name, double end_latitude,
                                double end_longitude, String bikeid, String usertype, int birth_year, int gender) {
         try {
             conn.setAutoCommit(false);
             addTrip.setInt(1, tripduration);
-            addTrip.setString(2, starttime);
-            addTrip.setString(3, stoptime);
-            addTrip.setString(4, start_station_id);
-            addTrip.setString(5, start_station_name);
-            addTrip.setDouble(6,start_latitude);
-            addTrip.setDouble(7, start_longitude);
-            addTrip.setString(8, end_station_id);
-            addTrip.setString(9, end_station_name);
-            addTrip.setDouble(10, end_latitude);
-            addTrip.setDouble(11, end_longitude);
-            addTrip.setString(12, bikeid);
-            addTrip.setString(13, usertype);
-            addTrip.setInt(14, birth_year);
+            addTrip.setString(2, start_date);
+            addTrip.setString(3, start_time);
+            addTrip.setString(4, end_date);
+            addTrip.setString(5, end_time);
+            addTrip.setString(6, start_station_id);
+            addTrip.setString(7, start_station_name);
+            addTrip.setDouble(8,start_latitude);
+            addTrip.setDouble(9, start_longitude);
+            addTrip.setString(10, end_station_id);
+            addTrip.setString(11, end_station_name);
+            addTrip.setDouble(12, end_latitude);
+            addTrip.setDouble(13, end_longitude);
+            addTrip.setString(14, bikeid);
+            addTrip.setString(15, usertype);
+            addTrip.setInt(16, birth_year);
             if (birth_year == -1) {
-                addTrip.setNull(14, Types.INTEGER);
+                addTrip.setNull(16, Types.INTEGER);
             }
-            addTrip.setInt(15, gender);
+            addTrip.setInt(17, gender);
             addTrip.executeUpdate();
             edits --;
 
