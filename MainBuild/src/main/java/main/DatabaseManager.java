@@ -28,7 +28,7 @@ public class DatabaseManager {
             "  ,usertype                VARCHAR(10)" +
             "  ,birth_year              INTEGER" +
             "  ,gender                  INTEGER" +
-            "  ,PRIMARY KEY(starttime, bikeid))";
+            "  ,PRIMARY KEY(start_time, bikeid))";
 
     static String sql_retailers = "CREATE TABLE IF NOT EXISTS retailer(" +
             "   RETAILER_NAME      VARCHAR(50) NOT NULL" +
@@ -138,7 +138,7 @@ public class DatabaseManager {
             rs = stmt.executeQuery("SELECT * FROM route_information;");
 
             while (rs.next()) {
-                System.out.println("TRIP = " + rs.getString("STARTTIME") + rs.getString("start_station_id"));
+                System.out.println("TRIP = " + rs.getString("START_TIME") + rs.getString("start_station_id"));
                 TR_C ++;
             }
             System.out.println(RE_C);

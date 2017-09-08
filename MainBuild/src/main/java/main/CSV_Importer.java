@@ -35,7 +35,7 @@ public class CSV_Importer {
                     double end_lat = Double.parseDouble(record[9]);
                     double end_lon = Double.parseDouble(record[10]);
                     String[] date_time_start = record[1].split(" ");
-                    String[] date_time_end = record[1].split(" ");
+                    String[] date_time_end = record[2].split(" ");
                     int birth_year = -1;
                     if (! "".equals(record[13])) {
                         birth_year = Integer.parseInt(record[13]);

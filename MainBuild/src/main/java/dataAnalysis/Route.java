@@ -8,20 +8,20 @@ package dataAnalysis;
 //to find out what this search criteria is and find a Trip.
 
 public class Route {
-    private int duration, startTime, startDate, stopTime, stopDate, distance;
-    private String name;
+    private int duration, distance, bikeid;
+    private String name, startTime, startDate, stopTime, stopDate;
     private Location startLocation, endLocation, viaLocation;
 
     //Two types of constructors as there is not always a viaLocation.
 
-    public Route(Location start, Location end, int time, int date) {
+    public Route(Location start, Location end, String time, String date) {
         startLocation = start;
         endLocation = end;
         startTime = time;
         startDate = date;
     }
 
-    public Route(Location start, Location end, Location via, int time, int date) {
+    public Route(Location start, Location end, Location via, String time, String date) {
         startLocation = start;
         endLocation = end;
         viaLocation = via;
@@ -32,13 +32,15 @@ public class Route {
     /**
      * Constructor for Route class, used by Datafilterer class when filtering records from the database.
      */
-    public Route(int tripDuration, int stTime, int spTime, int stDate, int spDate, double stStationLat,
-                 double stStationLong, double endStationLat, double endStationLong, int stStationID, int endStationID) {
+    public Route(int tripDuration, String stTime, String spTime, String stDate, String spDate, double stStationLat,
+                 double stStationLong, double endStationLat, double endStationLong, int stStationID, int endStationID,
+                 int bId) {
         duration = tripDuration;
         startTime = stTime;
         startDate = stDate;
         stopTime = spTime;
         stopDate = spDate;
+        bikeid = bId;
         startLocation = new StationLocation(stStationID, stStationLat, stStationLong);
         endLocation = new StationLocation(endStationID, endStationLat, endStationLong);
         calculateDistance(startLocation, endLocation);
@@ -82,13 +84,13 @@ public class Route {
 
     }
 
-    public static void main(String[] args) {
-        RetailLocation l1 = new RetailLocation("Nike", "Broadway", "Auckland");
-        WifiLocation l2 = new WifiLocation(1, 2, "Vod", "66a", "11xd");
-        Route r = new Route(l1, l2, 5, 6);
-        r.calculateDistance(l1, l2);
-        r.calculateDuration(r.getDistance());
-        System.out.println(l1.getName() + " " + l2.getName());
-    }
+//    public static void main(String[] args) {
+//        RetailLocation l1 = new RetailLocation("Nike", "Broadway", "Auckland");
+//        WifiLocation l2 = new WifiLocation(1, 2, "Vod", "66a", "11xd");
+//        Route r = new Route(l1, l2, "5", "6");
+//        r.calculateDistance(l1, l2);
+//        r.calculateDuration(r.getDistance());
+//        System.out.println(l1.getName() + " " + l2.getName());
+//    }
 
 }
