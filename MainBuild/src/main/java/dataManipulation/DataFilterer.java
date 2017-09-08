@@ -33,7 +33,7 @@ public class DataFilterer {
      *
      * @return Connection
      */
-    private Connection connect() {
+    public Connection connect() {
 
         String home = System.getProperty("user.home");
         java.nio.file.Path path = java.nio.file.Paths.get(home, "database.db");
@@ -53,22 +53,21 @@ public class DataFilterer {
      *
      * @param rs rs is a result set of data records from a query to the database.
      */
-    private ArrayList<Route> generateRouteArray(ResultSet rs) {
+    /*private ArrayList<Route> generateRouteArray(ResultSet rs) {
         try {
             while (rs.next()) {
-                routes.add(new Route(rs.getInt("trip_duration"), rs.getInt("start_time"),
-                        rs.getInt("stop_time"), rs.getInt("start_date"),
-                        rs.getInt("stop_date"), rs.getDouble("start_station_latitude"),
-                        rs.getDouble("start_station_longitude"),
-                        rs.getDouble("end_station_latitude"),
-                        rs.getDouble("end_station_longitude"), rs.getInt("start_station_id"),
+                routes.add(new Route(rs.getInt("tripduration"), rs.getInt("starttime"),
+                        rs.getInt("stoptime"), rs.getDouble("start_latitude"),
+                        rs.getDouble("start_longitude"),
+                        rs.getDouble("end_latitude"),
+                        rs.getDouble("end_longitude"), rs.getInt("start_station_id"),
                         rs.getInt("end_station_id")));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
         return routes;
-    }
+    }*/
 
 
     /**
@@ -87,9 +86,9 @@ public class DataFilterer {
             genderInteger = 1;
         }
 
-        databaseCommand = "SELECT trip_duration, start_time, stop_time, start_date, stop_date, start_station_name, " +
-                "end_station_name, start_station_latitude, start_station_longitude, end_station_latitude, " +
-                "end_station_latitude, gender, date_of_birth, start_station_id, end_station_id FROM route_data WHERE " +
+        databaseCommand = "SELECT tripduration, starttime, stoptime, start_station_name, " +
+                "end_station_name, start_latitude, start_longitude, end_latitude, " +
+                "end_latitude, gender, birth_year, start_station_id, end_station_id FROM route_information WHERE " +
                 "gender = ?";
 
         try(Connection conn = this.connect();
@@ -99,7 +98,7 @@ public class DataFilterer {
             pstmt.setInt(1, genderInteger);
 
             ResultSet rs = pstmt.executeQuery();
-            generateRouteArray(rs);
+            //generateRouteArray(rs);
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -119,10 +118,10 @@ public class DataFilterer {
      */
     public ArrayList<Route> filterByDate(Date upperDate, Date lowerDate) {
 
-        databaseCommand = "SELECT trip_duration, start_time, stop_time, start_date, stop_date, start_station_name, " +
-                "end_station_name, start_station_latitude, start_station_longitude, end_station_latitude, " +
-                "end_station_latitude, gender, date_of_birth, start_station_id, end_station_id FROM route_data WHERE " +
-                "start_date BETWEEN ? AND ?";
+        databaseCommand = "SELECT tripduration, starttime, stoptime, start_station_name, " +
+                "end_station_name, start_latitude, start_longitude, end_latitude, " +
+                "end_latitude, gender, birth_year, start_station_id, end_station_id FROM route_information WHERE " +
+                "starttime BETWEEN ? AND ?";
 
         try(Connection conn = this.connect();
             PreparedStatement pstmt = conn.prepareStatement(databaseCommand)) {
@@ -132,7 +131,7 @@ public class DataFilterer {
             pstmt.setDate(2, upperDate);
 
             ResultSet rs = pstmt.executeQuery();
-            generateRouteArray(rs);
+            //generateRouteArray(rs);
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -156,10 +155,10 @@ public class DataFilterer {
         int LowerRequiredYear = year - upperAge;
         int UpperRequiredYear = year - lowerAge;
 
-        databaseCommand = "SELECT trip_duration, start_time, stop_time, start_date, stop_date, start_station_name, " +
-                "end_station_name, start_station_latitude, start_station_longitude, end_station_latitude, " +
-                "end_station_latitude, gender, date_of_birth, start_station_id, end_station_id FROM route_data WHERE " +
-                "date_of_birth BETWEEN ? AND ?";
+        databaseCommand = "SELECT SELECT tripduration, starttime, stoptime, start_station_name, " +
+                "end_station_name, start_latitude, start_longitude, end_latitude, " +
+                "end_latitude, gender, birth_year, start_station_id, end_station_id FROM route_information WHERE " +
+                "birth_year BETWEEN ? AND ?";
 
         try(Connection conn = this.connect();
             PreparedStatement pstmt = conn.prepareStatement(databaseCommand)) {
@@ -169,7 +168,7 @@ public class DataFilterer {
             pstmt.setInt(2, UpperRequiredYear);
 
             ResultSet rs = pstmt.executeQuery();
-            generateRouteArray(rs);
+            //generateRouteArray(rs);
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -189,10 +188,10 @@ public class DataFilterer {
      */
     public ArrayList<Route> filterByTime(Time upperTime, Time lowerTime) {
 
-        databaseCommand = "SELECT trip_duration, start_time, stop_time, start_date, stop_date, start_station_name, " +
-                "end_station_name, start_station_latitude, start_station_longitude, end_station_latitude, " +
-                "end_station_latitude, gender, date_of_birth, start_station_id, end_station_id FROM route_data WHERE " +
-                "start_time BETWEEN ? AND ?";
+        databaseCommand = "SELECT SELECT tripduration, starttime, stoptime, start_station_name, " +
+                "end_station_name, start_latitude, start_longitude, end_latitude, " +
+                "end_latitude, gender, birth_year, start_station_id, end_station_id FROM route_information WHERE " +
+                "starttime BETWEEN ? AND ?";
 
         try(Connection conn = this.connect();
             PreparedStatement pstmt = conn.prepareStatement(databaseCommand)) {
@@ -202,7 +201,7 @@ public class DataFilterer {
             pstmt.setTime(2, upperTime);
 
             ResultSet rs = pstmt.executeQuery();
-            generateRouteArray(rs);
+            //generateRouteArray(rs);
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -222,10 +221,10 @@ public class DataFilterer {
      */
     public ArrayList<Route> filterByDuration(int upperDuration, int lowerDuration) {
 
-        databaseCommand = "SELECT trip_duration, start_time, stop_time, start_date, stop_date, start_station_name, " +
-                "end_station_name, start_station_latitude, start_station_longitude, end_station_latitude, " +
-                "end_station_latitude, gender, date_of_birth, start_station_id, end_station_id FROM route_data WHERE " +
-                "start_time BETWEEN ? AND ?";
+        databaseCommand = "SELECT SELECT tripduration, starttime, stoptime, start_station_name, " +
+                "end_station_name, start_latitude, start_longitude, end_latitude, " +
+                "end_latitude, gender, birth_year, start_station_id, end_station_id FROM route_information WHERE " +
+                "tripduration BETWEEN ? AND ?";
 
         try(Connection conn = this.connect();
             PreparedStatement pstmt = conn.prepareStatement(databaseCommand)) {
@@ -236,7 +235,7 @@ public class DataFilterer {
             pstmt.setInt(2, upperDuration);
 
             ResultSet rs = pstmt.executeQuery();
-            generateRouteArray(rs);
+            //generateRouteArray(rs);
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());

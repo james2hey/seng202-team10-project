@@ -4,17 +4,18 @@ import dataAnalysis.RetailLocation;
 import dataAnalysis.Route;
 import dataAnalysis.StationLocation;
 import dataAnalysis.WifiLocation;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
+
 
 /**
  * User class tests. Many of the user methods are very simple, making them unnecessary
  * to test.
  */
-class CyclistTest {
+public class CyclistTest {
 
     /**
      * Creates a trivial RetailLocation.
@@ -55,7 +56,7 @@ class CyclistTest {
     }
 
     @Test
-    public void removeRoute() {
+    public void removeRoute() throws Exception {
         Cyclist cyclist = new Cyclist();
         Route r = createRoute();
         cyclist.addRoute(r);
@@ -66,14 +67,14 @@ class CyclistTest {
 
     //Should we create an exception for this?????
     @Test
-    public void removeRouteNotInFavouritesException() {
+    public void removeRouteNotInFavouritesException() throws Exception {
         Cyclist cyclist = new Cyclist();
         Route r = createRoute();
         assertEquals("Route not in favourites", "Something");
     }
 
     @Test
-    public void removeFavouriteStation() {
+    public void removeFavouriteStation() throws Exception {
         Cyclist cyclist = new Cyclist();
         StationLocation s = createStationLocation();
         cyclist.addFavouriteStation(s);
@@ -83,7 +84,7 @@ class CyclistTest {
     }
 
     @Test
-    public void removeFavouriteRetail() {
+    public void removeFavouriteRetail() throws Exception {
         Cyclist cyclist = new Cyclist();
         RetailLocation r = createRetailLocation();
         cyclist.addFavouriteRetail(r);
@@ -93,7 +94,7 @@ class CyclistTest {
     }
 
     @Test
-    public void removeFavouriteWifi() {
+    public void removeFavouriteWifi() throws Exception {
         Cyclist cyclist = new Cyclist();
         WifiLocation w = createWifiLocation();
         cyclist.addFavouriteWifi(w);
@@ -107,7 +108,7 @@ class CyclistTest {
      * it makes sense that each boolean in the clear method would act the same way.
      */
     @Test
-    public void testClear() {
+    public void testClear() throws Exception {
         Cyclist cyclist = new Cyclist();
         WifiLocation w1 = createWifiLocation();
         WifiLocation w2 = createWifiLocation();
@@ -121,7 +122,7 @@ class CyclistTest {
     }
 
     @Test
-    public void testClearAll() {
+    public void testClearAll() throws Exception {
         Cyclist cyclist = new Cyclist();
         Route r = createRoute();
         StationLocation s = createStationLocation();
