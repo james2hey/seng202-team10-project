@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="230.0" style="-fx-background-color: lightGrey;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.Controller">
+   <children>
+      <Button fx:id="homeButton" mnemonicParsing="false" onAction="#changeToHomeScene" prefHeight="100.0" prefWidth="275.0" text="Home" />
+      <Button fx:id="planRouteButton" mnemonicParsing="false" onAction="#changeToPlanRouteScene" prefHeight="100.0" prefWidth="275.0" text="Plan Route" />
+      <Button fx:id="addDataButton" mnemonicParsing="false" onAction="#changeToAddDataScene" prefHeight="100.0" prefWidth="275.0" text="Add Data" />
+      <Button fx:id="viewDataButton" mnemonicParsing="false" onAction="#changeToViewDataScene" prefHeight="100.0" prefWidth="275.0" text="View Data" />
+   </children>
+</VBox>
