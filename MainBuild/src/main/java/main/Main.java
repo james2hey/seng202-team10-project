@@ -14,16 +14,16 @@ public class Main extends Application {
         primaryStage.setTitle("Cyclist Tracker");
         primaryStage.setScene(new Scene(root, 1100, 650));
         primaryStage.show();
-        DatabaseManager.connect();
-        DatabaseManager.countRows();   //function used to determine key for new records --MUST RUN ON START--
-        initUser();
-        CSV_Importer.readcsv(getClass().getClassLoader().getResource("Lower_Manhattan_Retailers.csv").getFile(), 1);
-        DatabaseManager.commit();
-        CSV_Importer.readcsv(getClass().getClassLoader().getResource("NYC_Free_Public_WiFi_03292017.csv").getFile(), 2);
-        DatabaseManager.commit();
-        CSV_Importer.readcsv(getClass().getClassLoader().getResource("201601-citibike-tripdata.csv").getFile(), 3);
-        DatabaseManager.commit();
-        DatabaseManager.printTables();
+//        DatabaseManager.connect();
+//        DatabaseManager.countRows();   //function used to determine key for new records --MUST RUN ON START--
+//        initUser();
+//        CSV_Importer.readcsv(getClass().getClassLoader().getResource("Lower_Manhattan_Retailers.csv").getFile(), 1);
+//        DatabaseManager.commit();
+//        CSV_Importer.readcsv(getClass().getClassLoader().getResource("NYC_Free_Public_WiFi_03292017.csv").getFile(), 2);
+//        DatabaseManager.commit();
+//        CSV_Importer.readcsv(getClass().getClassLoader().getResource("201601-citibike-tripdata.csv").getFile(), 3);
+//        DatabaseManager.commit();
+//        DatabaseManager.printTables();
     }
 
     /**Initializes the user and does __________

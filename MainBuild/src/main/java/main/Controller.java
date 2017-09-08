@@ -92,6 +92,11 @@ public class Controller {
         currentStage.setScene(viewDataScene);
     }
 
+    @FXML
+    void displayData(ActionEvent event) throws IOException {
+        System.out.println("Display Data button pressed.");
+    }
+
 
     //@Override
     public void initializeSideDrawer() throws IOException {
