@@ -2,6 +2,7 @@ package dataManipulation;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.time.Year;
 ////////////////////////////////
 
@@ -118,7 +119,7 @@ public class DataFilterer {
      * queryLength, as parameters. Returns the query command.
      *
      * @param queryCommand queryCommand of type String. This is the string that will be used as the query statement to
-     *                     the datebase.
+     *                     the database.
      * @param queryLength queryLength of type int. This is the number of filter requirements that have been added to the
      *                    queryCommand already.
      * @return queryCommand, of type String. This is the string that will be used as a query statement to the database.
@@ -128,6 +129,29 @@ public class DataFilterer {
             queryCommand = queryCommand + andCommand;
         }
         return queryCommand;
+    }
+
+
+    /**
+     * convertAges takes a lower and upper age and coverts them to a year of birth. This is required when filtering by
+     * age as only the year of birth is stored for each record in the database, but the user will input the age to be
+     * filtered by, not the year of birth.
+     *
+     * @param ageLower ageLower is of type int. It is the lower age limit of the person that completed a route, that the
+     *                 user wants to filter by.
+     * @param ageUpper ageUpper is of type int. It is the upper age limit of the person that completed a route, that the
+     *                 user wants to filter by.
+     * @return yearsOfBirth, of type int Array. This contains the upper and lower year of birth that data needs to be
+     * filtered by.
+     */
+    public int[] convertAges(int ageLower, int ageUpper) {
+        int yearsOfBirth[] = new int[2];
+        int year = Year.now().getValue();
+        int lowerRequiredYear = year - ageUpper;
+        int upperRequiredYear = year - ageLower;
+        yearsOfBirth[0] = lowerRequiredYear;
+        yearsOfBirth[1] = upperRequiredYear;
+        return yearsOfBirth;
     }
 
 
@@ -175,10 +199,11 @@ public class DataFilterer {
             queryLength += 1;
         }
         if (ageLower != -1 && ageUpper != -1) {
+            int ages[] = convertAges(ageLower, ageUpper);
             queryCommand = addAndToStmt(queryCommand, queryLength);
             queryCommand = queryCommand + ageCommand;
-            filterVariables.add(ageLower);
-            filterVariables.add(ageUpper);
+            filterVariables.add(ages[0]);
+            filterVariables.add(ages[1]);
             queryLength += 1;
         }
         if (dateLower != null && dateUpper != null) {
@@ -207,7 +232,7 @@ public class DataFilterer {
     public PreparedStatement setQueryParameters(PreparedStatement pstmt) {
         try {
             for (int i = 0; i < filterVariables.size(); i++) {
-                pstmt.setInt(i, filterVariables.get(i));
+                pstmt.setInt(i + 1, filterVariables.get(i));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
