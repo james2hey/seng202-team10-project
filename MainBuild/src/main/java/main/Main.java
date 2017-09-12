@@ -27,11 +27,10 @@ public class Main extends Application {
 //        DatabaseManager.printTables();
     }
 
-    /**Initializes the user and does __________
+    /**Initializes the user and does
      */
-    public static void initCyclist() {
+    private static void initCyclist() {
         Cyclist cyclist = new Cyclist();
-
     }
 
 //

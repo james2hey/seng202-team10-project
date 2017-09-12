@@ -8,6 +8,8 @@ import dataAnalysis.Location;
 
 import java.util.ArrayList;
 
+import static org.apache.commons.text.WordUtils.capitalizeFully;
+
 /**
  * Subclass of User, an instance of this is  created for each cyclist using the
  * program to store all their key information about their favourite locations. Unlike
@@ -19,6 +21,10 @@ public class Cyclist extends User {
     private ArrayList<WifiLocation>  favouriteWifiLocations = new ArrayList<WifiLocation>();
 
     public Cyclist() {}
+
+    public Cyclist(String cName) {
+        name = capitalizeFully(cName);
+    }
     //_____________________________________________ADD DATA_____________________________________________
 
     /**Adds a route to the Users routeList.
@@ -54,7 +60,7 @@ public class Cyclist extends User {
                 break;
             }
         }
-        if(!broken) {System.out.println("Not in list");} //WILL BE DIFFERENT WHEN GUI IS IMPLEMENTED
+        if(!broken) {System.out.println("Route not in favourites");} //WILL BE DIFFERENT WHEN GUI IS IMPLEMENTED
     }
 
     /**Removes a StationLocation from the users routeList
@@ -178,6 +184,11 @@ public class Cyclist extends User {
      * Saves the Cyclists settings to the database.
      */
     public void storeData() {}
+
+//    public static void main(String[] args) {
+//        Cyclist c = new Cyclist("JAMES TOOHEY");
+//        System.out.println(c.name);
+//    }
 
 
 

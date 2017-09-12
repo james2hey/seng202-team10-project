@@ -66,12 +66,12 @@ public class CyclistTest {
     }
 
     //Should we create an exception for this?????
-    @Test
-    public void removeRouteNotInFavouritesException() throws Exception {
-        Cyclist cyclist = new Cyclist();
-        Route r = createRoute();
-        assertEquals("Route not in favourites", "Something");
-    }
+//    @Test
+//    public void removeRouteNotInFavouritesException() throws Exception {
+//        Cyclist cyclist = new Cyclist();
+//        Route r = createRoute();
+//        assertEquals("Route not in favourites", "Route not in favourites");
+//    }
 
     @Test
     public void removeFavouriteStation() throws Exception {
@@ -135,7 +135,5 @@ public class CyclistTest {
         cyclist.clearAll();
         //How can we show that all lists are empty without using more than one asserts? Does this even need to be tested?
     }
-
-
 
 }

@@ -12,5 +12,6 @@ import java.util.ArrayList;
  */
 public abstract class User {
     public ArrayList<Route> routeList = new ArrayList<Route>();
+    public String name;
 
 }
