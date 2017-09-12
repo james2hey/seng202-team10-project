@@ -21,7 +21,7 @@ public class CyclistTest {
      * Creates a trivial RetailLocation.
      * @return s
      */
-    public StationLocation createStationLocation() {
+    private StationLocation createStationLocation() {
         StationLocation s = new StationLocation(0, 0, 0);
         return s;
     }
@@ -30,7 +30,7 @@ public class CyclistTest {
      * Creates a trivial RetailLocation.
      * @return r
      */
-    public RetailLocation createRetailLocation() {
+    private RetailLocation createRetailLocation() {
         RetailLocation r = new RetailLocation("TestShop", "Main Street", "NY" );
         return r;
     }
@@ -39,7 +39,7 @@ public class CyclistTest {
      * Creates a trivial WifiLocation.
      * @return w
      */
-    public WifiLocation createWifiLocation() {
+    private WifiLocation createWifiLocation() {
         WifiLocation w = new WifiLocation(0, 0, "Test", "Address", "0000");
         return w;
     }
@@ -48,7 +48,7 @@ public class CyclistTest {
      * Creates a trivial route.
      * @return r
      */
-    public Route createRoute() {
+    private Route createRoute() {
         RetailLocation retail = createRetailLocation();
         WifiLocation wifi = createWifiLocation();
         Route r = new Route(retail, wifi, "0", "0");

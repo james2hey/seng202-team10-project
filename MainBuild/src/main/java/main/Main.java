@@ -14,22 +14,22 @@ public class Main extends Application {
         primaryStage.setTitle("Cyclist Tracker");
         primaryStage.setScene(new Scene(root, 1100, 650));
         primaryStage.show();
-        DatabaseManager.connect();
-        DatabaseManager.countRows();   //function used to determine key for new records --MUST RUN ON START--
-        initUser();
-        CSV_Importer.readcsv(getClass().getClassLoader().getResource("Lower_Manhattan_Retailers-test.csv").getFile(), 1);
-        DatabaseManager.commit();
-        CSV_Importer.readcsv(getClass().getClassLoader().getResource("NYC_Free_Public_WiFi_03292017-test.csv").getFile(), 2);
-        DatabaseManager.commit();
-        CSV_Importer.readcsv(getClass().getClassLoader().getResource("201601-citibike-tripdata-test.csv").getFile(), 3);
-        DatabaseManager.commit();
-        DatabaseManager.printTables();
+        initCyclist();
+//        DatabaseManager.connect();
+//        DatabaseManager.countRows();   //function used to determine key for new records --MUST RUN ON START--
+//        initUser();
+//        CSV_Importer.readcsv(getClass().getClassLoader().getResource("Lower_Manhattan_Retailers-test.csv").getFile(), 1);
+//        DatabaseManager.commit();
+//        CSV_Importer.readcsv(getClass().getClassLoader().getResource("NYC_Free_Public_WiFi_03292017-test.csv").getFile(), 2);
+//        DatabaseManager.commit();
+//        CSV_Importer.readcsv(getClass().getClassLoader().getResource("201601-citibike-tripdata-test.csv").getFile(), 3);
+//        DatabaseManager.commit();
+//        DatabaseManager.printTables();
     }
 
     /**Initializes the user and does __________
      */
-    public static void initUser() {
-        //GUI - Find user type "Cyclist" used as example.
+    public static void initCyclist() {
         Cyclist cyclist = new Cyclist();
 
     }
