@@ -48,6 +48,12 @@ public class Route {
         updateAverageTime(stTime, spTime);
     }
 
+    //Getter for primary key info
+
+    public int getBikeID() { return bikeid;}
+
+    public String getStartTime() { return startTime;}
+
     //Getters for duration and distance.
 
     public int getDuration() {
