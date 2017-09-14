@@ -154,9 +154,9 @@ public class Controller implements Initializable, MapComponentInitializedListene
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        mapView.addMapInializedListener(this);
-        address.bind(addressTextField.textProperty());
-        point1opt = new MarkerOptions();
+        //mapView.addMapInializedListener(this);
+        //address.bind(addressTextField.textProperty());
+        //point1opt = new MarkerOptions();
     }
 
     @FXML
