@@ -6,16 +6,15 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.sql.Date;
-import java.sql.Time;
 import java.util.ArrayList;
-import main.DatabaseManager;
 
 
 import static org.junit.Assert.*;
 
-/**
- * Created by mki58 on 7/09/17.
- */
+//----------------------------------------------------------------
+//--------ALL TESTS MUST BE RUN WITH THE TEST DATA FILES----------
+//----------------------------------------------------------------
+
 public class DataFiltererTest {
 
     DataFilterer dataFilterer = new DataFilterer();
@@ -29,38 +28,71 @@ public class DataFiltererTest {
     public void tearDown() throws Exception {
     }
 
-    @Test
-    public void convertAges() throws Exception {
-    }
 
     @Test
-    public void clearRoutes() throws Exception {
-    }
-
-    @Test
-    public void connect() throws Exception {
-    }
-
-    @Test
-    public void addAndToStmt() throws Exception {
-    }
-
-    @Test
-    public void generateQueryString() throws Exception {
-    }
-
-    @Test
-    public void setQueryParameters() throws Exception {
-    }
-
-    @Test
-    public void filter() throws Exception {
-        routes = dataFilterer.filter(-1, "e", "e", -1, -1, null, null, -1, -1);
+    public void filterByGenderFemale() throws Exception {
+        ArrayList<Integer> bikeID = new ArrayList<>();
+        bikeID.add(21997);
+        bikeID.add(22794);
+        bikeID.add(15721);
+        bikeID.add(23650);
+        bikeID.add(19804);
+        bikeID.add(21624);
+        bikeID.add(24232);
+        bikeID.add(15713);
+        bikeID.add(20945);
+        bikeID.add(19039);
+        bikeID.add(20258);
+        routes = dataFilterer.filter(2, null, null, -1, -1, null, null, -1, -1);
         int size = routes.size();
         for (int i = 0; i < size; i++){
-            System.out.println(routes.get(i).getDuration());
+            assertTrue(bikeID.get(i) == routes.get(i).getBikeID());
         }
-        assertTrue(1 == 1);
+    }
+
+
+    @Test
+    public void filterByGenderFemaleAge0_20() throws Exception {
+        ArrayList<Integer> bikeID = new ArrayList<>();
+        bikeID.add(21997);
+        bikeID.add(23650);
+        bikeID.add(19039);
+        bikeID.add(20258);
+        routes = dataFilterer.filter(2, null, null, 30, 40, null, null, -1, -1);
+        int size = routes.size();
+        for (int i = 0; i < size; i++){
+            assertTrue(bikeID.get(i) == routes.get(i).getBikeID());
+        }
+    }
+
+
+    @Test
+    public void filterByGenderFemaleAge0_20Duration1000_2000() throws Exception {
+        ArrayList<Integer> bikeID = new ArrayList<>();
+        routes = dataFilterer.filter(2, null, null, 30, 40, null, null, 1000, 2000);
+        int size = routes.size();
+        for (int i = 0; i < size; i++){
+            assertTrue(bikeID.get(i) == routes.get(i).getBikeID());
+        }
+    }
+
+
+    @Test
+    public void filterByIncompleteData() throws Exception {
+        ArrayList<Integer> bikeID = new ArrayList<>();
+        bikeID.add(17057);
+        bikeID.add(17109);
+        bikeID.add(24021);
+        bikeID.add(14769);
+        bikeID.add(16475);
+        bikeID.add(19424);
+        bikeID.add(14823);
+        bikeID.add(22661);
+        routes = dataFilterer.filter(0, null, null, -1, -1, null, null, -1, -1);
+        int size = routes.size();
+        for (int i = 0; i < size; i++){
+            assertTrue(bikeID.get(i) == routes.get(i).getBikeID());
+        }
     }
 
 //    @Test

@@ -2,11 +2,13 @@ package dataManipulation;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.time.Year;
+import java.util.regex.Pattern;
+import org.sqlite.Function;
 ////////////////////////////////
 
 import dataAnalysis.Route;
+
 
 
 /**
@@ -24,6 +26,19 @@ public class DataFilterer {
     private String commandEnd;
     private ArrayList<Route> routes;
     private ArrayList<Integer> filterVariables;
+
+    Function REGEXP = new Function() {
+        @Override
+        protected void xFunc() throws SQLException {
+            String expression = value_text(0);
+            String value = value_text(1);
+            if (value == null)
+                value = "";
+
+            Pattern pattern = Pattern.compile(expression);
+            result(pattern.matcher(value).find() ? 1 : 0);
+        }
+    };
 
 
     /**
@@ -63,7 +78,7 @@ public class DataFilterer {
     /**
      * clearRoutes clears the class variable ArrayList routes.
      */
-    public void clearRoutes() {
+    private void clearRoutes() {
         routes.clear();
     }
 
@@ -74,7 +89,7 @@ public class DataFilterer {
      *
      * @return Connection
      */
-    public Connection connect() {
+    private Connection connect() {
 
         String home = System.getProperty("user.home");
         java.nio.file.Path path = java.nio.file.Paths.get(home, "database.db");
@@ -124,7 +139,7 @@ public class DataFilterer {
      *                    queryCommand already.
      * @return queryCommand, of type String. This is the string that will be used as a query statement to the database.
      */
-    public String addAndToStmt(String queryCommand, int queryLength) {
+    private String addAndToStmt(String queryCommand, int queryLength) {
         if (queryLength > 0) {
             queryCommand = queryCommand + andCommand;
         }
@@ -144,7 +159,7 @@ public class DataFilterer {
      * @return yearsOfBirth, of type int Array. This contains the upper and lower year of birth that data needs to be
      * filtered by.
      */
-    public int[] convertAges(int ageLower, int ageUpper) {
+    private int[] convertAges(int ageLower, int ageUpper) {
         int yearsOfBirth[] = new int[2];
         int year = Year.now().getValue();
         int lowerRequiredYear = year - ageUpper;
@@ -180,7 +195,7 @@ public class DataFilterer {
      *                      filter by.
      * @return queryCommand, of type String. This is the string that will be used as a query statement to the database.
      */
-    public String generateQueryString(int gender, String dateLower, String dateUpper, int ageLower,
+    private String generateQueryString(int gender, String dateLower, String dateUpper, int ageLower,
                                                 int ageUpper, String timeLower, String timeUpper, int durationLower,
                                                 int durationUpper) {
         String queryCommand = databaseCommand;
@@ -189,14 +204,14 @@ public class DataFilterer {
         if (gender != -1) {
             queryCommand = queryCommand + genderCommand;
             filterVariables.add(gender);
-            queryLength += 1;
+            queryLength = 1;
         }
         if (durationLower != -1 && durationUpper != -1) {
             queryCommand = addAndToStmt(queryCommand, queryLength);
             queryCommand = queryCommand + durationCommand;
             filterVariables.add(durationLower);
             filterVariables.add(durationUpper);
-            queryLength += 1;
+            queryLength = 1;
         }
         if (ageLower != -1 && ageUpper != -1) {
             int ages[] = convertAges(ageLower, ageUpper);
@@ -204,17 +219,16 @@ public class DataFilterer {
             queryCommand = queryCommand + ageCommand;
             filterVariables.add(ages[0]);
             filterVariables.add(ages[1]);
-            queryLength += 1;
+            queryLength = 1;
         }
         if (dateLower != null && dateUpper != null) {
             queryCommand = addAndToStmt(queryCommand, queryLength);
             queryCommand = queryCommand + dateCommand;
-            queryLength += 1;
+            queryLength = 1;
         }
         if (timeLower != null && timeUpper != null) {
             queryCommand = addAndToStmt(queryCommand, queryLength);
             queryCommand = queryCommand + timeCommand;
-            queryLength += 1;
         }
         queryCommand = queryCommand + commandEnd;
         return queryCommand;
@@ -229,7 +243,7 @@ public class DataFilterer {
      * @return pstmt, of type PreparedStatement. The updated PreparedStatement, now with its parameters set to the
      * correct values.
      */
-    public PreparedStatement setQueryParameters(PreparedStatement pstmt) {
+    private PreparedStatement setQueryParameters(PreparedStatement pstmt) {
         try {
             for (int i = 0; i < filterVariables.size(); i++) {
                 pstmt.setInt(i + 1, filterVariables.get(i));
@@ -276,7 +290,7 @@ public class DataFilterer {
             PreparedStatement pstmt;
             pstmt = conn.prepareStatement(queryString);
             setQueryParameters(pstmt);
-
+            Function.create(conn, "", REGEXP); //Needs to be fixed
             ResultSet rs = pstmt.executeQuery();
             generateRouteArray(rs);
 
