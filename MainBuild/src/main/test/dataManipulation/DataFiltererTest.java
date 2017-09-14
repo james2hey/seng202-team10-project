@@ -12,6 +12,8 @@ import static org.junit.Assert.*;
 //----------------------------------------------------------------
 //--------ALL TESTS MUST BE RUN WITH THE TEST DATA FILES----------
 //----------------------------------------------------------------
+//To create database using test data, delete the current database. Then add '-test' onto the end of the string of each
+// data file name in the main class. Run the program to create a new database using the data in these test files.
 
 public class DataFiltererTest {
 
