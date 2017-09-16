@@ -30,8 +30,7 @@ public class HandleUsers {
      */
     public static void createNewUser(boolean isCyclist) {
         System.out.print("Enter Username: ");
-        Scanner s = new Scanner(System.in);
-        String username = s.next();
+        String username = "Hello";
         User user;
         if(isCyclist) {
             user = new Cyclist(username);

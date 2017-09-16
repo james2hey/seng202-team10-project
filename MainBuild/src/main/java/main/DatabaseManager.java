@@ -67,10 +67,8 @@ public class DatabaseManager {
 
     static String addRetailerString = "insert into retailer values(?,?,?,?,?,?,?,?,?)";
     static String addWifiString = "insert into wifi_location values(?,?,?,?,?,?,?,?,?,?,?)";
-    static String addTripString = "insert into route_information values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-    static String addUserString = "insert into users values(?)"; // James Testing
-
     static String addTripString = "insert into route_information values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    static String addUserString = "insert into users values(?)"; // James Testing
     static Connection conn = null;
     static Statement stmt = null;
     static PreparedStatement addRetailer = null;
