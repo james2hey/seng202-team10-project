@@ -24,58 +24,49 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
+import javafx.scene.control.SplitPane;
+import javafx.stage.FileChooser;
 
-
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Controller implements Initializable, MapComponentInitializedListener {
-
-    @FXML
-    private Button button;
+public class Controller {
 
     @FXML
     private JFXDrawer drawer;
 
     @FXML
-    private Text buttonPressedText;
+    private Button button;
+    
+    @FXML
+    private Button manualEntryButton;
 
     @FXML
-    private JFXHamburger hamburger;
+    private Button routeButton;
 
-    @FXML
-    private Button addDataButton;
+            @FXML
+    private Button wifiButton;
 
-    @FXML
-    private Button viewDataButton;
+            @FXML
+    private Button retailerButton;
 
-    @FXML
-    private Button planRouteButton;
+            @FXML
+    private SplitPane wifiPanel;
 
-    @FXML
-    private Button homeButton;
+            @FXML
+    private SplitPane retailerPanel;
 
-    @FXML
-    private TextField addressTextField;
+            @FXML
+    private SplitPane endPanel;
 
-    @FXML
-    private GoogleMapView mapView;
-
-    private GeocodingService geocodingService;
-
-    private GoogleMap map;
-
-    private StringProperty address = new SimpleStringProperty();
-
-    private MarkerOptions point1opt;
-
-    private Marker point1;
-
-    @FXML
-    void login() {
-        System.exit(0);
-    }
+            @FXML
+    private SplitPane startPanel;
+    //
+        
+            @FXML //This button is used for file opening from addData page.
+    private Button importButton;
 
     @FXML
     void openDrawer() throws IOException {
@@ -87,6 +78,20 @@ public class Controller implements Initializable, MapComponentInitializedListene
         else {
             drawer.open();
         }
+    }
+
+    public void initializeSideDrawer() throws IOException {
+        VBox box = FXMLLoader.load(getClass().getClassLoader().getResource("SidePanel.fxml"));
+        drawer.setSidePane(box);
+    }
+
+    @FXML
+    void displayData(ActionEvent event) throws IOException {
+        System.out.println("Display Data button pressed.");
+    }
+
+    public void login(ActionEvent actionEvent) {
+        System.exit(0);
     }
 
     @FXML
@@ -123,65 +128,68 @@ public class Controller implements Initializable, MapComponentInitializedListene
     }
 
     @FXML
-    void displayData(ActionEvent event) throws IOException {
-        System.out.println("Display Data button pressed.");
-    }
-
-
-    //@Override
-    public void initializeSideDrawer() throws IOException {
-        VBox box = FXMLLoader.load(getClass().getClassLoader().getResource("SidePanel.fxml"));
-        drawer.setSidePane(box);
-    }
-
-    @Override
-    public void mapInitialized() {
-        geocodingService = new GeocodingService();
-        MapOptions mapOptions = new MapOptions();
-
-        mapOptions.center(new LatLong(-43.5235375, 172.5839233))
-                .mapType(MapTypeIdEnum.ROADMAP)
-                .overviewMapControl(false)
-                .panControl(false)
-                .rotateControl(false)
-                .scaleControl(false)
-                .streetViewControl(false)
-                .zoomControl(false)
-                .zoom(12);
-
-        map = mapView.createMap(mapOptions);
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-//        mapView.addMapInializedListener(this);
-//        address.bind(addressTextField.textProperty());
-//        point1opt = new MarkerOptions();
-    }
-
-    @FXML
-    public void addressTextFieldAction(ActionEvent event) {
-        geocodingService.geocode(address.get(), (GeocodingResult[] results, GeocoderStatus status) -> {
-
-            LatLong latLong = null;
-
-            if( status == GeocoderStatus.ZERO_RESULTS) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "No matching address found");
-                alert.show();
-                return;
-            } else if( results.length > 1 ) {
-                Alert alert = new Alert(Alert.AlertType.WARNING, "Multiple results found, showing the first one.");
-                alert.show();
-                latLong = new LatLong(results[0].getGeometry().getLocation().getLatitude(), results[0].getGeometry().getLocation().getLongitude());
-            } else {
-                latLong = new LatLong(results[0].getGeometry().getLocation().getLatitude(), results[0].getGeometry().getLocation().getLongitude());
+    //TODO: Implement this from add data.
+            void changeToManualEntryScene(ActionEvent event) throws IOException {
+                Parent manualEntryParent = FXMLLoader.load(getClass().getClassLoader().getResource("manualEntry.fxml"));
+                Scene planRouteScene = new Scene(manualEntryParent);
+                Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                currentStage.setScene(planRouteScene);
             }
 
-            map.setCenter(latLong);
-            point1opt.position(latLong);
-            point1 = new Marker(point1opt);
-            map.addMarker(point1);
+            @FXML //Relates to the manual data page
+    void routeEntry(ActionEvent event) throws IOException {
+                if(!startPanel.isVisible()) {
+                        startPanel.setVisible(true);
+                    }
+                if(!endPanel.isVisible()) {
+                        endPanel.setVisible(true);
+                    }
+                if(wifiPanel.isVisible()) {
+                        wifiPanel.setVisible(false);
+                    }
+                if(retailerPanel.isVisible()) {
+                        retailerPanel.setVisible(false);
+                    }
+            }
 
-        });
-    }
+            @FXML //Relates to the manual data page
+    void wifiEntry(ActionEvent event) throws IOException {
+                if(startPanel.isVisible()) {
+                        startPanel.setVisible(false);
+                    }
+                if(endPanel.isVisible()) {
+                        endPanel.setVisible(false);
+                    }
+                if(!wifiPanel.isVisible()) {
+                        wifiPanel.setVisible(true);
+                    }
+                if(retailerPanel.isVisible()) {
+                        retailerPanel.setVisible(false);
+                    }
+            }
+    @FXML //Relates to the manual data page
+    void retailerEntry(ActionEvent event) throws IOException {
+                if(startPanel.isVisible()) {
+                        startPanel.setVisible(false);
+                    }
+                if(endPanel.isVisible()) {
+                        endPanel.setVisible(false);
+                    }
+                if(wifiPanel.isVisible()) {
+                        wifiPanel.setVisible(false);
+                    }
+                if(!retailerPanel.isVisible()) {
+                        retailerPanel.setVisible(true);
+                    }
+            }
+
+            @FXML // Relates to file import button on Add Data page
+    void chooseFile(ActionEvent event) throws IOException {
+                FileChooser fileChooser = new FileChooser();
+                FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV (*.csv)", "*.csv");
+                fileChooser.getExtensionFilters().add(extFilter);
+                File file = fileChooser.showOpenDialog(((Node) event.getSource()).getScene().getWindow());
+                System.out.println(file);
+            }
+
 }

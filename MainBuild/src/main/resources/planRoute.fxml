@@ -1,45 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXHamburger?>
 <?import com.lynden.gmapsfx.GoogleMapView?>
-<?import com.jfoenix.controls.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.control.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-
-<GridPane xmlns:fx="http://javafx.com/fxml/1" alignment="center" hgap="10" prefHeight="650.0" prefWidth="1100.0"
-          style="-fx-background-color: grey;" vgap="10" xmlns="http://javafx.com/javafx/8"
-          fx:controller="main.Controller">
+<GridPane alignment="center" hgap="10" prefHeight="650.0" prefWidth="1100.0" style="-fx-background-color: grey;" vgap="10" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.mapControl">
     <columnConstraints>
-        <ColumnConstraints maxWidth="800.0" minWidth="10.0" prefWidth="250.0"/>
-        <ColumnConstraints maxWidth="800.0" minWidth="10.0" prefWidth="250.0"/>
-        <ColumnConstraints maxWidth="991.0" minWidth="10.0" prefWidth="274.0"/>
-        <ColumnConstraints maxWidth="891.0" minWidth="114.0" prefWidth="222.0"/>
-        <ColumnConstraints maxWidth="891.0" minWidth="114.0" prefWidth="222.0"/>
+        <ColumnConstraints maxWidth="800.0" minWidth="10.0" prefWidth="250.0" />
+        <ColumnConstraints maxWidth="800.0" minWidth="10.0" prefWidth="250.0" />
+        <ColumnConstraints maxWidth="991.0" minWidth="10.0" prefWidth="274.0" />
+        <ColumnConstraints maxWidth="891.0" minWidth="114.0" prefWidth="222.0" />
+        <ColumnConstraints maxWidth="891.0" minWidth="114.0" prefWidth="222.0" />
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints maxHeight="251.0" minHeight="10.0" prefHeight="179.0"/>
-        <RowConstraints maxHeight="251.0" minHeight="10.0" prefHeight="179.0"/>
-        <RowConstraints maxHeight="393.0" minHeight="6.0" prefHeight="192.0"/>
-        <RowConstraints maxHeight="510.0" minHeight="64.0" prefHeight="175.0"/>
+        <RowConstraints maxHeight="251.0" minHeight="10.0" prefHeight="179.0" />
+        <RowConstraints maxHeight="251.0" minHeight="10.0" prefHeight="179.0" />
+      <RowConstraints maxHeight="251.0" minHeight="10.0" prefHeight="179.0" />
+      <RowConstraints maxHeight="251.0" minHeight="10.0" prefHeight="179.0" />
+        <RowConstraints maxHeight="393.0" minHeight="6.0" prefHeight="192.0" />
+        <RowConstraints maxHeight="510.0" minHeight="64.0" prefHeight="175.0" />
     </rowConstraints>
     <children>
-        <GoogleMapView fx:id="mapView" prefHeight="500.0" prefWidth="700.0" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="5" GridPane.rowSpan="4"/>
-        <Text fx:id="buttonPressedText" strokeType="OUTSIDE" strokeWidth="0.0" text="Button Pressed" textAlignment="CENTER" visible="false" wrappingWidth="269.6552734375" GridPane.columnIndex="2" GridPane.rowIndex="3"/>
-        <JFXHamburger fx:id="hamburger" onMouseClicked="#openDrawer" GridPane.columnIndex="4"/>
-        <Button fx:id="button" mnemonicParsing="false" onAction="#login" prefHeight="93.0" prefWidth="257.0" text="Exit" GridPane.columnIndex="2" GridPane.rowIndex="3"/>
+        <GoogleMapView fx:id="mapView" prefHeight="500.0" prefWidth="700.0" GridPane.columnSpan="2147483647" GridPane.rowSpan="2147483647" />
+        <Text fx:id="buttonPressedText" strokeType="OUTSIDE" strokeWidth="0.0" text="Button Pressed" textAlignment="CENTER" visible="false" wrappingWidth="269.6552734375" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+        <JFXHamburger fx:id="hamburger" onMouseClicked="#openDrawer" GridPane.columnIndex="4" />
         <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Route Planner" textAlignment="CENTER" wrappingWidth="670.7294921875" GridPane.columnIndex="1">
             <font>
-                <Font size="60.0"/>
+                <Font size="60.0" />
             </font>
         </Text>
 
-        <TextField fx:id="addressTextField" onAction="#addressTextFieldAction" promptText="Address"/>
+        <TextField fx:id="startAddressField" onAction="#addressTextFieldAction" promptText="Start Address" />
+      <TextField fx:id="endAddressField" onAction="#addressTextFieldAction" promptText="End Address" GridPane.rowIndex="1" />
 
     </children>
 </GridPane>

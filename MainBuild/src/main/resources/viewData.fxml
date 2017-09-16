@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.validation.*?>
-<?import javafx.geometry.*?>
 <?import com.jfoenix.controls.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.control.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<GridPane alignment="center" hgap="10" prefHeight="650.0" prefWidth="1100.0" style="-fx-background-color: grey;" vgap="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.Controller">
+<GridPane alignment="center" hgap="10" prefHeight="650.0" prefWidth="1100.0" style="-fx-background-color: grey;" vgap="10" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.viewDataControl">
    <columnConstraints>
       <ColumnConstraints maxWidth="800.0" minWidth="10.0" prefWidth="84.0" />
       <ColumnConstraints maxWidth="800.0" minWidth="10.0" prefWidth="271.0" />
@@ -43,11 +41,6 @@
       <RowConstraints />
    </rowConstraints>
    <children>
-      <ListView prefHeight="355.0" prefWidth="218.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="13">
-         <padding>
-            <Insets bottom="100.0" left="100.0" right="100.0" top="100.0" />
-         </padding>
-      </ListView>
       <JFXHamburger fx:id="hamburger" onMouseClicked="#openDrawer" GridPane.columnIndex="6" GridPane.rowIndex="1" />
       <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Data Viewer" textAlignment="CENTER" wrappingWidth="890.193359375" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
          <font>
@@ -60,6 +53,7 @@
             <Font size="18.0" />
          </font>
       </Text>
+       <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" style="-fx-background-color: grey;" GridPane.rowSpan="4" />
       <Button mnemonicParsing="false" onAction="#displayData" prefHeight="25.0" prefWidth="99.0" text="Display" GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.rowIndex="14" />
       <JFXToggleButton prefHeight="58.0" prefWidth="167.0" selected="true" text="Female" toggleColor="#ff0404" GridPane.columnIndex="6" GridPane.rowIndex="3" />
       <JFXToggleButton prefHeight="58.0" prefWidth="167.0" selected="true" text="Male" toggleColor="#ff0404" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="3" />
@@ -75,5 +69,14 @@
       <JFXTextField id="endDateInput" prefHeight="23.0" prefWidth="147.0" text="DD/MM/YYYY" GridPane.columnIndex="6" GridPane.rowIndex="12" />
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="End Date:" wrappingWidth="82.7294921875" GridPane.columnIndex="5" GridPane.rowIndex="12" />
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Start Date:" wrappingWidth="84.7294921875" GridPane.columnIndex="5" GridPane.rowIndex="11" />
+      <TableView fx:id="tableView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="13">
+        <columns>
+          <TableColumn fx:id="StartLocation" prefWidth="123.99996948242188" text="Start Location" />
+          <TableColumn fx:id="EndLocation" prefWidth="134.0" text="End Location" />
+           <TableColumn fx:id="Date" prefWidth="91.0" text="Date" />
+           <TableColumn fx:id="StartTime" prefWidth="113.0" text="Start Time" />
+           <TableColumn fx:id="EndTime" prefWidth="92.0" text="End Time" />
+        </columns>
+      </TableView>
    </children>
 </GridPane>
