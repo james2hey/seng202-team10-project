@@ -19,16 +19,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.fxml.FXMLLoader;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -57,35 +54,7 @@ public class Controller implements Initializable, MapComponentInitializedListene
     private Button planRouteButton;
 
     @FXML
-    private Button manualEntryButton;
-//----------------------------------- Objects below are in the manual data page.
-    @FXML
     private Button homeButton;
-
-    @FXML
-    private Button routeButton;
-
-    @FXML
-    private Button wifiButton;
-
-    @FXML
-    private Button retailerButton;
-
-    @FXML
-    private SplitPane wifiPanel;
-
-    @FXML
-    private SplitPane retailerPanel;
-
-    @FXML
-    private SplitPane endPanel;
-
-    @FXML
-    private SplitPane startPanel;
-    //-------------------------------------
-
-    @FXML //This button is used for file opening from addData page.
-    private Button importButton;
 
     @FXML
     private TextField addressTextField;
@@ -154,71 +123,6 @@ public class Controller implements Initializable, MapComponentInitializedListene
     }
 
     @FXML
-    //TODO: Implement this from add data.
-    void changeToManualEntryScene(ActionEvent event) throws IOException {
-        Parent manualEntryParent = FXMLLoader.load(getClass().getClassLoader().getResource("manualEntry.fxml"));
-        Scene planRouteScene = new Scene(manualEntryParent);
-        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        currentStage.setScene(planRouteScene);
-    }
-
-    @FXML //Relates to the manual data page
-    void routeEntry(ActionEvent event) throws IOException {
-        if(!startPanel.isVisible()) {
-            startPanel.setVisible(true);
-        }
-        if(!endPanel.isVisible()) {
-            endPanel.setVisible(true);
-        }
-        if(wifiPanel.isVisible()) {
-            wifiPanel.setVisible(false);
-        }
-        if(retailerPanel.isVisible()) {
-            retailerPanel.setVisible(false);
-        }
-    }
-
-    @FXML //Relates to the manual data page
-    void wifiEntry(ActionEvent event) throws IOException {
-        if(startPanel.isVisible()) {
-            startPanel.setVisible(false);
-        }
-        if(endPanel.isVisible()) {
-            endPanel.setVisible(false);
-        }
-        if(!wifiPanel.isVisible()) {
-            wifiPanel.setVisible(true);
-        }
-        if(retailerPanel.isVisible()) {
-            retailerPanel.setVisible(false);
-        }
-    }
-    @FXML //Relates to the manual data page
-    void retailerEntry(ActionEvent event) throws IOException {
-        if(startPanel.isVisible()) {
-            startPanel.setVisible(false);
-        }
-        if(endPanel.isVisible()) {
-            endPanel.setVisible(false);
-        }
-        if(wifiPanel.isVisible()) {
-            wifiPanel.setVisible(false);
-        }
-        if(!retailerPanel.isVisible()) {
-            retailerPanel.setVisible(true);
-        }
-    }
-
-    @FXML // Relates to file import button on Add Data page
-    void chooseFile(ActionEvent event) throws IOException {
-        FileChooser fileChooser = new FileChooser();
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV (*.csv)", "*.csv");
-        fileChooser.getExtensionFilters().add(extFilter);
-        File file = fileChooser.showOpenDialog(((Node) event.getSource()).getScene().getWindow());
-        System.out.println(file);
-    }
-
-    @FXML
     void displayData(ActionEvent event) throws IOException {
         System.out.println("Display Data button pressed.");
     }
@@ -249,10 +153,10 @@ public class Controller implements Initializable, MapComponentInitializedListene
     }
 
     @Override
-    public void initialize(URL locchangeToManualEntryation, ResourceBundle resources) {
-        //mapView.addMapInializedListener(this);
-        //address.bind(addressTextField.textProperty());
-        //point1opt = new MarkerOptions();
+    public void initialize(URL location, ResourceBundle resources) {
+//        mapView.addMapInializedListener(this);
+//        address.bind(addressTextField.textProperty());
+//        point1opt = new MarkerOptions();
     }
 
     @FXML

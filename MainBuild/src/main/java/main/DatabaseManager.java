@@ -56,20 +56,30 @@ public class DatabaseManager {
             "  ,ZIP        VARCHAR(8)" +
             "  ,PRIMARY KEY(WIFI_ID))";
 
+    // James Testing
+    static String sql_users = "CREATE TABLE IF NOT EXISTS users(" +
+            "   NAME       VARCHAR(12)" +
+            "  ,PRIMARY KEY(NAME))";
+
     static String addRetailerString = "insert into retailer values(?,?,?,?,?,?,?,?,?)";
     static String addWifiString = "insert into wifi_location values(?,?,?,?,?,?,?,?,?,?,?)";
     static String addTripString = "insert into route_information values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    static String addUserString = "insert into users values(?)"; // James Testing
+
     static Connection conn = null;
     static Statement stmt = null;
     static PreparedStatement addRetailer = null;
     static PreparedStatement addWifi = null;
     static PreparedStatement addTrip = null;
+    static PreparedStatement addUser = null; // James Testing
+
     static int edits = 1000;
 
 
     static int wifi_count;
     static int retailer_count;
     static int trip_count;
+    static int user_count; // James Testing
 
     public static void connect() {
 
@@ -78,15 +88,19 @@ public class DatabaseManager {
         String url = "jdbc:sqlite:" + path;
 
         try {
+
             conn = DriverManager.getConnection(url);
 
             stmt = conn.createStatement();
             stmt.executeUpdate(sql_trips);
             stmt.executeUpdate(sql_retailers);
             stmt.executeUpdate(sql_wifis);
+            stmt.executeUpdate(sql_users); // James Testing
+
             addRetailer = conn.prepareStatement(addRetailerString);
             addWifi = conn.prepareStatement(addWifiString);
             addTrip = conn.prepareStatement(addTripString);
+            addUser = conn.prepareStatement(addUserString); // James Testing
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -110,6 +124,11 @@ public class DatabaseManager {
             while (rs.next()) {
                 trip_count = rs.getInt(1);
             }
+
+            rs = stmt.executeQuery("SELECT COUNT(*) FROM users;"); // James Testing
+            while (rs.next()) { // James Testing
+                trip_count = rs.getInt(1); // James Testing
+            }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -120,6 +139,7 @@ public class DatabaseManager {
             int RE_C = 0;
             int WI_C = 0;
             int TR_C = 0;
+            int US_C = 0; // James Testing
             ResultSet rs;
             rs = stmt.executeQuery("SELECT * FROM RETAILER;");
 
@@ -141,9 +161,16 @@ public class DatabaseManager {
                 System.out.println("TRIP = " + rs.getString("START_TIME") + rs.getString("start_station_id"));
                 TR_C ++;
             }
+            // James Testing
+            while(rs.next()) {
+                System.out.println("USER = " + rs.getString("NAME"));
+                US_C++;
+            }
+
             System.out.println(RE_C);
             System.out.println(WI_C);
             System.out.println(TR_C);
+            System.out.println(US_C);
             rs.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -263,6 +290,29 @@ public class DatabaseManager {
             try {
                 conn.rollback();
                 addTrip = conn.prepareStatement(addTripString);
+                System.out.println(e.getMessage());
+            } catch (SQLException e2) {
+                System.out.println(e2.getMessage());
+            }
+        }
+    }
+    //James Testing
+    public static void addUser(String NAME) {
+        try {
+            conn.setAutoCommit(false);
+            addUser.setString(1, NAME);
+            addUser.executeUpdate();
+            edits --;
+
+            if (edits == 0) {
+                conn.commit();
+            }
+            user_count += 1;
+
+        } catch (SQLException e) {
+            try {
+                conn.rollback();
+                addUser = conn.prepareStatement(addUserString);
                 System.out.println(e.getMessage());
             } catch (SQLException e2) {
                 System.out.println(e2.getMessage());

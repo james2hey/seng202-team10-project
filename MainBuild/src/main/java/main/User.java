@@ -14,4 +14,6 @@ public abstract class User {
     public ArrayList<Route> routeList = new ArrayList<Route>();
     public String name;
 
+    public String getName() {return name;}
+
 }

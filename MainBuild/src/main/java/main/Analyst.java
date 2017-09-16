@@ -6,6 +6,8 @@ import dataAnalysis.Route;
 import dataAnalysis.StationLocation;
 import dataAnalysis.WifiLocation;
 
+import static org.apache.commons.text.WordUtils.capitalizeFully;
+
 /**
  * Subclass of User, an instance of this is  created for each analyst using the
  * program to store all of their individual information. Analysts can also add
@@ -15,6 +17,9 @@ public class Analyst extends User {
 
     public Analyst() {}
 
+    public Analyst(String aName) {
+        name = capitalizeFully(aName);
+    }
 
     //_____________________________________________ADD LOCATIONS_____________________________________________
     /**
