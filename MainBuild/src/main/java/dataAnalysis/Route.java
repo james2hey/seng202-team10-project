@@ -8,39 +8,47 @@ package dataAnalysis;
 //to find out what this search criteria is and find a Trip.
 
 public class Route {
-    private int duration, distance, bikeid, timesTaken=1;
-    private String name, startTime, startDate, stopTime, stopDate;
+    private int duration, distance, startDay, startMonth, startYear, stopDay, stopMonth, stopYear, bikeid, timesTaken=1;
+    private String name, startTime, stopTime;
     private Location startLocation, endLocation, viaLocation;
     private double averageTime;
 
     //Two types of constructors as there is not always a viaLocation.
 
-    public Route(Location start, Location end, String time, String date) {
+    public Route(Location start, Location end, String time, int stDay, int stMonth, int stYear) {
         startLocation = start;
         endLocation = end;
         startTime = time;
-        startDate = date;
+        startDay = stDay;
+        startMonth = stMonth;
+        startYear = stYear;
     }
 
-    public Route(Location start, Location end, Location via, String time, String date) {
+    public Route(Location start, Location end, Location via, String time, int stDay, int stMonth, int stYear) {
         startLocation = start;
         endLocation = end;
         viaLocation = via;
         startTime = time;
-        startDate = date;
+        startDay = stDay;
+        startMonth = stMonth;
+        startYear = stYear;
     }
 
     /**
      * Constructor for Route class, used by Datafilterer class when filtering records from the database.
      */
-    public Route(int tripDuration, String stTime, String spTime, String stDate, String spDate, double stStationLat,
-                 double stStationLong, double endStationLat, double endStationLong, int stStationID, int endStationID,
-                 int bId) {
+    public Route(int tripDuration, String stTime, String spTime, int stDay, int stMonth, int stYear, int spDay,
+                 int spMonth, int spYear, double stStationLat, double stStationLong, double endStationLat,
+                 double endStationLong, int stStationID, int endStationID, int bId) {
         duration = tripDuration;
         startTime = stTime;
-        startDate = stDate;
+        startDay = stDay;
+        startMonth = stMonth;
+        startYear = stYear;
         stopTime = spTime;
-        stopDate = spDate;
+        stopDay = spDay;
+        stopMonth = spMonth;
+        stopYear = stYear;
         bikeid = bId;
         startLocation = new StationLocation(stStationID, stStationLat, stStationLong);
         endLocation = new StationLocation(endStationID, endStationLat, endStationLong);

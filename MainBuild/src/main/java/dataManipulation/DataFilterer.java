@@ -21,13 +21,16 @@ public class DataFilterer {
     private String genderCommand;
     private String ageCommand;
     private String timeCommand;
-    private String dateCommand;
+    private String dateYearCommand;
+    private String dateMonthCommand;
+    private String dateDayCommand;
     private String durationCommand;
     private String andCommand;
     private String commandEnd;
 
     private ArrayList<Route> routes;
     private ArrayList<Integer> filterVariables;
+    private ArrayList<String> filterVariableStrings;
 
 
     /**
@@ -35,32 +38,20 @@ public class DataFilterer {
      */
     public DataFilterer() {
         databaseCommand = "SELECT " +
-                "tripduration, " +
-                "start_time, " +
-                "end_time, " +
-                "start_date, " +
-                "end_date, " +
-                "start_latitude, " +
-                "start_longitude, " +
-                "end_latitude, " +
-                "end_longitude, " +
-                "start_station_id, " +
-                "end_station_id, " +
-                "start_station_name, " +
-                "end_station_name, " +
-                "bikeid, " +
-                "gender, " +
-                "birth_year " +
+                "* " +
                 "FROM route_information WHERE ";
         genderCommand = "gender = ?";
         durationCommand = "tripduration BETWEEN ? AND ?";
         ageCommand = "birth_year BETWEEN ? AND ?";
-        dateCommand = "start_date REGEXP \"[0-9][0-9]?/[0-9][0-9]?/[0-9][0-9][0-9][0-9]\"";
-        timeCommand = "start_time REGEXP \"[0-9][0-9]:[0-9][0-9]:[0-9][0-9]\"";
+        dateYearCommand = "start_year BETWEEN ? AND ?";
+        dateMonthCommand = "start_month BETWEEN ? AND ?";
+        dateDayCommand = "start_day BETWEEN ? AND ?";
+        timeCommand = "start_time BETWEEN ? AND ?";
         andCommand = " AND ";
         commandEnd = ";";
         routes = new ArrayList<>();
         filterVariables = new ArrayList<>();
+        filterVariableStrings = new ArrayList<>();
     }
 
 
@@ -74,7 +65,7 @@ public class DataFilterer {
 
     /**
      * connect class establishes a connection to the database. Used by all methods that request a query from the
-     * database.
+     * database.queryLength = 1;
      *
      * @return Connection
      */
@@ -104,8 +95,10 @@ public class DataFilterer {
         try {
             while (rs.next()) {
                 routes.add(new Route(rs.getInt("tripduration"), rs.getString("start_time"),
-                        rs.getString("end_time"), rs.getString("start_date"),
-                        rs.getString("end_date"), rs.getDouble("start_latitude"),
+                        rs.getString("end_time"), rs.getInt("start_day"),
+                        rs.getInt("start_month"), rs.getInt("start_year"),
+                        rs.getInt("end_day"), rs.getInt("end_month"),
+                        rs.getInt("end_year"), rs.getDouble("start_latitude"),
                         rs.getDouble("start_longitude"),
                         rs.getDouble("end_latitude"),
                         rs.getDouble("end_longitude"), rs.getInt("start_station_id"),
@@ -159,9 +152,22 @@ public class DataFilterer {
     }
 
 
+    private int[] convertDates(String dateLower, String dateUpper) {
+        int dateInts[] = new int[6];
+        dateInts[0] = Integer.parseInt(dateLower.substring(0, 2));
+        dateInts[1] = Integer.parseInt(dateUpper.substring(0, 2));
+        dateInts[2] = Integer.parseInt(dateLower.substring(3, 5));
+        dateInts[3] = Integer.parseInt(dateUpper.substring(3, 5));
+        dateInts[4] = Integer.parseInt(dateLower.substring(6));
+        dateInts[5] = Integer.parseInt(dateUpper.substring(6));
+        return dateInts;
+    }
+
+
     /**
      * generateQueryString takes all the possible filter requirement values and appends the necessary strings onto the
-     * end of the database query statement. A value of -1 (int) or null (string) means the data is not to be filtered
+     * end of the database query statement. A value of -1 (int) or null (string) means the
+            filterVariableStrings.add(dateUpper); data is not to be filtered
      * by this field.String expression = value_text(0);
                         String value = value_text(1);
                         if (value == null)
@@ -173,21 +179,25 @@ public class DataFilterer {
      * @param gender gender of type int. A value of -1 means not to filter by gender, 1 means filter by males and 2
      *               means filter by females.String expression = value_text(0);
                         String value = value_text(1);
+            filterVariableStrings.add(dateUpper);
                         if (value == null)
                             value = "";
 
                         Pattern pattern=Pattern.compile(expression);
                         result(pattern.matcher(value).find() ? 1 : 0);
      * @param dateLower dateLower is of type String. It is the lower limit that a route was started on, specified by
-     *                  the user.
+     *                  the user.queryCommand = addAndToStmt(queryCommand, queryLength);
+            queryCommand = queryCommand + dateYearCommand;
+            filterVariableStrings.add(dateUpper);
      * @param dateUpper dateUpper is of type String. It is the upper limit that a route was started on, specified by
      *                  the user.
-     * @param ageLower ageLower is of type int. It is the lower age limit of the person that completed a route, that the
+     * @param ageLower ageLower
+            filterVariableStrings.add(dateUpper);is of type int. It is the lower age limit of the person that completed a route, that the
      *                 user wants to filter by.
      * @param ageUpper ageUpper is of type int. It is the upper age limit of the person that completed a route, that the
      *                 user wants to filter by.
      * @param timeLower timeLower is of type String. It is the lower time limit of starting a route the user wants to
-     *                  filter by.
+     *                  filter by.planRoute
      * @param timeUpper timeUpper is of type String. It is the upper time limit of starting a route the user wants to
      *                  filter by.
      * @param durationLower durationLower is of type int. It is the lower duration of a route that the user wants to
@@ -223,18 +233,29 @@ public class DataFilterer {
             queryLength = 1;
         }
         if (dateLower != null && dateUpper != null) {
+            int dates[] = convertDates(dateLower, dateUpper);
             queryCommand = addAndToStmt(queryCommand, queryLength);
-            queryCommand = queryCommand + dateCommand;
+            queryCommand = queryCommand + dateDayCommand;
+            queryLength = 1;
+            queryCommand = addAndToStmt(queryCommand, queryLength);
+            queryCommand = queryCommand + dateMonthCommand;
+            queryCommand = addAndToStmt(queryCommand, queryLength);
+            queryCommand = queryCommand + dateYearCommand;
+            int datesLength = dates.length;
+            for (int i = 0; i < datesLength; i++) {
+                filterVariables.add(dates[i]);
+            }
             queryLength = 1;
         }
         if (timeLower != null && timeUpper != null) {
             queryCommand = addAndToStmt(queryCommand, queryLength);
             queryCommand = queryCommand + timeCommand;
+            filterVariableStrings.add(timeLower);
+            filterVariableStrings.add(timeUpper);
         }
         queryCommand = queryCommand + commandEnd;
         return queryCommand;
     }
-
 
     /**
      * setQueryParameters takes a PreparedStatement as a parameter and uses the values in an class variable ArrayList,
@@ -246,8 +267,14 @@ public class DataFilterer {
      */
     private PreparedStatement setQueryParameters(PreparedStatement pstmt) {
         try {
-            for (int i = 0; i < filterVariables.size(); i++) {
+            int i;
+            for (i = 0; i < filterVariables.size(); i++) {
                 pstmt.setInt(i + 1, filterVariables.get(i));
+            }
+
+            for (int j = 0; j < filterVariableStrings.size(); j++) {
+                pstmt.setString(i + 1, filterVariableStrings.get(j));
+                i++;
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -288,7 +315,7 @@ public class DataFilterer {
                 durationLower, durationUpper);
         try(Connection conn = this.connect()) {
 
-            Function.create(conn, "REGEXP", new RegExpFunction());
+            //Function.create(conn, "REGEXP", new RegExpFunction());
 
             PreparedStatement pstmt;
             pstmt = conn.prepareStatement(queryString);
