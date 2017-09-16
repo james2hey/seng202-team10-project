@@ -171,6 +171,73 @@ public class DataFiltererTest {
         }
     }
 
+
+    @Test
+    public void filterByDate() throws Exception {
+//        ArrayList<Integer> bikeID = new ArrayList<>();
+//        bikeID.add(15721);
+        routes = dataFilterer.filter(-1, "00/00/0000", "01/01/2016", -1, -1, null, null, -1, -1);
+        int size = routes.size();
+        System.out.println(size);
+        assertTrue(1 == 1);
+    }
+
+
+    @Test
+    public void filterByTime000000_000100() throws Exception {
+        ArrayList<Integer> bikeID = new ArrayList<>();
+        bikeID.add(22285);
+        bikeID.add(17827);
+        bikeID.add(21997);
+        routes = dataFilterer.filter(-1, null, null, -1, -1, "00:00:00", "00:01:00", -1, -1);
+        int size = routes.size();
+        for (int i = 0; i < size; i++) {
+            assertTrue(bikeID.get(i) == routes.get(i).getBikeID());
+        }
+    }
+
+
+    @Test
+    public void filterByTime001130_001200() throws Exception {
+        ArrayList<Integer> bikeID = new ArrayList<>();
+        bikeID.add(21624);
+        routes = dataFilterer.filter(-1, null, null, -1, -1, "00:11:30", "00:12:00", -1, -1);
+        int size = routes.size();
+        for (int i = 0; i < size; i++) {
+            assertTrue(bikeID.get(i) == routes.get(i).getBikeID());
+        }
+    }
+
+
+    @Test
+    public void filterByTime000000_000000() throws Exception {
+        ArrayList<Integer> bikeID = new ArrayList<>();
+        bikeID.add(21624);
+        routes = dataFilterer.filter(-1, null, null, -1, -1, "00:00:00", "00:00:00", -1, -1);
+        int size = routes.size();
+        for (int i = 0; i < size; i++) {
+            assertTrue(bikeID.get(i) == routes.get(i).getBikeID());
+        }
+    }
+
+
+    @Test
+    public void filterByTime001500_245959() throws Exception {
+        ArrayList<Integer> bikeID = new ArrayList<>();
+        bikeID.add(22478);
+        bikeID.add(15713);
+        bikeID.add(20945);
+        bikeID.add(19039);
+        bikeID.add(20258);
+        bikeID.add(23386);
+        bikeID.add(15861);
+        routes = dataFilterer.filter(-1, null, null, -1, -1, "00:15:00", "24:59:59", -1, -1);
+        int size = routes.size();
+        for (int i = 0; i < size; i++) {
+            assertTrue(bikeID.get(i) == routes.get(i).getBikeID());
+        }
+    }
+
 //    @Test
 //    public void filterByGender() throws Exception {
 //        DatabaseManager.connect();

@@ -41,11 +41,15 @@ public class CSV_Importer {
                     String[] date_end = date_time_start[0].split("/");
 
                     int birth_year = -1;
-                    if (! "".equals(record[13])) {
+                    if (!"".equals(record[13])) {
                         birth_year = Integer.parseInt(record[13]);
                     }
                     int gender = Integer.parseInt(record[14]);
+                    System.out.println("2");
                     DatabaseManager.addTrip(duration, Integer.parseInt(date_start[2]), Integer.parseInt(date_start[0]), Integer.parseInt(date_start[1]), date_time_start[1], Integer.parseInt(date_end[2]), Integer.parseInt(date_end[0]), Integer.parseInt(date_end[1]), date_time_end[1], record[3], record[4], start_lat, start_lon, record[7], record[8], end_lat, end_lon, record[11], record[12], birth_year, gender);
+                } else if (type == 4) {
+                    String name = record[0];
+                    DatabaseManager.addUser(name);
                 }
             }
         } catch (IOException e) {
