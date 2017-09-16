@@ -3,7 +3,6 @@ package dataManipulation;
 import java.sql.*;
 import java.util.ArrayList;
 import java.time.Year;
-import java.util.regex.Pattern;
 import org.sqlite.Function;
 ////////////////////////////////
 
@@ -16,6 +15,8 @@ import dataAnalysis.Route;
  */
 public class DataFilterer {
 
+
+
     private String databaseCommand;
     private String genderCommand;
     private String ageCommand;
@@ -24,21 +25,9 @@ public class DataFilterer {
     private String durationCommand;
     private String andCommand;
     private String commandEnd;
+
     private ArrayList<Route> routes;
     private ArrayList<Integer> filterVariables;
-
-    Function REGEXP = new Function() {
-        @Override
-        protected void xFunc() throws SQLException {
-            String expression = value_text(0);
-            String value = value_text(1);
-            if (value == null)
-                value = "";
-
-            Pattern pattern = Pattern.compile(expression);
-            result(pattern.matcher(value).find() ? 1 : 0);
-        }
-    };
 
 
     /**
@@ -173,10 +162,22 @@ public class DataFilterer {
     /**
      * generateQueryString takes all the possible filter requirement values and appends the necessary strings onto the
      * end of the database query statement. A value of -1 (int) or null (string) means the data is not to be filtered
-     * by this field.
+     * by this field.String expression = value_text(0);
+                        String value = value_text(1);
+                        if (value == null)
+                            value = "";
+
+                        Pattern pattern=Pattern.compile(expression);
+                        result(pattern.matcher(value).find() ? 1 : 0);
      *
      * @param gender gender of type int. A value of -1 means not to filter by gender, 1 means filter by males and 2
-     *               means filter by females.
+     *               means filter by females.String expression = value_text(0);
+                        String value = value_text(1);
+                        if (value == null)
+                            value = "";
+
+                        Pattern pattern=Pattern.compile(expression);
+                        result(pattern.matcher(value).find() ? 1 : 0);
      * @param dateLower dateLower is of type String. It is the lower limit that a route was started on, specified by
      *                  the user.
      * @param dateUpper dateUpper is of type String. It is the upper limit that a route was started on, specified by
@@ -287,10 +288,12 @@ public class DataFilterer {
                 durationLower, durationUpper);
         try(Connection conn = this.connect()) {
 
+            Function.create(conn, "REGEXP", new RegExpFunction());
+
             PreparedStatement pstmt;
             pstmt = conn.prepareStatement(queryString);
             setQueryParameters(pstmt);
-            Function.create(conn, "", REGEXP); //Needs to be fixed
+
             ResultSet rs = pstmt.executeQuery();
             generateRouteArray(rs);
 
