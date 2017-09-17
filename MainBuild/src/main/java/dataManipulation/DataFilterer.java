@@ -3,7 +3,6 @@ package dataManipulation;
 import java.sql.*;
 import java.util.ArrayList;
 import java.time.Year;
-import org.sqlite.Function;
 ////////////////////////////////
 
 import dataAnalysis.Route;
@@ -152,6 +151,18 @@ public class DataFilterer {
     }
 
 
+    /**
+     * convertDates takes an upper and lower bound of dates and splits them up into separate integers. The date format
+     * must be DD/MM/YYYY. These integers are added to a array, the order in the array is {DD,DD,MM,MM,YYYY,YYYY} with
+     * the lowerDate values first. This array is returned.
+     *
+     * Ex. date: 21/01/2016 will be split into the integers 21, 1 and 2016
+     *
+     *
+     * @param dateLower dateLower is of type String.
+     * @param dateUpper dateUpper is of type String.
+     * @return dateInts, of type int[]. This array holds all the integers from the lower and upper dates.
+     */
     private int[] convertDates(String dateLower, String dateUpper) {
         int dateInts[] = new int[6];
         dateInts[0] = Integer.parseInt(dateLower.substring(0, 2));
@@ -166,33 +177,16 @@ public class DataFilterer {
 
     /**
      * generateQueryString takes all the possible filter requirement values and appends the necessary strings onto the
-     * end of the database query statement. A value of -1 (int) or null (string) means the
-            filterVariableStrings.add(dateUpper); data is not to be filtered
-     * by this field.String expression = value_text(0);
-                        String value = value_text(1);
-                        if (value == null)
-                            value = "";
-
-                        Pattern pattern=Pattern.compile(expression);
-                        result(pattern.matcher(value).find() ? 1 : 0);
+     * end of the database query statement. A value of -1 (int) or null (string) means the parameter has not been set
+     * by the user, and this will not be used in the query.
      *
      * @param gender gender of type int. A value of -1 means not to filter by gender, 1 means filter by males and 2
-     *               means filter by females.String expression = value_text(0);
-                        String value = value_text(1);
-            filterVariableStrings.add(dateUpper);
-                        if (value == null)
-                            value = "";
-
-                        Pattern pattern=Pattern.compile(expression);
-                        result(pattern.matcher(value).find() ? 1 : 0);
+     *               means filter by females.
      * @param dateLower dateLower is of type String. It is the lower limit that a route was started on, specified by
-     *                  the user.queryCommand = addAndToStmt(queryCommand, queryLength);
-            queryCommand = queryCommand + dateYearCommand;
-            filterVariableStrings.add(dateUpper);
+     *                  the user.
      * @param dateUpper dateUpper is of type String. It is the upper limit that a route was started on, specified by
      *                  the user.
-     * @param ageLower ageLower
-            filterVariableStrings.add(dateUpper);is of type int. It is the lower age limit of the person that completed a route, that the
+     * @param ageLower ageLower is of type int. It is the lower age limit of the person that completed a route, that the
      *                 user wants to filter by.
      * @param ageUpper ageUpper is of type int. It is the upper age limit of the person that completed a route, that the
      *                 user wants to filter by.
@@ -314,8 +308,6 @@ public class DataFilterer {
         queryString = generateQueryString(gender, dateLower, dateUpper, ageLower, ageUpper, timeLower, timeUpper,
                 durationLower, durationUpper);
         try(Connection conn = this.connect()) {
-
-            //Function.create(conn, "REGEXP", new RegExpFunction());
 
             PreparedStatement pstmt;
             pstmt = conn.prepareStatement(queryString);
