@@ -55,7 +55,7 @@ public class Route {
         calculateDistance(startLocation, endLocation);
         updateAverageTime(stTime, spTime);
         startDate = getDateString(startDay, startMonth, startYear);
-        startDate = getDateString(stopDay, stopMonth, stopYear);
+        stopDate = getDateString(stopDay, stopMonth, stopYear);
     }
 
     //Getter for primary key info
@@ -77,6 +77,54 @@ public class Route {
     public void setName(String input) {name = input;}
 
     public int getTimesTaken() {return timesTaken;}
+
+    //More getters and setters.
+
+    public void setStartTime(String time) {startTime = time;}
+
+    public String getStopTime() {return stopTime;}
+
+    public void setStopTime(String time) {stopTime = time;}
+
+    public String getStartDate() {return startDate;}
+
+    public void setStartDate() {startDate = getDateString(startDay, startMonth, startYear);}
+
+    public String getStopDate() {return stopDate;}
+
+    public void setStopDate() {stopDate = getDateString(stopDay, stopMonth, stopYear);}
+
+    public int getStartDay() {return startDay;}
+
+    public void setStartDay(int day) {startDay = day;}
+
+    public int getStartMonth() {return startMonth;}
+
+    public void setStartMonth(int month) {startMonth = month;}
+
+    public int getStartYear() {return startYear;}
+
+    public void setStartYear(int year) {startYear = year;}
+
+    public int getStopDay() {return stopDay;}
+
+    public void setStopDay(int day) {stopDay = day;}
+
+    public int getStopMonth() {return stopMonth;}
+
+    public void setStopMonth(int month) {stopMonth = month;}
+
+    public int getStopYear() {return stopYear;}
+
+    public void setStopYear(int year) {stopYear = year;}
+
+    public Location getStartLocation() {return startLocation;}
+
+    public Location getEndLocation() {return endLocation;}
+
+    public Location getViaLocation() {return viaLocation;}
+
+    public double getAverageTime() {return averageTime;}
 
 
     /**
