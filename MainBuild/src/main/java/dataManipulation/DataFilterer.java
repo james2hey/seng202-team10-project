@@ -247,7 +247,9 @@ public class DataFilterer {
             filterVariableStrings.add(timeLower);
             filterVariableStrings.add(timeUpper);
         }
-        queryCommand = queryCommand + commandEnd;
+        if (queryLength > 0) {
+            queryCommand = queryCommand + commandEnd;
+        }
         return queryCommand;
     }
 
@@ -307,6 +309,10 @@ public class DataFilterer {
         String queryString;
         queryString = generateQueryString(gender, dateLower, dateUpper, ageLower, ageUpper, timeLower, timeUpper,
                 durationLower, durationUpper);
+        if (queryString == databaseCommand) {
+            clearRoutes();
+            return routes;
+        }
         try(Connection conn = this.connect()) {
 
             PreparedStatement pstmt;
