@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane alignment="CENTER" hgap="10.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="650.0" prefWidth="1100.0" vgap="10.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="main.Controller">
+<GridPane alignment="CENTER" hgap="10.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="650.0" prefWidth="1100.0" vgap="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.Controller">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -51,6 +51,11 @@
         </items>
       </ToolBar>
       <ComboBox prefWidth="150.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
+         <children>
+            <Button fx:id="goToMain" layoutX="43.0" layoutY="65.0" mnemonicParsing="false" onAction="#changeToHomeScene" text="Enter" />
+         </children>
+      </AnchorPane>
       <!--<AnchorPane prefHeight="96.0" prefWidth="149.0" GridPane.columnIndex="2" GridPane.rowIndex="1">-->
          <!--<children>-->
             <!--<Text fx:id="nameInUse" fill="RED" layoutX="1.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name already in use" textAlignment="CENTER" visible="false" wrappingWidth="148.0" />-->
