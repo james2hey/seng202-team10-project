@@ -44,5 +44,12 @@
             <Font name="System Bold" size="17.0" />
          </font>
       </Button>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
+         <children>
+            <Button fx:id="importRoute" layoutX="14.0" layoutY="27.0" mnemonicParsing="false" onAction="#chooseRoute" text="Routes" visible="false" />
+            <Button fx:id="importRetailer" layoutX="14.0" layoutY="71.0" mnemonicParsing="false" onAction="#chooseRetailer" text="Retailers" visible="false" />
+            <Button fx:id="importWifi" layoutX="14.0" layoutY="115.0" mnemonicParsing="false" onAction="#chooseWifi" text="Wifi Hotspots" visible="false" />
+         </children>
+      </AnchorPane>
    </children>
 </GridPane>
