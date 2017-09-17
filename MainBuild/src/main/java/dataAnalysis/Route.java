@@ -118,9 +118,9 @@ public class Route {
 
     public void setStopYear(int year) {stopYear = year;}
 
-    public Location getStartLocation() {return startLocation;}
+    public String getStartLocation() {return "test";}
 
-    public Location getEndLocation() {return endLocation;}
+    public String getEndLocation() {return "test";}
 
     public Location getViaLocation() {return viaLocation;}
 

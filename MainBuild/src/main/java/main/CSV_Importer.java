@@ -49,7 +49,7 @@ public class CSV_Importer {
                     DatabaseManager.addTrip(duration, Integer.parseInt(date_start[2]), Integer.parseInt(date_start[0]), Integer.parseInt(date_start[1]), date_time_start[1], Integer.parseInt(date_end[2]), Integer.parseInt(date_end[0]), Integer.parseInt(date_end[1]), date_time_end[1], record[3], record[4], start_lat, start_lon, record[7], record[8], end_lat, end_lon, record[11], record[12], birth_year, gender);
                 } else if (type == 4) {
                     String name = record[0];
-                    DatabaseManager.addUser(name);
+                    DatabaseUser.addUser(name);
                 }
             }
         } catch (IOException e) {
