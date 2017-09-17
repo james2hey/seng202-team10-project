@@ -9,7 +9,7 @@ package dataAnalysis;
 
 public class Route {
     private int duration, distance, startDay, startMonth, startYear, stopDay, stopMonth, stopYear, bikeid, timesTaken=1;
-    private String name, startTime, stopTime;
+    private String name, startTime, stopTime, startDate, stopDate;
     private Location startLocation, endLocation, viaLocation;
     private double averageTime;
 
@@ -48,12 +48,14 @@ public class Route {
         stopTime = spTime;
         stopDay = spDay;
         stopMonth = spMonth;
-        stopYear = stYear;
+        stopYear = spYear;
         bikeid = bId;
         startLocation = new StationLocation(stStationID, stStationLat, stStationLong);
         endLocation = new StationLocation(endStationID, endStationLat, endStationLong);
         calculateDistance(startLocation, endLocation);
         updateAverageTime(stTime, spTime);
+        startDate = getDateString(startDay, startMonth, startYear);
+        startDate = getDateString(stopDay, stopMonth, stopYear);
     }
 
     //Getter for primary key info
@@ -75,6 +77,22 @@ public class Route {
     public void setName(String input) {name = input;}
 
     public int getTimesTaken() {return timesTaken;}
+
+
+    /**
+     * getDateString takes the day, month and year and separate integers and returns a more recognisable date format as
+     * a string.
+     *
+     * @param day day is of type int. This is the day a route was started/finished on.
+     * @param month month is of type int. This is the month a route was started/finished on.
+     * @param year year is of type int. This is the year a route was started/finished on.
+     * @return dateString, of type String. This a recognisable date format as a string.
+     */
+    private String getDateString(int day, int month, int year) {
+        String dateString = day + "/" + month + "/" + year;
+        return dateString;
+    }
+
 
     /**
      * Calculates the distance between two locations based on the difference between
