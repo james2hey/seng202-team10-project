@@ -14,7 +14,6 @@ import com.lynden.gmapsfx.service.directions.*;
 import com.lynden.gmapsfx.service.geocoding.GeocoderStatus;
 import com.lynden.gmapsfx.service.geocoding.GeocodingResult;
 import com.lynden.gmapsfx.service.geocoding.GeocodingService;
-import com.sun.org.apache.xml.internal.security.Init;
 import dataAnalysis.Location;
 import dataAnalysis.Route;
 import javafx.beans.property.SimpleStringProperty;
