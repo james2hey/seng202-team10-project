@@ -95,7 +95,7 @@ public class viewDataControl implements Initializable {
     @FXML
     private TableColumn<Route, String> EndTime;
 
-    ObservableList<Route> routeList = FXCollections.observableArrayList();
+    private ObservableList<Route> routeList = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -156,7 +156,7 @@ public class viewDataControl implements Initializable {
         DataFilterer filterer = new DataFilterer();
         ArrayList<Route> routes = filterer.filter(gender, dateLower, dateUpper, ageLower, ageUpper,
                                                   timeLower, timeUpper, -1, -1);
-        routeList.removeAll(routes);
+        tableView.getItems().clear();
         routeList.addAll(routes);
     }
 
