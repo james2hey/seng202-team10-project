@@ -71,10 +71,6 @@ public class Controller {
         drawer.setSidePane(box);
     }
 
-    @FXML
-    void displayData(ActionEvent event) throws IOException {
-        System.out.println("Display Data button pressed.");
-    }
 
     public void login(ActionEvent actionEvent) {
         System.exit(0);

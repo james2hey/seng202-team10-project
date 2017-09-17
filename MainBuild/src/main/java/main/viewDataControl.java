@@ -1,7 +1,11 @@
 package main;
 
+import dataManipulation.DataFilterer;
+
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.JFXToggleButton;
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.MapComponentInitializedListener;
 import com.lynden.gmapsfx.javascript.object.*;
@@ -45,6 +49,30 @@ import java.util.ResourceBundle;
 public class viewDataControl implements Initializable {
 
     @FXML
+    private JFXToggleButton female;
+
+    @FXML
+    private JFXToggleButton male;
+
+    @FXML
+    private JFXTextField startAgeInput;
+
+    @FXML
+    private JFXTextField endAgeInput;
+
+    @FXML
+    private JFXTextField startTimeInput;
+
+    @FXML
+    private JFXTextField endTimeInput;
+
+    @FXML
+    private JFXTextField startDateInput;
+
+    @FXML
+    private JFXTextField endDateInput;
+
+    @FXML
     private JFXDrawer drawer;
 
     @FXML
@@ -65,17 +93,19 @@ public class viewDataControl implements Initializable {
     @FXML
     private TableColumn<Route, String> EndTime;
 
-    ObservableList<Route> rl = FXCollections.observableArrayList();
+    ObservableList<Route> routeList = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        StartLocation.setCellValueFactory(new PropertyValueFactory<Route, String>("A"));
-        EndLocation.setCellValueFactory(new PropertyValueFactory<Route, String>("B"));
-        Date.setCellValueFactory(new PropertyValueFactory<Route, String>("C"));
-        StartTime.setCellValueFactory(new PropertyValueFactory<Route, String>("D"));
-        EndTime.setCellValueFactory(new PropertyValueFactory<Route, String>("E"));
-        tableView.setItems(rl);
+        StartLocation.setCellValueFactory(new PropertyValueFactory<Route, String>("StartLocation"));
+        EndLocation.setCellValueFactory(new PropertyValueFactory<Route, String>("EndLocation"));
+        Date.setCellValueFactory(new PropertyValueFactory<Route, String>("StartDate"));
+        StartTime.setCellValueFactory(new PropertyValueFactory<Route, String>("StartTime"));
+        EndTime.setCellValueFactory(new PropertyValueFactory<Route, String>("StopTime"));
+        tableView.setItems(routeList);
+        tableView.getColumns().setAll(StartLocation, EndLocation, Date, StartTime, EndTime);
     }
+
     private List<Route> parseList() {
         List<Route> routes = new ArrayList<Route>();
         return routes;
@@ -102,6 +132,17 @@ public class viewDataControl implements Initializable {
     @FXML
     void displayData(ActionEvent event) throws IOException {
         System.out.println("Display Data button pressed.");
+        int ageLower = Integer.valueOf(startAgeInput.getText());
+        int ageUpper = Integer.valueOf(endAgeInput.getText());
+        String dateLower = startDateInput.getText();
+        String dateUpper = endDateInput.getText();
+        String timeLower = startTimeInput.getText();
+        String timeUpper = endTimeInput.getText();
+        DataFilterer filterer = new DataFilterer();
+        ArrayList<Route> routes = filterer.filter(-1, null, null, ageLower, ageUpper,
+                                                  timeLower, timeUpper, -1, -1);
+        routeList.removeAll(routes);
+        routeList.addAll(routes);
     }
 
     @FXML
