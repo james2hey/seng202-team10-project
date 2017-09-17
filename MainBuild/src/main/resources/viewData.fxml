@@ -55,18 +55,18 @@
       </Text>
        <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" style="-fx-background-color: grey;" GridPane.rowSpan="4" />
       <Button mnemonicParsing="false" onAction="#displayData" prefHeight="25.0" prefWidth="99.0" text="Display" GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.rowIndex="14" />
-      <JFXToggleButton prefHeight="58.0" prefWidth="167.0" selected="true" text="Female" toggleColor="#ff0404" GridPane.columnIndex="6" GridPane.rowIndex="3" />
-      <JFXToggleButton prefHeight="58.0" prefWidth="167.0" selected="true" text="Male" toggleColor="#ff0404" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+      <JFXToggleButton fx:id="female" prefHeight="58.0" prefWidth="167.0" text="Female" toggleColor="#ff0404" GridPane.columnIndex="6" GridPane.rowIndex="3" />
+      <JFXToggleButton fx:id="male" prefHeight="58.0" prefWidth="167.0" text="Male" toggleColor="#ff0404" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="3" />
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Start Age:" wrappingWidth="169.7294921875" GridPane.columnIndex="5" GridPane.rowIndex="5" />
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="End Age:" wrappingWidth="169.7294921875" GridPane.columnIndex="5" GridPane.rowIndex="6" />
-      <JFXTextField id="startAgeInput" prefHeight="23.0" prefWidth="147.0" GridPane.columnIndex="6" GridPane.rowIndex="5" />
-      <JFXTextField id="endAgeInput" prefHeight="23.0" prefWidth="147.0" GridPane.columnIndex="6" GridPane.rowIndex="6" />
+      <JFXTextField fx:id="startAgeInput" prefHeight="23.0" prefWidth="147.0" GridPane.columnIndex="6" GridPane.rowIndex="5" />
+      <JFXTextField fx:id="endAgeInput" prefHeight="23.0" prefWidth="147.0" GridPane.columnIndex="6" GridPane.rowIndex="6" />
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Start Time:" wrappingWidth="169.7294921875" GridPane.columnIndex="5" GridPane.rowIndex="8" />
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="End Time:" wrappingWidth="169.7294921875" GridPane.columnIndex="5" GridPane.rowIndex="9" />
-      <JFXTextField id="startTimeInput" prefHeight="23.0" prefWidth="147.0" GridPane.columnIndex="6" GridPane.rowIndex="8" />
-      <JFXTextField id="endTimeInput" prefHeight="23.0" prefWidth="147.0" GridPane.columnIndex="6" GridPane.rowIndex="9" />
-      <JFXTextField id="startDateInput" prefHeight="23.0" prefWidth="147.0" text="DD/MM/YYYY" GridPane.columnIndex="6" GridPane.rowIndex="11" />
-      <JFXTextField id="endDateInput" prefHeight="23.0" prefWidth="147.0" text="DD/MM/YYYY" GridPane.columnIndex="6" GridPane.rowIndex="12" />
+      <JFXTextField fx:id="startTimeInput" prefHeight="23.0" prefWidth="147.0" GridPane.columnIndex="6" GridPane.rowIndex="8" />
+      <JFXTextField fx:id="endTimeInput" prefHeight="23.0" prefWidth="147.0" GridPane.columnIndex="6" GridPane.rowIndex="9" />
+      <JFXTextField fx:id="startDateInput" prefHeight="23.0" prefWidth="147.0" text="DD/MM/YYYY" GridPane.columnIndex="6" GridPane.rowIndex="11" />
+      <JFXTextField fx:id="endDateInput" prefHeight="23.0" prefWidth="147.0" text="DD/MM/YYYY" GridPane.columnIndex="6" GridPane.rowIndex="12" />
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="End Date:" wrappingWidth="82.7294921875" GridPane.columnIndex="5" GridPane.rowIndex="12" />
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Start Date:" wrappingWidth="84.7294921875" GridPane.columnIndex="5" GridPane.rowIndex="11" />
       <TableView fx:id="tableView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="13">
