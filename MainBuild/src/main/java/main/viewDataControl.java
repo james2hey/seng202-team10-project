@@ -54,6 +54,9 @@ public class viewDataControl implements Initializable {
     private JFXToggleButton male;
 
     @FXML
+    private ToggleGroup genderToggleGroup;
+
+    @FXML
     private JFXTextField startAgeInput;
 
     @FXML
@@ -130,15 +133,28 @@ public class viewDataControl implements Initializable {
 
     @FXML
     void displayData(ActionEvent event) throws IOException {
-        System.out.println("Display Data button pressed.");
+        int gender;
+        if(genderToggleGroup.getSelectedToggle() == null) {
+            gender = -1;
+        } else {
+            gender = Integer.valueOf(genderToggleGroup.getSelectedToggle().getUserData().toString());
+        }
         int ageLower = Integer.valueOf(startAgeInput.getText());
         int ageUpper = Integer.valueOf(endAgeInput.getText());
         String dateLower = startDateInput.getText();
         String dateUpper = endDateInput.getText();
+        if ("DD/MM/YYYY".equals(dateLower) || "DD/MM/YYYY".equals(dateUpper)) {
+            dateLower = null;
+            dateUpper = null;
+        }
         String timeLower = startTimeInput.getText();
         String timeUpper = endTimeInput.getText();
+        if ("HH:MM:SS".equals(timeLower) || "HH:MM:SS".equals(timeUpper)) {
+            timeLower = null;
+            timeUpper = null;
+        }
         DataFilterer filterer = new DataFilterer();
-        ArrayList<Route> routes = filterer.filter(-1, null, null, ageLower, ageUpper,
+        ArrayList<Route> routes = filterer.filter(gender, dateLower, dateUpper, ageLower, ageUpper,
                                                   timeLower, timeUpper, -1, -1);
         routeList.removeAll(routes);
         routeList.addAll(routes);
