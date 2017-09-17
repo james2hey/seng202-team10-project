@@ -39,17 +39,18 @@
             <Font name="System Bold" size="26.0" />
          </font>
       </Button>
-      <SplitPane fx:id="startPanel" dividerPositions="0.5, 0.5, 0.5, 0.5" orientation="VERTICAL" prefHeight="178.0" prefWidth="191.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+      <SplitPane fx:id="startPanel" dividerPositions="0.5, 0.5, 0.5, 0.5, 0.5" orientation="VERTICAL" prefHeight="178.0" prefWidth="191.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <items>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Start Location" textAlignment="CENTER" wrappingWidth="186.7294921875">
                <font>
                   <Font size="15.0" />
                </font>
             </Text>
-            <JFXTextField promptText="Address" unFocusColor="#862828" />
-            <JFXTextField promptText="Longitude" unFocusColor="#862828" />
-            <JFXTextField promptText="Latitude" unFocusColor="#862828" />
-            <JFXTextField promptText="Start Time" />
+            <JFXTextField fx:id="rSAddress" promptText="Address" unFocusColor="#862828" />
+            <JFXTextField fx:id="rSLongitude" promptText="Longitude" unFocusColor="#862828" />
+            <JFXTextField fx:id="rSLatitude" promptText="Latitude" unFocusColor="#862828" />
+            <JFXTextField fx:id="rSTime" promptText="Start Time (hh:mm:ss)" />
+            <JFXTextField fx:id="rSDate" promptText="Start Date (dd/mm/yyyy)" />
          </items>
       </SplitPane>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
@@ -63,17 +64,18 @@
             </AnchorPane>
          </children>
       </AnchorPane>
-      <SplitPane fx:id="endPanel" dividerPositions="0.5, 0.5, 0.5, 0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
+      <SplitPane fx:id="endPanel" dividerPositions="0.5, 0.5, 0.5, 0.5, 0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
          <items>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="End Location" textAlignment="CENTER" wrappingWidth="197.7294921875">
                <font>
                   <Font size="15.0" />
                </font>
             </Text>
-            <JFXTextField promptText="Address" unFocusColor="#862828" />
-            <JFXTextField promptText="Longitude" unFocusColor="#862828" />
-            <JFXTextField promptText="Latitude" unFocusColor="#862828" />
-            <JFXTextField promptText="End Time" />
+            <JFXTextField fx:id="rELatitude" promptText="Address" unFocusColor="#862828" />
+            <JFXTextField fx:id="rELongitude" promptText="Longitude" unFocusColor="#862828" />
+            <JFXTextField fx:id="rELatitude" promptText="Latitude" unFocusColor="#862828" />
+            <JFXTextField fx:id="rETime" promptText="End Time (hh:mm:ss)" />
+            <JFXTextField fx:id="rEDate" promptText="End Date (dd/mm/yyyy)" />
          </items>
       </SplitPane>
       <SplitPane fx:id="wifiPanel" dividerPositions="0.5, 0.5, 0.5, 0.5, 0.5, 0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
@@ -106,5 +108,10 @@
             <JFXTextField promptText="Secondary Service" />
          </items>
       </SplitPane>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
+         <children>
+            <Button fx:id="addDataButton" layoutX="41.0" layoutY="129.0" mnemonicParsing="false" onAction="#singleCSVLine" prefHeight="25.0" prefWidth="134.0" text="Add to Database" />
+         </children>
+      </AnchorPane>
    </children>
 </GridPane>
