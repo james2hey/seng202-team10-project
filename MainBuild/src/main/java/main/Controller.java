@@ -2,6 +2,7 @@ package main;
 
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.MapComponentInitializedListener;
@@ -50,9 +51,42 @@ public class Controller {
             @FXML
     private SplitPane wifiPanel, retailerPanel, endPanel, startPanel;
 
-        
+
             @FXML //This importButton reveals other buttons
     private Button importButton, importRoute, importRetailer, importWifi;
+
+    @FXML
+    public TextField username;
+
+//    @FXML
+//    public Text nameInUse;
+
+    @FXML
+    public void createCyclist() {
+        //nameInUse.setVisible(false);
+        String name = username.getText();
+        boolean created = HandleUsers.createNewUser(name, true);
+//        if (created) {
+//            System.out.println("Creating cyclist for " + name);
+//            // Take user to main screen.
+//        } else {
+//            nameInUse.setVisible(true);
+//        }
+    }
+
+    @FXML
+    public void createAnalyst() {
+        //nameInUse.setVisible(false);
+        String name = username.getText();
+        HandleUsers.createNewUser(name,false);
+        boolean created = HandleUsers.createNewUser(name, false);
+//        if (created) {
+//            System.out.println("Creating analyst for " + name);
+//            // Take user to main screen.
+//        } else {
+//            nameInUse.setVisible(true);
+//        }
+    }
 
     @FXML
     void openDrawer() throws IOException {
