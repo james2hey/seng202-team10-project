@@ -2,6 +2,7 @@ package main;
 
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.controls.JFXToggleButton;
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.MapComponentInitializedListener;
 import com.lynden.gmapsfx.javascript.object.*;
@@ -43,30 +44,15 @@ public class Controller {
     @FXML
     private Button manualEntryButton;
 
-    @FXML
-    private Button routeButton;
+            @FXML
+    private Button routeButton, wifiButton, retailerButton;
 
             @FXML
-    private Button wifiButton;
+    private SplitPane wifiPanel, retailerPanel, endPanel, startPanel;
 
-            @FXML
-    private Button retailerButton;
-
-            @FXML
-    private SplitPane wifiPanel;
-
-            @FXML
-    private SplitPane retailerPanel;
-
-            @FXML
-    private SplitPane endPanel;
-
-            @FXML
-    private SplitPane startPanel;
-    //
         
-            @FXML //This button is used for file opening from addData page.
-    private Button importButton;
+            @FXML //This importButton reveals other buttons
+    private Button importButton, importRoute, importRetailer, importWifi;
 
     @FXML
     void openDrawer() throws IOException {
@@ -127,15 +113,15 @@ public class Controller {
         currentStage.setScene(viewDataScene);
     }
 
-    @FXML
-    //TODO: Implement this from add data.
-            void changeToManualEntryScene(ActionEvent event) throws IOException {
-                Parent manualEntryParent = FXMLLoader.load(getClass().getClassLoader().getResource("manualEntry.fxml"));
-                Scene planRouteScene = new Scene(manualEntryParent);
-                Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                currentStage.setScene(planRouteScene);
-            }
+            @FXML
+    void changeToManualEntryScene(ActionEvent event) throws IOException {
+        Parent manualEntryParent = FXMLLoader.load(getClass().getClassLoader().getResource("manualEntry.fxml"));
+        Scene manualEntryScene = new Scene(manualEntryParent);
+        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        currentStage.setScene(manualEntryScene);
+    }
 
+    //TODO: Link with Matt for singular entries. Also make them invisible to start without losing children.
             @FXML //Relates to the manual data page
     void routeEntry(ActionEvent event) throws IOException {
                 if(!startPanel.isVisible()) {
@@ -167,7 +153,7 @@ public class Controller {
                         retailerPanel.setVisible(false);
                     }
             }
-    @FXML //Relates to the manual data page
+            @FXML //Relates to the manual data page
     void retailerEntry(ActionEvent event) throws IOException {
                 if(startPanel.isVisible()) {
                         startPanel.setVisible(false);
@@ -183,13 +169,41 @@ public class Controller {
                     }
             }
 
-            @FXML // Relates to file import button on Add Data page
+
+
+    @FXML
     void chooseFile(ActionEvent event) throws IOException {
-                FileChooser fileChooser = new FileChooser();
-                FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV (*.csv)", "*.csv");
-                fileChooser.getExtensionFilters().add(extFilter);
-                File file = fileChooser.showOpenDialog(((Node) event.getSource()).getScene().getWindow());
-                System.out.println(file);
-            }
+        if(!importRoute.isVisible()){
+            importRoute.setVisible(true);
+            importRetailer.setVisible(true);
+            importWifi.setVisible(true);
+        }
+    }
+            @FXML // Import file -> only allows *.csv and prints location afterwards for now...
+    //TODO: Link with Matt to add to database.
+    void chooseRoute(ActionEvent event) throws IOException {
+        FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV (*.csv)", "*.csv");
+        fileChooser.getExtensionFilters().add(extFilter);
+        File file = fileChooser.showOpenDialog(((Node) event.getSource()).getScene().getWindow());
+        System.out.println(file);
+    }
+            @FXML //Specifies file types.
+    void chooseRetailer(ActionEvent event) throws IOException {
+        FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV (*.csv)", "*.csv");
+        fileChooser.getExtensionFilters().add(extFilter);
+        File file = fileChooser.showOpenDialog(((Node) event.getSource()).getScene().getWindow());
+        System.out.println(file);
+    }
+            @FXML
+    void chooseWifi(ActionEvent event) throws IOException {
+        FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV (*.csv)", "*.csv");
+        fileChooser.getExtensionFilters().add(extFilter);
+        File file = fileChooser.showOpenDialog(((Node) event.getSource()).getScene().getWindow());
+        System.out.println(file);
+    }
+
 
 }
