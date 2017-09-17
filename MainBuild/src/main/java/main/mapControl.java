@@ -2,6 +2,7 @@ package main;
 
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
+import com.lynden.gmapsfx.ClusteredGoogleMapView;
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.MapComponentInitializedListener;
 import com.lynden.gmapsfx.javascript.object.*;
@@ -46,20 +47,21 @@ public class mapControl implements Initializable, MapComponentInitializedListene
     protected TextField endAddressField;
 
     @FXML
-    protected GoogleMapView mapView;
+    protected ClusteredGoogleMapView mapView;
 
     protected DirectionsService directionsService;
     protected DirectionsPane directionsPane;
 
     private GeocodingService geocodingService;
 
-    private GoogleMap map;
+    private ClusteredGoogleMap map;
 
     private StringProperty startAddress = new SimpleStringProperty();
     private StringProperty endAddress = new SimpleStringProperty();
 
     @Override
     public void mapInitialized() {
+        System.out.println("Init");
         geocodingService = new GeocodingService();
         MapOptions mapOptions = new MapOptions();
 
@@ -76,11 +78,31 @@ public class mapControl implements Initializable, MapComponentInitializedListene
         map = mapView.createMap(mapOptions);
         directionsService = new DirectionsService();
         directionsPane = mapView.getDirec();
+
+
+        MarkerOptions m1o = new MarkerOptions();
+        LatLong m1l = new LatLong(-43.5305738, 172.601639);
+        m1o.position(m1l)
+                .title("My new Marker")
+                .visible(true);
+        Marker m1 = new Marker(m1o);
+
+        MarkerOptions m2o = new MarkerOptions();
+        LatLong m2l = new LatLong(-43.5355207, 172.5912535);
+        m2o.position(m2l)
+                .title("My new 2")
+                .visible(true);
+        Marker m2 = new Marker(m2o);
+
+        map.addClusterableMarker(m1);
+        map.addClusterableMarker(m2);
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        System.out.println("Init");
         mapView.addMapInializedListener(this);
+        System.out.println("Init2");
         startAddress.bindBidirectional(startAddressField.textProperty());
         endAddress.bindBidirectional(endAddressField.textProperty());
     }
