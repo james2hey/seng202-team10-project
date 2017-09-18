@@ -54,7 +54,7 @@ public class AddDataController extends Controller {
 
     @FXML
     void openDrawer() throws IOException {
-        VBox box = FXMLLoader.load(getClass().getClassLoader().getResource("SidePanel.fxml"));
+        VBox box = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/SidePanel.fxml"));
         drawer.setSidePane(box);
         if (drawer.isShown()) {
             drawer.close();

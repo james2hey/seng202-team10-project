@@ -12,9 +12,9 @@
 
 <GridPane alignment="center" hgap="10" prefHeight="650.0" prefWidth="1100.0" style="-fx-background-color: grey;" vgap="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIControllers.AddDataController">
    <columnConstraints>
-      <ColumnConstraints maxWidth="800.0" minWidth="10.0" prefWidth="250.0" />
+      <ColumnConstraints maxWidth="800.0" minWidth="10.0" prefWidth="207.0" />
       <ColumnConstraints maxWidth="800.0" minWidth="10.0" prefWidth="198.0" />
-      <ColumnConstraints maxWidth="991.0" minWidth="10.0" prefWidth="217.0" />
+      <ColumnConstraints maxWidth="991.0" minWidth="10.0" prefWidth="238.0" />
       <ColumnConstraints maxWidth="891.0" minWidth="114.0" prefWidth="207.0" />
       <ColumnConstraints maxWidth="891.0" minWidth="114.0" prefWidth="222.0" />
    </columnConstraints>
@@ -28,7 +28,6 @@
       <Pane prefHeight="500.0" prefWidth="800.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
       <Text fx:id="buttonPressedText" strokeType="OUTSIDE" strokeWidth="0.0" text="Button Pressed" textAlignment="CENTER" visible="false" wrappingWidth="269.6552734375" GridPane.columnIndex="2" GridPane.rowIndex="3" />
       <JFXHamburger fx:id="hamburger" onMouseClicked="#openDrawer" GridPane.columnIndex="4" />
-      <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" style="-fx-background-color: grey;" GridPane.rowSpan="4" />
       <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Data Adder" textAlignment="CENTER" wrappingWidth="671.193359375" GridPane.columnIndex="1" GridPane.columnSpan="2">
          <font>
             <Font size="60.0" />
@@ -51,5 +50,6 @@
             <Button fx:id="importWifi" layoutX="14.0" layoutY="115.0" mnemonicParsing="false" onAction="#chooseWifi" text="Wifi Hotspots" visible="false" />
          </children>
       </AnchorPane>
+      <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" prefHeight="650.0" prefWidth="186.0" style="-fx-background-color: grey;" GridPane.rowSpan="4" />
    </children>
 </GridPane>

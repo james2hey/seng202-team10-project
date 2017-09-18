@@ -22,7 +22,6 @@ public class HandleUsers {
     }
 
     public static void fillUserList() {
-
         try {
             ResultSet rs;
             rs = stmt.executeQuery("SELECT * FROM users");

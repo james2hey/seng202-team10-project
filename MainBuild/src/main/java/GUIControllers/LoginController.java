@@ -43,6 +43,7 @@ public class LoginController {
     public void createAnalyst() {
         nameInUse.setVisible(false);
         String name = username.getText();
+        System.out.println(name);
         HandleUsers.createNewUser(name,false);
         boolean created = HandleUsers.createNewUser(name, false);
         if (created) {
