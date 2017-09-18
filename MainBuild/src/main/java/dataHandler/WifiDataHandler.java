@@ -1,9 +1,6 @@
 package dataHandler;
 
 import com.opencsv.CSVReader;
-import com.sun.org.apache.xpath.internal.operations.Bool;
-import javafx.scene.layout.BorderPane;
-import main.AbstractDataHandler;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -58,12 +55,7 @@ public class WifiDataHandler {
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Incorrect string array size");
             return false;
-        } catch (Exception e) {
-            System.out.println("Unspecified error");
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
         }
-        return true;
     }
     
     public Boolean addSingleEntry(

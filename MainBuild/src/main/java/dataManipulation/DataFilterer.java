@@ -6,7 +6,8 @@ import java.time.Year;
 ////////////////////////////////
 
 import dataAnalysis.Route;
-
+import dataHandler.SQLiteDB;
+import main.Main;
 
 
 /**
@@ -31,11 +32,13 @@ public class DataFilterer {
     private ArrayList<Integer> filterVariables;
     private ArrayList<String> filterVariableStrings;
 
+    private SQLiteDB db;
+
 
     /**
      * Constructor for DataFilterer class.
      */
-    public DataFilterer() {
+    public DataFilterer(SQLiteDB db) {
         databaseCommand = "SELECT " +
                 "* " +
                 "FROM route_information WHERE ";
@@ -51,36 +54,14 @@ public class DataFilterer {
         routes = new ArrayList<>();
         filterVariables = new ArrayList<>();
         filterVariableStrings = new ArrayList<>();
+        this.db = db;
     }
-
 
     /**
      * clearRoutes clears the class variable ArrayList routes.
      */
     private void clearRoutes() {
         routes.clear();
-    }
-
-
-    /**
-     * connect class establishes a connection to the database. Used by all methods that request a query from the
-     * database.queryLength = 1;
-     *
-     * @return Connection
-     */
-    public static Connection connect() {
-
-        String home = System.getProperty("user.home");
-        java.nio.file.Path path = java.nio.file.Paths.get(home, "database.db");
-        String url = "jdbc:sqlite:" + path;
-
-        Connection conn = null;
-        try {
-            conn = DriverManager.getConnection(url);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return conn;
     }
 
     /**
@@ -313,10 +294,10 @@ public class DataFilterer {
             clearRoutes();
             return routes;
         }
-        try(Connection conn = this.connect()) {
+        try {
 
             PreparedStatement pstmt;
-            pstmt = conn.prepareStatement(queryString);
+            pstmt = db.getPreparedStatement(queryString);
             setQueryParameters(pstmt);
 
             ResultSet rs = pstmt.executeQuery();

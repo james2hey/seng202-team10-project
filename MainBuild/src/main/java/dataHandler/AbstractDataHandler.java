@@ -1,10 +1,14 @@
-//package main;
+//package dataHandler;
 //
 //import java.io.FileReader;
 //
 //import java.io.IOException;
+//import java.sql.PreparedStatement;
 //import java.util.Arrays;
 //import com.opencsv.CSVReader;
+//import dataHandler.SQLiteDB;
+//import main.DatabaseManager;
+//import main.DatabaseUser;
 //import org.apache.commons.lang3.ObjectUtils;
 //
 //
@@ -12,7 +16,24 @@
 // * Created by jes143 on 28/08/17.
 // * Currently this whole thing requires the default formatting of CSVs
 // */
-//public class CSV_Importer {
+//public class AbstractDataHandler {
+//
+//    protected SQLiteDB db;
+//    protected String[] fields;
+//    protected String primaryKey;
+//    protected String tableName;
+//    protected PreparedStatement addData;
+//    protected String addDataStatement;
+//
+//    /**
+//     * Initialiser for an AbstractDataHandler object that can process CSV files and add to the specified database.
+//     * @param db The database connection to add data to.
+//     */
+//    public AbstractDataHandler (SQLiteDB db) {
+//        System.out.println("here");
+//        this.db = db;
+//        System.out.println(tableName);
+//    }
 //
 //    public static void readcsv(String file, int type) {
 //        try {
@@ -56,4 +77,28 @@
 //            e.printStackTrace();
 //        }
 //    }
+//
+//    public void processCSV(String url) {
+//        try {
+//            System.out.println("CSV");
+//            db.setAutoCommit(false);
+//            System.out.println("CSV");
+//            CSVReader reader = new CSVReader(new FileReader(url), ',');
+//
+//            String[] record;
+//            reader.readNext(); // Skip first line as it's the desc
+//            while ((record = reader.readNext()) != null) {
+//                System.out.println(processLine(record));
+//            }
+//            db.setAutoCommit(true);
+//            db.commit();
+//        } catch (IOException e) {
+//            System.out.println("File not found");
+//        }
+//    }
+//
+//    private Boolean processLine(String[] record) {
+//        return false;
+//    };
+//
 //}

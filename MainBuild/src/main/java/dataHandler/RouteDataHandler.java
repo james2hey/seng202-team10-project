@@ -1,13 +1,11 @@
 package dataHandler;
 
 import com.opencsv.CSVReader;
-import main.AbstractDataHandler;
 
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Types;
 
 /**
  * Created by jes143 on 17/09/17.
@@ -98,11 +96,6 @@ public class RouteDataHandler {
                     record[8], end_lat, end_lon, record[11], record[12], birth_year, gender);
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Incorrect string array size");
-            return false;
-        } catch (Exception e) {
-            System.out.println("Unspecified error");
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
             return false;
         }
     }

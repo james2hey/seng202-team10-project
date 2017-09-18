@@ -1,12 +1,15 @@
 package main;
 
+import dataHandler.SQLiteDB;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.ComboBox;
 import GUIControllers.LoginController;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import static main.DatabaseManager.stmt;
 
 /**
  * Created by jto59 on 16/09/17.
@@ -18,11 +21,16 @@ public class HandleUsers {
     public static ArrayList<String> getUserList() {
         return userList;
     }
+    private static SQLiteDB db;
+
+    public static void init() {
+        db = Main.getDB();
+    }
 
     public static void fillUserList() {
         try {
             ResultSet rs;
-            rs = stmt.executeQuery("SELECT * FROM users");
+            rs = db.executeQuerySQL("SELECT * FROM users");
             while (rs.next()) {
                 userList.add(rs.getString("NAME"));
             }
@@ -58,7 +66,7 @@ public class HandleUsers {
         ResultSet rs;
         boolean created = false;
         try {
-            rs = stmt.executeQuery("SELECT * FROM users WHERE NAME = '" + username + "';");
+            rs = db.executeQuerySQL("SELECT * FROM users WHERE NAME = '" + username + "';");
             String s = rs.getString("NAME");
             //System.out.println("Name already in use, pick another.");
             // Prompt for new name.
@@ -68,7 +76,6 @@ public class HandleUsers {
             User user = createInstance(username, isCyclist);
             String name = user.getName();
             DatabaseUser.addUser(name);
-            DatabaseManager.commit();
             userList.add(name);
             created = true;
             System.out.println("Created");

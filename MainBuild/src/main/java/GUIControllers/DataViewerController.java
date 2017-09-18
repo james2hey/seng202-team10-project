@@ -13,6 +13,8 @@ package GUIControllers;
     import javafx.scene.control.cell.PropertyValueFactory;
     import javafx.scene.layout.VBox;
     import javafx.fxml.FXMLLoader;
+    import main.Main;
+
     import java.io.IOException;
     import java.net.URL;
     import java.util.ArrayList;
@@ -79,10 +81,6 @@ public class DataViewerController extends Controller{
         tableView.getColumns().setAll(StartLocation, EndLocation, Date, StartTime, EndTime);
     }
 
-    private List<Route> parseList() {
-        List<Route> routes = new ArrayList<Route>();
-        return routes;
-    }
 
     @FXML
     void displayData(ActionEvent event) throws IOException {
@@ -106,7 +104,7 @@ public class DataViewerController extends Controller{
             timeLower = null;
             timeUpper = null;
         }
-        DataFilterer filterer = new DataFilterer();
+        DataFilterer filterer = new DataFilterer(Main.getDB());
         ArrayList<Route> routes = filterer.filter(gender, dateLower, dateUpper, ageLower, ageUpper,
                 timeLower, timeUpper, -1, -1);
         tableView.getItems().clear();
