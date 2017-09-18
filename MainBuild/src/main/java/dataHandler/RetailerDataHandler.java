@@ -47,8 +47,10 @@ public class RetailerDataHandler {
      */
     private Boolean processLine(String[] record) {
         try {
+            System.out.println(record[1]);
+            //double[] latlon = Geocoder.addressToLatLon(record[1] + ", " + record[3] + ", " + record[4] + ", " + record[5] + ", ");
+            double[] latlon = {0.1, 0.2};
 
-            double[] latlon = Geocoder.addressToLatLon(record[1] + ", " + record[3] + ", " + record[4] + ", " + record[5] + ", ");
             System.out.println(latlon[0]);
             System.out.println(latlon[1]);
 
@@ -57,12 +59,7 @@ public class RetailerDataHandler {
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Incorrect string array size");
             return false;
-        } catch (Exception e) {
-            System.out.println("Unspecified error");
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
         }
-        return true;
     }
 
     public Boolean addSingleEntry(

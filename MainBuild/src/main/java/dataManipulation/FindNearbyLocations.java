@@ -3,6 +3,8 @@ package dataManipulation;
 import dataAnalysis.Route;
 import dataAnalysis.WifiLocation;
 import dataAnalysis.RetailLocation;
+import dataHandler.SQLiteDB;
+import main.Main;
 
 import java.io.InputStream;
 import java.io.Reader;
@@ -13,13 +15,15 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.DoubleSummaryStatistics;
 
-import static dataManipulation.DataFilterer.connect;
 
 public class FindNearbyLocations {
     private static ArrayList<WifiLocation> nearbyWifi = new ArrayList<>();
     private static ArrayList<RetailLocation> nearbyRetail = new ArrayList<>();
+    private static SQLiteDB db;
 
-
+    public static void init(SQLiteDB database) {
+        db = database;
+    }
 
     private static void generateWifiArray(ResultSet rs) {
         clearWifiArray();
@@ -66,9 +70,8 @@ public class FindNearbyLocations {
         upperLong = routeUpperLong + 0.01;
         lowerLong = routeLowerLong - 0.01;
         try {
-            Connection conn = connect();
             String queryString = "SELECT * FROM wifi_location WHERE LAT BETWEEN ? AND ? AND LON BETWEEN ? AND ?;";
-            PreparedStatement pstmt = conn.prepareStatement(queryString);
+            PreparedStatement pstmt = db.getPreparedStatement(queryString);
             pstmt.setDouble(1, lowerLat);
             pstmt.setDouble(2, upperLat);
             pstmt.setDouble(3, lowerLong);

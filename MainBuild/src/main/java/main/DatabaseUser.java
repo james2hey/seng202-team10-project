@@ -1,5 +1,7 @@
 package main;
 
+import dataHandler.SQLiteDB;
+
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
@@ -8,14 +10,15 @@ import java.sql.SQLException;
  */
 public class DatabaseUser {
 
-    static String sql_users = "CREATE TABLE IF NOT EXISTS users(" +
-            "   NAME       VARCHAR(12)" +
-            "  ,PRIMARY KEY(NAME))";
+    static String tableName = "users";
+    static String[] fields = {"NAME VARCHAR(12)"};
+    static String primaryKey = "NAME";
 
 
-    static String addUserString = "insert into users values(?)";
+    static String addUserString = "insert or fail into users values(?)";
     static PreparedStatement addUser = null;
     static int user_count;
+    static SQLiteDB db;
 
     /**
      * Adds Name to the database.
@@ -23,25 +26,20 @@ public class DatabaseUser {
      */
     public static void addUser(String NAME) {
         try {
-            DatabaseManager.conn.setAutoCommit(false);
             addUser.setString(1, NAME);
             addUser.executeUpdate();
-            DatabaseManager.edits --;
-
-            if (DatabaseManager.edits == 0) {
-                DatabaseManager.conn.commit();
-            }
-            user_count += 1;
+            db.commit();
 
         } catch (SQLException e) {
-            try {
-                DatabaseManager.conn.rollback();
-                addUser = DatabaseManager.conn.prepareStatement(addUserString);
+                addUser = db.getPreparedStatement(addUserString);
                 System.out.println(e.getMessage());
-            } catch (SQLException e2) {
-                System.out.println(e2.getMessage());
-            }
         }
+    }
+
+    public static void init() {
+        db = Main.getDB();
+        db.addTable(tableName, fields, primaryKey);
+        addUser = db.getPreparedStatement(addUserString);
     }
 
 }

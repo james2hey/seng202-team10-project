@@ -3,8 +3,13 @@ package GUIControllers;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXTextField;
 
+import dataHandler.RetailerDataHandler;
+import dataHandler.RouteDataHandler;
+import dataHandler.SQLiteDB;
+import dataHandler.WifiDataHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -15,18 +20,19 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import main.CSV_Importer;
-import main.DatabaseManager;
+import main.Main;
 
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 
 /**
  * Created by bal65 on 16/09/17.
  */
-public class AddDataController extends Controller {
+public class AddDataController extends Controller implements Initializable {
 
     @FXML
     private Button manualEntryButton;
@@ -51,6 +57,10 @@ public class AddDataController extends Controller {
     private JFXDrawer drawer;
 
     private int singleLineType = 0;
+    private SQLiteDB db;
+    private RetailerDataHandler retailerDataHandler;
+    private WifiDataHandler wifiDataHandler;
+    private RouteDataHandler routeDataHandler;
 
     @FXML
     void openDrawer() throws IOException {
@@ -163,7 +173,7 @@ public class AddDataController extends Controller {
                 return;
             }
 
-            DatabaseManager.addTrip(0, dateInts[2], dateInts[1], dateInts[0], rSTime.getText(),
+            routeDataHandler.addSingleEntry(0, dateInts[2], dateInts[1], dateInts[0], rSTime.getText(),
                     dateInts[6], dateInts[5], dateInts[4], rETime.getText(), "1",
                     "Start", SLatitude, SLongitude, "2", "End", ELatitude, ELongitude,
                     "1", "User", 2017, 1);
@@ -192,7 +202,7 @@ public class AddDataController extends Controller {
         if(file == null) {
             return;
         }
-        CSV_Importer.readcsv(file.toString(), 3);
+        routeDataHandler.processCSV(file.toString());
     }
     @FXML //Specifies file types.
     void chooseRetailer(ActionEvent event) throws IOException {
@@ -204,7 +214,7 @@ public class AddDataController extends Controller {
         if(file == null) {
             return;
         }
-        CSV_Importer.readcsv(file.toString(), 1);
+        retailerDataHandler.processCSV(file.toString());
     }
     @FXML
     void chooseWifi(ActionEvent event) throws IOException {
@@ -216,7 +226,7 @@ public class AddDataController extends Controller {
         if(file == null) {
             return;
         }
-        CSV_Importer.readcsv(file.toString(), 2);
+        wifiDataHandler.processCSV(file.toString());
     }
     @FXML
     void changeToManualEntryScene(ActionEvent event) throws IOException {
@@ -226,4 +236,11 @@ public class AddDataController extends Controller {
         currentStage.setScene(manualEntryScene);
     }
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        db = Main.getDB();
+        retailerDataHandler = new RetailerDataHandler(db);
+        wifiDataHandler = new WifiDataHandler(db);
+        routeDataHandler = new RouteDataHandler(db);
+    }
 }
