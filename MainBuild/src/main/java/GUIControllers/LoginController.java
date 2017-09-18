@@ -36,7 +36,7 @@ public class LoginController {
     public static void main(String[] args) {
         existingUsers.getItems().addAll("1", "2", "3");
         existingUsers.setEditable(true);
-    }
+    }//a
 
 //    public static void fillComboBox(ArrayList<String> userList) {
 //
