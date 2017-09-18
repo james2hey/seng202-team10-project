@@ -1,8 +1,16 @@
 package GUIControllers;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import main.HandleUsers;
+
+import java.io.IOException;
 
 public class loginController {
 
@@ -34,5 +42,13 @@ public class loginController {
 //        } else {
 //            nameInUse.setVisible(true);
 //        }
+    }
+
+    @FXML
+    void changeToHomeScene(ActionEvent event) throws IOException {
+        Parent homeParent = FXMLLoader.load(getClass().getClassLoader().getResource("home.fxml"));
+        Scene homeScene = new Scene(homeParent);
+        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        currentStage.setScene(homeScene);
     }
 }
