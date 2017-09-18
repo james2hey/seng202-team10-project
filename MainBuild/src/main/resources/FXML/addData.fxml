@@ -21,8 +21,9 @@
    <rowConstraints>
       <RowConstraints maxHeight="251.0" minHeight="10.0" prefHeight="179.0" />
       <RowConstraints maxHeight="251.0" minHeight="10.0" prefHeight="179.0" />
-      <RowConstraints maxHeight="393.0" minHeight="6.0" prefHeight="192.0" />
-      <RowConstraints maxHeight="510.0" minHeight="64.0" prefHeight="175.0" />
+      <RowConstraints maxHeight="393.0" minHeight="6.0" prefHeight="144.0" />
+      <RowConstraints maxHeight="510.0" minHeight="42.0" prefHeight="96.0" />
+      <RowConstraints maxHeight="510.0" minHeight="7.0" prefHeight="32.0" />
    </rowConstraints>
    <children>
       <Pane prefHeight="500.0" prefWidth="800.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
@@ -51,5 +52,6 @@
          </children>
       </AnchorPane>
       <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" prefHeight="650.0" prefWidth="186.0" style="-fx-background-color: grey;" GridPane.rowSpan="4" />
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Username: " wrappingWidth="220.01025390625" GridPane.columnIndex="4" GridPane.rowIndex="4" />
    </children>
 </GridPane>

@@ -7,7 +7,11 @@ public class HomeController extends Controller{
 
     @FXML
     void login() {
-        System.exit(0);
+        boolean answer;
+        answer = makeConfirmationDialogueBox("Warning", "Are you sure you want to exit?");
+        if (answer) {
+            System.exit(0);
+        }
     }
 
 }

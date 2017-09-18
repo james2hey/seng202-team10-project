@@ -12,8 +12,8 @@
       <ColumnConstraints maxWidth="800.0" minWidth="10.0" prefWidth="226.0" />
       <ColumnConstraints maxWidth="991.0" minWidth="10.0" prefWidth="319.0" />
       <ColumnConstraints maxWidth="891.0" minWidth="0.0" prefWidth="72.0" />
-      <ColumnConstraints maxWidth="891.0" minWidth="84.0" prefWidth="86.0" />
-      <ColumnConstraints maxWidth="891.0" minWidth="48.0" prefWidth="129.0" />
+      <ColumnConstraints maxWidth="891.0" minWidth="84.0" prefWidth="95.0" />
+      <ColumnConstraints maxWidth="891.0" minWidth="48.0" prefWidth="120.0" />
       <ColumnConstraints maxWidth="891.0" minWidth="36.0" prefWidth="92.0" />
    </columnConstraints>
    <rowConstraints>
@@ -30,9 +30,9 @@
       <RowConstraints maxHeight="510.0" minHeight="0.0" prefHeight="22.0" />
       <RowConstraints maxHeight="510.0" minHeight="2.0" prefHeight="30.0" />
       <RowConstraints maxHeight="510.0" minHeight="10.0" prefHeight="28.0" />
-      <RowConstraints maxHeight="510.0" minHeight="0.0" prefHeight="14.0" />
-      <RowConstraints maxHeight="510.0" minHeight="10.0" prefHeight="39.0" />
-      <RowConstraints maxHeight="510.0" minHeight="28.0" prefHeight="42.0" />
+      <RowConstraints maxHeight="510.0" minHeight="0.0" prefHeight="6.0" />
+      <RowConstraints maxHeight="510.0" minHeight="10.0" prefHeight="50.0" />
+      <RowConstraints maxHeight="510.0" minHeight="10.0" prefHeight="17.0" />
       <RowConstraints />
    </rowConstraints>
    <children>
@@ -79,5 +79,6 @@
       </TableView>
       <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" style="-fx-background-color: grey;" GridPane.rowSpan="16" />
       <JFXHamburger fx:id="hamburger" onMouseClicked="#openDrawer" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Username: " wrappingWidth="222.01025390625" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="15" />
    </children>
 </GridPane>
