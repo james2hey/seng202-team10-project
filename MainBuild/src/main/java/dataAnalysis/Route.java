@@ -58,6 +58,17 @@ public class Route {
         stopDate = getDateString(stopDay, stopMonth, stopYear);
     }
 
+
+    public Route(int stStationID, double stStationLat, double stStationLong, int endStationID, double endStationLat,
+                 double endStationLong, String time, int stDay, int stMonth, int stYear) {
+        startLocation = new StationLocation(stStationID, stStationLat, stStationLong);
+        endLocation = new StationLocation(endStationID, endStationLat, endStationLong);
+        startTime = time;
+        startDay = stDay;
+        startMonth = stMonth;
+        startYear = stYear;
+    }
+
     //Getter for primary key info
 
     public int getBikeID() { return bikeid;}
@@ -118,9 +129,9 @@ public class Route {
 
     public void setStopYear(int year) {stopYear = year;}
 
-    public String getStartLocation() {return "test";}
+    public Location getStartLocation() {return startLocation;}
 
-    public String getEndLocation() {return "test";}
+    public Location getEndLocation() {return endLocation;}
 
     public Location getViaLocation() {return viaLocation;}
 

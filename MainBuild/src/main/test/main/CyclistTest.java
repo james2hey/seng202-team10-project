@@ -40,7 +40,7 @@ public class CyclistTest {
      * @return w
      */
     private WifiLocation createWifiLocation() {
-        WifiLocation w = new WifiLocation(0, 0, "Test", "Address", "0000");
+        WifiLocation w = new WifiLocation(0, 0, 0, "Test", "Address", "0000");
         return w;
     }
 
