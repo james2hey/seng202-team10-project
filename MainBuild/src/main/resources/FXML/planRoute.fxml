@@ -20,9 +20,10 @@
 
 <GridPane alignment="center" hgap="10" prefHeight="650.0" prefWidth="1100.0" style="-fx-background-color: grey;" vgap="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIControllers.PlanRouteController">
     <columnConstraints>
-        <ColumnConstraints maxWidth="800.0" minWidth="10.0" prefWidth="258.0" />
-        <ColumnConstraints maxWidth="800.0" minWidth="10.0" prefWidth="178.0" />
-        <ColumnConstraints maxWidth="991.0" minWidth="10.0" prefWidth="274.0" />
+      <ColumnConstraints maxWidth="800.0" minWidth="10.0" prefWidth="34.0" />
+        <ColumnConstraints maxWidth="800.0" minWidth="10.0" prefWidth="227.0" />
+        <ColumnConstraints maxWidth="800.0" minWidth="10.0" prefWidth="80.0" />
+        <ColumnConstraints maxWidth="991.0" minWidth="10.0" prefWidth="295.0" />
         <ColumnConstraints maxWidth="891.0" minWidth="114.0" prefWidth="222.0" />
         <ColumnConstraints maxWidth="891.0" minWidth="114.0" prefWidth="222.0" />
     </columnConstraints>
@@ -36,16 +37,16 @@
     </rowConstraints>
     <children>
         <ClusteredGoogleMapView fx:id="mapView" prefHeight="500.0" prefWidth="700.0" GridPane.columnSpan="2147483647" GridPane.rowSpan="2147483647" />
-        <Text fx:id="buttonPressedText" strokeType="OUTSIDE" strokeWidth="0.0" text="Button Pressed" textAlignment="CENTER" visible="false" wrappingWidth="269.6552734375" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-        <JFXHamburger fx:id="hamburger" onMouseClicked="#openDrawer" GridPane.columnIndex="4" />
-        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Route Planner" textAlignment="CENTER" wrappingWidth="670.7294921875" GridPane.columnIndex="1">
+        <Text fx:id="buttonPressedText" strokeType="OUTSIDE" strokeWidth="0.0" text="Button Pressed" textAlignment="CENTER" visible="false" wrappingWidth="269.6552734375" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+        <JFXHamburger fx:id="hamburger" onMouseClicked="#openDrawer" GridPane.columnIndex="5" />
+        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Route Planner" textAlignment="CENTER" wrappingWidth="670.7294921875" GridPane.columnIndex="2">
             <font>
                 <Font size="60.0" />
             </font>
         </Text>
 
-        <TextField fx:id="startAddressField" onAction="#addressTextFieldAction" promptText="Start Address" />
-      <TextField fx:id="endAddressField" onAction="#addressTextFieldAction" promptText="End Address" GridPane.rowIndex="1" />
+        <TextField fx:id="startAddressField" onAction="#addressTextFieldAction" promptText="Start Address" GridPane.columnIndex="1" />
+      <TextField fx:id="endAddressField" onAction="#addressTextFieldAction" promptText="End Address" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" GridPane.rowSpan="6" />
 
     </children>
