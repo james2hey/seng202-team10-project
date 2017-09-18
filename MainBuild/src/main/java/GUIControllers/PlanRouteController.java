@@ -11,6 +11,7 @@ import com.lynden.gmapsfx.service.directions.*;
 import com.lynden.gmapsfx.service.geocoding.GeocoderStatus;
 import com.lynden.gmapsfx.service.geocoding.GeocodingResult;
 import com.lynden.gmapsfx.service.geocoding.GeocodingService;
+import dataHandler.SQLiteDB;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
@@ -26,10 +27,13 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
+import main.Main;
 
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 
@@ -54,6 +58,8 @@ public class PlanRouteController extends Controller implements Initializable, Ma
 
     private StringProperty startAddress = new SimpleStringProperty();
     private StringProperty endAddress = new SimpleStringProperty();
+
+    private SQLiteDB db;
 
     @Override
     public void mapInitialized() {
@@ -89,6 +95,22 @@ public class PlanRouteController extends Controller implements Initializable, Ma
                 .title("My new 2")
                 .visible(true);
         Marker m2 = new Marker(m2o);
+
+//        db = Main.getDB();
+//        try {
+//            ResultSet rs = db.executeQuerySQL("SELECT * FROM retailer");
+//
+//            while (rs.next()) {
+//                MarkerOptions markerOptions = new MarkerOptions();
+//                LatLong latLong = new LatLong(rs.getDouble("LAT"), rs.getDouble("LONG"));
+//                markerOptions.position(latLong).title(rs.getString("ADDRESS"));
+//                Marker marker = new Marker(markerOptions);
+//                map.addClusterableMarker(marker);
+//            }
+//        } catch (SQLException e) {
+//            System.out.println(e.getMessage());
+//        }
+
 
         map.addClusterableMarker(m1);
         map.addClusterableMarker(m2);

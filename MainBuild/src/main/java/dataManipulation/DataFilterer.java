@@ -68,7 +68,7 @@ public class DataFilterer {
      *
      * @return Connection
      */
-    private Connection connect() {
+    public static Connection connect() {
 
         String home = System.getProperty("user.home");
         java.nio.file.Path path = java.nio.file.Paths.get(home, "database.db");
@@ -309,7 +309,7 @@ public class DataFilterer {
         String queryString;
         queryString = generateQueryString(gender, dateLower, dateUpper, ageLower, ageUpper, timeLower, timeUpper,
                 durationLower, durationUpper);
-        if (queryString == databaseCommand) {
+        if (queryString.equals(databaseCommand)) {
             clearRoutes();
             return routes;
         }
