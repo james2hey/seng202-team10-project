@@ -1,6 +1,7 @@
 package GUIControllers;
 
 import com.jfoenix.controls.JFXDrawer;
+import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXTextField;
 
 import javafx.event.ActionEvent;
@@ -12,16 +13,21 @@ import javafx.scene.control.Button;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.VBox;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import main.CSV_Importer;
+import main.DatabaseManager;
 
 
 import java.io.File;
 import java.io.IOException;
 
 
-public class AddDataController extends Controller{
+/**
+ * Created by bal65 on 16/09/17.
+ */
+public class AddDataController extends Controller {
 
     @FXML
     private Button manualEntryButton;
@@ -37,11 +43,27 @@ public class AddDataController extends Controller{
     private Button importButton, importRoute, importRetailer, importWifi, addDataButton;
 
     @FXML
+    private Text inputError;
+
+    @FXML
     private JFXTextField rSAddress, rEAddress, rSLongitude, rELongitude, rSLatitude, rELatitude, rSTime, rETime, rSDate, rEDate;
 
+    @FXML
+    private JFXDrawer drawer;
 
     private int singleLineType = 0;
 
+    @FXML
+    void openDrawer() throws IOException {
+        VBox box = FXMLLoader.load(getClass().getClassLoader().getResource("SidePanel.fxml"));
+        drawer.setSidePane(box);
+        if (drawer.isShown()) {
+            drawer.close();
+        }
+        else {
+            drawer.open();
+        }
+    }
 
     //TODO: Link with Matt for singular entries. Also make them invisible to start without losing children.
     @FXML //Relates to the manual data page
@@ -97,6 +119,11 @@ public class AddDataController extends Controller{
     //Converts Dates to the right format for CSV insertion.
     private int[] convertDates(String dateLower, String dateUpper) {
         int dateInts[] = new int[6];
+        if(dateLower == null || dateUpper == null || dateLower.length() != 10 || dateUpper.length() != 10) {
+
+            System.out.print(dateLower);
+            return null;
+        }
         dateInts[0] = Integer.parseInt(dateLower.substring(0, 2));
         dateInts[1] = Integer.parseInt(dateLower.substring(3, 5));
         dateInts[2] = Integer.parseInt(dateLower.substring(6));
@@ -107,23 +134,42 @@ public class AddDataController extends Controller{
     }
 
 
-    @FXML //TODO: Trip duration to not be NULL
+    @FXML //TODO: Add more error types? idfk
     void singleCSVLine(ActionEvent event) throws IOException {
         if(singleLineType == 0) {
             System.out.print("We are here");
             return;
         }
 
-        /*if(singleLineType == 1){
-            int[] dateInts = convertDates(rSDate.getAccessibleText(), rEDate.getAccessibleText());
+        if(singleLineType == 1){
+            double SLatitude, SLongitude, ELatitude, ELongitude;
 
-            DatabaseManager.addTrip(0, dateInts[2], dateInts[1], dateInts[0], rSTime.getAccessibleText(),
-            dateInts[6], dateInts[5], dateInts[4], rETime.getAccessibleText(), "1",
-                    "Start", Double.parseDouble(rSLatitude.getAccessibleText()),
-                    Double.parseDouble(rSLongitude.getAccessibleText()), "2", "End",
-                    Double.parseDouble(rELatitude.getAccessibleText()), Double.parseDouble(rELongitude.getAccessibleText()),
+
+            int[] dateInts = convertDates(rSDate.getText(), rEDate.getText());
+            System.out.println(rSDate.getText() + "accessible date");
+            if(dateInts == null) {
+                System.out.print("here");
+                inputError.setVisible(true);
+                return;
+            }
+            try {
+                SLatitude = Double.parseDouble(rSLatitude.getText());
+                SLongitude = Double.parseDouble(rSLongitude.getText());
+                ELatitude = Double.parseDouble(rELatitude.getText());
+                ELongitude = Double.parseDouble(rELongitude.getText());
+
+
+            } catch(Error e) {
+                inputError.setVisible(true);
+                return;
+            }
+
+            DatabaseManager.addTrip(0, dateInts[2], dateInts[1], dateInts[0], rSTime.getText(),
+                    dateInts[6], dateInts[5], dateInts[4], rETime.getText(), "1",
+                    "Start", SLatitude, SLongitude, "2", "End", ELatitude, ELongitude,
                     "1", "User", 2017, 1);
-        }*/
+        }
+        inputError.setVisible(false);
     }
 
 
@@ -173,7 +219,6 @@ public class AddDataController extends Controller{
         }
         CSV_Importer.readcsv(file.toString(), 2);
     }
-
     @FXML
     void changeToManualEntryScene(ActionEvent event) throws IOException {
         Parent manualEntryParent = FXMLLoader.load(getClass().getClassLoader().getResource("manualEntry.fxml"));
