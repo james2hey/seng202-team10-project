@@ -1,7 +1,6 @@
 package GUIControllers;
 
 import com.jfoenix.controls.JFXDrawer;
-import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXTextField;
 
 import javafx.event.ActionEvent;
