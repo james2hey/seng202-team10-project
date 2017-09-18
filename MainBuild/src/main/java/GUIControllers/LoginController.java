@@ -6,7 +6,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import main.HandleUsers;
 
@@ -18,30 +20,38 @@ public class LoginController {
     public TextField username;
 
     @FXML
+    public Text nameInUse;
+
+    @FXML
+    public static ComboBox<String> existingUsers;
+
+    @FXML
     public void createCyclist() {
-        //nameInUse.setVisible(false);
+        nameInUse.setVisible(false);
         String name = username.getText();
         boolean created = HandleUsers.createNewUser(name, true);
-//        if (created) {
-//            System.out.println("Creating cyclist for " + name);
-//            // Take user to main screen.
-//        } else {
-//            nameInUse.setVisible(true);
-//        }
+        if (created) {
+            System.out.println("Creating cyclist for " + name);
+            // Take user to main screen.
+        } else {
+            nameInUse.setVisible(true);
+            username.setText("");
+        }
     }
 
     @FXML
     public void createAnalyst() {
-        //nameInUse.setVisible(false);
+        nameInUse.setVisible(false);
         String name = username.getText();
         HandleUsers.createNewUser(name,false);
         boolean created = HandleUsers.createNewUser(name, false);
-//        if (created) {
-//            System.out.println("Creating analyst for " + name);
-//            // Take user to main screen.
-//        } else {
-//            nameInUse.setVisible(true);
-//        }
+        if (created) {
+            System.out.println("Creating analyst for " + name);
+            // Take user to main screen.
+        } else {
+            nameInUse.setVisible(true);
+            username.setText("");
+        }
     }
 
     @FXML

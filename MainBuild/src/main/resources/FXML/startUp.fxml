@@ -50,16 +50,7 @@
             <Button mnemonicParsing="false" onAction="#createAnalyst" text="Analyst" />
         </items>
       </ToolBar>
-      <ComboBox prefWidth="150.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
-         <children>
-            <Button fx:id="goToMain" layoutX="43.0" layoutY="65.0" mnemonicParsing="false" onAction="#changeToHomeScene" text="Enter" />
-         </children>
-      </AnchorPane>
-      <!--<AnchorPane prefHeight="96.0" prefWidth="149.0" GridPane.columnIndex="2" GridPane.rowIndex="1">-->
-         <!--<children>-->
-            <!--<Text fx:id="nameInUse" fill="RED" layoutX="1.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name already in use" textAlignment="CENTER" visible="false" wrappingWidth="148.0" />-->
-         <!--</children>-->
-      <!--</AnchorPane>-->
+      <ComboBox fx:id="existingUsers" prefWidth="150.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+      <Text fx:id="nameInUse" fill="#e10011" strokeType="OUTSIDE" strokeWidth="0.0" text="Name already in use" textAlignment="CENTER" visible="false" wrappingWidth="148.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
    </children>
 </GridPane>
