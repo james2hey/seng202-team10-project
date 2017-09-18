@@ -1,8 +1,11 @@
 package GUIControllers;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -11,8 +14,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import main.HandleUsers;
+import main.Main;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class LoginController {
 
@@ -23,7 +28,33 @@ public class LoginController {
     public Text nameInUse;
 
     @FXML
-    public static ComboBox<String> existingUsers;
+    public static ComboBox<String> existingUsers = new ComboBox<>();
+
+    @FXML
+    public TextField existingUser;
+
+    public static void main(String[] args) {
+        existingUsers.getItems().addAll("1", "2", "3");
+        existingUsers.setEditable(true);
+    }
+
+    public static void fillComboBox(ArrayList<String> userList) {
+
+        existingUsers.getItems().addAll(
+                "FOUR",
+                "FIVE"
+        );
+//
+//        ObservableList<String> options = FXCollections.observableArrayList(
+//                "ONE",
+//                "TWO",
+//                "THREE"
+//        );
+//        System.out.println("Here");
+//
+//        existingUsers = new ComboBox(options);
+
+    }
 
     @FXML
     public void createCyclist() {
@@ -40,7 +71,7 @@ public class LoginController {
     }
 
     @FXML
-    public void createAnalyst() {
+    public void createAnalyst() throws IOException {
         nameInUse.setVisible(false);
         String name = username.getText();
         System.out.println(name);
@@ -48,7 +79,7 @@ public class LoginController {
         boolean created = HandleUsers.createNewUser(name, false);
         if (created) {
             System.out.println("Creating analyst for " + name);
-            // Take user to main screen.
+            //changeToHomeScene(event);
         } else {
             nameInUse.setVisible(true);
             username.setText("");
@@ -61,5 +92,8 @@ public class LoginController {
         Scene homeScene = new Scene(homeParent);
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.setScene(homeScene);
+
+        String name = existingUser.getText();
+        HandleUsers.logIn(name, true); // Currently only creating cyclists on sign in.
     }
 }

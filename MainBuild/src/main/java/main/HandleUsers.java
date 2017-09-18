@@ -1,8 +1,6 @@
 package main;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.control.ComboBox;
+import GUIControllers.LoginController;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -31,23 +29,10 @@ public class HandleUsers {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-//        for (int i = 0; i < userList.size(); i++) {
-//            Controller.existingUsers.getItems().add(userList.get(i));
-//        }
-        //existingUsers.setVisibleRowCount(userList.size());
-        //existingUsers.getItems().removeAll(existingUsers.getItems());
-//        ObservableList<String> options = FXCollections.observableArrayList(
-//                "ONE",
-//                "TWO",
-//                "THREE"
-//        );
-//
-//        existingUsers = new ComboBox(options);
-//        existingUsers.getItems().addAll(
-//                "FOUR",
-//                "FIVE"
-//        );
+        //LoginController.fillComboBox(userList);
+
     }
+
     /**
      * Logs into the user whose parameter is handed into the function.
      * @param username;
@@ -55,6 +40,7 @@ public class HandleUsers {
     public static void logIn(String username, boolean isCyclist) {
         //Also needs to get favourites list...
         User user = createInstance(username, true);
+        System.out.println("Logged into " + username + "'s account.");
     }
 
     /**

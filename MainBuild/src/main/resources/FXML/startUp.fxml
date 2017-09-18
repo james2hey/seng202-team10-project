@@ -50,7 +50,9 @@
             <Button mnemonicParsing="false" onAction="#createAnalyst" text="Analyst" />
         </items>
       </ToolBar>
-      <ComboBox fx:id="existingUsers" prefWidth="150.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+      <ComboBox fx:id="existingUsers" prefWidth="150.0" promptText="Select User" GridPane.columnIndex="4" GridPane.rowIndex="1" />
       <Text fx:id="nameInUse" fill="#e10011" strokeType="OUTSIDE" strokeWidth="0.0" text="Name already in use" textAlignment="CENTER" visible="false" wrappingWidth="148.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+      <TextField fx:id="existingUser" promptText="Type Name" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+      <Button fx:id="SignIn" mnemonicParsing="false" onAction="#changeToHomeScene" text="Sign in" GridPane.columnIndex="5" GridPane.rowIndex="2" />
    </children>
 </GridPane>
