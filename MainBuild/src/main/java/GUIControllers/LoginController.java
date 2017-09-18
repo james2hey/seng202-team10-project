@@ -46,7 +46,7 @@ public class LoginController {
 
     @FXML
     void changeToHomeScene(ActionEvent event) throws IOException {
-        Parent homeParent = FXMLLoader.load(getClass().getClassLoader().getResource("home.fxml"));
+        Parent homeParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/home.fxml"));
         Scene homeScene = new Scene(homeParent);
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.setScene(homeScene);

@@ -1,6 +1,5 @@
 package GUIControllers;
 
-
 import com.jfoenix.controls.JFXDrawer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -32,8 +31,10 @@ public abstract class Controller {
 
     @FXML
     void openDrawer() throws IOException {
-        VBox box = FXMLLoader.load(getClass().getClassLoader().getResource("SidePanel.fxml"));
+        VBox box = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/SidePanel.fxml"));
         drawer.setSidePane(box);
+        System.out.println("clicked");
+
         if (drawer.isShown()) {
             drawer.close();
         }
@@ -44,7 +45,7 @@ public abstract class Controller {
 
     @FXML
     void changeToPlanRouteScene(ActionEvent event) throws IOException {
-        Parent planRouteParent = FXMLLoader.load(getClass().getClassLoader().getResource("planRoute.fxml"));
+        Parent planRouteParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/planRoute.fxml"));
         Scene planRouteScene = new Scene(planRouteParent);
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.setScene(planRouteScene);
@@ -52,7 +53,7 @@ public abstract class Controller {
 
     @FXML
     void changeToHomeScene(ActionEvent event) throws IOException {
-        Parent homeParent = FXMLLoader.load(getClass().getClassLoader().getResource("home.fxml"));
+        Parent homeParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/home.fxml"));
         Scene homeScene = new Scene(homeParent);
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.setScene(homeScene);
@@ -61,7 +62,7 @@ public abstract class Controller {
 
     @FXML
     void changeToAddDataScene(ActionEvent event) throws IOException {
-        Parent addDataParent = FXMLLoader.load(getClass().getClassLoader().getResource("addData.fxml"));
+        Parent addDataParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/addData.fxml"));
         Scene addDataScene = new Scene(addDataParent);
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.setScene(addDataScene);
@@ -69,7 +70,7 @@ public abstract class Controller {
 
     @FXML
     void changeToViewDataScene(ActionEvent event) throws IOException {
-        Parent viewDataParent = FXMLLoader.load(getClass().getClassLoader().getResource("viewData.fxml"));
+        Parent viewDataParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/viewData.fxml"));
         Scene viewDataScene = new Scene(viewDataParent);
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.setScene(viewDataScene);

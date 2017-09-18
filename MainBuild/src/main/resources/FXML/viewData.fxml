@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.*?>
+
+<GridPane alignment="center" hgap="10" prefHeight="650.0" prefWidth="1100.0" style="-fx-background-color: grey;" vgap="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIControllers.DataViewerController">
+   <columnConstraints>
+      <ColumnConstraints maxWidth="800.0" minWidth="10.0" prefWidth="113.0" />
+      <ColumnConstraints maxWidth="800.0" minWidth="10.0" prefWidth="226.0" />
+      <ColumnConstraints maxWidth="991.0" minWidth="10.0" prefWidth="319.0" />
+      <ColumnConstraints maxWidth="891.0" minWidth="0.0" prefWidth="72.0" />
+      <ColumnConstraints maxWidth="891.0" minWidth="84.0" prefWidth="86.0" />
+      <ColumnConstraints maxWidth="891.0" minWidth="48.0" prefWidth="129.0" />
+      <ColumnConstraints maxWidth="891.0" minWidth="36.0" prefWidth="92.0" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints maxHeight="251.0" minHeight="10.0" prefHeight="16.0" />
+      <RowConstraints maxHeight="251.0" minHeight="10.0" prefHeight="114.0" />
+      <RowConstraints maxHeight="251.0" minHeight="10.0" prefHeight="88.0" />
+      <RowConstraints maxHeight="393.0" minHeight="4.0" prefHeight="28.0" />
+      <RowConstraints maxHeight="510.0" minHeight="0.0" prefHeight="20.0" />
+      <RowConstraints maxHeight="510.0" minHeight="1.0" prefHeight="27.0" />
+      <RowConstraints maxHeight="510.0" minHeight="1.0" prefHeight="27.0" />
+      <RowConstraints maxHeight="510.0" minHeight="0.0" prefHeight="16.0" />
+      <RowConstraints maxHeight="510.0" minHeight="0.0" prefHeight="28.0" />
+      <RowConstraints maxHeight="510.0" minHeight="0.0" prefHeight="28.0" />
+      <RowConstraints maxHeight="510.0" minHeight="0.0" prefHeight="22.0" />
+      <RowConstraints maxHeight="510.0" minHeight="2.0" prefHeight="30.0" />
+      <RowConstraints maxHeight="510.0" minHeight="10.0" prefHeight="28.0" />
+      <RowConstraints maxHeight="510.0" minHeight="0.0" prefHeight="14.0" />
+      <RowConstraints maxHeight="510.0" minHeight="10.0" prefHeight="39.0" />
+      <RowConstraints maxHeight="510.0" minHeight="28.0" prefHeight="42.0" />
+      <RowConstraints />
+   </rowConstraints>
+   <children>
+      <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Data Viewer" textAlignment="CENTER" wrappingWidth="902.193359375" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
+         <font>
+            <Font size="60.0" />
+         </font>
+      </Text>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="The data will eventually go here..." textAlignment="CENTER" wrappingWidth="540.92041015625" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+      <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Please Enter Search Parameters:" textAlignment="CENTER" wrappingWidth="335.7294921875" GridPane.columnIndex="3" GridPane.rowIndex="2">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Button mnemonicParsing="false" onAction="#displayData" prefHeight="25.0" prefWidth="99.0" text="Display" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="14" />
+      <!--<fx:define>-->
+         <!--&lt;!&ndash;<ToggleGroup fx:id="genderToggleGroup"/>&ndash;&gt;-->
+      <!--</fx:define>-->
+      <JFXToggleButton fx:id="female" prefHeight="58.0" prefWidth="167.0" text="Female" toggleColor="#ff0404" userData="2" GridPane.columnIndex="5" GridPane.rowIndex="3">
+         <toggleGroup>
+            <ToggleGroup fx:id="genderToggleGroup" />
+         </toggleGroup></JFXToggleButton>
+      <JFXToggleButton fx:id="male" prefHeight="58.0" prefWidth="167.0" text="Male" toggleColor="#ff0404" toggleGroup="$genderToggleGroup" userData="1" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Start Age:" wrappingWidth="169.7294921875" GridPane.columnIndex="4" GridPane.rowIndex="5" />
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="End Age:" wrappingWidth="169.7294921875" GridPane.columnIndex="4" GridPane.rowIndex="6" />
+      <JFXTextField fx:id="startAgeInput" prefHeight="23.0" prefWidth="147.0" text="-1" GridPane.columnIndex="5" GridPane.rowIndex="5" />
+      <JFXTextField fx:id="endAgeInput" prefHeight="23.0" prefWidth="147.0" text="-1" GridPane.columnIndex="5" GridPane.rowIndex="6" />
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Start Time:" wrappingWidth="169.7294921875" GridPane.columnIndex="4" GridPane.rowIndex="8" />
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="End Time:" wrappingWidth="169.7294921875" GridPane.columnIndex="4" GridPane.rowIndex="9" />
+      <JFXTextField fx:id="startTimeInput" prefHeight="23.0" prefWidth="147.0" text="HH:MM:SS" GridPane.columnIndex="5" GridPane.rowIndex="8" />
+      <JFXTextField fx:id="endTimeInput" prefHeight="23.0" prefWidth="147.0" text="HH:MM:SS" GridPane.columnIndex="5" GridPane.rowIndex="9" />
+      <JFXTextField fx:id="startDateInput" prefHeight="23.0" prefWidth="147.0" text="DD/MM/YYYY" GridPane.columnIndex="5" GridPane.rowIndex="11" />
+      <JFXTextField fx:id="endDateInput" prefHeight="23.0" prefWidth="147.0" text="DD/MM/YYYY" GridPane.columnIndex="5" GridPane.rowIndex="12" />
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="End Date:" wrappingWidth="82.7294921875" GridPane.columnIndex="4" GridPane.rowIndex="12" />
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Start Date:" wrappingWidth="84.7294921875" GridPane.columnIndex="4" GridPane.rowIndex="11" />
+      <TableView fx:id="tableView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="13">
+         <columns>
+            <TableColumn fx:id="StartLocation" prefWidth="123.99996948242188" text="Start Location" />
+            <TableColumn fx:id="EndLocation" prefWidth="132.0" text="End Location" />
+            <TableColumn fx:id="Date" prefWidth="93.0" text="Date" />
+            <TableColumn fx:id="StartTime" prefWidth="113.0" text="Start Time" />
+            <TableColumn fx:id="EndTime" prefWidth="92.0" text="End Time" />
+         </columns>
+      </TableView>
+      <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" style="-fx-background-color: grey;" GridPane.rowSpan="16" />
+      <JFXHamburger fx:id="hamburger" onMouseClicked="#openDrawer" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+   </children>
+</GridPane>
