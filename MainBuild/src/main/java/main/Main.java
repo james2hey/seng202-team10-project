@@ -16,7 +16,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/home.fxml"));
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/startUp.fxml"));
+
         primaryStage.setTitle("Cyclist Tracker");
         primaryStage.setScene(new Scene(root, 1100, 650));
         primaryStage.show();
@@ -86,17 +87,4 @@ public class Main extends Application {
     public static SQLiteDB getDB() {
         return db;
     }
-
-//
-//    public static void main(String[] args) {
-//        //launch(args);
-//        DatabaseManager.connect();
-//        DatabaseManager.countRows();   //function used to determine key for new records --MUST RUN ON START--
-//        initUser();
-//        //AbstractDataHandler.readcsv("/home/cosc/student/jes143/Downloads/Lower_Manhattan_Retailers.csv", 1);
-//        //AbstractDataHandler.readcsv("/home/cosc/student/jes143/Downloads/NYC_Free_Public_WiFi_03292017.csv", 2);
-//        //AbstractDataHandler.readcsv("/home/cosc/student/jes143/Downloads/201707-citibike-tripdata.csv", 3);
-//        DatabaseManager.commit();
-//        DatabaseManager.printTables();
-//    }
 }

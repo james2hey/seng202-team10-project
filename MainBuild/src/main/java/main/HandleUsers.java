@@ -68,10 +68,8 @@ public class HandleUsers {
         try {
             rs = db.executeQuerySQL("SELECT * FROM users WHERE NAME = '" + username + "';");
             String s = rs.getString("NAME");
-            //System.out.println("Name already in use, pick another.");
-            // Prompt for new name.
 
-        }catch (SQLException e) { //What if the result set is not closed?
+        } catch (SQLException e) { //What if the result set is not closed?
             e.getMessage();
             User user = createInstance(username, isCyclist);
             String name = user.getName();

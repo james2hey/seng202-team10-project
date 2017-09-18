@@ -38,12 +38,12 @@ public class LoginController {
         existingUsers.setEditable(true);
     }
 
-    public static void fillComboBox(ArrayList<String> userList) {
-
-        existingUsers.getItems().addAll(
-                "FOUR",
-                "FIVE"
-        );
+//    public static void fillComboBox(ArrayList<String> userList) {
+//
+//        existingUsers.getItems().addAll(
+//                "FOUR",
+//                "FIVE"
+//        );
 //
 //        ObservableList<String> options = FXCollections.observableArrayList(
 //                "ONE",
@@ -53,8 +53,8 @@ public class LoginController {
 //        System.out.println("Here");
 //
 //        existingUsers = new ComboBox(options);
-
-    }
+//
+//    }
 
     @FXML
     public void createCyclist() {

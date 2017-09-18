@@ -10,9 +10,6 @@ import java.sql.SQLException;
  */
 public class DatabaseUser {
 
-    static String sql_users = "CREATE TABLE IF NOT EXISTS users(" +
-            "   NAME       VARCHAR(12)" +
-            "  ,PRIMARY KEY(NAME))";
     static String tableName = "users";
     static String[] fields = {"NAME VARCHAR(12)"};
     static String primaryKey = "NAME";
