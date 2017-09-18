@@ -1,4 +1,4 @@
-package main;
+package GUIControllers;
 
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
@@ -32,13 +32,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-/**
- * Created by jes143 on 16/09/17.
- */
-public class mapControl implements Initializable, MapComponentInitializedListener, DirectionsServiceCallback {
 
-    @FXML
-    private JFXDrawer drawer;
+public class PlanRouteController extends Controller implements Initializable, MapComponentInitializedListener, DirectionsServiceCallback {
+
 
     @FXML
     protected TextField startAddressField;
@@ -115,26 +111,6 @@ public class mapControl implements Initializable, MapComponentInitializedListene
 
     @Override
     public void directionsReceived(DirectionsResult results, DirectionStatus status) {
-    }
-
-
-
-    @FXML
-    void openDrawer() throws IOException {
-        initializeSideDrawer();
-
-        if (drawer.isShown()) {
-            drawer.close();
-        }
-        else {
-            drawer.open();
-        }
-    }
-
-    //@Override
-    public void initializeSideDrawer() throws IOException {
-        VBox box = FXMLLoader.load(getClass().getClassLoader().getResource("SidePanel.fxml"));
-        drawer.setSidePane(box);
     }
 
 }

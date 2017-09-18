@@ -22,10 +22,7 @@ import java.io.File;
 import java.io.IOException;
 
 
-/**
- * Created by bal65 on 16/09/17.
- */
-public class addDataController {
+public class AddDataController extends Controller{
 
     @FXML
     private Button manualEntryButton;
@@ -43,22 +40,9 @@ public class addDataController {
     @FXML
     private JFXTextField rSAddress, rEAddress, rSLongitude, rELongitude, rSLatitude, rELatitude, rSTime, rETime, rSDate, rEDate;
 
-    @FXML
-    private JFXDrawer drawer;
 
     private int singleLineType = 0;
 
-    @FXML
-    void openDrawer() throws IOException {
-        VBox box = FXMLLoader.load(getClass().getClassLoader().getResource("SidePanel.fxml"));
-        drawer.setSidePane(box);
-        if (drawer.isShown()) {
-            drawer.close();
-        }
-        else {
-            drawer.open();
-        }
-    }
 
     //TODO: Link with Matt for singular entries. Also make them invisible to start without losing children.
     @FXML //Relates to the manual data page
@@ -199,11 +183,4 @@ public class addDataController {
         currentStage.setScene(manualEntryScene);
     }
 
-    @FXML
-    void changeToAddDataScene(ActionEvent event) throws IOException {
-        Parent addDataParent = FXMLLoader.load(getClass().getClassLoader().getResource("addData.fxml"));
-        Scene addDataScene = new Scene(addDataParent);
-        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        currentStage.setScene(addDataScene);
-    }
 }

@@ -19,10 +19,7 @@ package GUIControllers;
     import java.util.List;
     import java.util.ResourceBundle;
 
-public class dataViewerController {
-
-    @FXML
-    private JFXHamburger hamburger;
+public class DataViewerController extends Controller{
 
     @FXML
     private JFXToggleButton female;
@@ -52,9 +49,6 @@ public class dataViewerController {
     private JFXTextField endDateInput;
 
     @FXML
-    private JFXDrawer drawer;
-
-    @FXML
     private TableView<Route> tableView;
 
     @FXML
@@ -74,19 +68,6 @@ public class dataViewerController {
 
     private ObservableList<Route> routeList = FXCollections.observableArrayList();
 
-    @FXML
-    void openDrawer() throws IOException {
-
-        VBox box = FXMLLoader.load(getClass().getClassLoader().getResource("SidePanel.fxml"));
-        drawer.setSidePane(box);
-        if (drawer.isShown()) {
-            drawer.close();
-        }
-        else {
-            drawer.open();
-        }
-
-    }
 
     public void initialize(URL url, ResourceBundle rb) {
         StartLocation.setCellValueFactory(new PropertyValueFactory<Route, String>("StartLocation"));

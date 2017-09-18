@@ -12,7 +12,7 @@ import main.HandleUsers;
 
 import java.io.IOException;
 
-public class loginController {
+public class LoginController {
 
     @FXML
     public TextField username;

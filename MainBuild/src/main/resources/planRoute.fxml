@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Text?>
 
 <?import com.lynden.gmapsfx.ClusteredGoogleMapView?>
-<GridPane alignment="center" hgap="10" prefHeight="650.0" prefWidth="1100.0" style="-fx-background-color: grey;" vgap="10" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.mapControl">
+<GridPane alignment="center" hgap="10" prefHeight="650.0" prefWidth="1100.0" style="-fx-background-color: grey;" vgap="10" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIControllers.PlanRouteController">
     <columnConstraints>
         <ColumnConstraints maxWidth="800.0" minWidth="10.0" prefWidth="250.0" />
         <ColumnConstraints maxWidth="800.0" minWidth="10.0" prefWidth="250.0" />

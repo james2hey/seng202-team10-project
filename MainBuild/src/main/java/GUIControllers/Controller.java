@@ -1,5 +1,7 @@
 package GUIControllers;
 
+
+import com.jfoenix.controls.JFXDrawer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -7,11 +9,14 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class sidePanelController {
+public abstract class Controller {
+    @FXML
+    private JFXDrawer drawer;
 
     @FXML
     private Button addDataButton;
@@ -24,6 +29,18 @@ public class sidePanelController {
 
     @FXML
     private Button homeButton;
+
+    @FXML
+    void openDrawer() throws IOException {
+        VBox box = FXMLLoader.load(getClass().getClassLoader().getResource("SidePanel.fxml"));
+        drawer.setSidePane(box);
+        if (drawer.isShown()) {
+            drawer.close();
+        }
+        else {
+            drawer.open();
+        }
+    }
 
     @FXML
     void changeToPlanRouteScene(ActionEvent event) throws IOException {
@@ -57,5 +74,8 @@ public class sidePanelController {
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.setScene(viewDataScene);
     }
+
+
+
 
 }
