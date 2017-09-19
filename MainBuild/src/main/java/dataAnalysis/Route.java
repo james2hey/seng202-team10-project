@@ -8,8 +8,8 @@ package dataAnalysis;
 //to find out what this search criteria is and find a Trip.
 
 public class Route {
-    private int duration, distance, startDay, startMonth, startYear, stopDay, stopMonth, stopYear, bikeid, timesTaken=1;
-    private String name, startTime, stopTime, startDate, stopDate;
+    private int duration, distance, startDay, startMonth, startYear, stopDay, stopMonth, stopYear, timesTaken=1;
+    private String name, startTime, stopTime, startDate, stopDate, bikeid;
     private Location startLocation, endLocation, viaLocation;
     private double averageTime;
 
@@ -39,7 +39,7 @@ public class Route {
      */
     public Route(int tripDuration, String stTime, String spTime, int stDay, int stMonth, int stYear, int spDay,
                  int spMonth, int spYear, double stStationLat, double stStationLong, double endStationLat,
-                 double endStationLong, int stStationID, int endStationID, int bId) {
+                 double endStationLong, int stStationID, int endStationID, String bId) {
         duration = tripDuration;
         startTime = stTime;
         startDay = stDay;
@@ -71,7 +71,7 @@ public class Route {
 
     //Getter for primary key info
 
-    public int getBikeID() { return bikeid;}
+    public String getBikeID() { return bikeid;}
 
     public String getStartTime() { return startTime;}
 
