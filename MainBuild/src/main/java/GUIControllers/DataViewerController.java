@@ -70,20 +70,21 @@ public class DataViewerController extends Controller{
 
     private ObservableList<Route> routeList = FXCollections.observableArrayList();
 
-
-    public void initialize(URL url, ResourceBundle rb) {
+    @FXML
+    public void initialize() {
         StartLocation.setCellValueFactory(new PropertyValueFactory<Route, String>("StartLocation"));
         EndLocation.setCellValueFactory(new PropertyValueFactory<Route, String>("EndLocation"));
         Date.setCellValueFactory(new PropertyValueFactory<Route, String>("StartDate"));
         StartTime.setCellValueFactory(new PropertyValueFactory<Route, String>("StartTime"));
         EndTime.setCellValueFactory(new PropertyValueFactory<Route, String>("StopTime"));
-        tableView.setItems(routeList);
+        tableView.setItems(routeList);System.out.println("Got data");
         tableView.getColumns().setAll(StartLocation, EndLocation, Date, StartTime, EndTime);
     }
 
 
     @FXML
     void displayData(ActionEvent event) throws IOException {
+        System.out.println("Display button pressed");
         int gender;
         if(genderToggleGroup.getSelectedToggle() == null) {
             gender = -1;
@@ -107,6 +108,10 @@ public class DataViewerController extends Controller{
         DataFilterer filterer = new DataFilterer(Main.getDB());
         ArrayList<Route> routes = filterer.filter(gender, dateLower, dateUpper, ageLower, ageUpper,
                 timeLower, timeUpper, -1, -1);
+        System.out.println("Got data");
+        for (int i = 0; i < routes.size(); i++) {
+            System.out.println(routes.get(i).getBikeID());
+        }
         tableView.getItems().clear();
         routeList.addAll(routes);
     }

@@ -42,16 +42,16 @@ public class DataFiltererTest {
         dataFilterer = new DataFilterer(db);
 
 
-        WifiDataHandler wdh = new WifiDataHandler(db);
-        System.out.println(wdh);
-        wdh.processCSV(getClass().getClassLoader().getResource("CSV/NYC_Free_Public_WiFi_03292017-test.csv").getFile());
+//        WifiDataHandler wdh = new WifiDataHandler(db);
+//        System.out.println(wdh);
+//        wdh.processCSV(getClass().getClassLoader().getResource("CSV/NYC_Free_Public_WiFi_03292017-test.csv").getFile());
 
         RouteDataHandler rdh = new RouteDataHandler(db);
         rdh.processCSV(getClass().getClassLoader().getResource("CSV/201601-citibike-tripdata-test.csv").getFile());
 
-        RetailerDataHandler retailerDataHandler = new RetailerDataHandler(db);
-        System.out.println("Made");
-        retailerDataHandler.processCSV(getClass().getClassLoader().getResource("CSV/Lower_Manhattan_Retailers-test.csv").getFile());
+//        RetailerDataHandler retailerDataHandler = new RetailerDataHandler(db);
+//        System.out.println("Made");
+//        retailerDataHandler.processCSV(getClass().getClassLoader().getResource("CSV/Lower_Manhattan_Retailers-test.csv").getFile());
     }
 
     @After
@@ -76,7 +76,7 @@ public class DataFiltererTest {
         routes = dataFilterer.filter(2, null, null, -1, -1, null, null, -1, -1);
         int size = routes.size();
         for (int i = 0; i < size; i++){
-            assertTrue(bikeID.get(i) == routes.get(i).getBikeID());
+            assertTrue(bikeID.get(i).equals(routes.get(i).getBikeID()));
         }
     }
 
@@ -91,7 +91,7 @@ public class DataFiltererTest {
         routes = dataFilterer.filter(2, null, null, 30, 40, null, null, -1, -1);
         int size = routes.size();
         for (int i = 0; i < size; i++){
-            assertTrue(bikeID.get(i) == routes.get(i).getBikeID());
+            assertTrue(bikeID.get(i).equals(routes.get(i).getBikeID()));
         }
     }
 
@@ -105,7 +105,7 @@ public class DataFiltererTest {
         routes = dataFilterer.filter(2, null, null, 50, 100, null, null, -1, -1);
         int size = routes.size();
         for (int i = 0; i < size; i++){
-            assertTrue(bikeID.get(i) == routes.get(i).getBikeID());
+            assertTrue(bikeID.get(i).equals(routes.get(i).getBikeID()));
         }
     }
 
@@ -118,7 +118,7 @@ public class DataFiltererTest {
         routes = dataFilterer.filter(2, null, null, -1, -1, null, null, 1000, 2000);
         int size = routes.size();
         for (int i = 0; i < size; i++){
-            assertTrue(bikeID.get(i) == routes.get(i).getBikeID());
+            assertTrue(bikeID.get(i).equals(routes.get(i).getBikeID()));
         }
     }
 
@@ -129,7 +129,7 @@ public class DataFiltererTest {
         routes = dataFilterer.filter(2, null, null, -1, -1, null, null, 0, 400);
         int size = routes.size();
         for (int i = 0; i < size; i++){
-            assertTrue(bikeID.get(i) == routes.get(i).getBikeID());
+            assertTrue(bikeID.get(i).equals(routes.get(i).getBikeID()));
         }
     }
 
@@ -140,7 +140,7 @@ public class DataFiltererTest {
         routes = dataFilterer.filter(2, null, null, 30, 40, null, null, 1000, 2000);
         int size = routes.size();
         for (int i = 0; i < size; i++){
-            assertTrue(bikeID.get(i) == routes.get(i).getBikeID());
+            assertTrue(bikeID.get(i).equals(routes.get(i).getBikeID()));
         }
     }
 
@@ -159,7 +159,7 @@ public class DataFiltererTest {
         routes = dataFilterer.filter(0, null, null, -1, -1, null, null, -1, -1);
         int size = routes.size();
         for (int i = 0; i < size; i++){
-            assertTrue(bikeID.get(i) == routes.get(i).getBikeID());
+            assertTrue(bikeID.get(i).equals(routes.get(i).getBikeID()));
         }
     }
 
@@ -191,12 +191,12 @@ public class DataFiltererTest {
 
         routes = dataFilterer.filter(1, null, null, -1, -1, null, null, -1, -1);
         for (int i = 0; i < 10; i++){
-            assertTrue(bikeID.get(i) == routes.get(i).getBikeID());
+            assertTrue(bikeID.get(i).equals(routes.get(i).getBikeID()));
         }
         int size = routes.size();
         int j = 10;
         for (int i = size - 10; i < size; i++){
-            assertTrue(bikeID.get(j) == routes.get(i).getBikeID());
+            assertTrue(bikeID.get(j).equals(routes.get(i).getBikeID()));
             j++;
         }
     }
@@ -222,7 +222,7 @@ public class DataFiltererTest {
         routes = dataFilterer.filter(-1, null, null, -1, -1, "00:00:00", "00:01:00", -1, -1);
         int size = routes.size();
         for (int i = 0; i < size; i++) {
-            assertTrue(bikeID.get(i) == routes.get(i).getBikeID());
+            assertTrue(bikeID.get(i).equals(routes.get(i).getBikeID()));
         }
     }
 
@@ -234,7 +234,7 @@ public class DataFiltererTest {
         routes = dataFilterer.filter(-1, null, null, -1, -1, "00:11:30", "00:12:00", -1, -1);
         int size = routes.size();
         for (int i = 0; i < size; i++) {
-            assertTrue(bikeID.get(i) == routes.get(i).getBikeID());
+            assertTrue(bikeID.get(i).equals(routes.get(i).getBikeID()));
         }
     }
 
@@ -246,7 +246,7 @@ public class DataFiltererTest {
         routes = dataFilterer.filter(-1, null, null, -1, -1, "00:00:00", "00:00:00", -1, -1);
         int size = routes.size();
         for (int i = 0; i < size; i++) {
-            assertTrue(bikeID.get(i) == routes.get(i).getBikeID());
+            assertTrue(bikeID.get(i).equals(routes.get(i).getBikeID()));
         }
     }
 
@@ -264,54 +264,8 @@ public class DataFiltererTest {
         routes = dataFilterer.filter(-1, null, null, -1, -1, "00:15:00", "24:59:59", -1, -1);
         int size = routes.size();
         for (int i = 0; i < size; i++) {
-            assertTrue(bikeID.get(i) == routes.get(i).getBikeID());
+            assertTrue(bikeID.get(i).equals(routes.get(i).getBikeID()));
         }
     }
-
-//    @Test
-//    public void filterByGender() throws Exception {
-//        DatabaseManager.connect();
-//        DataFilterer dataFilterer = new DataFilterer();
-//        String gender = "M";
-//        ArrayList<Route> routes = dataFilterer.filterByGender(gender);
-//        System.out.println(routes.get(0).getDuration());
-//        assertTrue(1 == 1);
-//    }
-//
-//    @Test
-//    public void filterByDate() throws Exception {
-//        DataFilterer dataFilterer = new DataFilterer();
-//        Date upperLimit = new Date(2017, 5, 20);
-//        Date lowerLimit = new Date(2017, 5, 19);
-//        dataFilterer.filterByDate(upperLimit, lowerLimit);
-//        //assertTrue();
-//    }
-//
-//    @Test
-//    public void filterByAge() throws Exception {
-//        DataFilterer dataFilterer = new DataFilterer();
-//        int upperLimit = 65;
-//        int lowerLimit = 20;
-//        dataFilterer.filterByAge(upperLimit, lowerLimit);
-//        //assertTrue();
-//    }
-//
-//    @Test
-//    public void filterByTime() throws Exception {
-//        DataFilterer dataFilterer = new DataFilterer();
-//        Time upperLimit = new Time(11, 0, 0);
-//        Time lowerLimit = new Time(10,0,0);
-//        dataFilterer.filterByTime(upperLimit, lowerLimit);
-//        //assertTrue();
-//    }
-//
-//    @Test
-//    public void filterByDuration() throws Exception {
-//        DataFilterer dataFilterer = new DataFilterer();
-//        int upperDuration = 65;
-//        int lowerDuration = 20;
-//        dataFilterer.filterByDuration(upperDuration, lowerDuration);
-//        //assertTrue();
-//    }
 
 }
