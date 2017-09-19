@@ -17,6 +17,7 @@ import java.util.ArrayList;
  */
 public class HandleUsers {
     private static ArrayList<String> userList = new ArrayList<>();
+    public static String currentUser;
 
     public static ArrayList<String> getUserList() {
         return userList;
@@ -76,7 +77,7 @@ public class HandleUsers {
             DatabaseUser.addUser(name);
             userList.add(name);
             created = true;
-            System.out.println("Created");
+
         }
         return created;
     }

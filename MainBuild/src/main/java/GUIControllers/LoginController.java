@@ -33,45 +33,25 @@ public class LoginController {
     @FXML
     public TextField existingUser;
 
-    public static void main(String[] args) {
-        existingUsers.getItems().addAll("1", "2", "3");
-        existingUsers.setEditable(true);
-    }//a
-
-//    public static void fillComboBox(ArrayList<String> userList) {
-//
-//        existingUsers.getItems().addAll(
-//                "FOUR",
-//                "FIVE"
-//        );
-//
-//        ObservableList<String> options = FXCollections.observableArrayList(
-//                "ONE",
-//                "TWO",
-//                "THREE"
-//        );
-//        System.out.println("Here");
-//
-//        existingUsers = new ComboBox(options);
-//
-//    }
 
     @FXML
-    public void createCyclist() {
+    public void createCyclist(ActionEvent event) throws IOException {
         nameInUse.setVisible(false);
         String name = username.getText();
         boolean created = HandleUsers.createNewUser(name, true);
         if (created) {
             System.out.println("Creating cyclist for " + name);
-            // Take user to main screen.
+            HandleUsers.currentUser = name;
+            navigateHome(event);
         } else {
             nameInUse.setVisible(true);
             username.setText("");
         }
     }
 
+
     @FXML
-    public void createAnalyst() throws IOException {
+    public void createAnalyst(ActionEvent event) throws IOException {
         nameInUse.setVisible(false);
         String name = username.getText();
         System.out.println(name);
@@ -79,21 +59,35 @@ public class LoginController {
         boolean created = HandleUsers.createNewUser(name, false);
         if (created) {
             System.out.println("Creating analyst for " + name);
-            //changeToHomeScene(event);
+            HandleUsers.currentUser = name;
+            navigateHome(event);
         } else {
             nameInUse.setVisible(true);
             username.setText("");
         }
     }
 
+
     @FXML
     void changeToHomeScene(ActionEvent event) throws IOException {
+        navigateHome(event);
+        String name = existingUser.getText();
+        HandleUsers.logIn(name, true); // Currently only creating cyclists on sign in for now.
+        HandleUsers.currentUser = name;
+    }
+
+
+    /**
+     * Navigates the user to the home screen.
+     * @param event
+     * @throws IOException
+     */
+    public void navigateHome(ActionEvent event) throws IOException {
         Parent homeParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/home.fxml"));
         Scene homeScene = new Scene(homeParent);
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.setScene(homeScene);
-
-        String name = existingUser.getText();
-        HandleUsers.logIn(name, true); // Currently only creating cyclists on sign in.
     }
+
+
 }
