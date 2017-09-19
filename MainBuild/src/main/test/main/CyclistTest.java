@@ -22,7 +22,7 @@ public class CyclistTest {
      * @return s
      */
     private StationLocation createStationLocation() {
-        StationLocation s = new StationLocation(0, 0, 0);
+        StationLocation s = new StationLocation(0, 0, 0, null);
         return s;
     }
 
@@ -40,7 +40,9 @@ public class CyclistTest {
      * @return w
      */
     private WifiLocation createWifiLocation() {
-        WifiLocation w = new WifiLocation(0, 0, 0, "Test", "Address", "0000");
+        WifiLocation w = new WifiLocation(0, 0, 0, "Test", "Address",
+                "Free", "NYC", "VERY GOOD", "New York", "Manhatten",
+                7001);
         return w;
     }
 

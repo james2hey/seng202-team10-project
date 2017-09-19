@@ -39,7 +39,8 @@ public class Route {
      */
     public Route(int tripDuration, String stTime, String spTime, int stDay, int stMonth, int stYear, int spDay,
                  int spMonth, int spYear, double stStationLat, double stStationLong, double endStationLat,
-                 double endStationLong, int stStationID, int endStationID, String bId) {
+                 double endStationLong, int stStationID, int endStationID, String stStationAdr, String endStationAdr,
+                 String bId) {
         duration = tripDuration;
         startTime = stTime;
         startDay = stDay;
@@ -50,8 +51,8 @@ public class Route {
         stopMonth = spMonth;
         stopYear = spYear;
         bikeid = bId;
-        startLocation = new StationLocation(stStationID, stStationLat, stStationLong);
-        endLocation = new StationLocation(endStationID, endStationLat, endStationLong);
+        startLocation = new StationLocation(stStationID, stStationLat, stStationLong, stStationAdr);
+        endLocation = new StationLocation(endStationID, endStationLat, endStationLong, endStationAdr);
         calculateDistance(startLocation, endLocation);
         updateAverageTime(stTime, spTime);
         startDate = getDateString(startDay, startMonth, startYear);
@@ -60,9 +61,9 @@ public class Route {
 
 
     public Route(int stStationID, double stStationLat, double stStationLong, int endStationID, double endStationLat,
-                 double endStationLong, String time, int stDay, int stMonth, int stYear) {
-        startLocation = new StationLocation(stStationID, stStationLat, stStationLong);
-        endLocation = new StationLocation(endStationID, endStationLat, endStationLong);
+                 double endStationLong, String stStationAdr, String endStationAdr, String time, int stDay, int stMonth, int stYear) {
+        startLocation = new StationLocation(stStationID, stStationLat, stStationLong, stStationAdr);
+        endLocation = new StationLocation(endStationID, endStationLat, endStationLong, endStationAdr);
         startTime = time;
         startDay = stDay;
         startMonth = stMonth;

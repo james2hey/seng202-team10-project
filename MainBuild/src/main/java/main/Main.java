@@ -51,12 +51,12 @@ public class Main extends Application {
         System.out.println(wdh);
         wdh.processCSV(getClass().getClassLoader().getResource("CSV/NYC_Free_Public_WiFi_03292017-test.csv").getFile());
 
-        //RouteDataHandler rdh = new RouteDataHandler(db);
-        //rdh.processCSV(getClass().getClassLoader().getResource("CSV/201601-citibike-tripdata-test.csv").getFile());
+        RouteDataHandler rdh = new RouteDataHandler(db);
+        rdh.processCSV(getClass().getClassLoader().getResource("CSV/201601-citibike-tripdata-test.csv").getFile());
 
-//        RetailerDataHandler retailerDataHandler = new RetailerDataHandler(db);
-//        System.out.println("Made");
-//        retailerDataHandler.processCSV(getClass().getClassLoader().getResource("CSV/Lower_Manhattan_Retailers-test.csv").getFile());
+        RetailerDataHandler retailerDataHandler = new RetailerDataHandler(db);
+        System.out.println("Made");
+        retailerDataHandler.processCSV(getClass().getClassLoader().getResource("CSV/Lower_Manhattan_Retailers-test.csv").getFile());
 
 
 //

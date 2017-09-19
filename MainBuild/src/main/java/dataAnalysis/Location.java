@@ -6,14 +6,15 @@ package dataAnalysis;
  */
 public abstract class Location {
     public double latitude, longitude;
-    public String name;
+    public String name, address;
 
     public Location(){}
 
-    public Location(double latitude, double longitude, String name) {
+    public Location(double latitude, double longitude, String name, String address) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.name = name;
+        this.address = address;
     }
 
     public double getLatitude() {
@@ -39,6 +40,10 @@ public abstract class Location {
     public void setName(String name) {
         this.name = name;
     }
+
+    public String getAddress() { return address;}
+
+    public void setAddress(String address) {this.address = address;}
 
     public String getString() {
         String la = Double.toString(latitude);

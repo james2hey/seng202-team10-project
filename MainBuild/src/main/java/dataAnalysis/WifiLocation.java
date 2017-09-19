@@ -1,5 +1,7 @@
 package dataAnalysis;
 
+import com.sun.xml.internal.ws.api.ha.StickyFeature;
+
 /**
  *  Provides a structure for wifi locations found in the database.
  */
@@ -8,17 +10,25 @@ package dataAnalysis;
 //to find out what this search criteria is and query this.
 
 public class WifiLocation extends Location {
+    private int zip;
     private double wifiID;
-    private String address, SSID;
+    private String SSID, cost, provider, remarks, city, suburb;
     private Location location;
 
 
     //WifiLocation Constructor
-    public WifiLocation(double id, double wifiLatitude, double wifiLongitude, String wifiName, String wifiAddress, String wifiSSID) {
+    public WifiLocation(double id, double wifiLatitude, double wifiLongitude, String wifiAddress, String wifiSSID,
+                        String wifiCost, String wifiProvier, String wifiRemarks, String wifiCity, String wifiSuburb,
+                        int wifiZIP) {
         wifiID = id;
-        location  = new StationLocation(1, wifiLatitude, wifiLongitude);
-        address = wifiAddress;
+        location  = new StationLocation(1, wifiLatitude, wifiLongitude, wifiAddress);
         SSID = wifiSSID;
+        cost = wifiCost;
+        provider = wifiProvier;
+        remarks = wifiRemarks;
+        city = wifiCity;
+        suburb = wifiSuburb;
+        zip = wifiZIP;
     }
 
 
@@ -27,7 +37,7 @@ public class WifiLocation extends Location {
 
     public String getName() {return name;}
 
-    public String getAddress() {return address;}
+    public String getAddress() {return location.getAddress();}
 
     public String getSSIF() {return SSID;}
 

@@ -34,7 +34,8 @@ public class FindNearbyLocationsTest {
     public void setUp() throws Exception {
         wifi = new ArrayList<>();
         route = new Route(268, 40.757666, -73.985878, 3002,
-                40.74854862, -73.98808416, "00:00:41", 1, 1, 2016);
+                40.74854862, -73.98808416, "blah st", "foo st",
+                "00:00:41", 1, 1, 2016);
 
         String home = System.getProperty("user.home");
         java.nio.file.Path path = java.nio.file.Paths.get(home, "testdatabase.db");

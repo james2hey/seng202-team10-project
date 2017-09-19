@@ -29,9 +29,12 @@ public class FindNearbyLocations {
         clearWifiArray();
         try {
             while (rs.next()) {
-                nearbyWifi.add(new WifiLocation(rs.getDouble("WIFI_ID"), rs.getDouble("LAT"),
-                        rs.getDouble("LON"), rs.getString("SSID"),
-                        rs.getString("ADDRESS"), rs.getString("SSID")));
+                nearbyWifi.add(new WifiLocation(rs.getDouble("wifi_id"), rs.getDouble("lat"),
+                        rs.getDouble("lon"), rs.getString("address"),
+                        rs.getString("ssid"), rs.getString("cost"),
+                        rs.getString("provider"), rs.getString("remarks"),
+                        rs.getString("city"), rs.getString("suburb"),
+                        rs.getInt("zip")));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());

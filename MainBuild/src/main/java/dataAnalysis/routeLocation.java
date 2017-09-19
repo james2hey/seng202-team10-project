@@ -5,8 +5,8 @@ package dataAnalysis;
  */
 public class routeLocation extends Location{
 
-    public routeLocation(double lat, double lon, String name) {
-        super(lat, lon, name);
+    public routeLocation(double lat, double lon, String name, String address) {
+        super(lat, lon, name, address);
     }
 
 }
