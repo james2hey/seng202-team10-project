@@ -94,12 +94,12 @@
             </VBox>
             <VBox prefHeight="161.0" prefWidth="103.0">
                <children>
-                  <JFXTextField fx:id="startAgeInput" prefHeight="23.0" prefWidth="147.0" text="Address" />
+                  <JFXTextField fx:id="startLocationInput" prefHeight="23.0" prefWidth="147.0" text="Address" />
                </children>
             </VBox>
             <VBox prefHeight="161.0" prefWidth="103.0">
                <children>
-                  <JFXTextField fx:id="endAgeInput" prefHeight="23.0" prefWidth="147.0" text="Address" />
+                  <JFXTextField fx:id="endLocationInput" prefHeight="23.0" prefWidth="147.0" text="Address" />
                </children>
             </VBox>
             <VBox prefHeight="161.0" prefWidth="103.0">

@@ -16,6 +16,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import main.Main;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class RouteDataViewerController extends DataViewerController {
@@ -28,6 +30,12 @@ public class RouteDataViewerController extends DataViewerController {
 
     @FXML
     private ToggleGroup genderToggleGroup;
+
+    @FXML
+    private JFXTextField startLocationInput;
+
+    @FXML
+    private JFXTextField endLocationInput;
 
     @FXML
     private JFXTextField startTimeInput;
@@ -77,17 +85,29 @@ public class RouteDataViewerController extends DataViewerController {
     @FXML
     void displayData(ActionEvent event) throws IOException {
         System.out.println("Display button pressed");
-        /*
+
         int gender;
         if(genderToggleGroup.getSelectedToggle() == null) {
             gender = -1;
         } else {
             gender = Integer.valueOf(genderToggleGroup.getSelectedToggle().getUserData().toString());
         }
-        int ageLower = Integer.valueOf(startAgeInput.getText());
-        int ageUpper = Integer.valueOf(endAgeInput.getText());
-        String dateLower = startDateInput.getText();
-        String dateUpper = endDateInput.getText();
+        String dateLower;
+        String dateUpper;
+        String pattern = "dd/mm/yyyy";
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
+        LocalDate startDate = startDateInput.getValue();
+        LocalDate endDate = endDateInput.getValue();
+        if (startDate != null) {
+            dateLower = dateFormatter.format(startDate);
+        } else {
+            dateLower = null;
+        }
+        if (endDate != null) {
+            dateUpper = dateFormatter.format(endDate);
+        } else {
+            dateUpper = null;
+        }
         if ("DD/MM/YYYY".equals(dateLower) || "DD/MM/YYYY".equals(dateUpper)) {
             dateLower = null;
             dateUpper = null;
@@ -98,9 +118,17 @@ public class RouteDataViewerController extends DataViewerController {
             timeLower = null;
             timeUpper = null;
         }
+        String startLocation = startLocationInput.getText();
+        String endLocation = endLocationInput.getText();
+        if ("Address".equals(startLocation)) {
+            startLocation = null;
+        }
+        if ("Address".equals(endLocation)) {
+            endLocation = null;
+        }
         DataFilterer filterer = new DataFilterer(Main.getDB());
-        ArrayList<Route> routes = filterer.filter(gender, dateLower, dateUpper, ageLower, ageUpper,
-                timeLower, timeUpper, -1, -1);
+        ArrayList<Route> routes = filterer.filterRoutes(gender, dateLower, dateUpper,
+                timeLower, timeUpper, -1, -1, startLocation, endLocation);
         System.out.println("Got data");
         for (int i = 0; i < routes.size(); i++) {
             System.out.println(routes.get(i).getBikeID());
@@ -108,7 +136,7 @@ public class RouteDataViewerController extends DataViewerController {
         tableView.getItems().clear();
         routeList.addAll(routes);
 
-        */
+
 
     }
 
