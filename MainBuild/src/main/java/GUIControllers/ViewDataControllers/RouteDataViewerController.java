@@ -1,27 +1,24 @@
-package GUIControllers;
-    import dataManipulation.DataFilterer;
-    import com.jfoenix.controls.JFXDrawer;
-    import com.jfoenix.controls.JFXHamburger;
-    import com.jfoenix.controls.JFXTextField;
-    import com.jfoenix.controls.JFXToggleButton;
-    import dataAnalysis.Route;
-    import javafx.collections.FXCollections;
-    import javafx.collections.ObservableList;
-    import javafx.event.ActionEvent;
-    import javafx.fxml.FXML;
-    import javafx.scene.control.*;
-    import javafx.scene.control.cell.PropertyValueFactory;
-    import javafx.scene.layout.VBox;
-    import javafx.fxml.FXMLLoader;
-    import main.Main;
+package GUIControllers.ViewDataControllers;
 
-    import java.io.IOException;
-    import java.net.URL;
-    import java.util.ArrayList;
-    import java.util.List;
-    import java.util.ResourceBundle;
+import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.JFXToggleButton;
+import dataAnalysis.Route;
+import dataManipulation.DataFilterer;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.cell.PropertyValueFactory;
+import main.Main;
 
-public class DataViewerController extends Controller{
+import java.io.IOException;
+import java.util.ArrayList;
+
+public class RouteDataViewerController extends DataViewerController {
 
     @FXML
     private JFXToggleButton female;
@@ -33,22 +30,10 @@ public class DataViewerController extends Controller{
     private ToggleGroup genderToggleGroup;
 
     @FXML
-    private JFXTextField startAgeInput;
-
-    @FXML
-    private JFXTextField endAgeInput;
-
-    @FXML
     private JFXTextField startTimeInput;
 
     @FXML
     private JFXTextField endTimeInput;
-
-    @FXML
-    private JFXTextField startDateInput;
-
-    @FXML
-    private JFXTextField endDateInput;
 
     @FXML
     private TableView<Route> tableView;
@@ -68,7 +53,14 @@ public class DataViewerController extends Controller{
     @FXML
     private TableColumn<Route, String> EndTime;
 
+    @FXML
+    private DatePicker startDateInput;
+
+    @FXML
+    private DatePicker endDateInput;
+
     private ObservableList<Route> routeList = FXCollections.observableArrayList();
+
 
     @FXML
     public void initialize() {
@@ -85,6 +77,7 @@ public class DataViewerController extends Controller{
     @FXML
     void displayData(ActionEvent event) throws IOException {
         System.out.println("Display button pressed");
+        /*
         int gender;
         if(genderToggleGroup.getSelectedToggle() == null) {
             gender = -1;
@@ -114,8 +107,10 @@ public class DataViewerController extends Controller{
         }
         tableView.getItems().clear();
         routeList.addAll(routes);
+
+        */
+
     }
 
 
 }
-

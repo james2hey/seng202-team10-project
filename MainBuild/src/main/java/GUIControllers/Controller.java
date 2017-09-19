@@ -72,7 +72,7 @@ public abstract class Controller {
 
     @FXML
     void changeToViewDataScene(ActionEvent event) throws IOException {
-        Parent viewDataParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/viewData.fxml"));
+        Parent viewDataParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/routeViewData.fxml"));
         Scene viewDataScene = new Scene(viewDataParent);
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.setScene(viewDataScene);

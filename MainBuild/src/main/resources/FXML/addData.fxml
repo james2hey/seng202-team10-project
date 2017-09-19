@@ -51,7 +51,7 @@
             <Button fx:id="importWifi" layoutX="14.0" layoutY="115.0" mnemonicParsing="false" onAction="#chooseWifi" text="Wifi Hotspots" visible="false" />
          </children>
       </AnchorPane>
-      <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" prefHeight="650.0" prefWidth="186.0" style="-fx-background-color: grey;" GridPane.rowSpan="4" />
+      <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" prefHeight="650.0" prefWidth="186.0" style="-fx-background-color: grey;" GridPane.rowSpan="5" />
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Username: " wrappingWidth="220.01025390625" GridPane.columnIndex="4" GridPane.rowIndex="4" />
    </children>
 </GridPane>

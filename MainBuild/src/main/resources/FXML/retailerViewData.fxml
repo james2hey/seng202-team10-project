@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane hgap="40.0" prefHeight="650.0" prefWidth="1100.0" style="-fx-background-color: grey;" vgap="30.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIControllers.ViewDataControllers.RetailerDataViewerController">
+   <children>
+      <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Retailer Data Viewer" textAlignment="CENTER" wrappingWidth="953.193359375" GridPane.columnIndex="1" GridPane.columnSpan="6">
+         <font>
+            <Font size="60.0" />
+         </font>
+      </Text>
+      <JFXHamburger fx:id="hamburger" onMouseClicked="#openDrawer" GridPane.columnIndex="5" />
+      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
+         <children>
+            <VBox prefHeight="161.0" prefWidth="103.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+               </children>
+            </VBox>
+            <VBox prefHeight="161.0" prefWidth="103.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Street:" />
+               </children>
+            </VBox>
+            <VBox prefHeight="161.0" prefWidth="103.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ZIP:" />
+               </children>
+            </VBox>
+            <VBox prefHeight="161.0" prefWidth="103.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Primary:" />
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+      <TableView fx:id="tableView" prefHeight="456.0" prefWidth="570.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="2" GridPane.rowSpan="2">
+         <columns>
+            <TableColumn fx:id="Name" prefWidth="123.99996948242188" text="Name" />
+            <TableColumn fx:id="Address" prefWidth="132.0" text="Address" />
+            <TableColumn fx:id="Suburb" prefWidth="93.0" text="Suburb" />
+            <TableColumn fx:id="Cost" prefWidth="113.0" text="Cost" />
+         </columns>
+      </TableView>
+      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="5" GridPane.rowIndex="2">
+         <children>
+            <VBox prefHeight="161.0" prefWidth="103.0" />
+            <VBox prefHeight="161.0" prefWidth="103.0">
+               <children>
+                  <JFXTextField fx:id="streetInput" prefHeight="23.0" prefWidth="147.0" text="Address" />
+               </children>
+            </VBox>
+            <VBox prefHeight="161.0" prefWidth="103.0">
+               <children>
+                  <JFXTextField fx:id="zipInput" prefHeight="23.0" prefWidth="147.0" text="Zip Code" />
+               </children>
+            </VBox>
+            <VBox prefHeight="161.0" prefWidth="103.0">
+               <children>
+                  <Accordion />
+                  <JFXTextField fx:id="primaryInput" prefHeight="23.0" prefWidth="147.0" text="Company Type " />
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Username: " wrappingWidth="222.01025390625" GridPane.columnIndex="5" GridPane.rowIndex="4" />
+      <Button mnemonicParsing="false" onAction="#displayDataOnMap" prefHeight="25.0" prefWidth="176.0" text="View List On Map" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="4" />
+      <Button mnemonicParsing="false" onAction="#displayData" prefHeight="25.0" prefWidth="342.0" text="Filter" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+      <Button mnemonicParsing="false" onAction="#showRoutes" prefHeight="25.0" prefWidth="163.0" text="View Routes" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <Button mnemonicParsing="false" onAction="#showWifiLocations" prefHeight="25.0" prefWidth="206.0" text="View Wifi Locations" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+      <Button mnemonicParsing="false" onAction="#showRetailers" prefHeight="25.0" prefWidth="170.0" text="View Retailers" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+      <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" GridPane.rowSpan="5" />
+   </children>
+   <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="269.0" minWidth="10.0" prefWidth="29.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="269.0" minWidth="10.0" prefWidth="153.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="269.0" minWidth="10.0" prefWidth="180.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="269.0" minWidth="5.0" prefWidth="151.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="616.0" minWidth="10.0" prefWidth="66.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="595.0" minWidth="10.0" prefWidth="254.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="455.0" minWidth="0.0" prefWidth="0.0" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints maxHeight="201.0" minHeight="10.0" prefHeight="91.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="392.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="475.0" minHeight="0.0" prefHeight="328.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="465.0" minHeight="9.0" prefHeight="49.6666259765625" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="465.0" minHeight="10.0" prefHeight="68.3333740234375" vgrow="SOMETIMES" />
+   </rowConstraints>
+</GridPane>
