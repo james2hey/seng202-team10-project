@@ -82,7 +82,7 @@ public class DataFilterer {
                         rs.getDouble("start_longitude"),
                         rs.getDouble("end_latitude"),
                         rs.getDouble("end_longitude"), rs.getInt("start_station_id"),
-                        rs.getInt("end_station_id"), rs.getInt("bikeid")));
+                        rs.getInt("end_station_id"), rs.getString("bikeid")));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
