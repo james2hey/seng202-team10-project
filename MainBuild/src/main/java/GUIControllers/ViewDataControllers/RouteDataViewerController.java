@@ -149,8 +149,9 @@ public class RouteDataViewerController extends DataViewerController {
         if(tableView.getSelectionModel().getSelectedItem() == null) {
             System.out.println("Select route to add!");
         } else {
+            String name = HandleUsers.currentCyclist.getName();
             Route routeToAdd = tableView.getSelectionModel().getSelectedItem();
-            HandleUsers.currentCyclist.addRoute(routeToAdd);
+            HandleUsers.currentCyclist.addRoute(routeToAdd, name);
             System.out.println("ADDED " + routeToAdd.getStartTime() + " to cyclist favourites.");
         }
     }

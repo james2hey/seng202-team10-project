@@ -10,20 +10,23 @@ import java.sql.SQLException;
  */
 public class FavouriteRouteData {
 
+    static SQLiteDB db;
+
+    String[] fields =
+            {"name         VARCHAR(12)",
+                    "start_year   INTEGER",
+                    "start_month  INTEGER",
+                    "start_day    INTEGER",
+                    "start_time   VARCHAR(19)",
+                    "bikeid       VARCHAR(20)"};
+
+
+    String primaryKey = "name, start_year, start_month, start_day, start_time, bikeid";
     String tableName = "favourite_routes";
-    String[] fields = {"name        = VARCHAR(12)" +
-                              "start_year  = INTEGER" +
-                              "start_month = INTEGER" +
-                              "start_day   = INTEGER" +
-                              "start_time  = VARCHAR(19)" +
-                              "bikeid      = VARCHAR(20)"};
 
-    String primaryKey = "name";
+    static PreparedStatement addRoute;
+    static String addRouteStatement = "insert or fail into favourite_routes values(?,?,?,?,?,?)";
 
-    PreparedStatement addRoute;
-    String addRouteStatement = "insert or fail into favourite_routes values(?,?,?,?,?,?)";
-    private int route_count;
-    SQLiteDB db;
 
 
     public FavouriteRouteData(SQLiteDB db) {
@@ -34,7 +37,7 @@ public class FavouriteRouteData {
 
 
 
-    public void addFavouriteRoute(String name, int start_year, int start_month, int start_day,
+    public static void addFavouriteRoute(String name, int start_year, int start_month, int start_day,
                          String start_time, String bike_id) {
         try {
             addRoute.setObject(1, name);

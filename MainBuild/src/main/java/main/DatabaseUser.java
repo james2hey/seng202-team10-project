@@ -11,10 +11,10 @@ import java.sql.SQLException;
 public class DatabaseUser {
 
     static String tableName = "users";
-    static String[] fields = {"NAME VARCHAR(12)"};
-    static String primaryKey = "NAME";
+    static String[] fields = {"name VARCHAR(12), usertype VARCHAR(7)"};
+    static String primaryKey = "name";
 
-    static String addUserString = "insert or fail into users values(?)";
+    static String addUserString = "insert or fail into users values(?,?)";
     static PreparedStatement addUser = null;
     static int user_count;
     static SQLiteDB db;
@@ -22,11 +22,13 @@ public class DatabaseUser {
 
     /**
      * Adds Name to the database.
-     * @param NAME
+     * @param name
+     * @param type
      */
-    public static void addUser(String NAME) {
+    public static void addUser(String name, String type) {
         try {
-            addUser.setString(1, NAME);
+            addUser.setString(1, name);
+            addUser.setString(2, type);
             addUser.executeUpdate();
             db.commit();
 

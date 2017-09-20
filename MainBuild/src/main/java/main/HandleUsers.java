@@ -49,13 +49,38 @@ public class HandleUsers {
      */
     public static void logIn(String username, boolean isCyclist) {
         //Also needs to get favourites list...
+        ResultSet rs;
+
+        try {
+            rs = db.executeQuerySQL("SELECT * FROM users WHERE name = '" + username + "';");
+            String type = rs.getString(2);
+            //type.charAt(0)
+            System.out.println(type.length());
+            System.out.println("cyclist".length());
+
+            if (type.charAt(0) == 'c') { // Cant figure out why type != "cyclist".
+                currentCyclist = new Cyclist(username);
+                System.out.println("Created cyclist instance for " + username);
+            } else {
+                currentAnalyst = new Analyst(username);
+                System.out.println("Created analyst instance for " + username);
+            }
+            currentUserName = username;
+
+        } catch (SQLException e) { //What if the result set is not closed?
+            e.getMessage();
+
+            userList.add(username);
+        }
+
+
         if (isCyclist) {
             currentCyclist = new Cyclist(username);
         } else{
             currentAnalyst = new Analyst(username);
         }
         System.out.println("Logged into " + username + "'s account.");
-        currentUserName = username;
+
     }
 
     /**
@@ -81,11 +106,11 @@ public class HandleUsers {
             e.getMessage();
             if (isCyclist) {
                 currentCyclist = new Cyclist(username);
+                DatabaseUser.addUser(username, "cyclist");
             } else {
                 currentAnalyst = new Analyst(username);
+                DatabaseUser.addUser(username, "analyst");
             }
-            //String name = currentUser.getName();
-            DatabaseUser.addUser(username);
             userList.add(username);
             created = true;
         }

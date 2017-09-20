@@ -30,9 +30,12 @@ public class Cyclist extends User {
     /**Adds a route to the Users routeList.
      * @param route;
      */
-    public void addRoute(Route route) {
+    public void addRoute(Route route, String name) {
         routeList.add(route);
+        FavouriteRouteData.addFavouriteRoute(name, route.getStartYear(), route.getStartMonth(), route.getStartDay(),
+                route.getStartTime(), route.getBikeID());
     }
+
 
     /**Adds a StationLocation to the Users favouriteStationLocations
      * @param station;

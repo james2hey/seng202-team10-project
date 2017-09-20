@@ -57,15 +57,15 @@ public class CyclistTest {
         return r;
     }
 
-    @Test
-    public void removeRoute() throws Exception {
-        Cyclist cyclist = new Cyclist();
-        Route r = createRoute();
-        cyclist.addRoute(r);
-        cyclist.removeRoute(r);
-        ArrayList<Route> emptyRouteList = new ArrayList<Route>();
-        //assertEquals(emptyRouteList, cyclist.getRouteList());
-    }
+//    @Test
+//    public void removeRoute() throws Exception {
+//        Cyclist cyclist = new Cyclist();
+//        Route r = createRoute();
+//        cyclist.addRoute(r);
+//        cyclist.removeRoute(r);
+//        ArrayList<Route> emptyRouteList = new ArrayList<Route>();
+//        //assertEquals(emptyRouteList, cyclist.getRouteList());
+//    }
 
     //Should we create an exception for this?????
 //    @Test
@@ -122,20 +122,20 @@ public class CyclistTest {
         ArrayList<WifiLocation> emptyWifiLocationList = new ArrayList<WifiLocation>();
         //assertEquals(emptyWifiLocationList,cyclist.getFavouriteWifiLocations());
     }
-
-    @Test
-    public void testClearAll() throws Exception {
-        Cyclist cyclist = new Cyclist();
-        Route r = createRoute();
-        StationLocation s = createStationLocation();
-        RetailLocation l = createRetailLocation();
-        WifiLocation w = createWifiLocation();
-        cyclist.addRoute(r);
-        cyclist.addFavouriteStation(s);
-        cyclist.addFavouriteRetail(l);
-        cyclist.addFavouriteWifi(w);
-        cyclist.clearAll();
-        //How can we show that all lists are empty without using more than one asserts? Does this even need to be tested?
-    }
+//
+//    @Test
+//    public void testClearAll() throws Exception {
+//        Cyclist cyclist = new Cyclist();
+//        Route r = createRoute();
+//        StationLocation s = createStationLocation();
+//        RetailLocation l = createRetailLocation();
+//        WifiLocation w = createWifiLocation();
+//        cyclist.addRoute(r);
+//        cyclist.addFavouriteStation(s);
+//        cyclist.addFavouriteRetail(l);
+//        cyclist.addFavouriteWifi(w);
+//        cyclist.clearAll();
+//        //How can we show that all lists are empty without using more than one asserts? Does this even need to be tested?
+//    }
 
 }
