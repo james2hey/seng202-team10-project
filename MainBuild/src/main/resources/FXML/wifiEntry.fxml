@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
 <?import com.jfoenix.controls.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
@@ -31,7 +30,7 @@
       <Text fx:id="buttonPressedText" strokeType="OUTSIDE" strokeWidth="0.0" text="Button Pressed" textAlignment="CENTER" visible="false" wrappingWidth="269.6552734375" GridPane.columnIndex="2" GridPane.rowIndex="3" />
       <JFXHamburger fx:id="hamburger" onMouseClicked="#openDrawer" GridPane.columnIndex="4" />
       <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" style="-fx-background-color: grey;" GridPane.rowSpan="4" />
-      <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Route Data Entry" textAlignment="CENTER" wrappingWidth="671.193359375" GridPane.columnIndex="1" GridPane.columnSpan="2">
+      <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Wifi Data Entry" textAlignment="CENTER" wrappingWidth="671.193359375" GridPane.columnIndex="1" GridPane.columnSpan="2">
          <font>
             <Font size="60.0" />
          </font>
@@ -43,7 +42,11 @@
       </Button>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
          <children>
-            <Button fx:id="wifiPageButton" layoutX="59.0" layoutY="38.0" mnemonicParsing="false" onAction="#changeToWifiEntryScene" prefHeight="25.0" prefWidth="96.0" text="Wifi" />
+            <AnchorPane layoutX="2.0" prefHeight="101.0" prefWidth="210.0">
+               <children>
+                  <Button fx:id="wifiPageButton" layoutX="57.0" layoutY="38.0" mnemonicParsing="false" onAction="#changeToWifiEntryScene" prefHeight="25.0" prefWidth="96.0" text="Wifi" />
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
@@ -62,13 +65,13 @@
             <Button fx:id="retailerPageButton" layoutX="45.0" layoutY="38.0" mnemonicParsing="false" onAction="#changeToRetailerEntryScene" prefHeight="25.0" prefWidth="96.0" text="Retailer" />
          </children>
       </AnchorPane>
-      <AnchorPane prefHeight="264.0" prefWidth="147.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+      <AnchorPane prefHeight="264.0" prefWidth="147.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
          <children>
-            <Text layoutX="21.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address:" AnchorPane.topAnchor="35.0" />
+            <Text layoutX="21.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" AnchorPane.topAnchor="35.0" />
             <Text layoutX="21.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Longitude:" AnchorPane.topAnchor="60.0" />
             <Text layoutX="21.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Latitude:" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="85.0" />
-            <Text layoutX="21.0" layoutY="122.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Time:" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="110.0" />
-            <Text layoutX="20.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start of Route">
+            <Text layoutX="21.0" layoutY="122.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address:" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="110.0" />
+            <Text layoutX="20.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wifi Provider">
                <font>
                   <Font size="16.0" />
                </font>
@@ -76,31 +79,11 @@
             <JFXTextField layoutX="101.0" layoutY="31.0" prefHeight="23.0" prefWidth="127.0" AnchorPane.topAnchor="31.0" />
             <JFXTextField layoutX="101.0" layoutY="56.0" prefHeight="23.0" prefWidth="112.0" AnchorPane.topAnchor="56.0" />
             <JFXTextField layoutX="101.0" layoutY="81.0" prefHeight="23.0" prefWidth="112.0" />
-            <JFXTextField layoutX="101.0" layoutY="106.0" prefHeight="23.0" prefWidth="112.0" promptText="e.g. hh:mm:ss" />
-            <Text layoutX="22.0" layoutY="143.93310546875" strokeType="OUTSIDE" strokeWidth="0.0" text="Date:" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="131.93310546875" />
+            <JFXTextField layoutX="101.0" layoutY="106.0" prefHeight="23.0" prefWidth="112.0" />
+            <Text layoutX="22.0" layoutY="143.93310546875" strokeType="OUTSIDE" strokeWidth="0.0" text="Postcode:" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="135.0" />
             <JFXTextField layoutX="101.0" layoutY="128.0" prefHeight="23.0" prefWidth="112.0" promptText="e.g. dd/mm/yyyy" />
-         </children>
-         <GridPane.margin>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </GridPane.margin>
-      </AnchorPane>
-      <AnchorPane prefHeight="264.0" prefWidth="147.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
-         <children>
-            <Text layoutX="21.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address:" AnchorPane.topAnchor="35.0" />
-            <Text layoutX="21.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Longitude:" AnchorPane.topAnchor="60.0" />
-            <Text layoutX="21.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Latitude:" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="85.0" />
-            <Text layoutX="21.0" layoutY="122.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Time:" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="110.0" />
-            <Text layoutX="20.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End of Route">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Text>
-            <JFXTextField layoutX="101.0" layoutY="31.0" prefHeight="23.0" prefWidth="127.0" AnchorPane.topAnchor="31.0" />
-            <JFXTextField layoutX="101.0" layoutY="56.0" prefHeight="23.0" prefWidth="112.0" AnchorPane.topAnchor="56.0" />
-            <JFXTextField layoutX="101.0" layoutY="81.0" prefHeight="23.0" prefWidth="112.0" />
-            <JFXTextField layoutX="101.0" layoutY="106.0" prefHeight="23.0" prefWidth="112.0" promptText="e.g. hh:mm:ss" />
-            <Text layoutX="22.0" layoutY="143.93310546875" strokeType="OUTSIDE" strokeWidth="0.0" text="Date:" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="131.93310546875" />
-            <JFXTextField layoutX="101.0" layoutY="128.0" prefHeight="23.0" prefWidth="112.0" promptText="e.g. dd/mm/yyyy" />
+            <Text layoutX="23.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Comments:" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="160.0" />
+            <JFXTextField layoutX="101.0" layoutY="156.0" prefHeight="23.0" prefWidth="112.0" promptText="e.g. Data Cap" />
          </children>
       </AnchorPane>
    </children>

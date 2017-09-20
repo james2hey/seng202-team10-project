@@ -229,8 +229,24 @@ public class AddDataController extends Controller implements Initializable {
         wifiDataHandler.processCSV(file.toString());
     }
     @FXML
-    void changeToManualEntryScene(ActionEvent event) throws IOException {
+    void changeToRouteEntryScene(ActionEvent event) throws IOException {
         Parent manualEntryParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/manualEntry.fxml"));
+        Scene manualEntryScene = new Scene(manualEntryParent);
+        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        currentStage.setScene(manualEntryScene);
+    }
+
+    @FXML
+    void changeToWifiEntryScene(ActionEvent event) throws IOException {
+        Parent manualEntryParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/wifiEntry.fxml"));
+        Scene manualEntryScene = new Scene(manualEntryParent);
+        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        currentStage.setScene(manualEntryScene);
+    }
+
+    @FXML
+    void changeToRetailerEntryScene(ActionEvent event) throws IOException {
+        Parent manualEntryParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/retailerEntry.fxml"));
         Scene manualEntryScene = new Scene(manualEntryParent);
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.setScene(manualEntryScene);

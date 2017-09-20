@@ -34,7 +34,7 @@
             <Font size="60.0" />
          </font>
       </Text>
-      <Button fx:id="manualEntryButton" mnemonicParsing="false" onAction="#changeToManualEntryScene" prefHeight="93.0" prefWidth="257.0" style="-fx-background-color: #ff2b0a;" text="Manual Entry" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
+      <Button fx:id="manualEntryButton" mnemonicParsing="false" onAction="#changeToRouteEntryScene" prefHeight="93.0" prefWidth="257.0" style="-fx-background-color: #ff2b0a;" text="Manual Entry" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>
