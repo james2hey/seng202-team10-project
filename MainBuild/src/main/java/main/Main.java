@@ -44,8 +44,9 @@ public class Main extends Application {
         Geocoder.init();
         DatabaseUser.init();
         HandleUsers.init();
-        FavouriteRouteData.init();
         FindNearbyLocations.init(db);
+
+        FavouriteRouteData frd = new FavouriteRouteData(db);
 
 
         WifiDataHandler wdh = new WifiDataHandler(db);
