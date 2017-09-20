@@ -1,7 +1,5 @@
 package dataAnalysis;
 
-import com.sun.xml.internal.ws.api.ha.StickyFeature;
-
 /**
  *  Provides a structure for wifi locations found in the database.
  */
