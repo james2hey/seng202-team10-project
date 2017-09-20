@@ -51,7 +51,7 @@
       </AnchorPane>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
          <children>
-            <Button fx:id="addDataButton" layoutX="41.0" layoutY="129.0" mnemonicParsing="false" onAction="#singleCSVLine" prefHeight="25.0" prefWidth="134.0" text="Add to Database" />
+            <Button fx:id="addDataButton" layoutX="41.0" layoutY="129.0" mnemonicParsing="false" onAction="#wifiCSVLine" prefHeight="25.0" prefWidth="134.0" text="Add to Database" />
          </children>
       </AnchorPane>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Username: " wrappingWidth="220.01025390625" GridPane.columnIndex="4" GridPane.rowIndex="4" />
@@ -76,14 +76,20 @@
                   <Font size="16.0" />
                </font>
             </Text>
-            <JFXTextField layoutX="101.0" layoutY="31.0" prefHeight="23.0" prefWidth="127.0" AnchorPane.topAnchor="31.0" />
-            <JFXTextField layoutX="101.0" layoutY="56.0" prefHeight="23.0" prefWidth="112.0" AnchorPane.topAnchor="56.0" />
-            <JFXTextField layoutX="101.0" layoutY="81.0" prefHeight="23.0" prefWidth="112.0" />
-            <JFXTextField layoutX="101.0" layoutY="106.0" prefHeight="23.0" prefWidth="112.0" />
+            <JFXTextField fx:id="wifiName" layoutX="101.0" layoutY="31.0" prefHeight="23.0" prefWidth="127.0" AnchorPane.topAnchor="31.0" />
+            <JFXTextField fx:id="wifiLong" layoutX="101.0" layoutY="56.0" prefHeight="23.0" prefWidth="112.0" AnchorPane.topAnchor="56.0" />
+            <JFXTextField fx:id="wifiLat" layoutX="101.0" layoutY="81.0" prefHeight="23.0" prefWidth="112.0" />
+            <JFXTextField fx:id="wifiAddress" layoutX="101.0" layoutY="106.0" prefHeight="23.0" prefWidth="112.0" />
             <Text layoutX="22.0" layoutY="143.93310546875" strokeType="OUTSIDE" strokeWidth="0.0" text="Postcode:" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="135.0" />
-            <JFXTextField layoutX="101.0" layoutY="128.0" prefHeight="23.0" prefWidth="112.0" promptText="e.g. dd/mm/yyyy" />
+            <JFXTextField fx:id="wifiPostcode" layoutX="101.0" layoutY="128.0" prefHeight="23.0" prefWidth="112.0" promptText="e.g. dd/mm/yyyy" />
             <Text layoutX="23.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Comments:" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="160.0" />
-            <JFXTextField layoutX="101.0" layoutY="156.0" prefHeight="23.0" prefWidth="112.0" promptText="e.g. Data Cap" />
+            <JFXTextField fx:id="wifiComments" layoutX="101.0" layoutY="156.0" prefHeight="23.0" prefWidth="112.0" promptText="e.g. Data Cap" />
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
+         <children>
+            <Text fx:id="wifiLongError" fill="#ae0000" layoutX="25.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ERROR: Type Error" visible="false" AnchorPane.topAnchor="60.0" />
+            <Text fx:id="wifiLatError" fill="#ae0000" layoutX="25.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ERROR: Type Error" visible="false" AnchorPane.topAnchor="80.0" />
          </children>
       </AnchorPane>
    </children>

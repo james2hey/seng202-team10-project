@@ -51,7 +51,7 @@
       </AnchorPane>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
          <children>
-            <Button fx:id="addDataButton" layoutX="41.0" layoutY="129.0" mnemonicParsing="false" onAction="#singleCSVLine" prefHeight="25.0" prefWidth="134.0" text="Add to Database" />
+            <Button fx:id="addDataButton" layoutX="41.0" layoutY="129.0" mnemonicParsing="false" onAction="#retailerCSVLine" prefHeight="25.0" prefWidth="134.0" text="Add to Database" />
          </children>
       </AnchorPane>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Username: " wrappingWidth="220.01025390625" GridPane.columnIndex="4" GridPane.rowIndex="4" />
