@@ -50,13 +50,15 @@ public class HandleUsers {
         //Also needs to get favourites list...
         User user = createInstance(username, true);
         System.out.println("Logged into " + username + "'s account.");
+        currentUser = username;
     }
 
     /**
      * Logs out of the currently logged in user.
      */
-    public static void logOut() {
-        //Restart to main screen!!!!!!!!!
+    public static void logOutOfUser() {
+        // Will need to change this.
+        currentUser = "";
     }
 
     /**
@@ -77,7 +79,9 @@ public class HandleUsers {
             DatabaseUser.addUser(name);
             userList.add(name);
             created = true;
-
+        }
+        if (created) {
+            currentUser = username;
         }
         return created;
     }

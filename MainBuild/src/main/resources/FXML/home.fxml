@@ -36,6 +36,6 @@
          </font>
       </Text>
       <Button fx:id="logOutButton" alignment="CENTER" mnemonicParsing="false" onAction="#logOut" prefHeight="25.0" prefWidth="129.0" text="LOG OUT" textAlignment="CENTER" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Username: " wrappingWidth="220.01025390625" GridPane.columnIndex="4" />
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Username: " wrappingWidth="220.01025390625" GridPane.columnIndex="4" GridPane.rowIndex="1" />
    </children>
 </GridPane>

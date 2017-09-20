@@ -35,6 +35,7 @@ public class HomeController extends Controller{
         currentStage.setScene(logInScene);
         String name = HandleUsers.currentUser;
         System.out.println("Logged out of " + name + "'s account.");
+        HandleUsers.logOutOfUser();
     }
 
 }

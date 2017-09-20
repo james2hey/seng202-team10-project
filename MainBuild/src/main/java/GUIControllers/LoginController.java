@@ -34,6 +34,9 @@ public class LoginController {
     public TextField existingUser;
 
 
+    /**
+     * Creates new Cyclist instance with the given user name if it doesn't already exist in the database.
+     */
     @FXML
     public void createCyclist(ActionEvent event) throws IOException {
         nameInUse.setVisible(false);
@@ -41,48 +44,45 @@ public class LoginController {
         boolean created = HandleUsers.createNewUser(name, true);
         if (created) {
             System.out.println("Creating cyclist for " + name);
-            HandleUsers.currentUser = name;
             navigateHome(event);
         } else {
             nameInUse.setVisible(true);
-            username.setText("");
         }
     }
 
-
+    /**
+     * Creates new Analyst instance with the given user name if it doesn't already exist in the database.
+     */
     @FXML
     public void createAnalyst(ActionEvent event) throws IOException {
         nameInUse.setVisible(false);
         String name = username.getText();
-        System.out.println(name);
-        HandleUsers.createNewUser(name,false);
         boolean created = HandleUsers.createNewUser(name, false);
         if (created) {
             System.out.println("Creating analyst for " + name);
-            HandleUsers.currentUser = name;
             navigateHome(event);
         } else {
             nameInUse.setVisible(true);
-            username.setText("");
         }
     }
 
-
+    /**
+     * Logs user from the existingUser text field in, and takes them to the home screen.
+     */
     @FXML
-    void changeToHomeScene(ActionEvent event) throws IOException {
-        navigateHome(event);
+    void logIn(ActionEvent event) throws IOException {
         String name = existingUser.getText();
         HandleUsers.logIn(name, true); // Currently only creating cyclists on sign in for now.
-        HandleUsers.currentUser = name;
+        //HandleUsers.currentUser = name;
+        navigateHome(event);
     }
-
 
     /**
      * Navigates the user to the home screen.
-     * @param event
-     * @throws IOException
+     * @param event;
+     * @throws IOException;
      */
-    public void navigateHome(ActionEvent event) throws IOException {
+    private void navigateHome(ActionEvent event) throws IOException {
         Parent homeParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/home.fxml"));
         Scene homeScene = new Scene(homeParent);
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
