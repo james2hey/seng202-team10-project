@@ -30,7 +30,9 @@ public class Cyclist extends User {
     /**Adds a route to the Users routeList.
      * @param route;
      */
-    public void addRoute(Route route) {routeList.add(route);}
+    public void addRoute(Route route) {
+        routeList.add(route);
+    }
 
     /**Adds a StationLocation to the Users favouriteStationLocations
      * @param station;

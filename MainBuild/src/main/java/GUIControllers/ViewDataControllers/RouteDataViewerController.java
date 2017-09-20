@@ -8,17 +8,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import main.HandleUsers;
 import main.Main;
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+
 
 public class RouteDataViewerController extends DataViewerController {
 
@@ -136,9 +135,27 @@ public class RouteDataViewerController extends DataViewerController {
         tableView.getItems().clear();
         routeList.addAll(routes);
 
-
-
     }
+
+    // ___________________ Favourites button feel free to change around the ugly composition _______________
+
+    @FXML
+    Button favourtiesButton;
+
+    /**
+     * Adds the currently selected route to the Cyclists routeList.
+     */
+    public void addFavouriteRoute() {
+        if(tableView.getSelectionModel().getSelectedItem() == null) {
+            System.out.println("Select route to add!");
+        } else {
+            Route routeToAdd = tableView.getSelectionModel().getSelectedItem();
+            HandleUsers.currentCyclist.addRoute(routeToAdd);
+            System.out.println("ADDED " + routeToAdd.getStartTime() + " to cyclist favourites.");
+        }
+    }
+
+
 
 
 }

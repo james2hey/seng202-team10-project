@@ -33,7 +33,7 @@ public class HomeController extends Controller{
         Scene logInScene = new Scene(logInParent);
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.setScene(logInScene);
-        String name = HandleUsers.currentUser;
+        String name = HandleUsers.currentUserName;
         System.out.println("Logged out of " + name + "'s account.");
         HandleUsers.logOutOfUser();
     }

@@ -14,11 +14,11 @@ public class DatabaseUser {
     static String[] fields = {"NAME VARCHAR(12)"};
     static String primaryKey = "NAME";
 
-
     static String addUserString = "insert or fail into users values(?)";
     static PreparedStatement addUser = null;
     static int user_count;
     static SQLiteDB db;
+
 
     /**
      * Adds Name to the database.
@@ -41,5 +41,6 @@ public class DatabaseUser {
         db.addTable(tableName, fields, primaryKey);
         addUser = db.getPreparedStatement(addUserString);
     }
+
 
 }

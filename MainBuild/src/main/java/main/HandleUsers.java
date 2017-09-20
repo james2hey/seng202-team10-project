@@ -17,7 +17,9 @@ import java.util.ArrayList;
  */
 public class HandleUsers {
     private static ArrayList<String> userList = new ArrayList<>();
-    public static String currentUser;
+    public static String currentUserName;
+    public static Cyclist currentCyclist;
+    public static Analyst currentAnalyst;
 
     public static ArrayList<String> getUserList() {
         return userList;
@@ -38,7 +40,6 @@ public class HandleUsers {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        //LoginController.fillComboBox(userList);
 
     }
 
@@ -48,9 +49,13 @@ public class HandleUsers {
      */
     public static void logIn(String username, boolean isCyclist) {
         //Also needs to get favourites list...
-        User user = createInstance(username, true);
+        if (isCyclist) {
+            currentCyclist = new Cyclist(username);
+        } else{
+            currentAnalyst = new Analyst(username);
+        }
         System.out.println("Logged into " + username + "'s account.");
-        currentUser = username;
+        currentUserName = username;
     }
 
     /**
@@ -58,7 +63,7 @@ public class HandleUsers {
      */
     public static void logOutOfUser() {
         // Will need to change this.
-        currentUser = "";
+        currentUserName = "";
     }
 
     /**
@@ -74,14 +79,18 @@ public class HandleUsers {
 
         } catch (SQLException e) { //What if the result set is not closed?
             e.getMessage();
-            User user = createInstance(username, isCyclist);
-            String name = user.getName();
-            DatabaseUser.addUser(name);
-            userList.add(name);
+            if (isCyclist) {
+                currentCyclist = new Cyclist(username);
+            } else {
+                currentAnalyst = new Analyst(username);
+            }
+            //String name = currentUser.getName();
+            DatabaseUser.addUser(username);
+            userList.add(username);
             created = true;
         }
         if (created) {
-            currentUser = username;
+            currentUserName = username;
         }
         return created;
     }
@@ -101,4 +110,6 @@ public class HandleUsers {
         }
         return user;
     }
+
+
 }

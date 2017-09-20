@@ -31,7 +31,7 @@
 //            "  ,end_station_name        VARCHAR(21)" +
 //            "  ,end_latitude            NUMERIC(9,6) NOT NULL" +
 //            "  ,end_longitude           NUMERIC(9,6) NOT NULL" +
-//            "  ,bikeid                  INTEGER" +
+//            "  ,bikeid                  INTEGER" +    public static
 //            "  ,usertype                VARCHAR(10)" +
 //            "  ,birth_year              INTEGER" +
 //            "  ,gender                  INTEGER" +
