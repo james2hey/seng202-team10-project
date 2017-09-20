@@ -117,7 +117,7 @@ public class AddDataController extends Controller implements Initializable {
         try { // Start Latitude
             sLatError.setVisible(false);
             SLatitude = Double.parseDouble(rSLatitude.getText());
-        } catch (Error e) {
+        } catch (Exception e) {
             sLatError.setVisible(true);
             errorOccured = true;
 
@@ -132,13 +132,14 @@ public class AddDataController extends Controller implements Initializable {
         }
 
         try { // End Date
-            //eDateError.setVisible(false);
+            eDateError.setVisible(false);
             eDate = convertDates(rSDate.getText());
             if(eDate == null){
                 errorOccured = true;
                 //eDateError.setVisible(true);
             }
         } catch(Exception e){
+            eDateError.setVisible(true);
             errorOccured = true;
         }
 
@@ -214,7 +215,7 @@ public class AddDataController extends Controller implements Initializable {
         try {
             wifiLongError.setVisible(false);
             wLat = Double.parseDouble(wifiLong.getText());
-        } catch (Error e) {
+        } catch (Exception e) {
             wifiLongError.setVisible(true);
             errorOccured = true;
         }
