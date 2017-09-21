@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 ////////////////////////////////
 
+import dataAnalysis.RetailLocation;
 import dataAnalysis.Route;
 import dataAnalysis.WifiLocation;
 import dataHandler.SQLiteDB;
@@ -34,6 +35,13 @@ public class DataFilterer {
     private String providerCommand;
     private String getAllWifiCommand;
 
+    //---Retailer Commands---
+    private String retailerCommand;
+    private String streetCommand;
+    private String zipCommand;
+    private String primaryCommand;
+    private String getAllRetailersCommand;
+
     //---Other---
     private String andCommand;
     private String commandEnd;
@@ -42,7 +50,8 @@ public class DataFilterer {
     private ArrayList<Integer> filterVariables;
     private ArrayList<String> filterVariableStrings;
 
-    private  ArrayList<WifiLocation> wifiLocations;
+    private ArrayList<WifiLocation> wifiLocations;
+    private ArrayList<RetailLocation> retailLocations;
 
     private SQLiteDB db;
 
@@ -52,9 +61,7 @@ public class DataFilterer {
      */
     public DataFilterer(SQLiteDB db) {
         //---Route Strings---
-        routeCommand = "SELECT " +
-                "* " +
-                "FROM route_information WHERE ";
+        routeCommand = "SELECT * FROM route_information WHERE ";
         genderCommand = "gender = ?";
         durationCommand = "tripduration BETWEEN ? AND ?";
         dateYearCommand = "start_year BETWEEN ? AND ?";
@@ -65,13 +72,18 @@ public class DataFilterer {
         endAddressCommand = "end_station_name LIKE ?";
         getAllRoutesCommand = "SELECT * FROM route_information;";
         //---Wifi Strings---
-        wifiCommand = "SELECT " +
-                "* " +
-                "FROM wifi_location WHERE ";
+        wifiCommand = "SELECT * FROM wifi_location WHERE ";
         boroughCommand = "suburb LIKE ?";
         typeCommand = "cost LIKE ?";
         providerCommand = "provider LIKE ?";
         getAllWifiCommand = "SELECT * FROM wifi_location;";
+        //---Retailer Strings---
+        retailerCommand = "SELECT * FROM retailer WHERE ";
+        streetCommand = "address LIKE ?";
+        zipCommand = "zip = ?";
+        primaryCommand = "main_type LIKE ?";
+        getAllRetailersCommand = "SELECT * FROM retailer;";
+
         //---Other---
         andCommand = " AND ";
         commandEnd = ";";
@@ -79,21 +91,10 @@ public class DataFilterer {
         filterVariables = new ArrayList<>();
         filterVariableStrings = new ArrayList<>();
         wifiLocations = new ArrayList<>();
+        retailLocations = new ArrayList<>();
         this.db = db;
     }
 
-    /**
-     * clearRoutes clears the class variable ArrayList routes.
-     */
-    private void clearRoutes() {
-        routes.clear();
-    }
-
-
-    /**
-     * clearFilterVariableStrings clears the class variable filterVariableStrings.
-     */
-    private void clearFilterVariableStrings() {filterVariableStrings.clear();}
 
     /**
      * GenerateRouteArray takes a result set (set of records received from a database query) and creates a Route from
@@ -102,7 +103,6 @@ public class DataFilterer {
      * @param rs rs is a result set of data records from a query to the database.
      */
     private void generateRouteArray(ResultSet rs) {
-        clearRoutes();
         try {
             while (rs.next()) {
                 routes.add(new Route(rs.getInt("tripduration"), rs.getString("start_time"),
@@ -344,7 +344,6 @@ public class DataFilterer {
         queryString = generateQueryString(gender, dateLower, dateUpper, timeLower, timeUpper,
                 durationLower, durationUpper, startLocation, endLocation);
         if (queryString.equals(routeCommand)) {
-            clearRoutes();
             getAllRoutes();
             return routes;
         }
@@ -365,11 +364,6 @@ public class DataFilterer {
 
 
 ///////////////////////////////---WIFI FILTERING---\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
-    private void clearWifiLocations() {
-        wifiLocations.clear();
-    }
-
 
     private void generateWifiArray(ResultSet rs) {
         try {
@@ -403,7 +397,6 @@ public class DataFilterer {
 
 
     public ArrayList<WifiLocation> filterWifi(String suburb, String type, String provider) {
-        clearFilterVariableStrings();
         int queryLen = 0;
         String queryString = wifiCommand;
 
@@ -427,9 +420,7 @@ public class DataFilterer {
         if (queryLen > 0) {
             queryString = queryString + commandEnd;
         }
-        System.out.println(queryString);
         if (queryString.equals(wifiCommand)) {
-            clearWifiLocations();
             getAllWifiLocations();
             return wifiLocations;
         }
@@ -437,8 +428,7 @@ public class DataFilterer {
         try {
             PreparedStatement pstmt;
             pstmt = db.getPreparedStatement(queryString);
-            for (int i = 0; i < queryLen; i++) {
-                System.out.println(i);
+            for (int i = 0; i < queryLen; i++) {;
                 pstmt.setString(i + 1, filterVariableStrings.get(i));
             }
 
@@ -451,5 +441,93 @@ public class DataFilterer {
         return wifiLocations;
     }
 
+
+///////////////////////////////---RETAIL FILTERING---\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+
+    private void generateRetailArray(ResultSet rs) {
+        try {
+            while (rs.next()) {
+                retailLocations.add(new RetailLocation(rs.getString("retailer_name"),
+                        rs.getString("address"), rs.getString("city"),
+                        rs.getString("main_type"), rs.getString("secondary_type"),
+                        rs.getInt("zip"), rs.getDouble("lat"),
+                        rs.getDouble("long")));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+
+    private void getAllRetailLocations() {
+        String queryString = getAllRetailersCommand;
+        try {
+            PreparedStatement pstmt;
+            pstmt = db.getPreparedStatement(queryString);
+
+            ResultSet rs = pstmt.executeQuery();
+            generateRetailArray(rs);
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+
+    public ArrayList<RetailLocation> filterRetailers(String address, String primary,int zip) {
+        int queryLen = 0;
+        String queryString = retailerCommand;
+
+        if (address != null) {
+            queryString = queryString + streetCommand;
+            queryLen += 1;
+            filterVariableStrings.add("%" + address + "%");
+        }
+        if (primary != null) {
+            queryString = addAndToStmt(queryString, queryLen);
+            queryString = queryString + primaryCommand;
+            queryLen += 1;
+            filterVariableStrings.add("%" + primary + "%");
+        }
+        if (zip != -1) {
+            queryString = addAndToStmt(queryString, queryLen);
+            queryString = queryString + zipCommand;
+            queryLen += 1;
+            filterVariables.add(zip);
+            System.out.println(filterVariables.get(0));
+        }
+
+        if (queryLen > 0) {
+            queryString = queryString + commandEnd;
+        }
+
+        if (queryString.equals(retailerCommand)) {
+            getAllRetailLocations();
+            return retailLocations;
+        }
+        System.out.println(queryString);
+        try {
+            PreparedStatement pstmt;
+            pstmt = db.getPreparedStatement(queryString);
+            int i;
+            for (i = 0; i < filterVariableStrings.size(); i++) {
+                System.out.println(filterVariableStrings.get(i));
+                pstmt.setString(i + 1, filterVariableStrings.get(i));
+            }
+            for (int j = 0; j < filterVariables.size(); j++) {
+                System.out.println(filterVariables.get(j));
+                pstmt.setInt(i + 1, filterVariables.get(j));
+                i++;
+            }
+
+            ResultSet rs = pstmt.executeQuery();
+            generateRetailArray(rs);
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return retailLocations;
+    }
 }
 

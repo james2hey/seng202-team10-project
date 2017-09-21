@@ -5,13 +5,20 @@ package dataAnalysis;
  */
 
 public class RetailLocation extends Location {
-    private String street, city;
+    private int zip;
+    private String city, mainType, secondaryType;
 
     //RetailLocation constructor
-    public RetailLocation(String retailName, String retailStreet, String retailCity) {
+    public RetailLocation(String retailName, String retailStreet, String retailCity, String mType, String sType,
+                          int zipNumber, double lat, double lon) {
         name = retailName;
-        street = retailStreet;
+        address = retailStreet;
         city = retailCity;
+        mainType = mType;
+        secondaryType = sType;
+        zip = zipNumber;
+        latitude = lat;
+        longitude = lon;
     }
 
     //Getters
@@ -20,12 +27,14 @@ public class RetailLocation extends Location {
     }
 
     public String getStreet() {
-        return street;
+        return address;
     }
 
     public String getCity() {
         return city;
     }
+
+    public String getMainType() {return mainType;}
 
 
 

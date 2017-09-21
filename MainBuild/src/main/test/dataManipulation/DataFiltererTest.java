@@ -1,5 +1,6 @@
 package dataManipulation;
 
+import dataAnalysis.RetailLocation;
 import dataAnalysis.Route;
 import dataAnalysis.WifiLocation;
 import dataHandler.*;
@@ -27,6 +28,7 @@ public class DataFiltererTest {
     private DataFilterer dataFilterer;
     private ArrayList<Route> routes = new ArrayList<>();
     private ArrayList<WifiLocation> wifiLocations = new ArrayList<>();
+    private ArrayList<RetailLocation> retailLocations = new ArrayList<>();
     private SQLiteDB db;
 
     @AfterClass
@@ -50,9 +52,9 @@ public class DataFiltererTest {
         RouteDataHandler rdh = new RouteDataHandler(db);
         rdh.processCSV(getClass().getClassLoader().getResource("CSV/201601-citibike-tripdata-test.csv").getFile());
 
-//        RetailerDataHandler retailerDataHandler = new RetailerDataHandler(db);
-//        System.out.println("Made");
-//        retailerDataHandler.processCSV(getClass().getClassLoader().getResource("CSV/Lower_Manhattan_Retailers-test.csv").getFile());
+        RetailerDataHandler retailerDataHandler = new RetailerDataHandler(db);
+        System.out.println("Made");
+        retailerDataHandler.processCSV(getClass().getClassLoader().getResource("CSV/Lower_Manhattan_Retailers-test.csv").getFile());
     }
 
     @After
@@ -298,6 +300,37 @@ public class DataFiltererTest {
         wifiLocations = dataFilterer.filterWifi("Brooklyn", "Limited Free", "USA");
         for (int i = 0; i < wifiLocations.size(); i++) {
             System.out.println(wifiLocations.get(1).getSSIF());
+        }
+        assertTrue(1 == 1);
+    }
+
+
+    @Test
+    public void filterRetailersTest() throws Exception {
+        retailLocations = dataFilterer.filterRetailers(null, null, 10004);
+        System.out.println(retailLocations.size());
+        for (int i = 0; i < retailLocations.size(); i++) {
+            System.out.println(retailLocations.get(i).getName());
+        }
+        assertTrue(1 == 1);
+    }
+
+    @Test
+    public void filterRetailersTestAll() throws Exception {
+        retailLocations = dataFilterer.filterRetailers("new", "casual", 10004);
+        System.out.println(retailLocations.size());
+        for (int i = 0; i < retailLocations.size(); i++) {
+            System.out.println(retailLocations.get(i).getName());
+        }
+        assertTrue(1 == 1);
+    }
+
+    @Test
+    public void filterRetailersTestNone() throws Exception {
+        retailLocations = dataFilterer.filterRetailers(null, null, -1);
+        System.out.println(retailLocations.size());
+        for (int i = 0; i < retailLocations.size(); i++) {
+            System.out.println(retailLocations.get(i).getName());
         }
         assertTrue(1 == 1);
     }

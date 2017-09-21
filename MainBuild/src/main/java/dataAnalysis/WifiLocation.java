@@ -11,7 +11,6 @@ public class WifiLocation extends Location {
     private int zip;
     private double wifiID;
     private String SSID, cost, provider, remarks, city, suburb;
-    private Location location;
 
 
     //WifiLocation Constructor
@@ -19,7 +18,9 @@ public class WifiLocation extends Location {
                         String wifiCost, String wifiProvier, String wifiRemarks, String wifiCity, String wifiSuburb,
                         int wifiZIP) {
         wifiID = id;
-        location  = new StationLocation(1, wifiLatitude, wifiLongitude, wifiAddress);
+        latitude = wifiLatitude;
+        longitude = wifiLongitude;
+        address = wifiAddress;
         SSID = wifiSSID;
         cost = wifiCost;
         provider = wifiProvier;
@@ -31,9 +32,9 @@ public class WifiLocation extends Location {
 
 
     //Getters
-    public Location getLocation() {return location;}
+    public String getLocation() {return address;}
 
-    public String getAddress() {return location.getAddress();}
+    public String getAddress() {return address;}
 
     public  String getProvider() {return provider;}
 

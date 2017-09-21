@@ -31,7 +31,8 @@ public class CyclistTest {
      * @return r
      */
     private RetailLocation createRetailLocation() {
-        RetailLocation r = new RetailLocation("TestShop", "Main Street", "NY" );
+        RetailLocation r = new RetailLocation("TestShop", "Main Street", "NY",
+                "Food", "Junk", 10004, 1.2, 1.2 );
         return r;
     }
 
