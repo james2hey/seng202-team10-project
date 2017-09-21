@@ -7,7 +7,6 @@ import dataAnalysis.Route;
 import dataAnalysis.WifiLocation;
 import dataHandler.*;
 import dataManipulation.FindNearbyLocations;
-import GUIControllers.LoginController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -48,9 +47,12 @@ public class Main extends Application {
         Geocoder.init();
         DatabaseUser.init();
         HandleUsers.init();
+        HandleUsers.fillUserList();
         FindNearbyLocations.init(db);
 
-        FavouriteRouteData frd = new FavouriteRouteData(db);
+        FavouriteRouteData favRouteData = new FavouriteRouteData(db);
+        FavouriteWifiData favWifiData = new FavouriteWifiData(db);
+        FavouriteRetailData favRetailData = new FavouriteRetailData(db);
 
 
         System.out.println("before");

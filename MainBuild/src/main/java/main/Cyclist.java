@@ -5,6 +5,8 @@ import dataAnalysis.Route;
 import dataAnalysis.StationLocation;
 import dataAnalysis.WifiLocation;
 import dataAnalysis.Location;
+import dataHandler.FavouriteRouteData;
+import dataHandler.FavouriteWifiData;
 
 import java.util.ArrayList;
 
@@ -25,8 +27,16 @@ public class Cyclist extends User {
     public Cyclist(String cName) {
         name = capitalizeFully(cName);
     }
+
+    public ArrayList<WifiLocation> getFavouriteWifiLocations() {return favouriteWifiLocations;}
     //_____________________________________________ADD DATA_____________________________________________
 
+    public void addRouteInstance(Route route) {
+        favouriteRouteList.add(route);
+    }
+    public void addWifiInstance(WifiLocation wifi) {
+        favouriteWifiLocations.add(wifi);
+    }
     /**Adds a route to the Users routeList.
      * @param route;
      */
@@ -50,7 +60,10 @@ public class Cyclist extends User {
     /**Adds a WifiLocation to the Users favouriteStationLocations
      * @param wifi;
      */
-    public void addFavouriteWifi(WifiLocation wifi) {favouriteWifiLocations.add(wifi);}
+    public void addFavouriteWifi(WifiLocation wifi, String name) {
+        favouriteWifiLocations.add(wifi);
+        FavouriteWifiData.addFavouriteWifi(name, wifi.getWifiID());
+    }
 
     //_____________________________________________REMOVE DATA_____________________________________________
     /**Removes a Route from the users routeList

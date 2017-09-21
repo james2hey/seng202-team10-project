@@ -1,4 +1,4 @@
-package main;
+package dataHandler;
 
 import dataHandler.SQLiteDB;
 

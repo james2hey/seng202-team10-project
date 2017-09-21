@@ -95,34 +95,34 @@ public class CyclistTest {
         ArrayList<RetailLocation> emptyRetailLocationList = new ArrayList<RetailLocation>();
         //assertEquals(emptyRetailLocationList, cyclist.getFavouriteRetailLocations());
     }
-
-    @Test
-    public void removeFavouriteWifi() throws Exception {
-        Cyclist cyclist = new Cyclist();
-        WifiLocation w = createWifiLocation();
-        cyclist.addFavouriteWifi(w);
-        cyclist.removeFavouriteWifi(w);
-        ArrayList<WifiLocation> emptyWifiLocationList = new ArrayList<WifiLocation>();
-        //assertEquals(emptyWifiLocationList, cyclist.getFavouriteWifiLocations());
-    }
+//
+//    @Test
+//    public void removeFavouriteWifi() throws Exception {
+//        Cyclist cyclist = new Cyclist();
+//        WifiLocation w = createWifiLocation();
+//        cyclist.addFavouriteWifi(w);
+//        cyclist.removeFavouriteWifi(w);
+//        ArrayList<WifiLocation> emptyWifiLocationList = new ArrayList<WifiLocation>();
+//        //assertEquals(emptyWifiLocationList, cyclist.getFavouriteWifiLocations());
+//    }
 
     /**
      * It only seems necessary to test for one type of list. It the above tests pass,
      * it makes sense that each boolean in the clear method would act the same way.
      */
-    @Test
-    public void testClear() throws Exception {
-        Cyclist cyclist = new Cyclist();
-        WifiLocation w1 = createWifiLocation();
-        WifiLocation w2 = createWifiLocation();
-        WifiLocation w3 = createWifiLocation();
-        cyclist.addFavouriteWifi(w1);
-        cyclist.addFavouriteWifi(w2);
-        cyclist.addFavouriteWifi(w3);
-        cyclist.clear("WIFI");
-        ArrayList<WifiLocation> emptyWifiLocationList = new ArrayList<WifiLocation>();
-        //assertEquals(emptyWifiLocationList,cyclist.getFavouriteWifiLocations());
-    }
+//    @Test
+//    public void testClear() throws Exception {
+//        Cyclist cyclist = new Cyclist();
+//        WifiLocation w1 = createWifiLocation();
+//        WifiLocation w2 = createWifiLocation();
+//        WifiLocation w3 = createWifiLocation();
+//        cyclist.addFavouriteWifi(w1);
+//        cyclist.addFavouriteWifi(w2);
+//        cyclist.addFavouriteWifi(w3);
+//        cyclist.clear("WIFI");
+//        ArrayList<WifiLocation> emptyWifiLocationList = new ArrayList<WifiLocation>();
+//        //assertEquals(emptyWifiLocationList,cyclist.getFavouriteWifiLocations());
+//    }
 //
 //    @Test
 //    public void testClearAll() throws Exception {

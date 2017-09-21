@@ -37,9 +37,6 @@ public class LoginController implements Initializable {
     public static ComboBox<String> existingUsers = new ComboBox<>();
 
     @FXML
-    public TextField existingUser;
-
-    @FXML
     private ComboBox<String> comboBox;
 
     @Override
@@ -52,7 +49,6 @@ public class LoginController implements Initializable {
             ResultSet rs = db.executeQuerySQL("SELECT * FROM users");
             System.out.println("here");
             while (rs.next()) {
-                System.out.println(rs.getString(1));
                 comboBox.getItems().add(rs.getString(1));
             }
         } catch (SQLException e) {
@@ -70,7 +66,6 @@ public class LoginController implements Initializable {
         String name = username.getText();
         boolean created = HandleUsers.createNewUser(name, true);
         if (created) {
-            System.out.println("Creating cyclist for " + name);
             navigateHome(event);
         } else {
             nameInUse.setVisible(true);
@@ -98,9 +93,8 @@ public class LoginController implements Initializable {
      */
     @FXML
     void logIn(ActionEvent event) throws IOException {
-        String name = existingUser.getText();
-        HandleUsers.logIn(name, true); // Currently only creating cyclists on sign in for now.
-        //HandleUsers.currentUser = name;
+        String name = comboBox.getValue();
+        HandleUsers.logIn(name);
         navigateHome(event);
     }
 
@@ -115,8 +109,6 @@ public class LoginController implements Initializable {
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.setScene(homeScene);
     }
-
-
 
 }
 

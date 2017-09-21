@@ -1,12 +1,12 @@
 package main;
 
 import dataAnalysis.Route;
+import dataAnalysis.WifiLocation;
 import dataHandler.SQLiteDB;
-import javafx.beans.value.ObservableListValue;
+;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.ComboBox;
-import GUIControllers.LoginController;
+
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,7 +23,6 @@ public class HandleUsers {
     //public static String currentUserName;
     public static Cyclist currentCyclist;
     public static Analyst currentAnalyst;
-    public static ObservableList<String> allUsers = FXCollections.observableArrayList("1");
 
     public static ArrayList<String> getUserList() {
         return userList;
@@ -48,18 +47,14 @@ public class HandleUsers {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        allUsers = FXCollections.observableArrayList("1","2");
-        //allUsers.getItems().addAll("1","2");
-
     }
 
     /**
      * Logs into the user whose parameter is handed into the function.
      * @param username;
      */
-    public static void logIn(String username, boolean isCyclist) {
+    public static void logIn(String username) {
         ResultSet rs;
-
         try {
             rs = db.executeQuerySQL("SELECT * FROM users WHERE name = '" + username + "';");
             String type = rs.getString(2);
@@ -69,28 +64,20 @@ public class HandleUsers {
 
             if (type.charAt(0) == 'c') { // Cant figure out why type != "cyclist".
                 currentCyclist = new Cyclist(username);
-                System.out.println("Created cyclist instance for " + username);
+                getUserRouteFavourites();
+                getUserWifiFavourites();
             } else {
                 currentAnalyst = new Analyst(username);
-                System.out.println("Created analyst instance for " + username);
             }
 
         } catch (SQLException e) { //What if the result set is not closed?
             e.getMessage();
-
             userList.add(username);
         }
-        if (isCyclist) {
-            currentCyclist = new Cyclist(username);
-            getUserFavourites();
-        } else{
-            currentAnalyst = new Analyst(username);
-        }
         System.out.println("Logged into " + username + "'s account.");
-
     }
 
-    public static void getUserFavourites() {
+    public static void getUserRouteFavourites() {
         ResultSet rsFavourites, rsRoute;
         String name = currentCyclist.getName();
         Route tempRoute;
@@ -113,7 +100,7 @@ public class HandleUsers {
                         rsRoute.getDouble("end_longitude"), rsRoute.getInt("start_station_id"),
                         rsRoute.getInt("end_station_id"), rsRoute.getString("start_station_name"),
                         rsRoute.getString("end_station_name"), rsRoute.getString("bikeid"));
-                currentCyclist.addRoute(tempRoute, name);
+                currentCyclist.addRouteInstance(tempRoute);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -124,8 +111,38 @@ public class HandleUsers {
             System.out.println(currentCyclist.getFavouriteRouteList().get(i).getStartTime());
         }
         System.out.println("-----------------");
-        System.out.println();
 
+    }
+
+    public static void getUserWifiFavourites() {
+        ResultSet rsFavourites, rsWifi;
+        String name = currentCyclist.getName();
+        WifiLocation tempWifi;
+        try {
+            rsFavourites = db.executeQuerySQL("SELECT * FROM favourite_wifi WHERE name = '" + name + "';");
+            while (rsFavourites.next()) {
+                PreparedStatement ps = db.getPreparedStatement("SELECT * FROM wifi_location where WIFI_ID = ?");
+
+                ps.setInt(1, rsFavourites.getInt(2));
+                rsWifi = ps.executeQuery();
+                tempWifi = new WifiLocation(rsWifi.getDouble("wifi_id"), rsWifi.getDouble("lat"),
+                        rsWifi.getDouble("lon"), rsWifi.getString("address"),
+                        rsWifi.getString("ssid"), rsWifi.getString("cost"),
+                        rsWifi.getString("provider"), rsWifi.getString("remarks"),
+                        rsWifi.getString("city"), rsWifi.getString("suburb"),
+                        rsWifi.getInt("zip"));
+                currentCyclist.addWifiInstance(tempWifi);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println(currentCyclist.getName() + "'s favourite wifi locations:");
+        System.out.println("-----------------");
+        for (int i = 0; i < currentCyclist.getFavouriteWifiLocations().size(); i++) {
+            System.out.println(currentCyclist.getFavouriteWifiLocations().get(i).getWifiID());
+        }
+        System.out.println("-----------------");
+        System.out.println();
     }
 
     /**
@@ -161,22 +178,5 @@ public class HandleUsers {
         }
         return created;
     }
-//
-//    /**
-//     * Creates an instance of the User subclass adding its name.
-//     * @param username;
-//     * @param isCyclist;
-//     * @return user
-//     */
-//    public static User createInstance(String username, boolean isCyclist) {
-//        User user;
-//        if(isCyclist) {
-//            user = new Cyclist(username);
-//        } else {
-//            user = new Analyst(username);
-//        }
-//        return user;
-//    }
-
 
 }

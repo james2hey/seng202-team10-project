@@ -9,11 +9,13 @@ import dataManipulation.DataFilterer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.fxml.FXML;
 import javafx.scene.control.cell.PropertyValueFactory;
+import main.HandleUsers;
 import main.Main;
 
 import java.util.ArrayList;
@@ -102,5 +104,31 @@ public class WifiDataViewerController extends DataViewerController {
         wifiList.addAll(wifiLocations);
 
     }
+
+    //________________favourites_____________
+
+    @FXML
+    private Button favouritesButton;
+
+    @FXML
+    private void addFavouriteWifi() {
+        if (HandleUsers.currentAnalyst == null) {
+            if (tableView.getSelectionModel().getSelectedItem() == null) {
+                System.out.println("Select Wifi location to add!");
+            } else {
+                String name = HandleUsers.currentCyclist.getName();
+                WifiLocation wifiToAdd = tableView.getSelectionModel().getSelectedItem();
+                HandleUsers.currentCyclist.addFavouriteWifi(wifiToAdd, name);
+                System.out.println("ADDED " + wifiToAdd.getAddress() + " to cyclist favourites.");
+            }
+        } else {
+            System.out.println("Feature not available for analyst!");
+        }
+    }
+
+
+
+
+
 
 }
