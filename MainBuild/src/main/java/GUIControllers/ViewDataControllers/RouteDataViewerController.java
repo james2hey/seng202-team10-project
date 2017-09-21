@@ -28,9 +28,6 @@ public class RouteDataViewerController extends DataViewerController {
     private JFXToggleButton male;
 
     @FXML
-    private ToggleGroup genderToggleGroup;
-
-    @FXML
     private JFXTextField startLocationInput;
 
     @FXML
@@ -76,7 +73,7 @@ public class RouteDataViewerController extends DataViewerController {
         Date.setCellValueFactory(new PropertyValueFactory<Route, String>("StartDate"));
         StartTime.setCellValueFactory(new PropertyValueFactory<Route, String>("StartTime"));
         EndTime.setCellValueFactory(new PropertyValueFactory<Route, String>("StopTime"));
-        tableView.setItems(routeList);System.out.println("Got data");
+        tableView.setItems(routeList);
         tableView.getColumns().setAll(StartLocation, EndLocation, Date, StartTime, EndTime);
     }
 
@@ -86,24 +83,28 @@ public class RouteDataViewerController extends DataViewerController {
         System.out.println("Display button pressed");
 
         int gender;
-        if(genderToggleGroup.getSelectedToggle() == null) {
+        if((male.isSelected() == true && female.isSelected() == true) || (male.isSelected() == false && female.isSelected() == false)) {
             gender = -1;
+        } else if (male.isSelected() == true){
+            gender = Integer.valueOf(male.getUserData().toString());
         } else {
-            gender = Integer.valueOf(genderToggleGroup.getSelectedToggle().getUserData().toString());
+            gender = Integer.valueOf(female.getUserData().toString());
         }
         String dateLower;
         String dateUpper;
-        String pattern = "dd/mm/yyyy";
+        String pattern = "dd/MM/yyyy";
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
         LocalDate startDate = startDateInput.getValue();
         LocalDate endDate = endDateInput.getValue();
+        System.out.println(startDate);
         if (startDate != null) {
-            dateLower = dateFormatter.format(startDate);
+            dateLower = startDate.format(dateFormatter);
+            System.out.println(dateLower);
         } else {
             dateLower = null;
         }
         if (endDate != null) {
-            dateUpper = dateFormatter.format(endDate);
+            dateUpper = endDate.format(dateFormatter);
         } else {
             dateUpper = null;
         }

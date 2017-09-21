@@ -6,6 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
+<?import javafx.collections.FXCollections?>
 <GridPane hgap="40.0" prefHeight="650.0" prefWidth="1100.0" style="-fx-background-color: grey;" vgap="30.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIControllers.ViewDataControllers.WifiDataViewerController">
    <children>
       <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Wifi Data Viewer" textAlignment="CENTER" wrappingWidth="953.193359375" GridPane.columnIndex="1" GridPane.columnSpan="6">
@@ -41,6 +42,7 @@
       <TableView fx:id="tableView" prefHeight="456.0" prefWidth="570.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="2" GridPane.rowSpan="2">
          <columns>
             <TableColumn fx:id="Name" prefWidth="123.99996948242188" text="Name" />
+            <TableColumn fx:id="Provider" prefWidth="124" text="Provider" />
             <TableColumn fx:id="Address" prefWidth="132.0" text="Address" />
             <TableColumn fx:id="Suburb" prefWidth="93.0" text="Suburb" />
             <TableColumn fx:id="Cost" prefWidth="113.0" text="Cost" />
@@ -60,7 +62,18 @@
                <children>
                   <VBox prefHeight="161.0" prefWidth="103.0">
                      <children>
-                        <ComboBox fx:id="boroughInput" prefHeight="25.0" prefWidth="262.0" />
+                        <ComboBox fx:id="boroughInput" prefHeight="25.0" prefWidth="262.0">
+                           <items>
+                              <FXCollections fx:factory="observableArrayList">
+                                 <String fx:value="Manhattan" />
+                                 <String fx:value="Brooklyn" />
+                                 <String fx:value="Queens" />
+                                 <String fx:value="Bronx" />
+                                 <String fx:value="Staten Island" />
+                                 <String fx:value="No Selection" />
+                              </FXCollections>
+                           </items>
+                        </ComboBox>
                      </children>
                   </VBox>
                </children>
@@ -68,7 +81,16 @@
             <VBox prefHeight="161.0" prefWidth="103.0">
                <children>
                   <Accordion />
-                  <ComboBox fx:id="typeInput" prefHeight="25.0" prefWidth="262.0" />
+                  <ComboBox fx:id="typeInput" prefHeight="25.0" prefWidth="262.0">
+                     <items>
+                        <FXCollections fx:factory="observableArrayList">
+                           <String fx:value="Free" />
+                           <String fx:value="Limited Free" />
+                           <String fx:value="Paid" />
+                           <String fx:value="No Selection" />
+                        </FXCollections>
+                     </items>
+                  </ComboBox>
                </children>
             </VBox>
          </children>

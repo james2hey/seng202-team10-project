@@ -33,9 +33,13 @@ public class WifiLocation extends Location {
     //Getters
     public Location getLocation() {return location;}
 
-    public String getName() {return name;}
-
     public String getAddress() {return location.getAddress();}
+
+    public  String getProvider() {return provider;}
+
+    public String getSuburb() {return suburb;}
+
+    public String getCost() {return cost;}
 
     public String getSSIF() {return SSID;}
 

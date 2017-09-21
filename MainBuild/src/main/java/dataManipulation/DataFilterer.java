@@ -2,13 +2,11 @@ package dataManipulation;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.time.Year;
 ////////////////////////////////
 
 import dataAnalysis.Route;
 import dataAnalysis.WifiLocation;
 import dataHandler.SQLiteDB;
-import main.Main;
 
 
 /**
@@ -26,6 +24,7 @@ public class DataFilterer {
     private String durationCommand;
     private String startAddressCommand;
     private String endAddressCommand;
+    private String getAllRoutesCommand;
 
 
     //---Wifi Strings---
@@ -33,6 +32,7 @@ public class DataFilterer {
     private String boroughCommand;
     private String typeCommand;
     private String providerCommand;
+    private String getAllWifiCommand;
 
     //---Other---
     private String andCommand;
@@ -63,6 +63,7 @@ public class DataFilterer {
         timeCommand = "start_time BETWEEN ? AND ?";
         startAddressCommand = "start_station_name LIKE ?";
         endAddressCommand = "end_station_name LIKE ?";
+        getAllRoutesCommand = "SELECT * FROM route_information;";
         //---Wifi Strings---
         wifiCommand = "SELECT " +
                 "* " +
@@ -70,6 +71,7 @@ public class DataFilterer {
         boroughCommand = "suburb LIKE ?";
         typeCommand = "cost LIKE ?";
         providerCommand = "provider LIKE ?";
+        getAllWifiCommand = "SELECT * FROM wifi_location;";
         //---Other---
         andCommand = " AND ";
         commandEnd = ";";
@@ -293,6 +295,25 @@ public class DataFilterer {
 
 
     /**
+     * getAllRoutes gets all routes from the database and returns these as Route objects in an ArrayList.
+     */
+    private void getAllRoutes() {
+        try {
+            String queryString = getAllRoutesCommand;
+            PreparedStatement pstmt;
+            pstmt = db.getPreparedStatement(queryString);
+            setQueryParameters(pstmt);
+
+            ResultSet rs = pstmt.executeQuery();
+            generateRouteArray(rs);
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+
+    /**
      * filter takes all the possible filter requirement values and returns a ArrayList of routes that meet the filter
      * requirements.
      *
@@ -324,6 +345,7 @@ public class DataFilterer {
                 durationLower, durationUpper, startLocation, endLocation);
         if (queryString.equals(routeCommand)) {
             clearRoutes();
+            getAllRoutes();
             return routes;
         }
         try {
@@ -344,6 +366,11 @@ public class DataFilterer {
 
 ///////////////////////////////---WIFI FILTERING---\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
+    private void clearWifiLocations() {
+        wifiLocations.clear();
+    }
+
+
     private void generateWifiArray(ResultSet rs) {
         try {
             while (rs.next()) {
@@ -354,6 +381,21 @@ public class DataFilterer {
                         rs.getString("city"), rs.getString("suburb"),
                         rs.getInt("zip")));
             }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+
+    private void getAllWifiLocations() {
+        String queryString = getAllWifiCommand;
+        try {
+            PreparedStatement pstmt;
+            pstmt = db.getPreparedStatement(queryString);
+
+            ResultSet rs = pstmt.executeQuery();
+            generateWifiArray(rs);
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -386,6 +428,11 @@ public class DataFilterer {
             queryString = queryString + commandEnd;
         }
         System.out.println(queryString);
+        if (queryString.equals(wifiCommand)) {
+            clearWifiLocations();
+            getAllWifiLocations();
+            return wifiLocations;
+        }
 
         try {
             PreparedStatement pstmt;
