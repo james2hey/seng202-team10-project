@@ -31,7 +31,7 @@ public class Cyclist extends User {
      * @param route;
      */
     public void addRoute(Route route, String name) {
-        routeList.add(route);
+        favouriteRouteList.add(route);
         FavouriteRouteData.addFavouriteRoute(name, route.getStartYear(), route.getStartMonth(), route.getStartDay(),
                 route.getStartTime(), route.getBikeID());
     }
@@ -58,9 +58,9 @@ public class Cyclist extends User {
      */
     public void removeRoute(Route route) {
         boolean broken = false;
-        for(int i=0; i < routeList.size(); i++) {
-            if(routeList.get(i) == route) {
-                routeList.remove(i);
+        for(int i=0; i < favouriteRouteList.size(); i++) {
+            if(favouriteRouteList.get(i) == route) {
+                favouriteRouteList.remove(i);
                 broken = true;
                 break;
             }
@@ -119,7 +119,7 @@ public class Cyclist extends User {
      */
     public void clear(String type) {
         if(type == "ROUTE") {
-            routeList.clear();
+            favouriteRouteList.clear();
         } else if(type == "STATION") {
             favouriteStationLocations.clear();
         } else if(type == "RETAIL") {
@@ -134,7 +134,7 @@ public class Cyclist extends User {
     /**Clears all of the Users ArrayLists.
      */
     public void clearAll() {
-        routeList.clear();
+        favouriteRouteList.clear();
         favouriteStationLocations.clear();
         favouriteRetailLocations.clear();
         favouriteWifiLocations.clear();

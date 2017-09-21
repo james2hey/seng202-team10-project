@@ -137,7 +137,7 @@ public class RouteDataViewerController extends DataViewerController {
 
     }
 
-    // ___________________ Favourites button feel free to change around the ugly composition _______________
+    // ___________________ Favourites button - feel free to change around the ugly composition _______________
 
     @FXML
     Button favourtiesButton;
@@ -146,13 +146,17 @@ public class RouteDataViewerController extends DataViewerController {
      * Adds the currently selected route to the Cyclists routeList.
      */
     public void addFavouriteRoute() {
-        if(tableView.getSelectionModel().getSelectedItem() == null) {
-            System.out.println("Select route to add!");
+        if (HandleUsers.currentAnalyst == null) {
+            if (tableView.getSelectionModel().getSelectedItem() == null) {
+                System.out.println("Select route to add!");
+            } else {
+                String name = HandleUsers.currentCyclist.getName();
+                Route routeToAdd = tableView.getSelectionModel().getSelectedItem();
+                HandleUsers.currentCyclist.addRoute(routeToAdd, name);
+                System.out.println("ADDED " + routeToAdd.getStartTime() + " to cyclist favourites.");
+            }
         } else {
-            String name = HandleUsers.currentCyclist.getName();
-            Route routeToAdd = tableView.getSelectionModel().getSelectedItem();
-            HandleUsers.currentCyclist.addRoute(routeToAdd, name);
-            System.out.println("ADDED " + routeToAdd.getStartTime() + " to cyclist favourites.");
+            System.out.println("Feature not available for analyst!");
         }
     }
 

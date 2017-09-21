@@ -9,6 +9,7 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
@@ -89,5 +90,14 @@ public class LoginController {
         currentStage.setScene(homeScene);
     }
 
+    @FXML
+    public ComboBox<String> exUsers = new ComboBox(HandleUsers.allUsers);
+
+    @FXML
+    public Button  signIn2;
+
+    public void logIn2() {
+
+    }
 
 }

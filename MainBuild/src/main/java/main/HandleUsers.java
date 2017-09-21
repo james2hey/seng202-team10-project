@@ -1,11 +1,14 @@
 package main;
 
+import dataAnalysis.Route;
 import dataHandler.SQLiteDB;
+import javafx.beans.value.ObservableListValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 import GUIControllers.LoginController;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,29 +20,36 @@ import java.util.ArrayList;
  */
 public class HandleUsers {
     private static ArrayList<String> userList = new ArrayList<>();
-    public static String currentUserName;
+    //public static String currentUserName;
     public static Cyclist currentCyclist;
     public static Analyst currentAnalyst;
+    public static ObservableList<String> allUsers = FXCollections.observableArrayList("1");
 
     public static ArrayList<String> getUserList() {
         return userList;
     }
+
     private static SQLiteDB db;
 
     public static void init() {
         db = Main.getDB();
     }
 
+    /**
+     * Fills the database with existing users from an external csv.
+     */
     public static void fillUserList() {
         try {
             ResultSet rs;
-            rs = db.executeQuerySQL("SELECT * FROM users");
+            rs = db.executeQuerySQL("SELECT * FROM users;");
             while (rs.next()) {
-                userList.add(rs.getString("NAME"));
+                userList.add(rs.getString("name"));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        allUsers = FXCollections.observableArrayList("1","2");
+        //allUsers.getItems().addAll("1","2");
 
     }
 
@@ -48,7 +58,6 @@ public class HandleUsers {
      * @param username;
      */
     public static void logIn(String username, boolean isCyclist) {
-        //Also needs to get favourites list...
         ResultSet rs;
 
         try {
@@ -65,17 +74,15 @@ public class HandleUsers {
                 currentAnalyst = new Analyst(username);
                 System.out.println("Created analyst instance for " + username);
             }
-            currentUserName = username;
 
         } catch (SQLException e) { //What if the result set is not closed?
             e.getMessage();
 
             userList.add(username);
         }
-
-
         if (isCyclist) {
             currentCyclist = new Cyclist(username);
+            getUserFavourites();
         } else{
             currentAnalyst = new Analyst(username);
         }
@@ -83,12 +90,50 @@ public class HandleUsers {
 
     }
 
+    public static void getUserFavourites() {
+        ResultSet rsFavourites, rsRoute;
+        String name = currentCyclist.getName();
+        Route tempRoute;
+        try {
+            rsFavourites = db.executeQuerySQL("SELECT * FROM favourite_routes WHERE name = '" + name + "';");
+            while (rsFavourites.next()) {
+                PreparedStatement ps = db.getPreparedStatement("SELECT * FROM route_information where start_year = ? AND start_month = ? AND start_day = ? AND start_time = ? AND bikeid = ?");
+                ps.setInt(1, rsFavourites.getInt(2));
+                ps.setInt(2, rsFavourites.getInt(3));
+                ps.setInt(3, rsFavourites.getInt(4));
+                ps.setString(4, rsFavourites.getString(5));
+                ps.setString(5, rsFavourites.getString(6));
+                rsRoute = ps.executeQuery();
+                tempRoute = new Route(rsRoute.getInt("tripduration"), rsRoute.getString("start_time"),
+                        rsRoute.getString("end_time"), rsRoute.getInt("start_day"),
+                        rsRoute.getInt("start_month"), rsRoute.getInt("start_year"),
+                        rsRoute.getInt("end_day"), rsRoute.getInt("end_month"),
+                        rsRoute.getInt("end_year"), rsRoute.getDouble("start_latitude"),
+                        rsRoute.getDouble("start_longitude"), rsRoute.getDouble("end_latitude"),
+                        rsRoute.getDouble("end_longitude"), rsRoute.getInt("start_station_id"),
+                        rsRoute.getInt("end_station_id"), rsRoute.getString("start_station_name"),
+                        rsRoute.getString("end_station_name"), rsRoute.getString("bikeid"));
+                currentCyclist.addRoute(tempRoute, name);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println(currentCyclist.getName() + "'s favourite routes:");
+        System.out.println("-----------------");
+        for (int i = 0; i < currentCyclist.getFavouriteRouteList().size(); i++) {
+            System.out.println(currentCyclist.getFavouriteRouteList().get(i).getStartTime());
+        }
+        System.out.println("-----------------");
+        System.out.println();
+
+    }
+
     /**
-     * Logs out of the currently logged in user.
+     * Logs out of the currently logged in user by terminating both instances of currentAnalyst and currentCyclist.
      */
     public static void logOutOfUser() {
-        // Will need to change this.
-        currentUserName = "";
+        currentAnalyst = null;
+        currentCyclist = null;
     }
 
     /**
@@ -114,27 +159,24 @@ public class HandleUsers {
             userList.add(username);
             created = true;
         }
-        if (created) {
-            currentUserName = username;
-        }
         return created;
     }
-
-    /**
-     * Creates an instance of the User subclass adding its name.
-     * @param username;
-     * @param isCyclist;
-     * @return user
-     */
-    public static User createInstance(String username, boolean isCyclist) {
-        User user;
-        if(isCyclist) {
-            user = new Cyclist(username);
-        } else {
-            user = new Analyst(username);
-        }
-        return user;
-    }
+//
+//    /**
+//     * Creates an instance of the User subclass adding its name.
+//     * @param username;
+//     * @param isCyclist;
+//     * @return user
+//     */
+//    public static User createInstance(String username, boolean isCyclist) {
+//        User user;
+//        if(isCyclist) {
+//            user = new Cyclist(username);
+//        } else {
+//            user = new Analyst(username);
+//        }
+//        return user;
+//    }
 
 
 }

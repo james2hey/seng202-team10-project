@@ -54,5 +54,7 @@
       <Text fx:id="nameInUse" fill="#e10011" strokeType="OUTSIDE" strokeWidth="0.0" text="Name already in use" textAlignment="CENTER" visible="false" wrappingWidth="148.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
       <TextField fx:id="existingUser" promptText="Type Name" GridPane.columnIndex="4" GridPane.rowIndex="1" />
       <Button fx:id="SignIn" mnemonicParsing="false" onAction="#logIn" text="Sign in" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+      <ComboBox fx:id="exUsers" prefWidth="150.0" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+      <Button fx:id="signIn2" mnemonicParsing="false" onAction="#logIn2" text="Sign in 2" GridPane.columnIndex="5" GridPane.rowIndex="2" />
    </children>
 </GridPane>
