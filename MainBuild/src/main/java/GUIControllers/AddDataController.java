@@ -181,7 +181,6 @@ public class AddDataController extends Controller implements Initializable {
         if(errorOccurred == true){
             return;
         }
-
         RouteDataHandler newRoute = new RouteDataHandler(Main.getDB());
         Boolean fromHandler = newRoute.addSingleEntry(0, sDate[0], sDate[1], sDate[2], rSTime.getText(),
                 eDate[0], eDate[1], eDate[2], rETime.getText(), "1",
