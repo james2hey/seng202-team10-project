@@ -1,6 +1,10 @@
 package main;
 
+import com.lynden.gmapsfx.javascript.object.Marker;
+import com.lynden.gmapsfx.shapes.Polyline;
+import dataAnalysis.RetailLocation;
 import dataAnalysis.Route;
+import dataAnalysis.WifiLocation;
 import dataHandler.*;
 import dataManipulation.FindNearbyLocations;
 import GUIControllers.LoginController;
@@ -10,16 +14,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+
 public class Main extends Application {
     static SQLiteDB db;
+    public static ArrayList<WifiLocation> wifiLocations = new ArrayList<WifiLocation>();
+    public static ArrayList<RetailLocation> retailLocations = new ArrayList<RetailLocation>();
+    public static ArrayList<Route> routes = new ArrayList<Route>();
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/startUp.fxml"));
-
-        primaryStage.setTitle("Cyclist Tracker");
-        primaryStage.setScene(new Scene(root, 1100, 650));
-        primaryStage.show();
 
 //        initCyclist();
         /*
@@ -44,8 +48,6 @@ public class Main extends Application {
         Geocoder.init();
         DatabaseUser.init();
         HandleUsers.init();
-        HandleUsers.fillUserList();
-
         FindNearbyLocations.init(db);
 
         FavouriteRouteData frd = new FavouriteRouteData(db);
@@ -64,6 +66,12 @@ public class Main extends Application {
         RetailerDataHandler retailerDataHandler = new RetailerDataHandler(db);
         System.out.println("Made");
         retailerDataHandler.processCSV(getClass().getClassLoader().getResource("CSV/Lower_Manhattan_Retailers-test.csv").getFile());
+
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/startUp.fxml"));
+
+        primaryStage.setTitle("Cyclist Tracker");
+        primaryStage.setScene(new Scene(root, 1100, 650));
+        primaryStage.show();
 
 
 //
@@ -94,4 +102,6 @@ public class Main extends Application {
     public static SQLiteDB getDB() {
         return db;
     }
+
 }
+

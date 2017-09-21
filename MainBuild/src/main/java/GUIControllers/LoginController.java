@@ -1,15 +1,16 @@
 package GUIControllers;
 
+import dataHandler.SQLiteDB;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
@@ -18,9 +19,13 @@ import main.HandleUsers;
 import main.Main;
 
 import java.io.IOException;
+import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
-public class LoginController {
+public class LoginController implements Initializable {
 
     @FXML
     public TextField username;
@@ -33,6 +38,27 @@ public class LoginController {
 
     @FXML
     public TextField existingUser;
+
+    @FXML
+    private ComboBox<String> comboBox;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        System.out.println("here");
+        SQLiteDB db = Main.getDB();
+        System.out.println("here");
+        try {
+            System.out.println("here");
+            ResultSet rs = db.executeQuerySQL("SELECT * FROM users");
+            System.out.println("here");
+            while (rs.next()) {
+                System.out.println(rs.getString(1));
+                comboBox.getItems().add(rs.getString(1));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
 
     /**
@@ -90,14 +116,7 @@ public class LoginController {
         currentStage.setScene(homeScene);
     }
 
-    @FXML
-    public ComboBox<String> exUsers = new ComboBox(HandleUsers.allUsers);
 
-    @FXML
-    public Button  signIn2;
-
-    public void logIn2() {
-
-    }
 
 }
+
