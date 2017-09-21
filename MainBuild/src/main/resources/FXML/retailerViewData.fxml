@@ -23,17 +23,17 @@
             </VBox>
             <VBox prefHeight="161.0" prefWidth="103.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Street:" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Address:" />
                </children>
             </VBox>
             <VBox prefHeight="161.0" prefWidth="103.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ZIP:" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ZIP Code:" />
                </children>
             </VBox>
             <VBox prefHeight="161.0" prefWidth="103.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Primary:" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Primary Type:" />
                </children>
             </VBox>
          </children>
@@ -42,7 +42,8 @@
          <columns>
             <TableColumn fx:id="Name" prefWidth="123.99996948242188" text="Name" />
             <TableColumn fx:id="Address" prefWidth="132.0" text="Address" />
-            <TableColumn fx:id="PrimaryType" prefWidth="140.0" text="PrimaryType" />
+            <TableColumn fx:id="Zip" prefWidth="140.0" text="Zip Code" />
+            <TableColumn fx:id="PrimaryType" prefWidth="140.0" text="Primary Type" />
          </columns>
       </TableView>
       <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="5" GridPane.rowIndex="2">
@@ -50,7 +51,7 @@
             <VBox prefHeight="161.0" prefWidth="103.0" />
             <VBox prefHeight="161.0" prefWidth="103.0">
                <children>
-                  <JFXTextField fx:id="streetInput" prefHeight="23.0" prefWidth="147.0" text="Address" />
+                  <JFXTextField fx:id="streetInput" prefHeight="23.0" prefWidth="180.0" text="Address" />
                </children>
             </VBox>
             <VBox prefHeight="161.0" prefWidth="103.0">
@@ -61,7 +62,7 @@
             <VBox prefHeight="161.0" prefWidth="103.0">
                <children>
                   <Accordion />
-                  <JFXTextField fx:id="primaryInput" prefHeight="23.0" prefWidth="147.0" text="Company Type " />
+                  <JFXTextField fx:id="primaryInput" prefHeight="23.0" prefWidth="180.0" text="Company Type" />
                </children>
             </VBox>
          </children>

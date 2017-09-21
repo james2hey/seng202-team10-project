@@ -1,5 +1,8 @@
 package GUIControllers.ViewDataControllers;
 
+import dataManipulation.DataFilterer;
+import main.Main;
+
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXTextField;
@@ -11,6 +14,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+
+import java.util.ArrayList;
 
 /**
  * Created by bal65 on 19/09/17.
@@ -42,6 +47,9 @@ public class RetailerDataViewerController extends DataViewerController {
     private TableColumn<RetailLocation, String> Address;
 
     @FXML
+    private TableColumn<RetailLocation, Integer> Zip;
+
+    @FXML
     private TableColumn<RetailLocation, String> PrimaryType;
 
 
@@ -51,9 +59,10 @@ public class RetailerDataViewerController extends DataViewerController {
     public void initialize() {
         Name.setCellValueFactory(new PropertyValueFactory<>("Name"));
         Address.setCellValueFactory(new PropertyValueFactory<>("Street"));
+        Zip.setCellValueFactory(new PropertyValueFactory<>("Zip"));
         PrimaryType.setCellValueFactory(new PropertyValueFactory<>("MainType"));
         tableView.setItems(retailList);
-        tableView.getColumns().setAll(Name, Address, PrimaryType);
+        tableView.getColumns().setAll(Name, Address, Zip, PrimaryType);
     }
 
     @FXML
@@ -65,26 +74,28 @@ public class RetailerDataViewerController extends DataViewerController {
     void displayData(ActionEvent event) {
         System.out.println("Display button pressed");
 
-//        String provider = providerInput.getText();
-//        if (provider.equals("Company Name") || provider.equals("")) {
-//            provider = null;
-//        }
-//        String suburb = boroughInput.getSelectionModel().getSelectedItem();
-//        if (suburb == null || suburb.equals("No Selection")) {
-//            suburb = null;
-//        }
-//        String cost = typeInput.getSelectionModel().getSelectedItem();
-//        if (cost == null || cost.equals("No Selection")) {
-//            cost = null;
-//        }
-//        DataFilterer filterer = new DataFilterer(Main.getDB());
-//        ArrayList<WifiLocation> wifiLocations = filterer.filterWifi(suburb, cost, provider);
-//        System.out.println("Got data");
-//        for (int i = 0; i < wifiLocations.size(); i++) {
-//            System.out.println(wifiLocations.get(i).getSSIF());
-//        }
-//        tableView.getItems().clear();
-//        wifiList.addAll(wifiLocations);
+        String address = streetInput.getText();
+        if (address == null || address.equals("Address")) {
+            address = null;
+        }
+        int zip;
+        if (zipInput.getText().equals("") || zipInput.getText().equals("Zip Code")) {
+            zip = -1;
+        } else {
+            zip = Integer.valueOf(zipInput.getText());
+        }
+        String primaryType = primaryInput.getText();
+        if (primaryType == null || primaryType.equals("Company Type")) {
+            primaryType = null;
+        }
+        DataFilterer filterer = new DataFilterer(Main.getDB());
+        ArrayList<RetailLocation> wifiLocations = filterer.filterRetailers(address, primaryType, zip);
+        System.out.println("Got data");
+        for (int i = 0; i < wifiLocations.size(); i++) {
+            System.out.println(wifiLocations.get(i).getName());
+        }
+        tableView.getItems().clear();
+        retailList.addAll(wifiLocations);
     }
 
 }

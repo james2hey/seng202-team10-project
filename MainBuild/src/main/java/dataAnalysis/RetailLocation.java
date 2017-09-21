@@ -36,6 +36,8 @@ public class RetailLocation extends Location {
 
     public String getMainType() {return mainType;}
 
+    public int getZip() {return zip;}
+
 
 
     /**
