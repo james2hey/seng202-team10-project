@@ -52,5 +52,10 @@ public abstract class DataViewerController extends Controller {
         currentStage.setScene(retailerViewerScene);
     }
 
+    @FXML
+    void openAdvancedView(ActionEvent event) {
+
+    }
+
 }
 

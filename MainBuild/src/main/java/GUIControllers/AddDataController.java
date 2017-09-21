@@ -68,16 +68,6 @@ public class AddDataController extends Controller implements Initializable {
     private WifiDataHandler wifiDataHandler;
     private RouteDataHandler routeDataHandler;
 
-    @FXML
-    void openDrawer() throws IOException {
-        VBox box = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/SidePanel.fxml"));
-        drawer.setSidePane(box);
-        if (drawer.isShown()) {
-            drawer.close();
-        } else {
-            drawer.open();
-        }
-    }
 
     //Converts Dates to the right format for CSV insertion.
     private int[] convertDates(String date) {

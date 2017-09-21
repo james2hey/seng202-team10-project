@@ -31,7 +31,7 @@ public class WifiDataViewerController extends DataViewerController {
     private JFXDrawer drawer;
 
     @FXML
-    private JFXTextField boroughInput;
+    private ComboBox<?> boroughInput;
 
     @FXML
     private ComboBox<?> typeInput;

@@ -50,6 +50,7 @@ public class PlanRouteController extends Controller implements Initializable, Ma
     protected ClusteredGoogleMapView mapView;
 
     protected DirectionsService directionsService;
+
     protected DirectionsPane directionsPane;
 
     private GeocodingService geocodingService;
@@ -74,6 +75,7 @@ public class PlanRouteController extends Controller implements Initializable, Ma
                 .rotateControl(false)
                 .scaleControl(false)
                 .streetViewControl(false)
+                .mapTypeControl(false)
                 .zoomControl(true)
                 .zoom(12);
 

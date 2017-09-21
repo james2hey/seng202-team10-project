@@ -1,6 +1,9 @@
 package GUIControllers;
 
 import com.jfoenix.controls.JFXDrawer;
+import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
+import com.jfoenix.transitions.hamburger.HamburgerBasicCloseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -32,16 +36,36 @@ public abstract class Controller {
     private Button homeButton;
 
     @FXML
+    private JFXHamburger hamburger;
+
+    @FXML
     void openDrawer() throws IOException {
+//
         VBox box = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/SidePanel.fxml"));
         drawer.setSidePane(box);
-        System.out.println("clicked");
+
+//        HamburgerBasicCloseTransition transition = new HamburgerBasicCloseTransition(hamburger);
+//
+//        transition.setRate(-1);
+//        hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED,(e)->{
+//            transition.setRate(transition.getRate()*-1);
+//            transition.play();
+//        });
 
         if (drawer.isShown()) {
+//            HamburgerBasicCloseTransition transition2 = new HamburgerBasicCloseTransition(hamburger);
+//            transition2.setRate(-1);
+//            transition2.play();
             drawer.close();
+
+
         }
         else {
             drawer.open();
+//            HamburgerBasicCloseTransition transition2 = new HamburgerBasicCloseTransition(hamburger);
+//            transition2.setRate(1);
+//            transition2.play();
+
         }
     }
 

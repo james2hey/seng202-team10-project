@@ -19,16 +19,16 @@
             <VBox prefHeight="161.0" prefWidth="103.0">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                  <VBox prefHeight="161.0" prefWidth="103.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Provider:" />
+                     </children>
+                  </VBox>
                </children>
             </VBox>
             <VBox prefHeight="161.0" prefWidth="103.0">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Borough:" />
-               </children>
-            </VBox>
-            <VBox prefHeight="161.0" prefWidth="103.0">
-               <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Provider:" />
                </children>
             </VBox>
             <VBox prefHeight="161.0" prefWidth="103.0">
@@ -48,15 +48,21 @@
       </TableView>
       <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="5" GridPane.rowIndex="2">
          <children>
-            <VBox prefHeight="161.0" prefWidth="103.0" />
             <VBox prefHeight="161.0" prefWidth="103.0">
                <children>
-                  <JFXTextField fx:id="boroughInput" prefHeight="23.0" prefWidth="147.0" text="Address" />
-               </children>
-            </VBox>
+                  <VBox prefHeight="161.0" prefWidth="103.0">
+                     <children>
+                        <JFXTextField fx:id="providerInput" prefHeight="47.0" prefWidth="258.0" text="Company Name" />
+                     </children>
+                  </VBox>
+               </children></VBox>
             <VBox prefHeight="161.0" prefWidth="103.0">
                <children>
-                  <JFXTextField fx:id="providerInput" prefHeight="23.0" prefWidth="147.0" text="Company Name" />
+                  <VBox prefHeight="161.0" prefWidth="103.0">
+                     <children>
+                        <ComboBox fx:id="boroughInput" prefHeight="25.0" prefWidth="262.0" />
+                     </children>
+                  </VBox>
                </children>
             </VBox>
             <VBox prefHeight="161.0" prefWidth="103.0">
