@@ -178,9 +178,6 @@ public class AddDataController extends Controller implements Initializable {
         } else {
             sTimeError.setVisible(false);
         }
-        System.out.println(sDate[0]);
-        System.out.println(sDate[1]);
-        System.out.println(sDate[2]);
         if(errorOccurred == true){
             return;
         }
@@ -202,7 +199,6 @@ public class AddDataController extends Controller implements Initializable {
     void retailerCSVLine(ActionEvent event) throws IOException {
         Boolean errorOccured = false;
         Double retLat = 0.0, retLong = 0.0;
-
         try {
             retailerLongError.setVisible(false);
             retLong = Double.parseDouble(retailerLong.getText());
