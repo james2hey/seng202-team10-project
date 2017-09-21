@@ -42,8 +42,7 @@
          <columns>
             <TableColumn fx:id="Name" prefWidth="123.99996948242188" text="Name" />
             <TableColumn fx:id="Address" prefWidth="132.0" text="Address" />
-            <TableColumn fx:id="Suburb" prefWidth="93.0" text="Suburb" />
-            <TableColumn fx:id="Cost" prefWidth="113.0" text="Cost" />
+            <TableColumn fx:id="PrimaryType" prefWidth="140.0" text="PrimaryType" />
          </columns>
       </TableView>
       <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="5" GridPane.rowIndex="2">
