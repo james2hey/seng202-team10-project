@@ -86,5 +86,11 @@
             <JFXTextField layoutX="101.0" layoutY="156.0" prefHeight="23.0" prefWidth="112.0" promptText="e.g. Data Cap" />
          </children>
       </AnchorPane>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
+         <children>
+            <Text fx:id="retailerLongError" fill="#ae0000" layoutX="25.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ERROR: Type Error" visible="false" AnchorPane.topAnchor="85.0" />
+            <Text fx:id="retailerLatError" fill="#ae0000" layoutX="25.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ERROR: Type Error" visible="false" AnchorPane.topAnchor="110.0" />
+         </children>
+      </AnchorPane>
    </children>
 </GridPane>

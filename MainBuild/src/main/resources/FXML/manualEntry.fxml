@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import tornadofx.control.*?>
 <?import javafx.geometry.*?>
 <?import com.jfoenix.controls.*?>
 <?import javafx.scene.text.*?>
@@ -62,6 +63,7 @@
       </AnchorPane>
       <AnchorPane prefHeight="264.0" prefWidth="147.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <children>
+            <DateTimePicker fx:id="rSDate" format="dd/MM/yyyy" layoutX="74.0" layoutY="136.0" prefHeight="25.0" prefWidth="122.0" />
             <Text layoutX="21.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address:" AnchorPane.topAnchor="35.0" />
             <Text layoutX="21.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Longitude:" AnchorPane.topAnchor="60.0" />
             <Text layoutX="21.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Latitude:" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="85.0" />
@@ -71,12 +73,11 @@
                   <Font size="16.0" />
                </font>
             </Text>
-            <Text layoutX="22.0" layoutY="143.93310546875" strokeType="OUTSIDE" strokeWidth="0.0" text="Date:" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="131.93310546875" />
+            <Text layoutX="21.0" layoutY="151.93310546875" strokeType="OUTSIDE" strokeWidth="0.0" text="Date:" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="139.93310546875" />
             <JFXTextField fx:id="rSAddress" layoutX="101.0" layoutY="31.0" prefHeight="23.0" prefWidth="127.0" AnchorPane.topAnchor="31.0" />
             <JFXTextField fx:id="rSLongitude" layoutX="101.0" layoutY="56.0" prefHeight="23.0" prefWidth="112.0" AnchorPane.topAnchor="56.0" />
             <JFXTextField fx:id="rSLatitude" layoutX="101.0" layoutY="81.0" prefHeight="23.0" prefWidth="112.0" />
             <JFXTextField fx:id="rSTime" layoutX="101.0" layoutY="106.0" prefHeight="23.0" prefWidth="112.0" promptText="e.g. hh:mm:ss" />
-            <JFXTextField fx:id="rSDate" layoutX="101.0" layoutY="128.0" prefHeight="23.0" prefWidth="112.0" promptText="e.g. dd/mm/yyyy" />
          </children>
          <GridPane.margin>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -84,6 +85,7 @@
       </AnchorPane>
       <AnchorPane prefHeight="264.0" prefWidth="147.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
          <children>
+            <DateTimePicker fx:id="rEDate" format="dd/MM/yyyy" layoutX="72.0" layoutY="136.0" prefHeight="25.0" prefWidth="122.0" />
             <Text layoutX="21.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address:" AnchorPane.topAnchor="35.0" />
             <Text layoutX="21.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Longitude:" AnchorPane.topAnchor="60.0" />
             <Text layoutX="21.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Latitude:" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="85.0" />
@@ -97,8 +99,7 @@
             <JFXTextField fx:id="rELongitude" layoutX="101.0" layoutY="56.0" prefHeight="23.0" prefWidth="112.0" AnchorPane.topAnchor="56.0" />
             <JFXTextField fx:id="rELatitude" layoutX="101.0" layoutY="81.0" prefHeight="23.0" prefWidth="112.0" />
             <JFXTextField fx:id="rETime" layoutX="101.0" layoutY="106.0" prefHeight="23.0" prefWidth="112.0" promptText="e.g. hh:mm:ss" />
-            <Text layoutX="22.0" layoutY="143.93310546875" strokeType="OUTSIDE" strokeWidth="0.0" text="Date:" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="131.93310546875" />
-            <JFXTextField fx:id="rEDate" layoutX="101.0" layoutY="128.0" prefHeight="23.0" prefWidth="112.0" promptText="e.g. dd/mm/yyyy" />
+            <Text layoutX="21.0" layoutY="152.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date:" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="139.93310546875" />
          </children>
       </AnchorPane>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">

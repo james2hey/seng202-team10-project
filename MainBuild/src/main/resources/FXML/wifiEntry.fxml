@@ -81,7 +81,7 @@
             <JFXTextField fx:id="wifiLat" layoutX="101.0" layoutY="81.0" prefHeight="23.0" prefWidth="112.0" />
             <JFXTextField fx:id="wifiAddress" layoutX="101.0" layoutY="106.0" prefHeight="23.0" prefWidth="112.0" />
             <Text layoutX="22.0" layoutY="143.93310546875" strokeType="OUTSIDE" strokeWidth="0.0" text="Postcode:" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="135.0" />
-            <JFXTextField fx:id="wifiPostcode" layoutX="101.0" layoutY="128.0" prefHeight="23.0" prefWidth="112.0" promptText="e.g. dd/mm/yyyy" />
+            <JFXTextField fx:id="wifiPostcode" layoutX="101.0" layoutY="128.0" prefHeight="23.0" prefWidth="112.0"/>
             <Text layoutX="23.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Comments:" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="160.0" />
             <JFXTextField fx:id="wifiComments" layoutX="101.0" layoutY="156.0" prefHeight="23.0" prefWidth="112.0" promptText="e.g. Data Cap" />
          </children>

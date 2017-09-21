@@ -13,7 +13,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.SplitPane;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.VBox;
@@ -22,6 +24,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import main.HandleUsers;
 import main.Main;
+import tornadofx.control.DateTimePicker;
 
 
 import java.io.File;
@@ -35,13 +38,6 @@ import java.util.ResourceBundle;
  */
 public class AddDataController extends Controller implements Initializable {
 
-    @FXML
-    private Button manualEntryButton;
-
-    @FXML
-    private Button routeButton, wifiButton, retailerButton;
-
-
     @FXML //This importButton reveals other buttons
     private Button importButton, importRoute, importRetailer, importWifi, addDataButton;
 
@@ -49,10 +45,13 @@ public class AddDataController extends Controller implements Initializable {
     private Text sLongError, sLatError, sTimeError, sDateError, eLongError, eLatError, eTimeError, eDateError;
 
     @FXML //Route Fields
-    private JFXTextField rSAddress, rEAddress, rSLongitude, rELongitude, rSLatitude, rELatitude, rSTime, rETime, rSDate, rEDate;
+    private JFXTextField rSAddress, rEAddress, rSLongitude, rELongitude, rSLatitude, rELatitude, rSTime, rETime;
 
     @FXML // Retailer Fields
     private JFXTextField retailerName, retailerAddress, retailerLong, retailerLat, retailerPrim, retailerSec;
+
+    @FXML
+    private DateTimePicker rSDate, rEDate;
 
     @FXML // Wifi Fields
     private JFXTextField wifiName, wifiLong, wifiLat, wifiAddress, wifiPostcode, wifiComments;
@@ -69,75 +68,98 @@ public class AddDataController extends Controller implements Initializable {
     private RouteDataHandler routeDataHandler;
 
 
+    @FXML
+    void makeErrorDialogueBox(String errorMessage, String errorDetails) {
+        Alert alert = new Alert(Alert.AlertType.ERROR, errorDetails, ButtonType.OK);
+        alert.setHeaderText(errorMessage);
+        alert.showAndWait();
+
+        if (alert.getResult() == ButtonType.OK) {
+            System.out.println("Added entry to database.");
+        }
+    }
+    @FXML
+    private void makeSuccessDialogueBox(String errorMessage, String errorDetails) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, errorDetails, ButtonType.OK);
+        alert.setHeaderText(errorMessage);
+        alert.showAndWait();
+
+        if (alert.getResult() == ButtonType.OK) {
+            System.out.println("");
+        }
+    }
+
     //Converts Dates to the right format for CSV insertion.
-    private int[] convertDates(String date) {
-        int dateInts[] = new int[3];
+    private String[] convertDates(String date) {
+        System.out.println(date);
+        String dateInts[] = new String[3];
         if (date == null || date.length() != 10) {
             return null;
         }
-        dateInts[0] = Integer.parseInt(date.substring(0, 2));
-        dateInts[1] = Integer.parseInt(date.substring(3, 5));
-        dateInts[2] = Integer.parseInt(date.substring(6));
+        dateInts[0] = date.substring(0, 4);
+        dateInts[1] = date.substring(5, 7);
+        dateInts[2] = date.substring(8);
 
         return dateInts;
     }
 
 
+
+
     @FXML
-        //TODO: Add more error types? idfk
     void routeCSVLine(ActionEvent event) throws IOException {
         double SLatitude = 0, SLongitude = 0, ELatitude = 0, ELongitude = 0;
-        boolean errorOccured = false;
-        int[] sDate = new int[3];
-        int[] eDate = new int[3];
-        String username = HandleUsers.currentCyclist.getName();
+        boolean errorOccurred = false;
+        String[] sDate = new String[3];
+        String[] eDate = new String[3];
+        String username = HandleUsers.currentCyclist.getName() + "_";
 
         try { //Start Date
             sDateError.setVisible(false);
-            sDate = convertDates(rSDate.getText());
+            sDate = convertDates(rSDate.getValue().toString());
             if(sDate == null){
-                errorOccured = true;
+                errorOccurred = true;
                 sDateError.setVisible(true);
             }
         }
         catch(Exception e) {
             sDateError.setVisible(true);
-            errorOccured = true;
+            errorOccurred = true;
         }
         try { // Start Latitude
             sLatError.setVisible(false);
             SLatitude = Double.parseDouble(rSLatitude.getText());
         } catch (Exception e) {
             sLatError.setVisible(true);
-            errorOccured = true;
+            errorOccurred = true;
 
         }
         try { // Start Longitude
             sLongError.setVisible(false);
             SLongitude = Double.parseDouble(rSLongitude.getText());
         } catch (Exception e) {
-            errorOccured = true;
+            errorOccurred = true;
             sLongError.setVisible(true);
 
         }
 
         try { // End Date
             eDateError.setVisible(false);
-            eDate = convertDates(rSDate.getText());
+            eDate = convertDates(rEDate.getValue().toString());
             if(eDate == null){
-                errorOccured = true;
+                errorOccurred = true;
                 //eDateError.setVisible(true);
             }
         } catch(Exception e){
             eDateError.setVisible(true);
-            errorOccured = true;
+            errorOccurred = true;
         }
 
         try { //End Latitude
             eLatError.setVisible(false);
             ELatitude = Double.parseDouble(rELatitude.getText());
         } catch (Exception e) {
-            errorOccured = true;
+            errorOccurred = true;
             eLatError.setVisible(true);
         }
 
@@ -147,27 +169,36 @@ public class AddDataController extends Controller implements Initializable {
             ELongitude = Double.parseDouble(rELongitude.getText());
         } catch (Exception e) {
             eLongError.setVisible(true);
-            errorOccured = true;
+            errorOccurred = true;
         }
 
-
-
-
-        if(errorOccured == true){
+        if(rSTime.getText().length() < 1) {
+            errorOccurred = true;
+            sTimeError.setVisible(true);
+        } else {
+            sTimeError.setVisible(false);
+        }
+        System.out.println(sDate[0]);
+        System.out.println(sDate[1]);
+        System.out.println(sDate[2]);
+        if(errorOccurred == true){
             return;
         }
 
-        /*RouteDataHandler newRoute = new RouteDataHandler();
-        Boolean fromHandler = newRoute.addSingleEntry(0, sDate[2], sDate[1], sDate[0], rSTime.getText(),
-                eDate[2], eDate[1], eDate[0], rETime.getText(), "1",
+        RouteDataHandler newRoute = new RouteDataHandler(Main.getDB());
+        Boolean fromHandler = newRoute.addSingleEntry(0, sDate[0], sDate[1], sDate[2], rSTime.getText(),
+                eDate[0], eDate[1], eDate[2], rETime.getText(), "1",
                 "Start", SLatitude, SLongitude, "2", "End", ELatitude, ELongitude,
-                "1", username, 2017, 1);*/
-
+                "1", username, 2017, 1);
+        if(fromHandler == false) {
+            makeErrorDialogueBox("Something wrong with input", "Check data fields for Null entry or if this route already exists");
+        } else {
+            makeSuccessDialogueBox("Successfully added route to Database", "You may add more entries");
+        }
     }
 
 
     @FXML
-        //TODO: Add more error types? idfk
     void retailerCSVLine(ActionEvent event) throws IOException {
         Boolean errorOccured = false;
         Double retLat = 0.0, retLong = 0.0;
@@ -191,13 +222,17 @@ public class AddDataController extends Controller implements Initializable {
         if(errorOccured == true){
             return;
         }
-        /*RetailerDataHandler newRetailer = new RetailerDataHandler();
+        RetailerDataHandler newRetailer = new RetailerDataHandler(Main.getDB());
         Boolean fromHandler = newRetailer.addSingleEntry(retailerName.getText(), retailerAddress.getText(), retLat, retLong, null,
-                null, null, retailerPrim.getText(), retailerSec.getText());*/
+                null, null, retailerPrim.getText(), retailerSec.getText());
+        if(fromHandler == false) {
+            makeErrorDialogueBox("Something wrong with input", "Check data fields for Null entry or if this retailer already exists");
+        } else {
+            makeSuccessDialogueBox("Successfully added to retailer to Database", "You may add more entries");
+        }
     }
 
     @FXML
-        //TODO: Add more error types? idfk
     void wifiCSVLine(ActionEvent event) throws IOException {
         Boolean errorOccured = false;
         Double wLat = 0.0, wLong = 0.0;
@@ -221,9 +256,14 @@ public class AddDataController extends Controller implements Initializable {
         if(errorOccured == true){
             return;
         }
-        /*WifiDataHandler newWifi = new RetailerDataHandler();
+        WifiDataHandler newWifi = new WifiDataHandler(Main.getDB());
         Boolean fromHandler = newWifi.addSingleEntry(wifiName.getText(), "", "", wifiAddress.getText(), wLat, wLong,
-        wifiComments.getText(), "", "", "", wifiPostcode.getText());*/
+        wifiComments.getText(), "", wifiName.getText(), "", wifiPostcode.getText());
+        if(fromHandler == false) {
+            makeErrorDialogueBox("Something wrong with input", "Check data fields for null entry or if this Wifi hotspot already exists");
+        } else {
+            makeSuccessDialogueBox("Successfully added Wifi to Database", "You may add more entries");
+        }
     }
 
 
@@ -241,7 +281,6 @@ public class AddDataController extends Controller implements Initializable {
 
 
     @FXML // Import file -> only allows *.csv and prints location afterwards for now...
-        //TODO: Link with Matt to add to database. Fix efficiency of three blocks (try make it 1 block/method).
     void chooseRoute(ActionEvent event) throws IOException {
         FileChooser fileChooser = new FileChooser();
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV (*.csv)", "*.csv");

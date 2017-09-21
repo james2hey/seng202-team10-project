@@ -14,7 +14,7 @@ public class WifiDataHandler {
     SQLiteDB db;
 
     String[] fields =
-          { "WIFI_ID    DOUBLE" ,
+          { "WIFI_ID    VARCHAR(20)" ,
             "COST       VARCHAR(12)" ,
             "PROVIDER   VARCHAR(20)" ,
             "ADDRESS    VARCHAR(50)" ,
