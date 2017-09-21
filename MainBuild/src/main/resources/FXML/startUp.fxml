@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.collections.FXCollections?>
 
-<GridPane alignment="CENTER" hgap="10.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="650.0" prefWidth="1100.0" vgap="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIControllers.LoginController">
+<GridPane alignment="CENTER" hgap="10.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="650.0" prefWidth="1100.0" style="-fx-background-color: grey;" vgap="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIControllers.LoginController">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -25,35 +25,51 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="SIGN IN" textAlignment="CENTER" wrappingWidth="213.7294921875" GridPane.columnIndex="4">
+      <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="SIGN IN" textAlignment="CENTER" wrappingWidth="213.7294921875" GridPane.columnIndex="4">
          <font>
             <Font size="46.0" />
          </font>
       </Text>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="SIGN UP" textAlignment="CENTER" wrappingWidth="213.7294921875" GridPane.columnIndex="1">
+      <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="SIGN UP" textAlignment="CENTER" wrappingWidth="213.7294921875" GridPane.columnIndex="1">
          <font>
             <Font size="46.0" />
          </font>
       </Text>
       <TextField fx:id="username" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Username" textAlignment="CENTER" wrappingWidth="152.498046875" GridPane.columnIndex="1" GridPane.rowIndex="1">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Text>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Type" textAlignment="CENTER" wrappingWidth="152.498046875" GridPane.columnIndex="1" GridPane.rowIndex="2">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Text>
-      <ToolBar prefHeight="40.0" prefWidth="65.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
-        <items>
-          <Button mnemonicParsing="false" onAction="#createCyclist" text="Cyclist" />
-            <Button mnemonicParsing="false" onAction="#createAnalyst" text="Analyst" />
-        </items>
-      </ToolBar>
       <Text fx:id="nameInUse" fill="#e10011" strokeType="OUTSIDE" strokeWidth="0.0" text="Name already in use" textAlignment="CENTER" visible="false" wrappingWidth="148.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-      <Button fx:id="SignIn" mnemonicParsing="false" onAction="#logIn" prefHeight="25.0" prefWidth="174.0" text="Sign in" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-       <ComboBox fx:id="comboBox" prefHeight="25.0" prefWidth="149.0" promptText="Select User" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+       <ComboBox fx:id="comboBox" prefHeight="25.0" prefWidth="149.0" promptText="Select User" style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <children>
+            <Text layoutX="-1.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" textAlignment="CENTER" wrappingWidth="152.498046875">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <children>
+            <Text layoutX="4.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type" textAlignment="CENTER" wrappingWidth="152.498046875">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+         <children>
+            <ToolBar layoutX="1.0" layoutY="10.0" prefHeight="40.0" prefWidth="148.0">
+              <items>
+                <Button mnemonicParsing="false" onAction="#createCyclist" text="Cyclist" />
+                  <Button mnemonicParsing="false" onAction="#createAnalyst" text="Analyst" />
+              </items>
+            </ToolBar>
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
+         <children>
+            <Button fx:id="SignIn" layoutX="27.0" layoutY="14.0" mnemonicParsing="false" onAction="#logIn" prefHeight="25.0" prefWidth="95.0" text="Sign in" />
+         </children>
+      </AnchorPane>
    </children>
 </GridPane>

@@ -91,7 +91,6 @@ public class AddDataController extends Controller implements Initializable {
 
     //Converts Dates to the right format for CSV insertion.
     private String[] convertDates(String date) {
-        System.out.println(date);
         String dateInts[] = new String[3];
         if (date == null || date.length() != 10) {
             return null;
@@ -112,7 +111,12 @@ public class AddDataController extends Controller implements Initializable {
         boolean errorOccurred = false;
         String[] sDate = new String[3];
         String[] eDate = new String[3];
-        String username = HandleUsers.currentCyclist.getName() + "_";
+        String username;
+        try {
+            username = HandleUsers.currentCyclist.getName();
+        } catch(Exception e){
+            username = "_";
+        }
 
         try { //Start Date
             sDateError.setVisible(false);
@@ -187,7 +191,7 @@ public class AddDataController extends Controller implements Initializable {
                 "Start", SLatitude, SLongitude, "2", "End", ELatitude, ELongitude,
                 "1", username, 2017, 1);
         if(fromHandler == false) {
-            makeErrorDialogueBox("Something wrong with input", "Check data fields for Null entry or if this route already exists");
+            makeErrorDialogueBox("Something wrong with input", "Check for nulls and already existing entrys");
         } else {
             makeSuccessDialogueBox("Successfully added route to Database", "You may add more entries");
         }
@@ -221,7 +225,7 @@ public class AddDataController extends Controller implements Initializable {
         Boolean fromHandler = newRetailer.addSingleEntry(retailerName.getText(), retailerAddress.getText(), retLat, retLong, null,
                 null, null, retailerPrim.getText(), retailerSec.getText());
         if(fromHandler == false) {
-            makeErrorDialogueBox("Something wrong with input", "Check data fields for Null entry or if this retailer already exists");
+            makeErrorDialogueBox("Something wrong with input", "Check for nulls and already existing entrys");
         } else {
             makeSuccessDialogueBox("Successfully added to retailer to Database", "You may add more entries");
         }
@@ -255,7 +259,7 @@ public class AddDataController extends Controller implements Initializable {
         Boolean fromHandler = newWifi.addSingleEntry(wifiName.getText(), "", "", wifiAddress.getText(), wLat, wLong,
         wifiComments.getText(), "", wifiName.getText(), "", wifiPostcode.getText());
         if(fromHandler == false) {
-            makeErrorDialogueBox("Something wrong with input", "Check data fields for null entry or if this Wifi hotspot already exists");
+            makeErrorDialogueBox("Something wrong with input", "Check for nulls and already existing entrys");
         } else {
             makeSuccessDialogueBox("Successfully added Wifi to Database", "You may add more entries");
         }
