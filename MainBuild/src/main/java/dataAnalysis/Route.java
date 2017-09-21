@@ -130,11 +130,19 @@ public class Route {
 
     public void setStopYear(int year) {stopYear = year;}
 
-    public Location getStartLocation() {return startLocation;}
+    public String getStartAddress() {return startLocation.getAddress();}
 
-    public Location getEndLocation() {return endLocation;}
+    public String getEndAddress() {return endLocation.getAddress();}
 
-    public Location getViaLocation() {return viaLocation;}
+    public String getViaLocation() {return viaLocation.getAddress();}
+
+    public double getStartLatitude() {return startLocation.getLatitude();}
+
+    public double getStartLongitude() {return startLocation.getLatitude();}
+
+    public double getEndLatitude() {return endLocation.getLatitude();}
+
+    public double getEndLongitude() {return endLocation.getLatitude();}
 
     public double getAverageTime() {return averageTime;}
 

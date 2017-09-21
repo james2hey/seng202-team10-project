@@ -42,7 +42,7 @@
          <columns>
             <TableColumn fx:id="Name" prefWidth="123.99996948242188" text="Name" />
             <TableColumn fx:id="Address" prefWidth="132.0" text="Address" />
-            <TableColumn fx:id="Zip" prefWidth="140.0" text="Zip Code" />
+            <TableColumn fx:id="Zip" prefWidth="80.0" text="Zip Code" />
             <TableColumn fx:id="PrimaryType" prefWidth="140.0" text="Primary Type" />
          </columns>
       </TableView>

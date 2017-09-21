@@ -19,9 +19,7 @@ public class DataFilterer {
     private String routeCommand;
     private String genderCommand;
     private String timeCommand;
-    private String dateYearCommand;
-    private String dateMonthCommand;
-    private String dateDayCommand;
+    private String dateCommand;
     private String durationCommand;
     private String startAddressCommand;
     private String endAddressCommand;
@@ -64,9 +62,7 @@ public class DataFilterer {
         routeCommand = "SELECT * FROM route_information WHERE ";
         genderCommand = "gender = ?";
         durationCommand = "tripduration BETWEEN ? AND ?";
-        dateYearCommand = "start_year BETWEEN ? AND ?";
-        dateMonthCommand = "start_month BETWEEN ? AND ?";
-        dateDayCommand = "start_day BETWEEN ? AND ?";
+        dateCommand = "start_year || start_month || start_day BETWEEN ? AND ?";
         timeCommand = "start_time BETWEEN ? AND ?";
         startAddressCommand = "start_station_name LIKE ?";
         endAddressCommand = "end_station_name LIKE ?";
@@ -167,22 +163,16 @@ public class DataFilterer {
      * convertDates takes an upper and lower bound of dates and splits them up into separate integers. The date format
      * must be DD/MM/YYYY. These integers are added to a array, the order in the array is {DD,DD,MM,MM,YYYY,YYYY} with
      * the lowerDate values first. This array is returned.
-     * <p>
+     *
      * Ex. date: 21/01/2016 will be split into the integers 21, 1 and 2016
      *
      * @param dateLower dateLower is of type String.
      * @param dateUpper dateUpper is of type String.
      * @return dateInts, of type int[]. This array holds all the integers from the lower and upper dates.
      */
-    private int[] convertDates(String dateLower, String dateUpper) {
-        int dateInts[] = new int[6];
-        dateInts[0] = Integer.parseInt(dateLower.substring(0, 2));
-        dateInts[1] = Integer.parseInt(dateUpper.substring(0, 2));
-        dateInts[2] = Integer.parseInt(dateLower.substring(3, 5));
-        dateInts[3] = Integer.parseInt(dateUpper.substring(3, 5));
-        dateInts[4] = Integer.parseInt(dateLower.substring(6));
-        dateInts[5] = Integer.parseInt(dateUpper.substring(6));
-        return dateInts;
+    private void convertDates(String dateLower, String dateUpper) {
+        filterVariableStrings.add(dateLower.substring(6) + dateLower.substring(3, 5) + dateLower.substring(0, 2));
+        filterVariableStrings.add(dateUpper.substring(6) + dateUpper.substring(3, 5) + dateUpper.substring(0, 2));
     }
 
 
@@ -201,10 +191,6 @@ public class DataFilterer {
      *                      filter by.planRoute
      * @param timeUpper     timeUpper is of type String. It is the upper time limit of starting a route the user wants to
      *                      filter by.
-     * @param durationLower durationLower is of type int. It is the lower duration of a route that the user wants to
-     *                      filter by.
-     * @param durationUpper durationUpper is of type int. It is the upper duration of a route that the user wants to
-     *                      filter by.
      * @param startLocation startLocation is of type String. It is the starting address of a route that the user wants
      *                      to filter by.
      * @param endLocation   endLocation is of type String. It is the ending address of a route that the user wants
@@ -212,8 +198,7 @@ public class DataFilterer {
      * @return queryCommand, of type String. This is the string that will be used as a query statement to the database.
      */
     private String generateQueryString(int gender, String dateLower, String dateUpper, String timeLower,
-                                       String timeUpper, int durationLower, int durationUpper, String startLocation,
-                                       String endLocation) {
+                                       String timeUpper, String startLocation, String endLocation) {
         String queryCommand = routeCommand;
         int queryLength = 0;
 
@@ -222,26 +207,10 @@ public class DataFilterer {
             filterVariables.add(gender);
             queryLength = 1;
         }
-        if (durationLower != -1 && durationUpper != -1) {
-            queryCommand = addAndToStmt(queryCommand, queryLength);
-            queryCommand = queryCommand + durationCommand;
-            filterVariables.add(durationLower);
-            filterVariables.add(durationUpper);
-            queryLength = 1;
-        }
         if (dateLower != null && dateUpper != null) {
-            int dates[] = convertDates(dateLower, dateUpper);
+            convertDates(dateLower, dateUpper);
             queryCommand = addAndToStmt(queryCommand, queryLength);
-            queryCommand = queryCommand + dateDayCommand;
-            queryLength = 1;
-            queryCommand = addAndToStmt(queryCommand, queryLength);
-            queryCommand = queryCommand + dateMonthCommand;
-            queryCommand = addAndToStmt(queryCommand, queryLength);
-            queryCommand = queryCommand + dateYearCommand;
-            int datesLength = dates.length;
-            for (int i = 0; i < datesLength; i++) {
-                filterVariables.add(dates[i]);
-            }
+            queryCommand = queryCommand + dateCommand;
             queryLength = 1;
         }
         if (timeLower != null && timeUpper != null) {
@@ -249,6 +218,7 @@ public class DataFilterer {
             queryCommand = queryCommand + timeCommand;
             filterVariableStrings.add(timeLower);
             filterVariableStrings.add(timeUpper);
+            queryLength = 1;
         }
         if (startLocation != null) {
             queryCommand = addAndToStmt(queryCommand, queryLength);
@@ -327,10 +297,6 @@ public class DataFilterer {
      *                      filter by.
      * @param timeUpper     timeUpper is of type String. It is the upper time limit of starting a route the user wants to
      *                      filter by.
-     * @param durationLower durationLower is of type int. It is the lower duration of a route that the user wants to
-     *                      filter by.
-     * @param durationUpper durationUpper is of type int. It is the upper duration of a route that the user wants to
-     *                      filter by.
      * @param startLocation startLocation is of type String. It is the starting address of a route that the user wants
      *                      to filter by.
      * @param endLocation   endLocation is of type String. It is the ending address of a route that the user wants
@@ -338,11 +304,10 @@ public class DataFilterer {
      * @return routes, of type ArrayList. This is the array that contains all filtered routes.
      */
     public ArrayList<Route> filterRoutes(int gender, String dateLower, String dateUpper,
-                                   String timeLower, String timeUpper, int durationLower,
-                                   int durationUpper, String startLocation, String endLocation) {
+                                   String timeLower, String timeUpper, String startLocation, String endLocation) {
         String queryString;
-        queryString = generateQueryString(gender, dateLower, dateUpper, timeLower, timeUpper,
-                durationLower, durationUpper, startLocation, endLocation);
+        queryString = generateQueryString(gender, dateLower, dateUpper, timeLower, timeUpper, startLocation,
+                endLocation);
         if (queryString.equals(routeCommand)) {
             getAllRoutes();
             return routes;

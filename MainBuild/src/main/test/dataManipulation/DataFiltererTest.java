@@ -77,7 +77,7 @@ public class DataFiltererTest {
         bikeID.add("19039");
         bikeID.add("20258");
         routes = dataFilterer.filterRoutes(2, null, null, null, null,
-                -1, -1, null, null);
+                null, null);
         int size = routes.size();
         for (int i = 0; i < size; i++){
             assertTrue(bikeID.get(i).equals(routes.get(i).getBikeID()));
@@ -278,7 +278,7 @@ public class DataFiltererTest {
         ArrayList<String> bikeID = new ArrayList<>();
         bikeID.add("18665");
         routes = dataFilterer.filterRoutes(-1, null, null, null, null,
-                -1, -1, "broad", null);
+                "broad", null);
         int size = routes.size();
         for (int i = 0; i < size; i++){
             assertTrue(bikeID.get(i).equals(routes.get(i).getBikeID()));

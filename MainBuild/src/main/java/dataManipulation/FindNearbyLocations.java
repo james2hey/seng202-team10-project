@@ -58,10 +58,10 @@ public class FindNearbyLocations {
         double lowerLat;
         double upperLong;
         double lowerLong;
-        double startLat = route.getStartLocation().getLatitude();
-        double startLong = route.getStartLocation().getLongitude();
-        double endLat = route.getEndLocation().getLatitude();
-        double endLong = route.getEndLocation().getLongitude();
+        double startLat = route.getStartLatitude();
+        double startLong = route.getStartLongitude();
+        double endLat = route.getEndLatitude();
+        double endLong = route.getEndLongitude();
 
         routeUpperLat = Double.max(startLat, endLat);
         routeLowerLat = Double.min(startLat, endLat);

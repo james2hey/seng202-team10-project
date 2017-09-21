@@ -68,7 +68,7 @@ public class WifiDataViewerController extends DataViewerController {
         Suburb.setCellValueFactory(new PropertyValueFactory<>("Suburb"));
         Cost.setCellValueFactory(new PropertyValueFactory<>("Cost"));
         tableView.setItems(wifiList);
-        tableView.getColumns().setAll(Name, Address, Suburb, Cost);
+        tableView.getColumns().setAll(Name, Provider, Address, Suburb, Cost);
     }
 
 

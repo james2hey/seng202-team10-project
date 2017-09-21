@@ -68,11 +68,11 @@ public class RouteDataViewerController extends DataViewerController {
 
     @FXML
     public void initialize() {
-        StartLocation.setCellValueFactory(new PropertyValueFactory<Route, String>("StartLocation"));
-        EndLocation.setCellValueFactory(new PropertyValueFactory<Route, String>("EndLocation"));
-        Date.setCellValueFactory(new PropertyValueFactory<Route, String>("StartDate"));
-        StartTime.setCellValueFactory(new PropertyValueFactory<Route, String>("StartTime"));
-        EndTime.setCellValueFactory(new PropertyValueFactory<Route, String>("StopTime"));
+        StartLocation.setCellValueFactory(new PropertyValueFactory<>("StartAddress"));
+        EndLocation.setCellValueFactory(new PropertyValueFactory<>("EndAddress"));
+        Date.setCellValueFactory(new PropertyValueFactory<>("StartDate"));
+        StartTime.setCellValueFactory(new PropertyValueFactory<>("StartTime"));
+        EndTime.setCellValueFactory(new PropertyValueFactory<>("StopTime"));
         tableView.setItems(routeList);
         tableView.getColumns().setAll(StartLocation, EndLocation, Date, StartTime, EndTime);
     }
@@ -128,7 +128,7 @@ public class RouteDataViewerController extends DataViewerController {
         }
         DataFilterer filterer = new DataFilterer(Main.getDB());
         ArrayList<Route> routes = filterer.filterRoutes(gender, dateLower, dateUpper,
-                timeLower, timeUpper, -1, -1, startLocation, endLocation);
+                timeLower, timeUpper, startLocation, endLocation);
         System.out.println("Got data");
         for (int i = 0; i < routes.size(); i++) {
             System.out.println(routes.get(i).getBikeID());
