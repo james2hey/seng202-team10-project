@@ -1,6 +1,7 @@
 package dataHandler;
 
 import com.opencsv.CSVReader;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -64,16 +65,16 @@ public class RouteDataHandler {
 
             String[] date_time_start = record[1].split(" ");
             String[] date_start = date_time_start[0].split("/");
-            int start_year = Integer.parseInt(date_start[2]);
-            int start_month = Integer.parseInt(date_start[0]);
-            int start_day = Integer.parseInt(date_start[1]);
+            String start_year = date_start[2];
+            String start_month = StringUtils.leftPad(date_start[0], 2, '0');
+            String start_day = StringUtils.leftPad(date_start[1], 2, '0');
             String start_time = date_time_start[1];
 
             String[] date_time_end = record[2].split(" ");
             String[] date_end = date_time_start[0].split("/");
-            int end_year = Integer.parseInt(date_end[2]);
-            int end_month = Integer.parseInt(date_end[0]);
-            int end_day = Integer.parseInt(date_end[1]);
+            String end_year = date_end[2];
+            String end_month = StringUtils.leftPad(date_end[0], 2, '0');
+            String end_day = StringUtils.leftPad(date_end[1], 2, '0');
             String end_time = date_time_end[1];
 
 
@@ -100,8 +101,8 @@ public class RouteDataHandler {
         }
     }
 
-    public Boolean addSingleEntry(int tripduration, int start_year, int start_month, int start_day, String start_time,
-                                  int end_year, int end_month, int end_day, String end_time, String start_station_id,
+    public Boolean addSingleEntry(int tripduration, String start_year, String start_month, String start_day, String start_time,
+                                  String end_year, String end_month, String end_day, String end_time, String start_station_id,
                                   String start_station_name, double start_latitude, double start_longitude,
                                   String end_station_id, String end_station_name, double end_latitude,
                                   double end_longitude, String bikeid, String usertype, Integer birth_year, int gender) {
@@ -153,3 +154,4 @@ public class RouteDataHandler {
         }
     }
 }
+
