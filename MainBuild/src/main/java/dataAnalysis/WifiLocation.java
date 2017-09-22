@@ -42,7 +42,7 @@ public class WifiLocation extends Location {
 
     public String getCost() {return cost;}
 
-    public String getSSIF() {return SSID;}
+    public String getSSID() {return SSID;}
 
     public double getWifiID() {return  wifiID;}
 

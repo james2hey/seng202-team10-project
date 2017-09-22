@@ -62,7 +62,7 @@ public class WifiDataViewerController extends DataViewerController {
 
     @FXML
     public void initialize() {
-        Name.setCellValueFactory(new PropertyValueFactory<>("SSIF"));
+        Name.setCellValueFactory(new PropertyValueFactory<>("SSID"));
         Provider.setCellValueFactory(new PropertyValueFactory<>("Provider"));
         Address.setCellValueFactory(new PropertyValueFactory<>("Address"));
         Suburb.setCellValueFactory(new PropertyValueFactory<>("Suburb"));
@@ -97,7 +97,7 @@ public class WifiDataViewerController extends DataViewerController {
         ArrayList<WifiLocation> wifiLocations = filterer.filterWifi(suburb, cost, provider);
         System.out.println("Got data");
         for (int i = 0; i < wifiLocations.size(); i++) {
-            System.out.println(wifiLocations.get(i).getSSIF());
+            System.out.println(wifiLocations.get(i).getSSID());
         }
         tableView.getItems().clear();
         wifiList.addAll(wifiLocations);

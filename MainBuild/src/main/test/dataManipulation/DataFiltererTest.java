@@ -290,7 +290,7 @@ public class DataFiltererTest {
     public void filterWifiTest() throws Exception {
         wifiLocations = dataFilterer.filterWifi("Brooklyn", null, null);
         for (int i = 0; i < wifiLocations.size(); i++) {
-            System.out.println(wifiLocations.get(1).getSSIF());
+            System.out.println(wifiLocations.get(1).getSSID());
         }
         assertTrue(1 == 1);
     }
@@ -299,7 +299,7 @@ public class DataFiltererTest {
     public void filterWifiTestAll() throws Exception {
         wifiLocations = dataFilterer.filterWifi("Brooklyn", "Limited Free", "USA");
         for (int i = 0; i < wifiLocations.size(); i++) {
-            System.out.println(wifiLocations.get(1).getSSIF());
+            System.out.println(wifiLocations.get(1).getSSID());
         }
         assertTrue(1 == 1);
     }
