@@ -6,6 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
+<?import javafx.collections.FXCollections?>
 <GridPane hgap="40.0" prefHeight="650.0" prefWidth="1100.0" style="-fx-background-color: grey;" vgap="30.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIControllers.ViewDataControllers.RetailerDataViewerController">
    <children>
       <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Retailer Data Viewer" textAlignment="CENTER" wrappingWidth="953.193359375" GridPane.columnIndex="1" GridPane.columnSpan="6">
@@ -40,10 +41,10 @@
       </VBox>
       <TableView fx:id="tableView" prefHeight="456.0" prefWidth="570.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="2" GridPane.rowSpan="2">
          <columns>
-            <TableColumn fx:id="Name" prefWidth="123.99996948242188" text="Name" />
-            <TableColumn fx:id="Address" prefWidth="132.0" text="Address" />
+            <TableColumn fx:id="Name" prefWidth="180.0" text="Name" />
+            <TableColumn fx:id="Address" prefWidth="134.0" text="Address" />
             <TableColumn fx:id="Zip" prefWidth="80.0" text="Zip Code" />
-            <TableColumn fx:id="PrimaryType" prefWidth="140.0" text="Primary Type" />
+            <TableColumn fx:id="PrimaryType" prefWidth="180.0" text="Primary Type" />
          </columns>
       </TableView>
       <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="5" GridPane.rowIndex="2">
@@ -62,7 +63,20 @@
             <VBox prefHeight="161.0" prefWidth="103.0">
                <children>
                   <Accordion />
-                  <JFXTextField fx:id="primaryInput" prefHeight="23.0" prefWidth="180.0" text="Company Type" />
+                  <ComboBox fx:id="primaryInput" prefHeight="23.0" prefWidth="180.0" >
+                     <items>
+                        <FXCollections fx:factory="observableArrayList">
+                           <String fx:value="Casual Eating &amp; Takeout" />
+                           <String fx:value="Shopping" />
+                           <String fx:value="Full Service Dining" />
+                           <String fx:value="Personal and Professional Services" />
+                           <String fx:value="Nightlife" />
+                           <String fx:value="Visitor Services" />
+                           <String fx:value="Community Resources" />
+                           <String fx:value="No Selection" />
+                        </FXCollections>
+                     </items>
+                  </ComboBox>
                </children>
             </VBox>
          </children>

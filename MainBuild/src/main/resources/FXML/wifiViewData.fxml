@@ -42,11 +42,11 @@
       </VBox>
       <TableView fx:id="tableView" prefHeight="456.0" prefWidth="570.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="2" GridPane.rowSpan="2">
          <columns>
-            <TableColumn fx:id="Name" prefWidth="124.0" text="Name" />
-            <TableColumn fx:id="Provider" prefWidth="124.0" text="Provider" />
-            <TableColumn fx:id="Address" prefWidth="132.0" text="Address" />
+            <TableColumn fx:id="Name" prefWidth="145.0" text="Name" />
+            <TableColumn fx:id="Provider" prefWidth="137.0" text="Provider" />
+            <TableColumn fx:id="Address" prefWidth="139.0" text="Address" />
             <TableColumn fx:id="Suburb" prefWidth="93.0" text="Suburb" />
-            <TableColumn fx:id="Cost" prefWidth="113.0" text="Cost" />
+            <TableColumn fx:id="Cost" prefWidth="60.0" text="Cost" />
          </columns>
       </TableView>
       <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="5" GridPane.rowIndex="2">
