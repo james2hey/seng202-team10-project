@@ -65,17 +65,5 @@ public abstract class DataViewerController extends Controller implements Initial
         currentStage.setScene(retailerViewerScene);
     }
 
-    @FXML
-    void openAdvancedView(ActionEvent event) throws IOException {
-
-        Stage popup = new Stage();
-        popup.initModality(Modality.APPLICATION_MODAL);
-        popup.initOwner(((Node) event.getSource()).getScene().getWindow());
-        Parent popupParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/advancedDataViewPopup.fxml"));
-        Scene popupScene = new Scene(popupParent);
-        popup.setScene(popupScene);
-        popup.show();
-    }
-
 }
 

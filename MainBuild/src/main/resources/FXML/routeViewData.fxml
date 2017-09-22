@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane hgap="40.0" prefHeight="650.0" prefWidth="1100.0" style="-fx-background-color: grey;" vgap="30.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIControllers.ViewDataControllers.RouteDataViewerController">
+<GridPane alignment="TOP_CENTER" hgap="40.0" prefHeight="650.0" prefWidth="1100.0" style="-fx-background-color: grey;" vgap="30.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIControllers.ViewDataControllers.RouteDataViewerController">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="269.0" minWidth="10.0" prefWidth="29.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="269.0" minWidth="10.0" prefWidth="153.0" />
@@ -20,8 +20,9 @@
     <RowConstraints maxHeight="201.0" minHeight="10.0" prefHeight="91.0" vgrow="SOMETIMES" />
     <RowConstraints maxHeight="392.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
     <RowConstraints maxHeight="475.0" minHeight="0.0" prefHeight="328.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="465.0" minHeight="9.0" prefHeight="49.6666259765625" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="465.0" minHeight="10.0" prefHeight="68.3333740234375" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="465.0" minHeight="1.0" prefHeight="1.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="465.0" minHeight="0.0" prefHeight="33.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="465.0" minHeight="0.0" prefHeight="26.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
       <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Route Data Viewer" textAlignment="CENTER" wrappingWidth="953.193359375" GridPane.columnIndex="1" GridPane.columnSpan="6">
@@ -86,22 +87,22 @@
             </VBox>
             <VBox prefHeight="161.0" prefWidth="103.0">
                <children>
-                  <JFXTextField fx:id="startLocationInput" prefHeight="23.0" prefWidth="147.0" text="Address" />
+                  <JFXTextField fx:id="startLocationInput" prefHeight="23.0" prefWidth="147.0" promptText="Address" />
                </children>
             </VBox>
             <VBox prefHeight="161.0" prefWidth="103.0">
                <children>
-                  <JFXTextField fx:id="endLocationInput" prefHeight="23.0" prefWidth="147.0" text="Address" />
+                  <JFXTextField fx:id="endLocationInput" prefHeight="23.0" prefWidth="147.0" promptText="Address" />
                </children>
             </VBox>
             <VBox prefHeight="161.0" prefWidth="103.0">
                <children>
-                  <JFXTextField fx:id="startTimeInput" prefHeight="23.0" prefWidth="147.0" text="HH:MM:SS" />
+                  <JFXTextField fx:id="startTimeInput" prefHeight="23.0" prefWidth="147.0" promptText="HH:MM:SS" />
                </children>
             </VBox>
             <VBox prefHeight="161.0" prefWidth="103.0">
                <children>
-                  <JFXTextField fx:id="endTimeInput" prefHeight="23.0" prefWidth="147.0" text="HH:MM:SS" />
+                  <JFXTextField fx:id="endTimeInput" prefHeight="23.0" prefWidth="147.0" promptText="HH:MM:SS" />
                </children>
             </VBox>
             <VBox prefHeight="161.0" prefWidth="103.0">
@@ -116,18 +117,18 @@
             </VBox>
          </children>
       </VBox>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Username: " wrappingWidth="222.01025390625" GridPane.columnIndex="5" GridPane.rowIndex="4" />
-      <Button mnemonicParsing="false" onAction="#openAdvancedView" prefHeight="25.0" prefWidth="176.0" text="View/Edit Route Fields" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="4" />
+      <Button alignment="TOP_CENTER" mnemonicParsing="false" onAction="#editData" prefHeight="25.0" prefWidth="184.0" text="View/Edit Route" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="4" />
       <Button mnemonicParsing="false" onAction="#displayData" prefHeight="25.0" prefWidth="342.0" text="Filter" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="3" />
       <Button mnemonicParsing="false" onAction="#showRoutes" prefHeight="25.0" prefWidth="163.0" text="View Routes" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       <Button mnemonicParsing="false" onAction="#showWifiLocations" prefHeight="25.0" prefWidth="206.0" text="View Wifi Locations" GridPane.columnIndex="2" GridPane.rowIndex="1" />
       <Button mnemonicParsing="false" onAction="#showRetailers" prefHeight="25.0" prefWidth="170.0" text="View Retailers" GridPane.columnIndex="3" GridPane.rowIndex="1" />
       <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" GridPane.rowSpan="5" />
-      <Button fx:id="favouritesButton" mnemonicParsing="false" onAction="#addFavouriteRoute" prefHeight="25.0" prefWidth="208.0" text="ADD TO FAVOURITES!" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+      <Button fx:id="favouritesButton" mnemonicParsing="false" onAction="#addFavouriteRoute" prefHeight="25.0" prefWidth="208.0" text="Add to Favourites" GridPane.columnIndex="3" GridPane.rowIndex="4" />
       <Label fx:id="favouritesError" alignment="CENTER" prefHeight="15.0" prefWidth="221.0" text="Already in favourites!" textAlignment="CENTER" textFill="RED" visible="false" GridPane.columnIndex="5">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
+      <Button alignment="TOP_CENTER" mnemonicParsing="false" onAction="#viewOnMap" prefHeight="25.0" prefWidth="163.0" text="View On Map" GridPane.columnIndex="1" GridPane.rowIndex="4" />
    </children>
 </GridPane>

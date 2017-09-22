@@ -8,8 +8,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import main.HandleUsers;
 import main.Main;
 
@@ -64,6 +70,9 @@ public class RouteDataViewerController extends DataViewerController {
 
     @FXML
     private DatePicker endDateInput;
+
+    @FXML
+    private Label favouritesError;
 
     private ObservableList<Route> routeList = FXCollections.observableArrayList();
 
@@ -163,10 +172,6 @@ public class RouteDataViewerController extends DataViewerController {
 
     }
 
-    // ___________________ Favourites button - feel free to change around the ugly composition _______________
-
-    @FXML
-    private Label favouritesError;
 
     /**
      * Adds the currently selected route to the Cyclists routeList.
@@ -190,5 +195,23 @@ public class RouteDataViewerController extends DataViewerController {
         } else {
             System.out.println("Feature not available for analyst!");
         }
+    }
+
+    @FXML
+    public void viewOnMap(ActionEvent action) {
+        //called when GUI button view on map button is pressed.
+
+    }
+
+    @FXML
+    public void editData(ActionEvent event) throws IOException {
+        //called by GUI button View/edit route.
+        Stage popup = new Stage();
+        popup.initModality(Modality.APPLICATION_MODAL);
+        popup.initOwner(((Node) event.getSource()).getScene().getWindow());
+        Parent popupParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/detailedRouteInformation.fxml"));
+        Scene popupScene = new Scene(popupParent);
+        popup.setScene(popupScene);
+        popup.show();
     }
 }
