@@ -27,18 +27,6 @@
       <RowConstraints maxHeight="510.0" minHeight="22.0" prefHeight="90.0" />
    </rowConstraints>
    <children>
-      <Text fx:id="buttonPressedText" strokeType="OUTSIDE" strokeWidth="0.0" text="Button Pressed" textAlignment="CENTER" visible="false" wrappingWidth="269.6552734375" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-      <JFXHamburger fx:id="hamburger" onMouseClicked="#openDrawer" GridPane.columnIndex="4" />
-      <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" style="-fx-background-color: grey;" GridPane.rowSpan="4" />
-      <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Home" textAlignment="CENTER" wrappingWidth="212.7294921875" GridPane.columnIndex="3" GridPane.columnSpan="2">
-         <font>
-            <Font size="60.0" />
-         </font>
-      </Text>
-      <Button fx:id="logOutButton" alignment="CENTER" mnemonicParsing="false" onAction="#logOut" prefHeight="47.0" prefWidth="210.0" text="Log Out" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="3">
-         <font>
-            <Font size="19.0" />
-         </font></Button>
       <Text fx:id="welcomeText" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome: " wrappingWidth="822.01025390625" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1">
          <font>
             <Font size="39.0" />
@@ -50,6 +38,17 @@
             <TableColumn minWidth="0.0" prefWidth="207.0" text="Favourite Wifi Locations" />
         </columns>
       </TableView>
+      <Text fx:id="buttonPressedText" strokeType="OUTSIDE" strokeWidth="0.0" text="Button Pressed" textAlignment="CENTER" visible="false" wrappingWidth="269.6552734375" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+      <JFXHamburger fx:id="hamburger" onMouseClicked="#openDrawer" GridPane.columnIndex="4" />
+      <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Home" textAlignment="CENTER" wrappingWidth="212.7294921875" GridPane.columnIndex="3" GridPane.columnSpan="2">
+         <font>
+            <Font size="60.0" />
+         </font>
+      </Text>
+      <Button fx:id="logOutButton" alignment="CENTER" mnemonicParsing="false" onAction="#logOut" prefHeight="47.0" prefWidth="210.0" text="Log Out" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="3">
+         <font>
+            <Font size="19.0" />
+         </font></Button>
       <VBox prefHeight="287.0" prefWidth="209.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="196.255859375">
@@ -85,5 +84,6 @@
             </Text>
          </children>
       </VBox>
+      <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" style="-fx-background-color: grey;" GridPane.rowSpan="4" />
    </children>
 </GridPane>
