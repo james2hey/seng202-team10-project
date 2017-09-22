@@ -4,14 +4,11 @@ import dataAnalysis.RetailLocation;
 import dataAnalysis.Route;
 import dataAnalysis.WifiLocation;
 import dataHandler.*;
-import main.DatabaseUser;
-import main.HandleUsers;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 

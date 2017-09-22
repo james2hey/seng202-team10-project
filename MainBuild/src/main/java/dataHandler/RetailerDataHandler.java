@@ -48,8 +48,8 @@ public class RetailerDataHandler {
     private Boolean processLine(String[] record) {
         try {
             System.out.println(record[1]);
-            //double[] latlon = Geocoder.addressToLatLon(record[1] + ", " + record[3] + ", " + record[4] + ", " + record[5] + ", ");
-            double[] latlon = {0.1, 0.2};
+            double[] latlon = Geocoder.addressToLatLon(record[1] + ", " + record[3] + ", " + record[4] + ", " + record[5] + ", ");
+            //double[] latlon = {0.1, 0.2};
 
             System.out.println(latlon[0]);
             System.out.println(latlon[1]);

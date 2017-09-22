@@ -101,6 +101,7 @@ public class WifiDataViewerController extends DataViewerController {
         }
         tableView.getItems().clear();
         wifiList.addAll(wifiLocations);
+        Main.wifiLocations = wifiLocations;
 
     }
 

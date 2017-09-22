@@ -3,10 +3,7 @@ package GUIControllers;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXTextField;
 
-import dataHandler.RetailerDataHandler;
-import dataHandler.RouteDataHandler;
-import dataHandler.SQLiteDB;
-import dataHandler.WifiDataHandler;
+import dataHandler.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -111,6 +108,9 @@ public class AddDataController extends Controller implements Initializable {
         boolean errorOccurred = false;
         String[] sDate = new String[3];
         String[] eDate = new String[3];
+        double[] sLatLon = Geocoder.addressToLatLon(rSAddress.getText());
+        double[] eLatLon = Geocoder.addressToLatLon(rEAddress.getText());
+
         String username;
         try {
             username = HandleUsers.currentCyclist.getName();
@@ -132,7 +132,8 @@ public class AddDataController extends Controller implements Initializable {
         }
         try { // Start Latitude
             sLatError.setVisible(false);
-            SLatitude = Double.parseDouble(rSLatitude.getText());
+            //SLatitude = Double.parseDouble(rSLatitude.getText());
+            SLatitude = sLatLon[0];
         } catch (Exception e) {
             sLatError.setVisible(true);
             errorOccurred = true;
@@ -140,7 +141,8 @@ public class AddDataController extends Controller implements Initializable {
         }
         try { // Start Longitude
             sLongError.setVisible(false);
-            SLongitude = Double.parseDouble(rSLongitude.getText());
+            //SLongitude = Double.parseDouble(rSLongitude.getText());
+            SLongitude = sLatLon[1];
         } catch (Exception e) {
             errorOccurred = true;
             sLongError.setVisible(true);
@@ -161,7 +163,8 @@ public class AddDataController extends Controller implements Initializable {
 
         try { //End Latitude
             eLatError.setVisible(false);
-            ELatitude = Double.parseDouble(rELatitude.getText());
+            //ELatitude = Double.parseDouble(rELatitude.getText());
+            ELatitude = eLatLon[0];
         } catch (Exception e) {
             errorOccurred = true;
             eLatError.setVisible(true);
@@ -170,7 +173,8 @@ public class AddDataController extends Controller implements Initializable {
 
         try {// End Longitude
             eLongError.setVisible(false);
-            ELongitude = Double.parseDouble(rELongitude.getText());
+            //ELongitude = Double.parseDouble(rELongitude.getText());
+            ELongitude = eLatLon[1];
         } catch (Exception e) {
             eLongError.setVisible(true);
             errorOccurred = true;
@@ -188,7 +192,7 @@ public class AddDataController extends Controller implements Initializable {
         RouteDataHandler newRoute = new RouteDataHandler(Main.getDB());
         Boolean fromHandler = newRoute.addSingleEntry(0, sDate[0], sDate[1], sDate[2], rSTime.getText(),
                 eDate[0], eDate[1], eDate[2], rETime.getText(), "1",
-                "Start", SLatitude, SLongitude, "2", "End", ELatitude, ELongitude,
+                rSAddress.getText(), SLatitude, SLongitude, "2", rEAddress.getText(), ELatitude, ELongitude,
                 "1", username, 2017, 1);
         if(fromHandler == false) {
             makeErrorDialogueBox("Something wrong with input", "Check for nulls and already existing entrys");

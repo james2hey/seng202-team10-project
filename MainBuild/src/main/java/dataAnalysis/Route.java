@@ -138,11 +138,11 @@ public class Route {
 
     public double getStartLatitude() {return startLocation.getLatitude();}
 
-    public double getStartLongitude() {return startLocation.getLatitude();}
+    public double getStartLongitude() {return startLocation.getLongitude();}
 
     public double getEndLatitude() {return endLocation.getLatitude();}
 
-    public double getEndLongitude() {return endLocation.getLatitude();}
+    public double getEndLongitude() {return endLocation.getLongitude();}
 
     public double getAverageTime() {return averageTime;}
 
@@ -199,6 +199,7 @@ public class Route {
         // double newTime = spTime - stTime;
         // averageTime = (averageTime + newTime) / timesTaken
     }
+
 
 //    public static void main(String[] args) {
 //        RetailLocation l1 = new RetailLocation("Nike", "Broadway", "Auckland");

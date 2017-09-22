@@ -1,5 +1,6 @@
 package GUIControllers.ViewDataControllers;
 
+import GUIControllers.PlanRouteController;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
 import dataAnalysis.Route;
@@ -149,6 +150,7 @@ public class RouteDataViewerController extends DataViewerController {
         }
         tableView.getItems().clear();
         routeList.addAll(routes);
+        Main.routes = routes;
 
     }
 
@@ -174,9 +176,4 @@ public class RouteDataViewerController extends DataViewerController {
             System.out.println("Feature not available for analyst!");
         }
     }
-
-
-
-
-
 }

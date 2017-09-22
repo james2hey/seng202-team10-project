@@ -97,13 +97,14 @@ public class RetailerDataViewerController extends DataViewerController {
             primaryType = null;
         }
         DataFilterer filterer = new DataFilterer(Main.getDB());
-        ArrayList<RetailLocation> wifiLocations = filterer.filterRetailers(address, primaryType, zip);
+        ArrayList<RetailLocation> retailLocations = filterer.filterRetailers(address, primaryType, zip);
         System.out.println("Got data");
-        for (int i = 0; i < wifiLocations.size(); i++) {
-            System.out.println(wifiLocations.get(i).getName());
+        for (int i = 0; i < retailLocations.size(); i++) {
+            System.out.println(retailLocations.get(i).getName());
         }
         tableView.getItems().clear();
-        retailList.addAll(wifiLocations);
+        retailList.addAll(retailLocations);
+        Main.retailLocations = retailLocations;
     }
 
 }
