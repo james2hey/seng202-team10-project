@@ -2,6 +2,9 @@ package dataHandler;
 
 import com.opencsv.CSVReader;
 import org.apache.commons.lang3.StringUtils;
+import org.joda.time.DateTime;
+import org.joda.time.Duration;
+import org.joda.time.Interval;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -152,6 +155,32 @@ public class RouteDataHandler {
         } catch (IOException e) {
             System.out.println("File not found");
         }
+    }
+
+    public int getDuration(String start_year, String start_month, String start_day, String start_time,
+                           String end_year, String end_month, String end_day, String end_time) {
+        String[] start_time_seperated = start_time.split(":");
+        int start_hour = Integer.parseInt(start_time_seperated[0]);
+        int start_min = Integer.parseInt(start_time_seperated[1]);
+        int start_sec = Integer.parseInt(start_time_seperated[2]);
+
+        String[] end_time_seperated = end_time.split(":");
+        int end_hour = Integer.parseInt(end_time_seperated[0]);
+        int end_min = Integer.parseInt(end_time_seperated[1]);
+        int end_sec = Integer.parseInt(end_time_seperated[2]);
+
+        int start_year_int = Integer.parseInt(start_year);
+        int start_month_int = Integer.parseInt(start_month);
+        int start_day_int = Integer.parseInt(start_day);
+
+        int end_year_int = Integer.parseInt(end_year);
+        int end_month_int = Integer.parseInt(end_month);
+        int end_day_int = Integer.parseInt(end_day);
+
+        DateTime start = new DateTime(start_year_int, start_month_int, start_day_int, start_hour, start_min, start_sec);
+        DateTime end = new DateTime(end_year_int, end_month_int, end_day_int, end_hour, end_min, end_sec);
+        Duration duration = new Duration(start, end);
+        return duration.toStandardSeconds().getSeconds();
     }
 }
 

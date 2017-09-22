@@ -34,6 +34,7 @@ import javafx.scene.text.Text;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import main.Main;
+import main.helperFunctions;
 import netscape.javascript.JSObject;
 
 
@@ -73,7 +74,9 @@ public class PlanRouteController extends Controller implements Initializable, Ma
     private ArrayList<Marker> retailerMarkers = new ArrayList<Marker>();
     private ArrayList<Marker> tripMarkers = new ArrayList<Marker>();
     private ArrayList<Polyline> tripLines = new ArrayList<Polyline>();
-    private DecimalFormat numberFormat = new DecimalFormat("#.00");
+    private DecimalFormat numberFormat = new DecimalFormat("0.00");
+
+
 
     private SQLiteDB db;
 
@@ -237,7 +240,7 @@ public class PlanRouteController extends Controller implements Initializable, Ma
                                 "Start Address: " + route.getStartAddress() + "<br>" +
                                 "Start Date: " + route.getStartDate() + "<br>" +
                                 "Start Time: " + route.getStartTime() + "<br>" +
-                                "Duration: " + route.getDuration() + "<br>" +
+                                "Duration: " + helperFunctions.secondsToString(route.getDuration()) + "<br>" +
                                 "Distance: " + numberFormat.format(route.getDistance()) + "km")
                         .position(latLong);
                 InfoWindow infoWindow = new InfoWindow(infoWindowOptions);
@@ -263,7 +266,7 @@ public class PlanRouteController extends Controller implements Initializable, Ma
                                 "End Address: " + route.getEndAddress() + "<br>" +
                                 "End Date: " + route.getStopDate() + "<br>" +
                                 "End Time: " + route.getStopTime() + "<br>" +
-                                "Duration: " + route.getDuration() + "s<br>" +
+                                "Duration: " + helperFunctions.secondsToString(route.getDuration()) + "<br>" +
                                 "Distance: " + numberFormat.format(route.getDistance()) + "km")
                         .position(latLong2);
                 InfoWindow infoWindow = new InfoWindow(infoWindowOptions);
