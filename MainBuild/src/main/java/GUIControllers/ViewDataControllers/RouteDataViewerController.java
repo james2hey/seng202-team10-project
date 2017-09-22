@@ -145,6 +145,7 @@ public class RouteDataViewerController extends DataViewerController {
         ArrayList<Route> routes = filterer.filterRoutes(gender, dateLower, dateUpper,
                 timeLower, timeUpper, startLocation, endLocation);
         System.out.println("Got data");
+        System.out.println(routes.size());
         for (int i = 0; i < routes.size(); i++) {
             System.out.println(routes.get(i).getBikeID());
         }

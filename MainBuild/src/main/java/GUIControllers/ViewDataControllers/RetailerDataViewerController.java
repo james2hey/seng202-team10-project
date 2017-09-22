@@ -1,6 +1,7 @@
 package GUIControllers.ViewDataControllers;
 
 import dataManipulation.DataFilterer;
+import javafx.scene.control.ComboBox;
 import main.Main;
 
 import com.jfoenix.controls.JFXDrawer;
@@ -26,7 +27,7 @@ public class RetailerDataViewerController extends DataViewerController {
     private JFXTextField streetInput;
 
     @FXML
-    private JFXTextField primaryInput;
+    private ComboBox<String> primaryInput;
 
     @FXML
     private TableView<RetailLocation> tableView;
@@ -92,8 +93,8 @@ public class RetailerDataViewerController extends DataViewerController {
             zipInput.setText("Enter a number greater than 0");
             zip = -1;
         }
-        String primaryType = primaryInput.getText();
-        if (primaryType == null || primaryType.equals("Company Type")) {
+        String primaryType = primaryInput.getSelectionModel().getSelectedItem();
+        if (primaryType == null || primaryType.equals("No Selection")) {
             primaryType = null;
         }
         DataFilterer filterer = new DataFilterer(Main.getDB());
