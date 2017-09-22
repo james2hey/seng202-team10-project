@@ -114,10 +114,24 @@ public class RouteDataViewerController extends DataViewerController {
         }
         String timeLower = startTimeInput.getText();
         String timeUpper = endTimeInput.getText();
-        if ("HH:MM:SS".equals(timeLower) || "HH:MM:SS".equals(timeUpper)) {
+        if ("HH:MM:SS".equals(timeLower)) {
             timeLower = null;
-            timeUpper = null;
+        } else {
+            if (timeLower.matches("[0-9][0-9]:[0-9][0-9]:[0-9][0-9]") == false) {
+                startTimeInput.setText("Use the format HH:MM:SS");
+                timeLower = null;
+            }
         }
+        if ("HH:MM:SS".equals(timeUpper)) {
+            timeUpper = null;
+        } else {
+            if (timeUpper.matches("[0-9][0-9]:[0-9][0-9]:[0-9][0-9]") == false) {
+                endTimeInput.setText("Use the format HH:MM:SS");
+                timeUpper = null;
+            }
+        }
+
+
         String startLocation = startLocationInput.getText();
         String endLocation = endLocationInput.getText();
         if ("Address".equals(startLocation)) {

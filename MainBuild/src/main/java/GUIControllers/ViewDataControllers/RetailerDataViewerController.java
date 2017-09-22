@@ -79,10 +79,18 @@ public class RetailerDataViewerController extends DataViewerController {
             address = null;
         }
         int zip;
-        if (zipInput.getText().equals("") || zipInput.getText().equals("Zip Code")) {
+        try {
+            if (zipInput.getText().equals("") || zipInput.getText().equals("Zip Code")) {
+                zip = -1;
+            } else {
+                if (Integer.valueOf(zipInput.getText()) <= 0) {
+                    throw new NumberFormatException("Please enter a number greater than 0");
+                }
+                zip = Integer.valueOf(zipInput.getText());
+            }
+        } catch (NumberFormatException e) {
+            zipInput.setText("Enter a number greater than 0");
             zip = -1;
-        } else {
-            zip = Integer.valueOf(zipInput.getText());
         }
         String primaryType = primaryInput.getText();
         if (primaryType == null || primaryType.equals("Company Type")) {
