@@ -165,9 +165,6 @@ public class RouteDataViewerController extends DataViewerController {
 
     // ___________________ Favourites button - feel free to change around the ugly composition _______________
 
-    @FXML
-    Button favourtiesButton;
-
     /**
      * Adds the currently selected route to the Cyclists routeList.
      */
@@ -178,8 +175,12 @@ public class RouteDataViewerController extends DataViewerController {
             } else {
                 String name = HandleUsers.currentCyclist.getName();
                 Route routeToAdd = tableView.getSelectionModel().getSelectedItem();
-                HandleUsers.currentCyclist.addRoute(routeToAdd, name);
-                System.out.println("ADDED " + routeToAdd.getStartTime() + " to cyclist favourites.");
+                boolean alreadyInList = HandleUsers.currentCyclist.addRoute(routeToAdd, name);
+                if (!alreadyInList) {
+                    System.out.println("ADDED " + routeToAdd.getBikeID() + " to cyclist favourites.");
+                } else {
+                    System.out.println("Already in favourites!");
+                }
             }
         } else {
             System.out.println("Feature not available for analyst!");

@@ -123,8 +123,13 @@ public class RetailerDataViewerController extends DataViewerController {
             } else {
                 String name = HandleUsers.currentCyclist.getName();
                 RetailLocation retailToAdd = tableView.getSelectionModel().getSelectedItem();
-                HandleUsers.currentCyclist.addFavouriteRetail(retailToAdd, name);
-                System.out.println("ADDED " + retailToAdd.getName() + " to cyclist favourites.");
+                boolean alreadyInList = HandleUsers.currentCyclist.addFavouriteRetail(retailToAdd, name);
+                if (!alreadyInList) {
+                    System.out.println("ADDED " + retailToAdd.getName() + " to cyclist favourites.");
+                } else {
+                    System.out.println("Already in favourites!");
+
+                }
             }
         } else {
             System.out.println("Feature not available for analyst!");

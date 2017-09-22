@@ -38,13 +38,30 @@ public class Cyclist extends User {
     public void addRetailInstance(RetailLocation retail) {favouriteRetailLocations.add(retail);}
 
 
-    /**Adds a route to the Users routeList.
-     * @param route;
+
+    /**
+     * Adds a Route to the Users routeList if it is not already in it.
+     * @param route
+     * @param name
+     * @return
      */
-    public void addRoute(Route route, String name) {
-        favouriteRouteList.add(route);
-        FavouriteRouteData.addFavouriteRoute(name, route.getStartYear(), route.getStartMonth(), route.getStartDay(),
-                route.getStartTime(), route.getBikeID());
+    public boolean addRoute(Route route, String name) {
+        boolean alreadyInList = false;
+        for (int i = 0; i < favouriteRouteList.size(); i++) {
+            Route tempRoute = favouriteRouteList.get(i);
+            if (route.getStartYear().equals(tempRoute.getStartYear()) && route.getStartMonth().equals(tempRoute.getStartMonth()) &&
+                    route.getStartDay().equals(tempRoute.getStartDay()) && route.getStartTime().equals(tempRoute.getStartTime()) &&
+                    route.getBikeID().equals(tempRoute.getBikeID())) {
+                alreadyInList = true;
+                break;
+            }
+        }
+        if (!alreadyInList) {
+            favouriteRouteList.add(route);
+            FavouriteRouteData.addFavouriteRoute(name, route.getStartYear(), route.getStartMonth(), route.getStartDay(),
+                    route.getStartTime(), route.getBikeID());
+        }
+        return alreadyInList;
     }
 
 
@@ -53,20 +70,49 @@ public class Cyclist extends User {
      */
     public void addFavouriteStation(StationLocation station) {favouriteStationLocations.add(station);}
 
-    /**Adds a RetailLocation to the Users favouriteStationLocations
-     * @param retail;
+
+    /**
+     * Adds a RetailLocation to the Users favouriteStationLocations
+     * @param retail
+     * @param name
+     * @return
      */
-    public void addFavouriteRetail(RetailLocation retail, String name) {
-        favouriteRetailLocations.add(retail);
-        FavouriteRetailData.addFavouriteRetail(name, retail.getName(), retail.getAddress());
+    public boolean addFavouriteRetail(RetailLocation retail, String name) {
+        boolean alreadyInList = false;
+        for (int i = 0; i < favouriteRetailLocations.size(); i++) {
+            RetailLocation tempRetail = favouriteRetailLocations.get(i);
+            if (retail.getName().equals(tempRetail.getName()) && retail.getAddress().equals(tempRetail.getAddress())) {
+                alreadyInList = true;
+                break;
+            }
+        }
+        if (!alreadyInList) {
+            favouriteRetailLocations.add(retail);
+            FavouriteRetailData.addFavouriteRetail(name, retail.getName(), retail.getAddress());
+        }
+        return alreadyInList;
     }
+
 
     /**Adds a WifiLocation to the Users favouriteStationLocations
      * @param wifi;
      */
-    public void addFavouriteWifi(WifiLocation wifi, String name) {
-        favouriteWifiLocations.add(wifi);
-        FavouriteWifiData.addFavouriteWifi(name, wifi.getWifiID());
+    public boolean addFavouriteWifi(WifiLocation wifi, String name) {
+
+
+        boolean alreadyInList = false;
+        for (int i = 0; i < favouriteWifiLocations.size(); i++) {
+            WifiLocation tempWifi = favouriteWifiLocations.get(i);
+            if (wifi.getWifiID() == tempWifi.getWifiID()) {
+                alreadyInList = true;
+                break;
+            }
+        }
+        if (!alreadyInList) {
+            favouriteWifiLocations.add(wifi);
+            FavouriteWifiData.addFavouriteWifi(name, wifi.getWifiID());
+        }
+        return alreadyInList;
     }
 
     //_____________________________________________REMOVE DATA_____________________________________________

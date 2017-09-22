@@ -4,10 +4,6 @@ import dataAnalysis.RetailLocation;
 import dataAnalysis.Route;
 import dataAnalysis.WifiLocation;
 import dataHandler.SQLiteDB;
-;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -64,11 +60,8 @@ public class HandleUsers {
         try {
             rs = db.executeQuerySQL("SELECT * FROM users WHERE name = '" + username + "';");
             String type = rs.getString(2);
-            //type.charAt(0)
-            System.out.println(type.length());
-            System.out.println("cyclist".length());
 
-            if (type.charAt(0) == 'c') { // Cant figure out why type != "cyclist".
+            if (type.equals("cyclist")) {
                 currentCyclist = new Cyclist(username);
                 getUserRouteFavourites();
                 getUserWifiFavourites();
@@ -77,7 +70,7 @@ public class HandleUsers {
                 currentAnalyst = new Analyst(username);
             }
 
-        } catch (SQLException e) { //What if the result set is not closed?
+        } catch (SQLException e) {
             e.getMessage();
             userList.add(username);
         }
@@ -122,7 +115,6 @@ public class HandleUsers {
             System.out.println(currentCyclist.getFavouriteRouteList().get(i).getStartTime());
         }
         System.out.println("-----------------");
-
     }
 
 

@@ -124,8 +124,12 @@ public class WifiDataViewerController extends DataViewerController {
             } else {
                 String name = HandleUsers.currentCyclist.getName();
                 WifiLocation wifiToAdd = tableView.getSelectionModel().getSelectedItem();
-                HandleUsers.currentCyclist.addFavouriteWifi(wifiToAdd, name);
-                System.out.println("ADDED " + wifiToAdd.getAddress() + " to cyclist favourites.");
+                boolean alreadyInList= HandleUsers.currentCyclist.addFavouriteWifi(wifiToAdd, name);
+                if (!alreadyInList) {
+                    System.out.println("ADDED " + wifiToAdd.getWifiID() + " to cyclist favourites.");
+                } else {
+                    System.out.println("Already in favourites!");
+                }
             }
         } else {
             System.out.println("Feature not available for analyst!");
