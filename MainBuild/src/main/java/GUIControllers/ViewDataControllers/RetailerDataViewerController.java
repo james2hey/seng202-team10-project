@@ -76,6 +76,7 @@ public class RetailerDataViewerController extends DataViewerController {
 
     @FXML
     void displayDataOnMap(ActionEvent event) {
+        //Called when GUI button View on map is pressed.
 
     }
 
@@ -141,6 +142,12 @@ public class RetailerDataViewerController extends DataViewerController {
         } else {
             System.out.println("Feature not available for analyst!");
         }
+    }
+
+    @FXML
+    void editData(ActionEvent event) {
+        //Called when view/edit retailer is pressed.
+
     }
 
 }

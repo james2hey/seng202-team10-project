@@ -136,9 +136,10 @@ public class WifiDataViewerController extends DataViewerController {
         }
     }
 
-
-
-
+    @FXML
+    void editData(ActionEvent event) {
+    //Called when view/edit wifi location button is pressed.
+    }
 
 
 }
