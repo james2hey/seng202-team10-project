@@ -38,10 +38,10 @@ public class FindNearbyLocationsTest {
         wifi = new ArrayList<>();
         route = new Route(268, 40.757666, -73.985878, 3002,
                 40.74854862, -73.98808416, "blah st", "foo st",
-                "00:00:41", 1, 1, 2016);
+                "00:00:41", "01", "01", "2016");
         route2 = new Route(268, 50.757666, -73.985878, 3002,
                 42.6210613, -73.7268233, "blah st", "foo st",
-                "00:00:41", 1, 1, 2016);
+                "00:00:41", "01", "01", "2016");
         retailer = new RetailLocation("foods", "food st", "NYC", "Shopping",
                 "p-spa", 10004, 40.757666, -73.985878);
 
