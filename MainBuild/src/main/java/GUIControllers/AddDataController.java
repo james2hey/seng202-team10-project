@@ -189,8 +189,12 @@ public class AddDataController extends Controller implements Initializable {
         if(errorOccurred == true){
             return;
         }
+        System.out.println(rSTime.getText());
+        System.out.println(rSTime.getText());
+        int duration = routeDataHandler.getDuration(sDate[0], sDate[1], sDate[2], rSTime.getText(),
+                eDate[0], eDate[1], eDate[2], rETime.getText());
         RouteDataHandler newRoute = new RouteDataHandler(Main.getDB());
-        Boolean fromHandler = newRoute.addSingleEntry(0, sDate[0], sDate[1], sDate[2], rSTime.getText(),
+        Boolean fromHandler = newRoute.addSingleEntry(duration, sDate[0], sDate[1], sDate[2], rSTime.getText(),
                 eDate[0], eDate[1], eDate[2], rETime.getText(), "1",
                 rSAddress.getText(), SLatitude, SLongitude, "2", rEAddress.getText(), ELatitude, ELongitude,
                 "1", username, 2017, 1);
