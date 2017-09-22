@@ -8,14 +8,14 @@ package dataAnalysis;
 //to find out what this search criteria is and find a Trip.
 
 public class Route {
-    private int duration, distance, startDay, startMonth, startYear, stopDay, stopMonth, stopYear, timesTaken=1;
-    private String name, startTime, stopTime, startDate, stopDate, bikeid;
+    private int duration, timesTaken=1;
+    private String name, startTime, stopTime, startDate, stopDate, startDay, startMonth, startYear, stopDay, stopMonth, stopYear, bikeid;
     private Location startLocation, endLocation, viaLocation;
     private double averageTime;
 
     //Two types of constructors as there is not always a viaLocation.
 
-    public Route(Location start, Location end, String time, int stDay, int stMonth, int stYear) {
+    public Route(Location start, Location end, String time, String stDay, String stMonth, String stYear) {
         startLocation = start;
         endLocation = end;
         startTime = time;
@@ -24,7 +24,7 @@ public class Route {
         startYear = stYear;
     }
 
-    public Route(Location start, Location end, Location via, String time, int stDay, int stMonth, int stYear) {
+    public Route(Location start, Location end, Location via, String time, String stDay, String stMonth, String stYear) {
         startLocation = start;
         endLocation = end;
         viaLocation = via;
@@ -37,8 +37,8 @@ public class Route {
     /**
      * Constructor for Route class, used by Datafilterer class when filtering records from the database.
      */
-    public Route(int tripDuration, String stTime, String spTime, int stDay, int stMonth, int stYear, int spDay,
-                 int spMonth, int spYear, double stStationLat, double stStationLong, double endStationLat,
+    public Route(int tripDuration, String stTime, String spTime, String stDay, String stMonth, String stYear, String spDay,
+                 String spMonth, String spYear, double stStationLat, double stStationLong, double endStationLat,
                  double endStationLong, int stStationID, int endStationID, String stStationAdr, String endStationAdr,
                  String bId) {
         duration = tripDuration;
@@ -61,7 +61,7 @@ public class Route {
 
 
     public Route(int stStationID, double stStationLat, double stStationLong, int endStationID, double endStationLat,
-                 double endStationLong, String stStationAdr, String endStationAdr, String time, int stDay, int stMonth, int stYear) {
+                 double endStationLong, String stStationAdr, String endStationAdr, String time, String stDay, String stMonth, String stYear) {
         startLocation = new StationLocation(stStationID, stStationLat, stStationLong, stStationAdr);
         endLocation = new StationLocation(endStationID, endStationLat, endStationLong, endStationAdr);
         startTime = time;
@@ -81,8 +81,6 @@ public class Route {
     public int getDuration() {
         return duration;
     }
-
-    public int getDistance() {return distance;}
 
     public String getName() {return name;}
 
@@ -106,29 +104,29 @@ public class Route {
 
     public void setStopDate() {stopDate = getDateString(stopDay, stopMonth, stopYear);}
 
-    public int getStartDay() {return startDay;}
+    public String getStartDay() {return startDay;}
 
-    public void setStartDay(int day) {startDay = day;}
+    public void setStartDay(String day) {startDay = day;}
 
-    public int getStartMonth() {return startMonth;}
+    public String getStartMonth() {return startMonth;}
 
-    public void setStartMonth(int month) {startMonth = month;}
+    public void setStartMonth(String month) {startMonth = month;}
 
-    public int getStartYear() {return startYear;}
+    public String getStartYear() {return startYear;}
 
-    public void setStartYear(int year) {startYear = year;}
+    public void setStartYear(String year) {startYear = year;}
 
-    public int getStopDay() {return stopDay;}
+    public String getStopDay() {return stopDay;}
 
-    public void setStopDay(int day) {stopDay = day;}
+    public void setStopDay(String day) {stopDay = day;}
 
-    public int getStopMonth() {return stopMonth;}
+    public String getStopMonth() {return stopMonth;}
 
-    public void setStopMonth(int month) {stopMonth = month;}
+    public void setStopMonth(String month) {stopMonth = month;}
 
-    public int getStopYear() {return stopYear;}
+    public String getStopYear() {return stopYear;}
 
-    public void setStopYear(int year) {stopYear = year;}
+    public void setStopYear(String year) {stopYear = year;}
 
     public String getStartAddress() {return startLocation.getAddress();}
 
@@ -146,6 +144,22 @@ public class Route {
 
     public double getAverageTime() {return averageTime;}
 
+    public double getDistance() {
+        return haversine(getStartLatitude(), getStartLongitude(), getEndLatitude(), getEndLongitude());
+    }
+
+    private double haversine(double lat1, double lng1, double lat2, double lng2) {
+        int r = 6371; // average radius of the earth in km
+        double dLat = Math.toRadians(lat2 - lat1);
+        double dLon = Math.toRadians(lng2 - lng1);
+        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2))
+                        * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        double d = r * c;
+        return d;
+    }
+
 
     /**
      * getDateString takes the day, month and year and separate integers and returns a more recognisable date format as
@@ -156,7 +170,7 @@ public class Route {
      * @param year year is of type int. This is the year a route was started/finished on.
      * @return dateString, of type String. This a recognisable date format as a string.
      */
-    private String getDateString(int day, int month, int year) {
+    private String getDateString(String day, String month, String year) {
         String dateString = day + "/" + month + "/" + year;
         return dateString;
     }

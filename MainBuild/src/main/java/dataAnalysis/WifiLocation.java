@@ -46,6 +46,8 @@ public class WifiLocation extends Location {
 
     public double getWifiID() {return  wifiID;}
 
+    public String getRemarks() {return remarks;}
+
 
 
 

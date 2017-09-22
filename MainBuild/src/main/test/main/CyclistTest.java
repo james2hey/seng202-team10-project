@@ -54,7 +54,7 @@ public class CyclistTest {
     private Route createRoute() {
         RetailLocation retail = createRetailLocation();
         WifiLocation wifi = createWifiLocation();
-        Route r = new Route(retail, wifi, "0", 1, 1, 2016);
+        Route r = new Route(retail, wifi, "0", "01", "01", "2016");
         return r;
     }
 

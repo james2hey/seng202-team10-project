@@ -41,6 +41,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -72,6 +73,7 @@ public class PlanRouteController extends Controller implements Initializable, Ma
     private ArrayList<Marker> retailerMarkers = new ArrayList<Marker>();
     private ArrayList<Marker> tripMarkers = new ArrayList<Marker>();
     private ArrayList<Polyline> tripLines = new ArrayList<Polyline>();
+    private DecimalFormat numberFormat = new DecimalFormat("#.00");
 
     private SQLiteDB db;
 
@@ -156,7 +158,11 @@ public class PlanRouteController extends Controller implements Initializable, Ma
             map.addUIEventHandler(marker, UIEventType.click, (JSObject obj) -> {
                 System.out.println("Clicked");
                 InfoWindowOptions infoWindowOptions = new InfoWindowOptions()
-                        .content(location.getSSID() + "<br>" + location.getProvider() + "<br>" + location.getAddress())
+                        .content(
+                                "SSID: " + location.getSSID() + "<br>" +
+                                "Provider: " + location.getProvider() + "<br>" +
+                                "Address: " + location.getAddress() + "<br>" +
+                                "Extra Info: " + location.getRemarks())
                         .position(latLong);
                 InfoWindow infoWindow = new InfoWindow(infoWindowOptions);
                 infoWindow.open(map);
@@ -188,7 +194,11 @@ public class PlanRouteController extends Controller implements Initializable, Ma
             map.addUIEventHandler(marker, UIEventType.click, (JSObject obj) -> {
                 System.out.println("Clicked");
                 InfoWindowOptions infoWindowOptions = new InfoWindowOptions()
-                        .content(location.getName() + "<br>" + location.getAddress() + "<br>" + location.getMainType())
+                        .content(
+                                "Name: " + location.getName() + "<br>" +
+                                "Address: " + location.getAddress() + "<br>" +
+                                "Category: " + location.getMainType() + "<br>" +
+                                "Extra Info: " + location.getSecondaryType())
                         .position(latLong);
                 InfoWindow infoWindow = new InfoWindow(infoWindowOptions);
                 infoWindow.open(map);
@@ -223,7 +233,12 @@ public class PlanRouteController extends Controller implements Initializable, Ma
             map.addUIEventHandler(marker, UIEventType.click, (JSObject obj) -> {
                 System.out.println("Clicked");
                 InfoWindowOptions infoWindowOptions = new InfoWindowOptions()
-                        .content(route.getStartAddress())
+                        .content(
+                                "Start Address: " + route.getStartAddress() + "<br>" +
+                                "Start Date: " + route.getStartDate() + "<br>" +
+                                "Start Time: " + route.getStartTime() + "<br>" +
+                                "Duration: " + route.getDuration() + "<br>" +
+                                "Distance: " + numberFormat.format(route.getDistance()) + "km")
                         .position(latLong);
                 InfoWindow infoWindow = new InfoWindow(infoWindowOptions);
                infoWindow.open(map);
@@ -244,7 +259,12 @@ public class PlanRouteController extends Controller implements Initializable, Ma
             map.addUIEventHandler(marker2, UIEventType.click, (JSObject obj) -> {
                 System.out.println("Clicked");
                 InfoWindowOptions infoWindowOptions = new InfoWindowOptions()
-                        .content(route.getEndAddress())
+                        .content(
+                                "End Address: " + route.getEndAddress() + "<br>" +
+                                "End Date: " + route.getStopDate() + "<br>" +
+                                "End Time: " + route.getStopTime() + "<br>" +
+                                "Duration: " + route.getDuration() + "s<br>" +
+                                "Distance: " + numberFormat.format(route.getDistance()) + "km")
                         .position(latLong2);
                 InfoWindow infoWindow = new InfoWindow(infoWindowOptions);
                 infoWindow.open(map);

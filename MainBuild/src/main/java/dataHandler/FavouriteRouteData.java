@@ -14,9 +14,9 @@ public class FavouriteRouteData {
 
     String[] fields =
             {"name         VARCHAR(12)",
-                    "start_year   INTEGER",
-                    "start_month  INTEGER",
-                    "start_day    INTEGER",
+                    "start_year   VARCHAR(4)",
+                    "start_month  VARCHAR(2)",
+                    "start_day    VARCHAR(2)",
                     "start_time   VARCHAR(19)",
                     "bikeid       VARCHAR(20)"};
 
@@ -37,8 +37,8 @@ public class FavouriteRouteData {
 
 
 
-    public static void addFavouriteRoute(String name, int start_year, int start_month, int start_day,
-                         String start_time, String bike_id) {
+    public static void addFavouriteRoute(String name, String start_year, String start_month, String start_day,
+                                         String start_time, String bike_id) {
         try {
             addRoute.setObject(1, name);
             addRoute.setObject(2, start_year);

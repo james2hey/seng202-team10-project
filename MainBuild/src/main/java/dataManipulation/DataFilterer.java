@@ -102,10 +102,10 @@ public class DataFilterer {
         try {
             while (rs.next()) {
                 routes.add(new Route(rs.getInt("tripduration"), rs.getString("start_time"),
-                        rs.getString("end_time"), rs.getInt("start_day"),
-                        rs.getInt("start_month"), rs.getInt("start_year"),
-                        rs.getInt("end_day"), rs.getInt("end_month"),
-                        rs.getInt("end_year"), rs.getDouble("start_latitude"),
+                        rs.getString("end_time"), rs.getString("start_day"),
+                        rs.getString("start_month"), rs.getString("start_year"),
+                        rs.getString("end_day"), rs.getString("end_month"),
+                        rs.getString("end_year"), rs.getDouble("start_latitude"),
                         rs.getDouble("start_longitude"), rs.getDouble("end_latitude"),
                         rs.getDouble("end_longitude"), rs.getInt("start_station_id"),
                         rs.getInt("end_station_id"), rs.getString("start_station_name"),

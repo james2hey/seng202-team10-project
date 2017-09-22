@@ -85,21 +85,25 @@ public class HandleUsers {
             rsFavourites = db.executeQuerySQL("SELECT * FROM favourite_routes WHERE name = '" + name + "';");
             while (rsFavourites.next()) {
                 PreparedStatement ps = db.getPreparedStatement("SELECT * FROM route_information where start_year = ? AND start_month = ? AND start_day = ? AND start_time = ? AND bikeid = ?");
-                ps.setInt(1, rsFavourites.getInt(2));
-                ps.setInt(2, rsFavourites.getInt(3));
-                ps.setInt(3, rsFavourites.getInt(4));
+                ps.setString(1, rsFavourites.getString(2));
+                ps.setString(2, rsFavourites.getString(3));
+                ps.setString(3, rsFavourites.getString(4));
                 ps.setString(4, rsFavourites.getString(5));
                 ps.setString(5, rsFavourites.getString(6));
+                System.out.println("Here");
                 rsRoute = ps.executeQuery();
+                System.out.println("Here");
+                System.out.println(rsRoute.getString(1));
                 tempRoute = new Route(rsRoute.getInt("tripduration"), rsRoute.getString("start_time"),
-                        rsRoute.getString("end_time"), rsRoute.getInt("start_day"),
-                        rsRoute.getInt("start_month"), rsRoute.getInt("start_year"),
-                        rsRoute.getInt("end_day"), rsRoute.getInt("end_month"),
-                        rsRoute.getInt("end_year"), rsRoute.getDouble("start_latitude"),
+                        rsRoute.getString("end_time"), rsRoute.getString("start_day"),
+                        rsRoute.getString("start_month"), rsRoute.getString("start_year"),
+                        rsRoute.getString("end_day"), rsRoute.getString("end_month"),
+                        rsRoute.getString("end_year"), rsRoute.getDouble("start_latitude"),
                         rsRoute.getDouble("start_longitude"), rsRoute.getDouble("end_latitude"),
                         rsRoute.getDouble("end_longitude"), rsRoute.getInt("start_station_id"),
                         rsRoute.getInt("end_station_id"), rsRoute.getString("start_station_name"),
                         rsRoute.getString("end_station_name"), rsRoute.getString("bikeid"));
+                System.out.println("Here");
                 currentCyclist.addRouteInstance(tempRoute);
             }
         } catch (SQLException e) {

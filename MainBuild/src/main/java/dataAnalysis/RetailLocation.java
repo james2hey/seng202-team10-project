@@ -38,6 +38,8 @@ public class RetailLocation extends Location {
 
     public int getZip() {return zip;}
 
+    public String getSecondaryType() {return secondaryType;}
+
 
 
     /**
