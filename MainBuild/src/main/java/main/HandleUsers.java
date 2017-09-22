@@ -1,5 +1,6 @@
 package main;
 
+import dataAnalysis.RetailLocation;
 import dataAnalysis.Route;
 import dataAnalysis.WifiLocation;
 import dataHandler.SQLiteDB;
@@ -30,9 +31,14 @@ public class HandleUsers {
 
     private static SQLiteDB db;
 
+
+    /**
+     * Initializes the database.
+     */
     public static void init() {
         db = Main.getDB();
     }
+
 
     /**
      * Fills the database with existing users from an external csv.
@@ -66,6 +72,7 @@ public class HandleUsers {
                 currentCyclist = new Cyclist(username);
                 getUserRouteFavourites();
                 getUserWifiFavourites();
+                getUserRetailFavourites();
             } else {
                 currentAnalyst = new Analyst(username);
             }
@@ -77,6 +84,10 @@ public class HandleUsers {
         System.out.println("Logged into " + username + "'s account.");
     }
 
+
+    /**
+     * Gets all of the Cyclists favourite Route's and adds them to the instances list.
+     */
     public static void getUserRouteFavourites() {
         ResultSet rsFavourites, rsRoute;
         String name = currentCyclist.getName();
@@ -90,10 +101,7 @@ public class HandleUsers {
                 ps.setString(3, rsFavourites.getString(4));
                 ps.setString(4, rsFavourites.getString(5));
                 ps.setString(5, rsFavourites.getString(6));
-                System.out.println("Here");
                 rsRoute = ps.executeQuery();
-                System.out.println("Here");
-                System.out.println(rsRoute.getString(1));
                 tempRoute = new Route(rsRoute.getInt("tripduration"), rsRoute.getString("start_time"),
                         rsRoute.getString("end_time"), rsRoute.getString("start_day"),
                         rsRoute.getString("start_month"), rsRoute.getString("start_year"),
@@ -103,7 +111,6 @@ public class HandleUsers {
                         rsRoute.getDouble("end_longitude"), rsRoute.getInt("start_station_id"),
                         rsRoute.getInt("end_station_id"), rsRoute.getString("start_station_name"),
                         rsRoute.getString("end_station_name"), rsRoute.getString("bikeid"));
-                System.out.println("Here");
                 currentCyclist.addRouteInstance(tempRoute);
             }
         } catch (SQLException e) {
@@ -118,6 +125,10 @@ public class HandleUsers {
 
     }
 
+
+    /**
+     * Gets all of the Cyclists favourite WifiLocation's and adds them to the instances list.
+     */
     public static void getUserWifiFavourites() {
         ResultSet rsFavourites, rsWifi;
         String name = currentCyclist.getName();
@@ -146,8 +157,42 @@ public class HandleUsers {
             System.out.println(currentCyclist.getFavouriteWifiLocations().get(i).getWifiID());
         }
         System.out.println("-----------------");
+    }
+
+    /**
+     * Gets all of the Cyclists favourite RetailLocation's and adds them to the instances list.
+     */
+    public static void getUserRetailFavourites() {
+        ResultSet rsFavourites, rsRetail;
+        String name = currentCyclist.getName();
+        RetailLocation tempRetail;
+        try {
+            rsFavourites = db.executeQuerySQL("SELECT * FROM favourite_retail WHERE name = '" + name + "';");
+            while (rsFavourites.next()) {
+                PreparedStatement ps = db.getPreparedStatement("SELECT * FROM retailer where RETAILER_NAME = ? AND ADDRESS = ?");
+
+                ps.setString(1, rsFavourites.getString(2));
+                ps.setString(2, rsFavourites.getString(3));
+                rsRetail = ps.executeQuery();
+                tempRetail = new RetailLocation(rsRetail.getString("retailer_name"),
+                        rsRetail.getString("address"), rsRetail.getString("city"),
+                        rsRetail.getString("main_type"), rsRetail.getString("secondary_type"),
+                        rsRetail.getInt("zip"), rsRetail.getDouble("lat"),
+                        rsRetail.getDouble("long"));
+                currentCyclist.addRetailInstance(tempRetail);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println(currentCyclist.getName() + "'s favourite retail locations:");
+        System.out.println("-----------------");
+        for (int i = 0; i < currentCyclist.getFavouriteRetailLocations().size(); i++) {
+            System.out.println(currentCyclist.getFavouriteRetailLocations().get(i).getName());
+        }
+        System.out.println("-----------------");
         System.out.println();
     }
+
 
     /**
      * Logs out of the currently logged in user by terminating both instances of currentAnalyst and currentCyclist.

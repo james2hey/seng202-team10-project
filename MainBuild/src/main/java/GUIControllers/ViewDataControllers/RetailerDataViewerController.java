@@ -1,7 +1,9 @@
 package GUIControllers.ViewDataControllers;
 
+import dataAnalysis.WifiLocation;
 import dataManipulation.DataFilterer;
 import javafx.scene.control.ComboBox;
+import main.HandleUsers;
 import main.Main;
 
 import com.jfoenix.controls.JFXDrawer;
@@ -106,6 +108,22 @@ public class RetailerDataViewerController extends DataViewerController {
         tableView.getItems().clear();
         retailList.addAll(retailLocations);
         Main.retailLocations = retailLocations;
+    }
+
+    @FXML
+    private void addFavouriteRetail() {
+        if (HandleUsers.currentAnalyst == null) {
+            if (tableView.getSelectionModel().getSelectedItem() == null) {
+                System.out.println("Select retail location to add!");
+            } else {
+                String name = HandleUsers.currentCyclist.getName();
+                RetailLocation retailToAdd = tableView.getSelectionModel().getSelectedItem();
+                HandleUsers.currentCyclist.addFavouriteRetail(retailToAdd, name);
+                System.out.println("ADDED " + retailToAdd.getName() + " to cyclist favourites.");
+            }
+        } else {
+            System.out.println("Feature not available for analyst!");
+        }
     }
 
 }

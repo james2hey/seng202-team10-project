@@ -5,6 +5,7 @@ import dataAnalysis.Route;
 import dataAnalysis.StationLocation;
 import dataAnalysis.WifiLocation;
 import dataAnalysis.Location;
+import dataHandler.FavouriteRetailData;
 import dataHandler.FavouriteRouteData;
 import dataHandler.FavouriteWifiData;
 
@@ -29,14 +30,14 @@ public class Cyclist extends User {
     }
 
     public ArrayList<WifiLocation> getFavouriteWifiLocations() {return favouriteWifiLocations;}
+    public ArrayList<RetailLocation> getFavouriteRetailLocations() {return favouriteRetailLocations;}
     //_____________________________________________ADD DATA_____________________________________________
 
-    public void addRouteInstance(Route route) {
-        favouriteRouteList.add(route);
-    }
-    public void addWifiInstance(WifiLocation wifi) {
-        favouriteWifiLocations.add(wifi);
-    }
+    public void addRouteInstance(Route route) {favouriteRouteList.add(route);}
+    public void addWifiInstance(WifiLocation wifi) {favouriteWifiLocations.add(wifi);}
+    public void addRetailInstance(RetailLocation retail) {favouriteRetailLocations.add(retail);}
+
+
     /**Adds a route to the Users routeList.
      * @param route;
      */
@@ -55,7 +56,10 @@ public class Cyclist extends User {
     /**Adds a RetailLocation to the Users favouriteStationLocations
      * @param retail;
      */
-    public void addFavouriteRetail(RetailLocation retail) {favouriteRetailLocations.add(retail);}
+    public void addFavouriteRetail(RetailLocation retail, String name) {
+        favouriteRetailLocations.add(retail);
+        FavouriteRetailData.addFavouriteRetail(name, retail.getName(), retail.getAddress());
+    }
 
     /**Adds a WifiLocation to the Users favouriteStationLocations
      * @param wifi;

@@ -86,15 +86,15 @@ public class CyclistTest {
         //assertEquals(emptyStationLocationList, cyclist.getFavouriteStationLocations());
     }
 
-    @Test
-    public void removeFavouriteRetail() throws Exception {
-        Cyclist cyclist = new Cyclist();
-        RetailLocation r = createRetailLocation();
-        cyclist.addFavouriteRetail(r);
-        cyclist.removeFavouriteRetail(r);
-        ArrayList<RetailLocation> emptyRetailLocationList = new ArrayList<RetailLocation>();
-        //assertEquals(emptyRetailLocationList, cyclist.getFavouriteRetailLocations());
-    }
+//    @Test
+//    public void removeFavouriteRetail() throws Exception {
+//        Cyclist cyclist = new Cyclist();
+//        RetailLocation r = createRetailLocation();
+//        cyclist.addFavouriteRetail(r);
+//        cyclist.removeFavouriteRetail(r);
+//        ArrayList<RetailLocation> emptyRetailLocationList = new ArrayList<RetailLocation>();
+//        //assertEquals(emptyRetailLocationList, cyclist.getFavouriteRetailLocations());
+//    }
 //
 //    @Test
 //    public void removeFavouriteWifi() throws Exception {

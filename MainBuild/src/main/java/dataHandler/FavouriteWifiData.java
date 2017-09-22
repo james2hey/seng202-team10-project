@@ -12,7 +12,7 @@ public class FavouriteWifiData {
 
     static SQLiteDB db;
 
-    String[] fields =
+    private String[] fields =
             {"name         VARCHAR(12)",
                     "WIFI_ID    DOUBLE"};
 

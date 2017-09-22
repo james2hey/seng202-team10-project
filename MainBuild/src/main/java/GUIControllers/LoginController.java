@@ -28,17 +28,19 @@ import java.util.ResourceBundle;
 public class LoginController implements Initializable {
 
     @FXML
-    public TextField username;
+    private TextField username;
 
     @FXML
-    public Text nameInUse;
-
-    @FXML
-    public static ComboBox<String> existingUsers = new ComboBox<>();
+    private Text nameInUse;
 
     @FXML
     private ComboBox<String> comboBox;
 
+    /**
+     *
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("here");
@@ -72,6 +74,7 @@ public class LoginController implements Initializable {
         }
     }
 
+
     /**
      * Creates new Analyst instance with the given user name if it doesn't already exist in the database.
      */
@@ -88,6 +91,7 @@ public class LoginController implements Initializable {
         }
     }
 
+
     /**
      * Logs user from the existingUser text field in, and takes them to the home screen.
      */
@@ -97,6 +101,7 @@ public class LoginController implements Initializable {
         HandleUsers.logIn(name);
         navigateHome(event);
     }
+
 
     /**
      * Navigates the user to the home screen.

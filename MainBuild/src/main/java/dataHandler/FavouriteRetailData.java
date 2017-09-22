@@ -36,7 +36,7 @@ public class FavouriteRetailData {
         try {
             addRetail.setObject(1, name);
             addRetail.setObject(2, retail_name);
-            addRetail.setObject(2, address);
+            addRetail.setObject(3, address);
             addRetail.executeUpdate();
             db.commit();
 
