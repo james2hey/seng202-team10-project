@@ -2,52 +2,125 @@
 
 <?import com.jfoenix.controls.*?>
 <?import java.lang.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.JFXDrawer?>
 <?import com.jfoenix.controls.JFXHamburger?>
-
-<?import com.lynden.gmapsfx.GoogleMapView?>
-
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
 <?import com.lynden.gmapsfx.ClusteredGoogleMapView?>
 
-<GridPane alignment="center" hgap="10" prefHeight="650.0" prefWidth="1100.0" style="-fx-background-color: grey;" vgap="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIControllers.PlanRouteController">
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<GridPane alignment="center" hgap="10" minWidth="1100.0" prefHeight="650.0" prefWidth="1100.0" style="-fx-background-color: grey;" vgap="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIControllers.PlanRouteController">
     <columnConstraints>
-      <ColumnConstraints maxWidth="800.0" minWidth="10.0" prefWidth="34.0" />
-        <ColumnConstraints maxWidth="800.0" minWidth="10.0" prefWidth="227.0" />
-        <ColumnConstraints maxWidth="800.0" minWidth="10.0" prefWidth="80.0" />
-        <ColumnConstraints maxWidth="991.0" minWidth="10.0" prefWidth="295.0" />
-        <ColumnConstraints maxWidth="891.0" minWidth="114.0" prefWidth="222.0" />
-        <ColumnConstraints maxWidth="891.0" minWidth="114.0" prefWidth="222.0" />
+      <ColumnConstraints maxWidth="800.0" minWidth="0.0" prefWidth="31.0" />
+        <ColumnConstraints maxWidth="800.0" minWidth="0.0" prefWidth="0.0" />
+        <ColumnConstraints maxWidth="991.0" minWidth="10.0" prefWidth="956.0" />
+      <ColumnConstraints maxWidth="991.0" minWidth="0.0" prefWidth="83.0" />
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints maxHeight="251.0" minHeight="10.0" prefHeight="179.0" />
-        <RowConstraints maxHeight="251.0" minHeight="10.0" prefHeight="179.0" />
-      <RowConstraints maxHeight="251.0" minHeight="10.0" prefHeight="179.0" />
-      <RowConstraints maxHeight="251.0" minHeight="10.0" prefHeight="179.0" />
-        <RowConstraints maxHeight="393.0" minHeight="6.0" prefHeight="192.0" />
-        <RowConstraints maxHeight="510.0" minHeight="64.0" prefHeight="175.0" />
+        <RowConstraints maxHeight="251.0" minHeight="10.0" prefHeight="81.0" />
+        <RowConstraints maxHeight="438.0" minHeight="10.0" prefHeight="429.0" />
+      <RowConstraints maxHeight="377.55560302734375" minHeight="10.0" prefHeight="47.0" />
+      <RowConstraints maxHeight="251.0" minHeight="10.0" prefHeight="63.0" />
     </rowConstraints>
     <children>
-        <ClusteredGoogleMapView fx:id="mapView" prefHeight="500.0" prefWidth="700.0" GridPane.columnSpan="2147483647" GridPane.rowSpan="2147483647" />
-        <Text fx:id="buttonPressedText" strokeType="OUTSIDE" strokeWidth="0.0" text="Button Pressed" textAlignment="CENTER" visible="false" wrappingWidth="269.6552734375" GridPane.columnIndex="3" GridPane.rowIndex="5" />
-        <JFXHamburger fx:id="hamburger" onMouseClicked="#openDrawer" GridPane.columnIndex="5" />
-        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Route Planner" textAlignment="CENTER" wrappingWidth="670.7294921875" GridPane.columnIndex="2">
+        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Route Planner" textAlignment="CENTER" wrappingWidth="1049.3961791992188" GridPane.columnIndex="1">
             <font>
                 <Font size="60.0" />
             </font>
         </Text>
-
-        <TextField fx:id="startAddressField" onAction="#addressTextFieldAction" promptText="Start Address" GridPane.columnIndex="1" />
-      <TextField fx:id="endAddressField" onAction="#addressTextFieldAction" promptText="End Address" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" GridPane.rowSpan="6" />
+      <ClusteredGoogleMapView fx:id="mapView" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+         <children>
+            <VBox alignment="CENTER_RIGHT" prefHeight="77.0" prefWidth="199.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Start Address:   " textAlignment="RIGHT" wrappingWidth="173.35889434814453">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Text>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="77.0" prefWidth="281.0">
+               <children>
+            
+                    <TextField fx:id="startAddressField" onAction="#addressTextFieldAction" promptText="Start Address" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER_RIGHT" prefHeight="77.0" prefWidth="176.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="End Address:   " textAlignment="RIGHT" wrappingWidth="156.35889434814453">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Text>
+               </children>
+            </VBox>
+            <TextField fx:id="endAddressField" onAction="#addressTextFieldAction" prefHeight="25.0" prefWidth="280.0" promptText="End Address">
+               <HBox.margin>
+                  <Insets top="10.0" />
+               </HBox.margin>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </TextField>
+         </children>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="3">
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+         <children>
+            <VBox alignment="TOP_RIGHT" prefHeight="43.0" prefWidth="280.0">
+               <children>
+                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#showNearbyWifi" prefHeight="29.0" prefWidth="276.0" text="Show Nearby Wifi Locations" textAlignment="CENTER">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+               </children>
+            </VBox>
+            <VBox alignment="TOP_RIGHT" prefHeight="63.0" prefWidth="316.0">
+               <children>
+                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#showNearbyRetailers" prefHeight="25.0" prefWidth="275.0" text="Show Nearby Retailers" textAlignment="CENTER">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+               </children>
+            </VBox>
+            <VBox prefHeight="63.0" prefWidth="60.0" />
+            <VBox alignment="TOP_RIGHT" prefHeight="43.0" prefWidth="343.0">
+               <children>
+                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#addRouteToDatabase" prefHeight="25.0" prefWidth="275.0" text="Add Current Route to Database" textAlignment="CENTER">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" GridPane.rowSpan="4" />
+        <JFXHamburger fx:id="hamburger" onMouseClicked="#openDrawer" GridPane.columnIndex="3" />
 
     </children>
 </GridPane>

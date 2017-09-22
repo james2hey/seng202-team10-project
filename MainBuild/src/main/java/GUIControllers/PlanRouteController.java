@@ -282,4 +282,24 @@ public class PlanRouteController extends Controller implements Initializable, Ma
             map.addMapShape(polyline);
         }
     }
+
+    @FXML
+    public void showNearbyRetailers() {
+        //Called by GUI when show nearby retails button is pressed.
+
+    }
+
+    @FXML
+    public void showNearbyWifi() {
+        //Called by GUI when show nearby wifi button is pressed.
+
+    }
+
+    @FXML
+    public void addRouteToDatabase() {
+        //called by GUI when add current route to database button is pressed.
+
+    }
+
+
 }

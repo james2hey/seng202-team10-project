@@ -34,7 +34,6 @@ public class HelpController implements Initializable{
                 "View Data\n" +
                 "**how this works\n\n";
         helpText.setText(helpMessage);
-
     }
 
 

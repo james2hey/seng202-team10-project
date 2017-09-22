@@ -23,8 +23,8 @@
    <rowConstraints>
       <RowConstraints maxHeight="251.0" minHeight="10.0" prefHeight="111.0" />
       <RowConstraints maxHeight="272.0" minHeight="10.0" prefHeight="65.0" />
-      <RowConstraints maxHeight="393.0" minHeight="6.0" prefHeight="332.0" />
-      <RowConstraints maxHeight="510.0" minHeight="22.0" prefHeight="90.0" />
+      <RowConstraints maxHeight="393.0" minHeight="6.0" prefHeight="384.0" />
+      <RowConstraints maxHeight="510.0" minHeight="22.0" prefHeight="34.0" />
    </rowConstraints>
    <children>
       <Text fx:id="welcomeText" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome: " wrappingWidth="822.01025390625" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1">
