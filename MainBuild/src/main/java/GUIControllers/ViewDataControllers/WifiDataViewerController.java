@@ -99,6 +99,7 @@ public class WifiDataViewerController extends DataViewerController {
         for (int i = 0; i < wifiLocations.size(); i++) {
             System.out.println(wifiLocations.get(i).getSSID());
         }
+
         tableView.getItems().clear();
         wifiList.addAll(wifiLocations);
         Main.wifiLocations = wifiLocations;
