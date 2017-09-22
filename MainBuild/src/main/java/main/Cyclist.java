@@ -39,14 +39,13 @@ public class Cyclist extends User {
     public void addRetailInstance(RetailLocation retail) {favouriteRetailLocations.add(retail);}
 
 
-
     /**
      * Adds a Route to the Users routeList if it is not already in it.
      * @param route
      * @param name
      * @return
      */
-    public boolean addRoute(Route route, String name) {
+    public boolean addRoute(Route route, String name, int rank) {
         boolean alreadyInList = false;
         for (int i = 0; i < favouriteRouteList.size(); i++) {
             Route tempRoute = favouriteRouteList.get(i);
@@ -60,23 +59,24 @@ public class Cyclist extends User {
         if (!alreadyInList) {
             favouriteRouteList.add(route);
             FavouriteRouteData.addFavouriteRoute(name, route.getStartYear(), route.getStartMonth(), route.getStartDay(),
-                    route.getStartTime(), route.getBikeID());
+                    route.getStartTime(), route.getBikeID(), rank);
         }
         return alreadyInList;
     }
 
 
-    /**Adds a StationLocation to the Users favouriteStationLocations
+    /**
+     * Adds a StationLocation to the Users favouriteStationLocations.
      * @param station;
      */
     public void addFavouriteStation(StationLocation station) {favouriteStationLocations.add(station);}
 
 
     /**
-     * Adds a RetailLocation to the Users favouriteStationLocations
-     * @param retail
-     * @param name
-     * @return
+     * Adds a RetailLocation to the Users favouriteStationLocations.
+     * @param retail Retail to be added
+     * @param name name of the user
+     * @return true if the Retail is already in the favouriteRetail list, false otherwise
      */
     public boolean addFavouriteRetail(RetailLocation retail, String name) {
         boolean alreadyInList = false;
@@ -95,8 +95,11 @@ public class Cyclist extends User {
     }
 
 
-    /**Adds a WifiLocation to the Users favouriteStationLocations
-     * @param wifi;
+    /**
+     * Adds a WifiLocation to the Users favouriteWifiLocations.
+     * @param wifi wifi object to be added to favouriteWifi
+     * @param name name of the user
+     * @return true if the Wifi is already in the favouriteWifi, false otherwise
      */
     public boolean addFavouriteWifi(WifiLocation wifi, String name) {
 
@@ -117,8 +120,9 @@ public class Cyclist extends User {
     }
 
     //_____________________________________________REMOVE DATA_____________________________________________
-    /**Removes a Route from the users routeList
-     * @param route;
+    /**
+     * Removes a Route from the users routeList
+     * @param route the Route to be removed
      */
     public void removeRoute(Route route) {
         boolean broken = false;
@@ -132,8 +136,9 @@ public class Cyclist extends User {
         if(!broken) {System.out.println("Route not in favourites");} //WILL BE DIFFERENT WHEN GUI IS IMPLEMENTED
     }
 
-    /**Removes a StationLocation from the users routeList
-     * @param station;
+    /**
+     * Removes a Station from the users StationList.
+     * @param station the Station to be removed
      */
     public void removeFavouriteStation(StationLocation station) {
         boolean broken = false;
@@ -147,8 +152,9 @@ public class Cyclist extends User {
         if(!broken) {System.out.println("Not in list");} //WILL BE DIFFERENT WHEN GUI IS IMPLEMENTED
     }
 
-    /**Removes a RetailLocation from the users routeList
-     * @param retail;
+    /**
+     * Removes a RetailLocation from the users favouriteRetailList.
+     * @param retail RetailLocation to be removed
      */
     public void removeFavouriteRetail(RetailLocation retail) {
         boolean broken = false;
@@ -162,7 +168,8 @@ public class Cyclist extends User {
         if(!broken) {System.out.println("Not in list");} //WILL BE DIFFERENT WHEN GUI IS IMPLEMENTED
     }
 
-    /**Removes a WifiLocation from the users routeList
+    /**
+     * Removes a WifiLocation from the users favouriteWifiList.
      * @param wifi;
      */
     public void removeFavouriteWifi(WifiLocation wifi) {
@@ -177,7 +184,8 @@ public class Cyclist extends User {
         if(!broken) {System.out.println("Not in list");} //WILL BE DIFFERENT WHEN GUI IS IMPLEMENTED
     }
 
-    /**Removes all elements from the list which is represented by
+    /**
+     * Removes all elements from the list which is represented by
      * a String representing the type of Location/Route to clear.
      * @param type;
      */
@@ -253,14 +261,5 @@ public class Cyclist extends User {
      * Saves the Cyclists settings to the database.
      */
     public void storeData() {}
-
-//    public static void main(String[] args) {
-//        Cyclist c = new Cyclist("JAMES TOOHEY");
-//        System.out.println(c.name);
-//    }
-
-
-
-
 
 }

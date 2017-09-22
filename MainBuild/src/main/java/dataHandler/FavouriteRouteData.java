@@ -18,14 +18,15 @@ public class FavouriteRouteData {
                     "start_month  VARCHAR(2)",
                     "start_day    VARCHAR(2)",
                     "start_time   VARCHAR(19)",
-                    "bikeid       VARCHAR(20)"};
+                    "bikeid       VARCHAR(20)",
+                    "rank         INTEGER"};
 
 
     String primaryKey = "name, start_year, start_month, start_day, start_time, bikeid";
     String tableName = "favourite_routes";
 
     static PreparedStatement addRoute;
-    static String addRouteStatement = "insert or fail into favourite_routes values(?,?,?,?,?,?)";
+    static String addRouteStatement = "insert or fail into favourite_routes values(?,?,?,?,?,?,?)";
 
 
 
@@ -38,7 +39,7 @@ public class FavouriteRouteData {
 
 
     public static void addFavouriteRoute(String name, String start_year, String start_month, String start_day,
-                                         String start_time, String bike_id) {
+                                         String start_time, String bike_id, int rank) {
         try {
             addRoute.setObject(1, name);
             addRoute.setObject(2, start_year);
@@ -46,6 +47,7 @@ public class FavouriteRouteData {
             addRoute.setObject(4, start_day);
             addRoute.setObject(5, start_time);
             addRoute.setObject(6, bike_id);
+            addRoute.setObject(7, rank);
             addRoute.executeUpdate();
             db.commit();
 

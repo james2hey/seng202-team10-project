@@ -30,7 +30,13 @@ public class SidePanelController extends Controller{
     @FXML
     private Button logoutButton;
 
-
+    /**
+     * Sets the log out text so that the user can identify which account they are logging out of.
+     * @param textToAdd text to be added to the log out button.
+     */
+    public void setLogOutText(String textToAdd) {
+        logoutButton.setText("Log Out (" + textToAdd + ")");
+    }
 
     @FXML
     public void logOut(ActionEvent event) throws IOException {

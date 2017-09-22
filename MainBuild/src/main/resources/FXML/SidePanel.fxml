@@ -19,7 +19,7 @@
       </VBox>
       <VBox prefHeight="46.0" prefWidth="230.0">
          <children>
-            <Button fx:id="logOutButton" mnemonicParsing="false" onAction="#logOut" prefHeight="76.0" prefWidth="230.0" text="Logout User" />
+            <Button fx:id="logOutButton" mnemonicParsing="false" onAction="#logOut" prefHeight="76.0" prefWidth="230.0" text="Log Out" />
          </children>
       </VBox>
    </children>

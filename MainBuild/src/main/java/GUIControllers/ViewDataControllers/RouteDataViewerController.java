@@ -184,7 +184,8 @@ public class RouteDataViewerController extends DataViewerController {
             } else {
                 String name = HandleUsers.currentCyclist.getName();
                 Route routeToAdd = tableView.getSelectionModel().getSelectedItem();
-                boolean alreadyInList = HandleUsers.currentCyclist.addRoute(routeToAdd, name);
+                int rank = getRank();
+                boolean alreadyInList = HandleUsers.currentCyclist.addRoute(routeToAdd, name, rank);
                 if (!alreadyInList) {
                     System.out.println("ADDED " + routeToAdd.getBikeID() + " to cyclist favourites."); // Put this on GUI
                     favouritesError.setVisible(false);
@@ -210,6 +211,21 @@ public class RouteDataViewerController extends DataViewerController {
         popup.initModality(Modality.APPLICATION_MODAL);
         popup.initOwner(((Node) event.getSource()).getScene().getWindow());
         Parent popupParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/detailedRouteInformation.fxml"));
+        Scene popupScene = new Scene(popupParent);
+        popup.setScene(popupScene);
+        popup.show();
+    }
+
+    private int getRank() {
+        return 0;
+    }
+
+    @FXML
+    void openRouteRankStage(ActionEvent event) throws IOException {
+        Stage popup = new Stage();
+        popup.initModality(Modality.WINDOW_MODAL);
+        popup.initOwner(((Node) event.getSource()).getScene().getWindow());
+        Parent popupParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/routeRank.fxml"));
         Scene popupScene = new Scene(popupParent);
         popup.setScene(popupScene);
         popup.show();

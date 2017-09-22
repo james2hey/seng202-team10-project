@@ -10,7 +10,7 @@ import main.helperFunctions;
 //to find out what this search criteria is and find a Trip.
 
 public class Route {
-    private int duration, timesTaken=1;
+    private int duration, timesTaken=1, rank;
     private String name, startTime, stopTime, startDate, stopDate, startDay, startMonth, startYear, stopDay, stopMonth, stopYear, bikeid;
     private Location startLocation, endLocation, viaLocation;
     private double averageTime;

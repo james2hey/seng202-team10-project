@@ -12,6 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -25,7 +26,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class LoginController implements Initializable {
+public class LoginController extends Controller implements Initializable {
 
     @FXML
     private TextField username;
@@ -35,6 +36,7 @@ public class LoginController implements Initializable {
 
     @FXML
     private ComboBox<String> comboBox;
+
 
     /**
      *
@@ -97,9 +99,14 @@ public class LoginController implements Initializable {
      */
     @FXML
     void logIn(ActionEvent event) throws IOException {
-        String name = comboBox.getValue();
-        HandleUsers.logIn(name);
-        navigateHome(event);
+        if (comboBox.getValue() == null) {
+            makeErrorDialogueBox("Select a valid user", "No user was selected. Please select " +
+                    "an existing\nuser from the drop down box.");
+        } else {
+            String name = comboBox.getValue();
+            HandleUsers.logIn(name);
+            navigateHome(event);
+        }
     }
 
 
