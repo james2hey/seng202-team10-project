@@ -31,6 +31,7 @@ public class Cyclist extends User {
 
     public ArrayList<WifiLocation> getFavouriteWifiLocations() {return favouriteWifiLocations;}
     public ArrayList<RetailLocation> getFavouriteRetailLocations() {return favouriteRetailLocations;}
+
     //_____________________________________________ADD DATA_____________________________________________
 
     public void addRouteInstance(Route route) {favouriteRouteList.add(route);}
