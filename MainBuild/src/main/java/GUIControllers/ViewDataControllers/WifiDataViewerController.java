@@ -124,7 +124,7 @@ public class WifiDataViewerController extends DataViewerController {
                 WifiLocation wifiToAdd = tableView.getSelectionModel().getSelectedItem();
                 boolean alreadyInList= HandleUsers.currentCyclist.addFavouriteWifi(wifiToAdd, name);
                 if (!alreadyInList) {
-                    System.out.println("ADDED " + wifiToAdd.getWifiID() + " to cyclist favourites.");
+                    System.out.println("ADDED " + wifiToAdd.getWifiID() + " to cyclist favourites.");// Put this on GUI
                     favouritesError.setVisible(false);
                 } else {
                     System.out.println("Already in favourites!");

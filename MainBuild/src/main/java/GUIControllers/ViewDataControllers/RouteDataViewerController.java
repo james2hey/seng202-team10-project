@@ -181,11 +181,10 @@ public class RouteDataViewerController extends DataViewerController {
                 Route routeToAdd = tableView.getSelectionModel().getSelectedItem();
                 boolean alreadyInList = HandleUsers.currentCyclist.addRoute(routeToAdd, name);
                 if (!alreadyInList) {
-                    System.out.println("ADDED " + routeToAdd.getBikeID() + " to cyclist favourites.");
-                    favouritesError.setVisible(true);
-                } else {
-                    System.out.println("Already in favourites!");
+                    System.out.println("ADDED " + routeToAdd.getBikeID() + " to cyclist favourites."); // Put this on GUI
                     favouritesError.setVisible(false);
+                } else {
+                    favouritesError.setVisible(true);
                 }
             }
         } else {

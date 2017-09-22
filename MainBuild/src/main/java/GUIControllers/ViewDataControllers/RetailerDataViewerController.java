@@ -130,7 +130,7 @@ public class RetailerDataViewerController extends DataViewerController {
                 RetailLocation retailToAdd = tableView.getSelectionModel().getSelectedItem();
                 boolean alreadyInList = HandleUsers.currentCyclist.addFavouriteRetail(retailToAdd, name);
                 if (!alreadyInList) {
-                    System.out.println("ADDED " + retailToAdd.getName() + " to cyclist favourites.");
+                    System.out.println("ADDED " + retailToAdd.getName() + " to cyclist favourites.");// Put this on GUI
                     favouritesError.setVisible(false);
                 } else {
                     System.out.println("Already in favourites!");
