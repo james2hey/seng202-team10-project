@@ -124,5 +124,10 @@
       <Button mnemonicParsing="false" onAction="#showRetailers" prefHeight="25.0" prefWidth="170.0" text="View Retailers" GridPane.columnIndex="3" GridPane.rowIndex="1" />
       <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" GridPane.rowSpan="5" />
       <Button fx:id="favouritesButton" mnemonicParsing="false" onAction="#addFavouriteRoute" prefHeight="25.0" prefWidth="208.0" text="ADD TO FAVOURITES!" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+      <Label fx:id="favouritesError" alignment="CENTER" prefHeight="15.0" prefWidth="221.0" text="Already in favourites!" textAlignment="CENTER" textFill="RED" visible="false" GridPane.columnIndex="5">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
    </children>
 </GridPane>

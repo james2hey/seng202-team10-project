@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.collections.*?>
 <?import com.jfoenix.controls.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-
 <?import javafx.collections.FXCollections?>
+
 <GridPane hgap="40.0" prefHeight="650.0" prefWidth="1100.0" style="-fx-background-color: grey;" vgap="30.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIControllers.ViewDataControllers.RetailerDataViewerController">
    <children>
       <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Retailer Data Viewer" textAlignment="CENTER" wrappingWidth="953.193359375" GridPane.columnIndex="1" GridPane.columnSpan="6">
@@ -63,7 +64,7 @@
             <VBox prefHeight="161.0" prefWidth="103.0">
                <children>
                   <Accordion />
-                  <ComboBox fx:id="primaryInput" prefHeight="23.0" prefWidth="180.0" >
+                  <ComboBox fx:id="primaryInput" prefHeight="23.0" prefWidth="180.0">
                      <items>
                         <FXCollections fx:factory="observableArrayList">
                            <String fx:value="Casual Eating &amp; Takeout" />
@@ -89,6 +90,11 @@
       <Button mnemonicParsing="false" onAction="#showRetailers" prefHeight="25.0" prefWidth="170.0" text="View Retailers" GridPane.columnIndex="3" GridPane.rowIndex="1" />
       <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" GridPane.rowSpan="5" />
       <Button fx:id="favouritesButton" mnemonicParsing="false" onAction="#addFavouriteRetail" prefHeight="25.0" prefWidth="208.0" text="ADD TO FAVOURITES!" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+      <Label fx:id="favouritesError" alignment="CENTER" prefHeight="15.0" prefWidth="221.0" text="Already in favourites!" textAlignment="CENTER" textFill="RED" visible="false" GridPane.columnIndex="5">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
    </children>
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="269.0" minWidth="10.0" prefWidth="29.0" />

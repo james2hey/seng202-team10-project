@@ -3,6 +3,7 @@ package GUIControllers.ViewDataControllers;
 import dataAnalysis.WifiLocation;
 import dataManipulation.DataFilterer;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import main.HandleUsers;
 import main.Main;
 
@@ -116,7 +117,11 @@ public class RetailerDataViewerController extends DataViewerController {
     }
 
     @FXML
+    private Label favouritesError;
+
+    @FXML
     private void addFavouriteRetail() {
+        favouritesError.setVisible(false);
         if (HandleUsers.currentAnalyst == null) {
             if (tableView.getSelectionModel().getSelectedItem() == null) {
                 System.out.println("Select retail location to add!");
@@ -126,8 +131,10 @@ public class RetailerDataViewerController extends DataViewerController {
                 boolean alreadyInList = HandleUsers.currentCyclist.addFavouriteRetail(retailToAdd, name);
                 if (!alreadyInList) {
                     System.out.println("ADDED " + retailToAdd.getName() + " to cyclist favourites.");
+                    favouritesError.setVisible(false);
                 } else {
                     System.out.println("Already in favourites!");
+                    favouritesError.setVisible(true);
 
                 }
             }
