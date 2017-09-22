@@ -45,10 +45,6 @@
             <Font size="60.0" />
          </font>
       </Text>
-      <Button fx:id="logOutButton" alignment="CENTER" mnemonicParsing="false" onAction="#logOut" prefHeight="47.0" prefWidth="210.0" text="Log Out" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="3">
-         <font>
-            <Font size="19.0" />
-         </font></Button>
       <VBox prefHeight="287.0" prefWidth="209.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="196.255859375">

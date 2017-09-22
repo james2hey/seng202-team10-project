@@ -28,13 +28,18 @@ package GUIControllers.ViewDataControllers;
     import java.util.ArrayList;
     import java.util.List;
     import java.util.ResourceBundle;
+    import javafx.fxml.Initializable;
+    import java.io.IOException;
+    import java.net.URL;
+    import java.util.ResourceBundle;
 
 
-public abstract class DataViewerController extends Controller {
+public abstract class DataViewerController extends Controller implements Initializable{
 
 
     @FXML
     private AnchorPane content;
+
 
     @FXML
     void showRoutes(ActionEvent event) throws IOException{

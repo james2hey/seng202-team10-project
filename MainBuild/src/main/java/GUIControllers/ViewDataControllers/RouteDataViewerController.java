@@ -1,6 +1,5 @@
 package GUIControllers.ViewDataControllers;
 
-import GUIControllers.PlanRouteController;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
 import dataAnalysis.Route;
@@ -15,9 +14,11 @@ import main.HandleUsers;
 import main.Main;
 
 import java.io.IOException;
+import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 
 public class RouteDataViewerController extends DataViewerController {
@@ -68,7 +69,7 @@ public class RouteDataViewerController extends DataViewerController {
 
 
     @FXML
-    public void initialize() {
+    public void initialize(URL location, ResourceBundle resources) {
         StartLocation.setCellValueFactory(new PropertyValueFactory<>("StartAddress"));
         EndLocation.setCellValueFactory(new PropertyValueFactory<>("EndAddress"));
         Date.setCellValueFactory(new PropertyValueFactory<>("StartDate"));
@@ -76,6 +77,13 @@ public class RouteDataViewerController extends DataViewerController {
         EndTime.setCellValueFactory(new PropertyValueFactory<>("StopTime"));
         tableView.setItems(routeList);
         tableView.getColumns().setAll(StartLocation, EndLocation, Date, StartTime, EndTime);
+
+        ActionEvent event = new ActionEvent();
+        try {
+            displayData(event);
+        } catch (Exception e) {
+            System.out.println("Initialising data has failed.");
+        }
     }
 
 

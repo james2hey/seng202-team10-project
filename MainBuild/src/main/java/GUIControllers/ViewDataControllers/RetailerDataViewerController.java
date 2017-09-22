@@ -18,7 +18,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 /**
  * Created by bal65 on 19/09/17.
@@ -59,13 +61,16 @@ public class RetailerDataViewerController extends DataViewerController {
     private ObservableList<RetailLocation> retailList = FXCollections.observableArrayList();
 
     @FXML
-    public void initialize() {
+    public void initialize(URL location, ResourceBundle resources) {
         Name.setCellValueFactory(new PropertyValueFactory<>("Name"));
         Address.setCellValueFactory(new PropertyValueFactory<>("Street"));
         Zip.setCellValueFactory(new PropertyValueFactory<>("Zip"));
         PrimaryType.setCellValueFactory(new PropertyValueFactory<>("MainType"));
         tableView.setItems(retailList);
         tableView.getColumns().setAll(Name, Address, Zip, PrimaryType);
+
+        ActionEvent event = new ActionEvent();
+        displayData(event);
     }
 
     @FXML

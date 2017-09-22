@@ -17,7 +17,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import main.HandleUsers;
 import main.Main;
 
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 
 /**
@@ -60,8 +62,9 @@ public class WifiDataViewerController extends DataViewerController {
 
     private ObservableList<WifiLocation> wifiList = FXCollections.observableArrayList();
 
+
     @FXML
-    public void initialize() {
+    public void initialize(URL location, ResourceBundle resources) {
         Name.setCellValueFactory(new PropertyValueFactory<>("SSID"));
         Provider.setCellValueFactory(new PropertyValueFactory<>("Provider"));
         Address.setCellValueFactory(new PropertyValueFactory<>("Address"));
@@ -69,6 +72,8 @@ public class WifiDataViewerController extends DataViewerController {
         Cost.setCellValueFactory(new PropertyValueFactory<>("Cost"));
         tableView.setItems(wifiList);
         tableView.getColumns().setAll(Name, Provider, Address, Suburb, Cost);
+        ActionEvent event = new ActionEvent();
+        displayData(event);
     }
 
 
