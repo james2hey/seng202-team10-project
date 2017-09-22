@@ -117,7 +117,7 @@
          </children>
       </VBox>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Username: " wrappingWidth="222.01025390625" GridPane.columnIndex="5" GridPane.rowIndex="4" />
-      <Button mnemonicParsing="false" onAction="#displayData" prefHeight="25.0" prefWidth="176.0" text="View/Edit Route Fields" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="4" />
+      <Button mnemonicParsing="false" onAction="#openAdvancedView" prefHeight="25.0" prefWidth="176.0" text="View/Edit Route Fields" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="4" />
       <Button mnemonicParsing="false" onAction="#displayData" prefHeight="25.0" prefWidth="342.0" text="Filter" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="3" />
       <Button mnemonicParsing="false" onAction="#showRoutes" prefHeight="25.0" prefWidth="163.0" text="View Routes" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       <Button mnemonicParsing="false" onAction="#showWifiLocations" prefHeight="25.0" prefWidth="206.0" text="View Wifi Locations" GridPane.columnIndex="2" GridPane.rowIndex="1" />

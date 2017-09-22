@@ -11,7 +11,7 @@ public class DataViewPopupController {
     @FXML
     void updateData(ActionEvent event) {
         //called when Update changes button is pressed
-
+        System.out.println("Updating Data...");
 
     }
 }

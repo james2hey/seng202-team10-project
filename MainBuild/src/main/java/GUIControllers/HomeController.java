@@ -8,23 +8,35 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import main.HandleUsers;
+import javafx.fxml.Initializable;
+
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class HomeController extends Controller{
+public class HomeController extends Controller implements Initializable{
 
     @FXML
     public Button logOutButton;
 
     @FXML
-    void login() {
-        boolean answer;
-        answer = makeConfirmationDialogueBox("Warning", "Are you sure you want to exit?");
-        if (answer) {
-            System.exit(0);
+    private Text welcomeText;
+
+
+    public void initialize(URL location, ResourceBundle resources) {
+        String username = "";
+        if (HandleUsers.currentCyclist == null) {
+            username = HandleUsers.currentAnalyst.getName();
+            welcomeText.setText("Welcome: " + username + "   (Analyst)");
+        } else {
+            username = HandleUsers.currentCyclist.getName();
+            welcomeText.setText("Welcome: " + username + "   (Cyclist)");
         }
+
     }
 
     @FXML

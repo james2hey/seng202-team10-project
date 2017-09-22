@@ -15,10 +15,13 @@ package GUIControllers.ViewDataControllers;
     import javafx.scene.Scene;
     import javafx.scene.control.*;
     import javafx.scene.control.cell.PropertyValueFactory;
+    import javafx.scene.layout.AnchorPane;
     import javafx.scene.layout.VBox;
     import javafx.fxml.FXMLLoader;
+    import javafx.stage.Modality;
     import javafx.stage.Stage;
     import main.Main;
+    import javafx.scene.layout.VBox;
 
     import java.io.IOException;
     import java.net.URL;
@@ -26,7 +29,12 @@ package GUIControllers.ViewDataControllers;
     import java.util.List;
     import java.util.ResourceBundle;
 
+
 public abstract class DataViewerController extends Controller {
+
+
+    @FXML
+    private AnchorPane content;
 
     @FXML
     void showRoutes(ActionEvent event) throws IOException{
@@ -53,8 +61,15 @@ public abstract class DataViewerController extends Controller {
     }
 
     @FXML
-    void openAdvancedView(ActionEvent event) {
+    void openAdvancedView(ActionEvent event) throws IOException {
 
+        Stage popup = new Stage();
+        popup.initModality(Modality.APPLICATION_MODAL);
+        popup.initOwner(((Node) event.getSource()).getScene().getWindow());
+        Parent popupParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/advancedDataViewPopup.fxml"));
+        Scene popupScene = new Scene(popupParent);
+        popup.setScene(popupScene);
+        popup.show();
     }
 
 }
