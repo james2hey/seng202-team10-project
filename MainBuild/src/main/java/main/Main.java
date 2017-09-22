@@ -48,8 +48,8 @@ public class Main extends Application {
         DatabaseUser.init();
         HandleUsers.init();
         HandleUsers.fillUserList();
-        FindNearbyLocations.init(db);
 
+        FindNearbyLocations nearbyLocations = new FindNearbyLocations(db);
         FavouriteRouteData favRouteData = new FavouriteRouteData(db);
         FavouriteWifiData favWifiData = new FavouriteWifiData(db);
         FavouriteRetailData favRetailData = new FavouriteRetailData(db);

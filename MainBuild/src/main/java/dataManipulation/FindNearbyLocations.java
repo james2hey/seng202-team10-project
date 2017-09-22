@@ -4,29 +4,21 @@ import dataAnalysis.Route;
 import dataAnalysis.WifiLocation;
 import dataAnalysis.RetailLocation;
 import dataHandler.SQLiteDB;
-import main.Main;
 
-import java.io.InputStream;
-import java.io.Reader;
-import java.math.BigDecimal;
-import java.net.URL;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.DoubleSummaryStatistics;
 
 
 public class FindNearbyLocations {
-    private static ArrayList<WifiLocation> nearbyWifi = new ArrayList<>();
-    private static ArrayList<RetailLocation> nearbyRetail = new ArrayList<>();
-    private static SQLiteDB db;
+    private ArrayList<WifiLocation> nearbyWifi = new ArrayList<>();
+    private ArrayList<RetailLocation> nearbyRetail = new ArrayList<>();
+    private SQLiteDB db;
 
-    public static void init(SQLiteDB database) {
+    public FindNearbyLocations(SQLiteDB database) {
         db = database;
     }
 
-    private static void generateWifiArray(ResultSet rs) {
-        clearWifiArray();
+    private void generateWifiArray(ResultSet rs) {
         try {
             while (rs.next()) {
                 nearbyWifi.add(new WifiLocation(rs.getDouble("wifi_id"), rs.getDouble("lat"),
@@ -41,50 +33,114 @@ public class FindNearbyLocations {
         }
     }
 
-
-
-    private static void clearWifiArray() {
-        nearbyWifi.clear();
-    }
-
-
-
-    public static ArrayList<WifiLocation> findNearbyWifi(Route route) {
-        double routeUpperLat;
-        double routeLowerLat;
-        double routeUpperLong;
-        double routeLowerLong;
-        double upperLat;
-        double lowerLat;
-        double upperLong;
-        double lowerLong;
-        double startLat = route.getStartLatitude();
-        double startLong = route.getStartLongitude();
-        double endLat = route.getEndLatitude();
-        double endLong = route.getEndLongitude();
-
-        routeUpperLat = Double.max(startLat, endLat);
-        routeLowerLat = Double.min(startLat, endLat);
-        routeUpperLong = Double.max(startLong, endLong);
-        routeLowerLong = Double.min(startLong, endLong);
-
-        upperLat = routeUpperLat + 0.01;
-        lowerLat = routeLowerLat - 0.01;
-        upperLong = routeUpperLong + 0.01;
-        lowerLong = routeLowerLong - 0.01;
+    private ResultSet generateWifiResultSet(double lowerLat, double upperLat, double lowerLong, double upperLong) {
+        PreparedStatement pstmt;
+        ResultSet rs;
         try {
             String queryString = "SELECT * FROM wifi_location WHERE LAT BETWEEN ? AND ? AND LON BETWEEN ? AND ?;";
-            PreparedStatement pstmt = db.getPreparedStatement(queryString);
+            pstmt = db.getPreparedStatement(queryString);
             pstmt.setDouble(1, lowerLat);
             pstmt.setDouble(2, upperLat);
             pstmt.setDouble(3, lowerLong);
             pstmt.setDouble(4, upperLong);
             System.out.println("SELECT * FROM wifi_location WHERE LAT BETWEEN " + lowerLat + " AND " + upperLat + " AND LON BETWEEN " + lowerLong + " AND " + upperLong);
-            ResultSet rs = pstmt.executeQuery();
-            generateWifiArray(rs);
+            rs = pstmt.executeQuery();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+        return rs;
+    }
+
+
+
+    public ArrayList<WifiLocation> findNearbyWifiToPoint(RetailLocation retailer) {
+        double pointLat = retailer.getLatitude();
+        double pointLong = retailer.getLongitude();
+        double upperLat  = pointLat + 0.01;
+        double lowerLat = pointLat - 0.01;
+        double upperLong = pointLong + 0.01;
+        double lowerLong = pointLong - 0.01;
+        ResultSet rs = generateWifiResultSet(lowerLat, upperLat, lowerLong, upperLong);
+        generateWifiArray(rs);
+
+        return nearbyWifi;
+    }
+
+
+    public ArrayList<WifiLocation> findNearbyWifiAlongRoute(Route route) {
+        double startLat = route.getStartLatitude();
+        double startLong = route.getStartLongitude();
+        double endLat = route.getEndLatitude();
+        double endLong = route.getEndLongitude();
+        double routeUpperLat = Double.max(startLat, endLat);
+        double routeLowerLat = Double.min(startLat, endLat);
+        double routeUpperLong = Double.max(startLong, endLong);
+        double routeLowerLong = Double.min(startLong, endLong);
+        double upperLat = routeUpperLat + 0.01;
+        double lowerLat = routeLowerLat - 0.01;
+        double upperLong = routeUpperLong + 0.01;
+        double lowerLong = routeLowerLong - 0.01;
+
+        ResultSet rs = generateWifiResultSet(lowerLat, upperLat, lowerLong, upperLong);
+        generateWifiArray(rs);
+        return nearbyWifi;
+    }
+
+
+    private void generateRetailerArray(ResultSet rs) {
+        try {
+            while (rs.next()) {
+                nearbyRetail.add(new RetailLocation(rs.getString("retailer_name"),
+                        rs.getString("address"), rs.getString("city"),
+                        rs.getString("main_type"), rs.getString("secondary_type"),
+                        rs.getInt("zip"), rs.getDouble("lat"),
+                        rs.getDouble("long")));
+            }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return nearbyWifi;
+    }
+
+
+
+    private ResultSet generateRetailerResultSet(double lowerLat, double upperLat, double lowerLong, double upperLong) {
+        PreparedStatement pstmt;
+        ResultSet rs;
+        try {
+            String queryString = "SELECT * FROM retailer WHERE lat BETWEEN ? AND ? AND long BETWEEN ? AND ?;";
+            pstmt = db.getPreparedStatement(queryString);
+            pstmt.setDouble(1, lowerLat);
+            pstmt.setDouble(2, upperLat);
+            pstmt.setDouble(3, lowerLong);
+            pstmt.setDouble(4, upperLong);
+            System.out.println("SELECT * FROM retailer WHERE LAT BETWEEN " + lowerLat + " AND " + upperLat + " AND LON BETWEEN " + lowerLong + " AND " + upperLong);
+            rs = pstmt.executeQuery();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+        return rs;
+    }
+
+
+    public ArrayList<RetailLocation> findNearByRetailerAlongRoute(Route route) {
+        double startLat = route.getStartLatitude();
+        double startLong = route.getStartLongitude();
+        double endLat = route.getEndLatitude();
+        double endLong = route.getEndLongitude();
+        double routeUpperLat = Double.max(startLat, endLat);
+        double routeLowerLat = Double.min(startLat, endLat);
+        double routeUpperLong = Double.max(startLong, endLong);
+        double routeLowerLong = Double.min(startLong, endLong);
+        double upperLat = routeUpperLat + 0.01;
+        double lowerLat = routeLowerLat - 0.01;
+        double upperLong = routeUpperLong + 0.01;
+        double lowerLong = routeLowerLong - 0.01;
+
+        ResultSet rs = generateRetailerResultSet(lowerLat, upperLat, lowerLong, upperLong);
+        generateRetailerArray(rs);
+        return nearbyRetail;
     }
 }
+
