@@ -128,11 +128,11 @@ public class RetailerDataViewerController extends DataViewerController {
     @FXML
     private void addFavouriteRetail() {
         if (tableView.getSelectionModel().getSelectedItem() == null) {
-            System.out.println("Select retail location to add!");
+            makeSuccessDialogueBox("Select which retail store to add.", "");
         } else {
-            String name = HandleUsers.currentCyclist.getName();
+            String name = Main.hu.currentCyclist.getName();
             RetailLocation retailToAdd = tableView.getSelectionModel().getSelectedItem();
-            boolean alreadyInList = HandleUsers.currentCyclist.addFavouriteRetail(retailToAdd, name);
+            boolean alreadyInList = Main.hu.currentCyclist.addFavouriteRetail(retailToAdd, name);
             if (!alreadyInList) {
                 makeSuccessDialogueBox(retailToAdd.getName() + " successfully added.", "");
             } else {

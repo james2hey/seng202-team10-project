@@ -2,6 +2,7 @@ package dataHandler;
 
 import dataHandler.SQLiteDB;
 import main.HandleUsers;
+import main.Main;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -59,7 +60,7 @@ public class FavouriteRouteData {
             addRoute.setObject(7, rank);
             addRoute.executeUpdate();
             db.commit();
-            HandleUsers.currentCyclist.updateUserRouteFavourites();
+            Main.hu.currentCyclist.updateUserRouteFavourites();
 
         } catch (SQLException e) {
             addRoute = db.getPreparedStatement(addRouteStatement);

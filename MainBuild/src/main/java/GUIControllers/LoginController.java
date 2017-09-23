@@ -21,6 +21,8 @@ import java.sql.SQLException;
 
 import java.util.ResourceBundle;
 
+import static java.lang.Character.isLetter;
+
 /**
  * Handles the logging in scene of the GUI.
  */
@@ -61,11 +63,16 @@ public class LoginController extends Controller implements Initializable {
     @FXML
     public void createCyclist(ActionEvent event) throws IOException {
         String name = username.getText();
-        boolean created = HandleUsers.createNewUser(name);
-        if (created) {
-            navigateHome(event);
+        if (name.equals("") || !isLetter(name.charAt(0))) {
+            makeErrorDialogueBox("Enter a valid name", "Valid names must have at least one " +
+                    "character\nand start with a letter.");
         } else {
-            makeErrorDialogueBox("Name already in use.", "");
+            boolean created = Main.hu.createNewUser(name);
+            if (created) {
+                navigateHome(event);
+            } else {
+                makeErrorDialogueBox("Name already in use.", "");
+            }
         }
     }
 
@@ -82,7 +89,7 @@ public class LoginController extends Controller implements Initializable {
                     "an existing\nuser from the drop down box.");
         } else {
             String name = comboBox.getValue();
-            HandleUsers.logIn(name);
+            Main.hu.logIn(name);
             navigateHome(event);
         }
     }

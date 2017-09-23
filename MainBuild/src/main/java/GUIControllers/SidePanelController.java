@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.HandleUsers;
+import main.Main;
 
 import java.io.IOException;
 
@@ -44,7 +45,7 @@ public class SidePanelController extends Controller{
         Scene logInScene = new Scene(logInParent);
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.setScene(logInScene);
-        HandleUsers.logOutOfUser();
+        Main.hu.logOutOfUser();
     }
 
     @FXML

@@ -1,14 +1,14 @@
 package dataAnalysis;
 
 /**
- * Provides a structure for retail locations found in the database.
+ * Stores the data about a retail store.
  */
 
 public class RetailLocation extends Location {
     private int zip;
     private String city, mainType, secondaryType;
 
-    //RetailLocation constructor
+    // Constructor
     public RetailLocation(String retailName, String retailStreet, String retailCity, String mType, String sType,
                           int zipNumber, double lat, double lon) {
         name = retailName;
@@ -21,7 +21,7 @@ public class RetailLocation extends Location {
         longitude = lon;
     }
 
-    //Getters
+    // Getters
     public String getName() {
         return name;
     }
@@ -41,21 +41,4 @@ public class RetailLocation extends Location {
     public String getSecondaryType() {return secondaryType;}
 
     public String getAddress() {return address;}
-
-
-
-    /**
-     * Finds the latitude and longitude of the retails location from the given address.
-     */
-    public void findPosition(String address) {
-        //calculate x and y;
-        //latitude = x;
-        //logitude = y;
-    }
-
-    /**Should queary for a retail location from given input. The database should be queried for this.
-     */
-    public void find() { //Will return a trip not void
-    }
-
 }

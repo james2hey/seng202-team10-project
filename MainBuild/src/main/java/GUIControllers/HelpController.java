@@ -16,23 +16,33 @@ public class HelpController implements Initializable{
 
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
-        String helpMessage = "Welcome to <app_name>!\n\n" +
+        String helpMessage = "Welcome to <app_name>\n\n" +
                 "Creating and Managing Users\n" +
-                "Up to 6 users may be created on one system of any type from the sign up field. When creating a " +
-                "user, note that there are two types of users: Cyclists - Can store all their favourite routes, " +
-                "wifi locations and retail stores. They may also plan their own trips in which they can stop off " +
-                "at a retail store or wifi hot spot on the way. Analysts - ~~nothing really~~." +
+                "A new user can be created by entering a user name on in the sign up text box and pressing the " +
+                "sign up button. Alternatively, if you have already created an account then you may log into this " +
+                "where all of your favourite routes, wifi hot spots and retail stores are remembered.\n\n" +
                 "Navigation\n" +
                 "In order to navigate through different features, click on the three black bars in the " +
-                "top right of the screen to draw out each option.\n\n" +
+                "top right of the screen to draw out each feature.\n\n" +
                 "Home Screen\n" +
-                "What it does" +
+                "Displays all of your favourite routes, wifi hot spots and retail stores that you have saved on this " +
+                "account. You can filter which order these are saved in. For example, if you would like to see the order " +
+                "in which you have ranked your taken routes, click on the rating button from the favourite routes box " +
+                "and this will update their order.\n\n" +
                 "Plan Route\n" +
                 "**how this works**\n\n" +
                 "Add Data\n" +
-                "**how this works**\n\n" +
+                "Users may import existing csv files to the database which allows for routes, wifi hot spots and" +
+                "retail stores to be add in bulk. Alternatively, one may manually enter each of these by entering " +
+                "the details of these. If you incorrectly record data, you can later change this in the view data " +
+                "section below.\n\n" +
                 "View Data\n" +
-                "**how this works\n\n";
+                "This page allows you to view raw data and filter it by your choices to the left of the table and " +
+                "pressing the 'filer' button. Furthermore, you can also select and add routes, wifi hot spots and " +
+                "retail stores to your list of favourites here. This can simple be done by selecting the desired field " +
+                "and pressing the 'Add to favourites' button. You may also edit incorrectly entered data by pressing" +
+                "the 'View/Edit <field>' button which takes you to a screen where you can update its values in the " +
+                "database.";
         helpText.setText(helpMessage);
     }
 

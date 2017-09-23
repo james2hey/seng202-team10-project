@@ -118,11 +118,11 @@ public class WifiDataViewerController extends DataViewerController {
     @FXML
     private void addFavouriteWifi() {
         if (tableView.getSelectionModel().getSelectedItem() == null) {
-            System.out.println("Select Wifi location to add!");
+            makeSuccessDialogueBox("Select which wifi hotspot to add.", "");
         } else {
-            String name = HandleUsers.currentCyclist.getName();
+            String name = Main.hu.currentCyclist.getName();
             WifiLocation wifiToAdd = tableView.getSelectionModel().getSelectedItem();
-                    boolean alreadyInList= HandleUsers.currentCyclist.addFavouriteWifi(wifiToAdd, name);
+                    boolean alreadyInList= Main.hu.currentCyclist.addFavouriteWifi(wifiToAdd, name);
             if (!alreadyInList) {
                 makeSuccessDialogueBox(wifiToAdd.getProvider() + " successfully added.", "");
             } else {

@@ -18,6 +18,7 @@ public class Main extends Application {
     public static ArrayList<WifiLocation> wifiLocations = new ArrayList<WifiLocation>();
     public static ArrayList<RetailLocation> retailLocations = new ArrayList<RetailLocation>();
     public static ArrayList<Route> routes = new ArrayList<Route>();
+    public static HandleUsers hu;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -44,8 +45,9 @@ public class Main extends Application {
         db = new SQLiteDB();
         Geocoder.init();
         DatabaseUser d = new DatabaseUser(db);
-        HandleUsers.init();
-        HandleUsers.fillUserList();
+        hu = new HandleUsers();
+        hu.init();
+        hu.fillUserList();
 
         FindNearbyLocations nearbyLocations = new FindNearbyLocations(db);
         FavouriteRouteData favRouteData = new FavouriteRouteData(db);

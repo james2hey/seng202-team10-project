@@ -190,15 +190,15 @@ public class RouteDataViewerController extends DataViewerController {
      */
     public void addFavouriteRoute(ActionEvent event) throws IOException {
         if (tableView.getSelectionModel().getSelectedItem() == null) {
-            System.out.println("Select route to add!");
+            makeSuccessDialogueBox("Select which route to add.", "");
         } else {
-            String name = HandleUsers.currentCyclist.getName();
+            String name = Main.hu.currentCyclist.getName();
             Route routeToAdd = tableView.getSelectionModel().getSelectedItem();
-            boolean alreadyInList = HandleUsers.currentCyclist.routeAlreadyInList(routeToAdd);
+            boolean alreadyInList = Main.hu.currentCyclist.routeAlreadyInList(routeToAdd);
             if (!alreadyInList) {
                 System.out.println("ADDED " + routeToAdd.getBikeID() + " to cyclist favourites."); // Put this on GUI
                 int rank = openRouteRankStage();
-                HandleUsers.currentCyclist.addRoute(routeToAdd, name, rank);
+                Main.hu.currentCyclist.addRoute(routeToAdd, name, rank);
                 makeSuccessDialogueBox("Route successfully added.", "");
             } else {
                 makeErrorDialogueBox("Route already in favourites", "This route has already been " +
