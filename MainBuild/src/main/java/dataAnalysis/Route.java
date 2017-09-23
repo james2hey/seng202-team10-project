@@ -207,20 +207,6 @@ public class Route {
         return 0;
     }
 
-    /**Calculates the routes duration based on its distance. Then updates the stop time
-     * and stop date.
-     * @param distance;
-     */
-    public void calculateDuration(int distance){
-    }
-
-
-    /**Ranks a bike trip based on its distance
-     *
-     */
-    public void rankRoute() {
-
-    }
 
     /**
      * Updates the average route time.
@@ -234,15 +220,6 @@ public class Route {
         // averageTime = (averageTime + newTime) / timesTaken
     }
 
-
-//    public static void main(String[] args) {
-//        RetailLocation l1 = new RetailLocation("Nike", "Broadway", "Auckland");
-//        WifiLocation l2 = new WifiLocation(1, 2, "Vod", "66a", "11xd");
-//        Route r = new Route(l1, l2, "5", "6");
-//        r.calculateDistance(l1, l2);
-//        r.calculateDuration(r.getDistance());
-//        System.out.println(l1.getName() + " " + l2.getName());
-//    }
 
     /**
      * Defines the hashCode function.

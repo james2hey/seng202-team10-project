@@ -119,7 +119,7 @@ public class AddDataController extends Controller implements Initializable {
 
         String username;
         try {
-            username = HandleUsers.currentCyclist.getName();
+            username = Main.hu.currentCyclist.getName();
         } catch(Exception e){
             username = "_";
         }

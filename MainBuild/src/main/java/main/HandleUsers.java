@@ -5,7 +5,6 @@ import dataAnalysis.Route;
 import dataAnalysis.WifiLocation;
 import dataHandler.DatabaseUser;
 import dataHandler.SQLiteDB;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,19 +16,19 @@ import java.util.ArrayList;
  */
 public class HandleUsers {
 
-    private static ArrayList<String> userList = new ArrayList<>();
-    public static Cyclist currentCyclist;
-    public static ArrayList<String> getUserList() {
+    private ArrayList<String> userList = new ArrayList<>();
+    public Cyclist currentCyclist;
+    public ArrayList<String> getUserList() {
         return userList;
     }
 
-    private static SQLiteDB db;
+    private SQLiteDB db;
 
 
     /**
      * Initializes the database.
      */
-    public static void init() {
+    public void init() {
         db = Main.getDB();
     }
 
@@ -37,7 +36,7 @@ public class HandleUsers {
     /**
      * Fills the database with existing users from an external csv.
      */
-    public static void fillUserList() {
+    public void fillUserList() {
         try {
             ResultSet rs;
             rs = db.executeQuerySQL("SELECT * FROM users;");
@@ -51,29 +50,28 @@ public class HandleUsers {
 
     /**
      * Logs into the user whose parameter is handed into the function.
-     *
      * @param username user to be logged in
      */
-    public static void logIn(String username) {
+    public void logIn(String username) {
         currentCyclist = new Cyclist(username);
         getUserRouteFavourites();
         getUserWifiFavourites();
         getUserRetailFavourites();
-
     }
 
 
     /**
      * Gets all of the Cyclists favourite Route's and adds them to the instances list.
      */
-    public static void getUserRouteFavourites() {
+    public void getUserRouteFavourites() {
         ResultSet rsFavourites, rsRoute;
         String name = currentCyclist.getName();
         Route tempRoute;
         try {
             rsFavourites = db.executeQuerySQL("SELECT * FROM favourite_routes WHERE name = '" + name + "';");
             while (rsFavourites.next()) {
-                PreparedStatement ps = db.getPreparedStatement("SELECT * FROM route_information where start_year = ? AND start_month = ? AND start_day = ? AND start_time = ? AND bikeid = ?");
+                PreparedStatement ps = db.getPreparedStatement("SELECT * FROM route_information where start_year = ? " +
+                        "AND start_month = ? AND start_day = ? AND start_time = ? AND bikeid = ?");
                 ps.setString(1, rsFavourites.getString(2));
                 ps.setString(2, rsFavourites.getString(3));
                 ps.setString(3, rsFavourites.getString(4));
@@ -101,7 +99,7 @@ public class HandleUsers {
     /**
      * Gets all of the Cyclists favourite WifiLocation's and adds them to the instances list.
      */
-    public static void getUserWifiFavourites() {
+    public void getUserWifiFavourites() {
         ResultSet rsFavourites, rsWifi;
         String name = currentCyclist.getName();
         WifiLocation tempWifi;
@@ -128,7 +126,7 @@ public class HandleUsers {
     /**
      * Gets all of the Cyclists favourite RetailLocation's and adds them to the instances list.
      */
-    public static void getUserRetailFavourites() {
+    public void getUserRetailFavourites() {
         ResultSet rsFavourites, rsRetail;
         String name = currentCyclist.getName();
         RetailLocation tempRetail;
@@ -157,17 +155,16 @@ public class HandleUsers {
     /**
      * Logs out of the currently logged in user by terminating the instance of the currentCyclist.
      */
-    public static void logOutOfUser() {
+    public void logOutOfUser() {
         currentCyclist = null;
     }
 
 
     /**
      * Checks if the username already exists, if not it creates a new user and adds them to the users list.
-     *
      * @param username the user who is getting an instance created for them
      */
-    public static boolean createNewUser(String username) {
+    public boolean createNewUser(String username) {
         ResultSet rs;
         boolean created = false;
         try {

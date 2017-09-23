@@ -13,6 +13,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import main.HandleUsers;
 import javafx.fxml.Initializable;
+import main.Main;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -66,9 +68,9 @@ public class HomeController extends Controller implements Initializable{
         String username = "";
         welcomeText.setText("Welcome: " + username);
 
-        routeList.addAll(HandleUsers.currentCyclist.getFavouriteRouteList());
-        wifiList.addAll(HandleUsers.currentCyclist.getFavouriteWifiLocations());
-        retailerList.addAll(HandleUsers.currentCyclist.getFavouriteRetailLocations());
+        routeList.addAll(Main.hu.currentCyclist.getFavouriteRouteList());
+        wifiList.addAll(Main.hu.currentCyclist.getFavouriteWifiLocations());
+        retailerList.addAll(Main.hu.currentCyclist.getFavouriteRetailLocations());
 
         StartAddress.setCellValueFactory(new PropertyValueFactory<>("StartAddress"));
         Rating.setCellValueFactory(new PropertyValueFactory<>("Rank"));

@@ -80,7 +80,7 @@ public class Cyclist {
      */
     public void updateUserRouteFavourites() {
         favouriteRouteList.clear();
-        HandleUsers.getUserRouteFavourites();
+        Main.hu.getUserRouteFavourites();
     }
 
 

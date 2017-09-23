@@ -1,11 +1,9 @@
 package dataAnalysis;
 
 /**
- *  Provides a structure for wifi locations found in the database.
+ *  Stores the data about a wifi hotspot.
  */
 
-//Users should be able to search for wifi locations based on search criteria. We need
-//to find out what this search criteria is and query this.
 
 public class WifiLocation extends Location {
     private int zip;
@@ -13,7 +11,7 @@ public class WifiLocation extends Location {
     private String SSID, cost, provider, remarks, city, suburb;
 
 
-    //WifiLocation Constructor
+    // Constructor
     public WifiLocation(double id, double wifiLatitude, double wifiLongitude, String wifiAddress, String wifiSSID,
                         String wifiCost, String wifiProvier, String wifiRemarks, String wifiCity, String wifiSuburb,
                         int wifiZIP) {
@@ -30,8 +28,7 @@ public class WifiLocation extends Location {
         zip = wifiZIP;
     }
 
-
-    //Getters
+    // Getters
     public String getLocation() {return address;}
 
     public String getAddress() {return address;}
@@ -47,13 +44,4 @@ public class WifiLocation extends Location {
     public double getWifiID() {return  wifiID;}
 
     public String getRemarks() {return remarks;}
-
-
-
-
-    /**Should query for a wifi location from given input. The database should be queried for this.
-     */
-    public void find() { //Will return Route, not void.
-        }
-
 }

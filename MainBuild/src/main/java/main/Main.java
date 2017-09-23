@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class Main extends Application {
     static SQLiteDB db;
-
+    errorOccured = true;
     @Override
     public void start(Stage primaryStage) throws Exception {
 
@@ -41,8 +41,9 @@ public class Main extends Application {
         db = new SQLiteDB();
         Geocoder.init();
         DatabaseUser d = new DatabaseUser(db);
-        HandleUsers.init();
-        HandleUsers.fillUserList();
+        hu = new HandleUsers();
+        hu.init();
+        hu.fillUserList();
 
         FindNearbyLocations nearbyLocations = new FindNearbyLocations(db);
         FavouriteRouteData favRouteData = new FavouriteRouteData(db);
