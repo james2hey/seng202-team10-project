@@ -175,47 +175,27 @@ public class RouteDataViewerController extends DataViewerController {
 
 
     /**
-     * Adds the currently selected route to the Cyclists routeList.
+     * Adds the route to the users favourites list if it is not already in their favourites, otherwise it
+     * creates an error dialogue box telling them it has already been added to their favourites.
      */
     public void addFavouriteRoute(ActionEvent event) throws IOException {
-        if (HandleUsers.currentAnalyst == null) {
-            if (tableView.getSelectionModel().getSelectedItem() == null) {
-                System.out.println("Select route to add!");
-            } else {
-                String name = HandleUsers.currentCyclist.getName();
-                Route routeToAdd = tableView.getSelectionModel().getSelectedItem();
-                boolean alreadyInList = HandleUsers.currentCyclist.routeAlreadyInList(routeToAdd);
-                if (!alreadyInList) {
-                    System.out.println("ADDED " + routeToAdd.getBikeID() + " to cyclist favourites."); // Put this on GUI
-                    int rank = openRouteRankStage();
-                    HandleUsers.currentCyclist.addRoute(routeToAdd, name, rank);
-                    makeSuccessDialogueBox("Route successfully added.", "");
-                } else {
-                    makeErrorDialogueBox("Route already in favourites", "This route has already been " +
-                            "added\nto this users favourites list.");
-                }
-            }
+        if (tableView.getSelectionModel().getSelectedItem() == null) {
+            System.out.println("Select route to add!");
         } else {
-            System.out.println("Feature not available for analyst!");
+            String name = HandleUsers.currentCyclist.getName();
+            Route routeToAdd = tableView.getSelectionModel().getSelectedItem();
+            boolean alreadyInList = HandleUsers.currentCyclist.routeAlreadyInList(routeToAdd);
+            if (!alreadyInList) {
+                System.out.println("ADDED " + routeToAdd.getBikeID() + " to cyclist favourites."); // Put this on GUI
+                int rank = openRouteRankStage();
+                HandleUsers.currentCyclist.addRoute(routeToAdd, name, rank);
+                makeSuccessDialogueBox("Route successfully added.", "");
+            } else {
+                makeErrorDialogueBox("Route already in favourites", "This route has already been " +
+                        "added\nto this users favourites list.");
+            }
         }
     }
-
-
-//    /**
-//     * Creates an error dialog box to tell the user what has gone wrong.
-//     * @param errorMessage what the error actually is
-//     * @param errorDetails details about the error
-//     */
-//    @FXML
-//    private void makeErrorDialogueBox(String errorMessage, String errorDetails) {
-//        Alert alert = new Alert(Alert.AlertType.ERROR, errorDetails, ButtonType.OK);
-//        alert.setHeaderText(errorMessage);
-//        alert.showAndWait();
-//
-//        if (alert.getResult() == ButtonType.OK) {
-//            System.out.println("Ok pressed");
-//        }
-//    }
 
 
     /**

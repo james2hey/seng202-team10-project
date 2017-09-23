@@ -114,22 +114,18 @@ public class WifiDataViewerController extends DataViewerController {
      */
     @FXML
     private void addFavouriteWifi() {
-        if (HandleUsers.currentAnalyst == null) {
-            if (tableView.getSelectionModel().getSelectedItem() == null) {
-                System.out.println("Select Wifi location to add!");
-            } else {
-                String name = HandleUsers.currentCyclist.getName();
-                WifiLocation wifiToAdd = tableView.getSelectionModel().getSelectedItem();
-                boolean alreadyInList= HandleUsers.currentCyclist.addFavouriteWifi(wifiToAdd, name);
-                if (!alreadyInList) {
-                    makeSuccessDialogueBox(wifiToAdd.getWifiID() + " successfully added.", "");
-                } else {
-                    makeErrorDialogueBox(wifiToAdd.getWifiID() + " already in favourites", "This wifi location has already been " +
-                            "added\nto this users favourites list.");
-                }
-            }
+        if (tableView.getSelectionModel().getSelectedItem() == null) {
+            System.out.println("Select Wifi location to add!");
         } else {
-            System.out.println("Feature not available for analyst!");
+            String name = HandleUsers.currentCyclist.getName();
+            WifiLocation wifiToAdd = tableView.getSelectionModel().getSelectedItem();
+                    boolean alreadyInList= HandleUsers.currentCyclist.addFavouriteWifi(wifiToAdd, name);
+            if (!alreadyInList) {
+                makeSuccessDialogueBox(wifiToAdd.getWifiID() + " successfully added.", "");
+            } else {
+                makeErrorDialogueBox(wifiToAdd.getWifiID() + " already in favourites", "This wifi location has already been " +
+                        "added\nto this users favourites list.");
+            }
         }
     }
 

@@ -19,7 +19,6 @@ public class HandleUsers {
     private static ArrayList<String> userList = new ArrayList<>();
     //public static String currentUserName;
     public static Cyclist currentCyclist;
-    public static Analyst currentAnalyst;
 
     public static ArrayList<String> getUserList() {
         return userList;
@@ -53,27 +52,14 @@ public class HandleUsers {
 
     /**
      * Logs into the user whose parameter is handed into the function.
-     * @param username;
+     * @param username user to be logged in
      */
     public static void logIn(String username) {
-        ResultSet rs;
-        try {
-            rs = db.executeQuerySQL("SELECT * FROM users WHERE name = '" + username + "';");
-            String type = rs.getString(2);
+        currentCyclist = new Cyclist(username);
+        getUserRouteFavourites();
+        getUserWifiFavourites();
+        getUserRetailFavourites();
 
-            if (type.equals("cyclist")) {
-                currentCyclist = new Cyclist(username);
-                getUserRouteFavourites();
-                getUserWifiFavourites();
-                getUserRetailFavourites();
-            } else {
-                currentAnalyst = new Analyst(username);
-            }
-
-        } catch (SQLException e) {
-            e.getMessage();
-            userList.add(username);
-        }
     }
 
 
@@ -163,22 +149,23 @@ public class HandleUsers {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+
     }
 
 
     /**
-     * Logs out of the currently logged in user by terminating both instances of currentAnalyst and currentCyclist.
+     * Logs out of the currently logged in user by terminating the instance of the currentCyclist.
      */
     public static void logOutOfUser() {
-        currentAnalyst = null;
         currentCyclist = null;
     }
 
+
     /**
-     * Checks if the username already exists, if not it creates a new User and adds them to the users list.
-     * @param isCyclist;
+     * Checks if the username already exists, if not it creates a new user and adds them to the users list.
+     * @param username the user who is getting an instance created for them
      */
-    public static boolean createNewUser(String username, boolean isCyclist) {
+    public static boolean createNewUser(String username) {
         ResultSet rs;
         boolean created = false;
         try {
@@ -187,17 +174,11 @@ public class HandleUsers {
 
         } catch (SQLException e) { //What if the result set is not closed?
             e.getMessage();
-            if (isCyclist) {
-                currentCyclist = new Cyclist(username);
-                DatabaseUser.addUser(username, "cyclist");
-            } else {
-                currentAnalyst = new Analyst(username);
-                DatabaseUser.addUser(username, "analyst");
-            }
-            userList.add(username);
-            created = true;
+            currentCyclist = new Cyclist(username);
+            DatabaseUser.addUser(username);
         }
+        userList.add(username);
+        created = true;
         return created;
     }
-
 }

@@ -64,7 +64,7 @@ public class LoginController extends Controller implements Initializable {
     public void createCyclist(ActionEvent event) throws IOException {
         nameInUse.setVisible(false);
         String name = username.getText();
-        boolean created = HandleUsers.createNewUser(name, true);
+        boolean created = HandleUsers.createNewUser(name);
         if (created) {
             navigateHome(event);
         } else {
@@ -72,22 +72,6 @@ public class LoginController extends Controller implements Initializable {
         }
     }
 
-
-    /**
-     * Creates new Analyst instance with the given user name if it doesn't already exist in the database.
-     */
-    @FXML
-    public void createAnalyst(ActionEvent event) throws IOException {
-        nameInUse.setVisible(false);
-        String name = username.getText();
-        boolean created = HandleUsers.createNewUser(name, false);
-        if (created) {
-            System.out.println("Creating analyst for " + name);
-            navigateHome(event);
-        } else {
-            nameInUse.setVisible(true);
-        }
-    }
 
 
     /**

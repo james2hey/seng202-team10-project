@@ -48,13 +48,7 @@ public class HomeController extends Controller implements Initializable{
 
     public void initialize(URL location, ResourceBundle resources) {
         String username = "";
-        if (HandleUsers.currentCyclist == null) {
-            username = HandleUsers.currentAnalyst.getName();
-            welcomeText.setText("Welcome: " + username + "   (Analyst)");
-        } else {
-            username = HandleUsers.currentCyclist.getName();
-            welcomeText.setText("Welcome: " + username + "   (Cyclist)");
-        }
+        welcomeText.setText("Welcome: " + username);
 
         routeList.addAll(HandleUsers.currentCyclist.getFavouriteRouteList());
         wifiList.addAll(HandleUsers.currentCyclist.getFavouriteWifiLocations());

@@ -14,14 +14,16 @@ import java.util.ArrayList;
 import static org.apache.commons.text.WordUtils.capitalizeFully;
 
 /**
- * Subclass of User, an instance of this is  created for each cyclist using the
- * program to store all their key information about their favourite locations. Unlike
- * the Anaylst, the Cyclist also includes route data.
+ * The user of the program gets an instance of this is created for each user. it contains all the users
+ * favourite routes, stations, retail stores and wifi locations.
  */
-public class Cyclist extends User {
+public class Cyclist {
+    public ArrayList<Route> favouriteRouteList = new ArrayList<Route>();
     private ArrayList<StationLocation> favouriteStationLocations = new ArrayList<StationLocation>();
     private ArrayList<RetailLocation> favouriteRetailLocations = new ArrayList<RetailLocation>();
     private ArrayList<WifiLocation>  favouriteWifiLocations = new ArrayList<WifiLocation>();
+
+    public String name;
 
     public Cyclist() {}
 
@@ -31,12 +33,14 @@ public class Cyclist extends User {
 
     public ArrayList<WifiLocation> getFavouriteWifiLocations() {return favouriteWifiLocations;}
     public ArrayList<RetailLocation> getFavouriteRetailLocations() {return favouriteRetailLocations;}
+    public ArrayList<Route> getFavouriteRouteList() {return favouriteRouteList;}
 
     //_____________________________________________ADD DATA_____________________________________________
 
     public void addRouteInstance(Route route) {favouriteRouteList.add(route);}
     public void addWifiInstance(WifiLocation wifi) {favouriteWifiLocations.add(wifi);}
     public void addRetailInstance(RetailLocation retail) {favouriteRetailLocations.add(retail);}
+    public String getName() {return name;}
 
 
     /**

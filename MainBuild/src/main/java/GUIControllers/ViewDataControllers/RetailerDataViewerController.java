@@ -117,29 +117,26 @@ public class RetailerDataViewerController extends DataViewerController {
         Main.retailLocations = retailLocations;
     }
 
-    @FXML
-    private Label favouritesError;
 
+    /**
+     * Adds the retail store to the users favourites list if it is not already in their favourites, otherwise it
+     * creates an error dialogue box telling them it has already been added to their favourites.
+     */
     @FXML
     private void addFavouriteRetail() {
-        if (HandleUsers.currentAnalyst == null) {
-            if (tableView.getSelectionModel().getSelectedItem() == null) {
-                System.out.println("Select retail location to add!");
+        if (tableView.getSelectionModel().getSelectedItem() == null) {
+            System.out.println("Select retail location to add!");
+        } else {
+            String name = HandleUsers.currentCyclist.getName();
+            RetailLocation retailToAdd = tableView.getSelectionModel().getSelectedItem();
+            boolean alreadyInList = HandleUsers.currentCyclist.addFavouriteRetail(retailToAdd, name);
+            if (!alreadyInList) {
+                makeSuccessDialogueBox(retailToAdd.getName() + " successfully added.", "");
             } else {
-                String name = HandleUsers.currentCyclist.getName();
-                RetailLocation retailToAdd = tableView.getSelectionModel().getSelectedItem();
-                boolean alreadyInList = HandleUsers.currentCyclist.addFavouriteRetail(retailToAdd, name);
-                if (!alreadyInList) {
-                    makeSuccessDialogueBox(retailToAdd.getName() + " successfully added.", "");
-                } else {
-                    makeErrorDialogueBox(retailToAdd.getName() + " already in favourites", "This retail store has already been " +
-                            "added\nto this users favourites list.");
-
+                makeErrorDialogueBox(retailToAdd.getName() + " already in favourites", "This retail store has already been " +
+                        "added\nto this users favourites list.");
                 }
             }
-        } else {
-            System.out.println("Feature not available for analyst!");
-        }
     }
 
     @FXML
