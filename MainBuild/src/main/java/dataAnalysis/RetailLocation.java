@@ -1,12 +1,14 @@
 package dataAnalysis;
 
+import dataManipulation.UpdateData;
+
 /**
  * Stores the data about a retail store.
  */
 
 public class RetailLocation extends Location {
     private int zip;
-    private String city, mainType, secondaryType;
+    private String city, state, mainType, secondaryType;
 
     // Constructor
     public RetailLocation(String retailName, String retailStreet, String retailCity, String mType, String sType,
@@ -41,4 +43,20 @@ public class RetailLocation extends Location {
     public String getSecondaryType() {return secondaryType;}
 
     public String getAddress() {return address;}
+
+    //Setters
+    public void setCity(String newCity) {
+        city = newCity;
+        UpdateData.updateRetailerField("city", city, name, address);
+    }
+
+    public void setState(String newState) {
+        state = newState;
+        UpdateData.updateRetailerField("state", state, name, address);
+    }
+
+    public void setZip(int newZip) {
+        zip = newZip;
+        UpdateData.updateRetailerField("zip", Integer.toString(zip), name, address);
+    }
 }
