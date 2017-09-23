@@ -1,9 +1,7 @@
 package GUIControllers.ViewDataControllers;
 
-import dataAnalysis.WifiLocation;
 import dataManipulation.DataFilterer;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import main.HandleUsers;
 import main.Main;
 

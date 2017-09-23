@@ -121,9 +121,9 @@ public class WifiDataViewerController extends DataViewerController {
             WifiLocation wifiToAdd = tableView.getSelectionModel().getSelectedItem();
                     boolean alreadyInList= HandleUsers.currentCyclist.addFavouriteWifi(wifiToAdd, name);
             if (!alreadyInList) {
-                makeSuccessDialogueBox(wifiToAdd.getWifiID() + " successfully added.", "");
+                makeSuccessDialogueBox(wifiToAdd.getProvider() + " successfully added.", "");
             } else {
-                makeErrorDialogueBox(wifiToAdd.getWifiID() + " already in favourites", "This wifi location has already been " +
+                makeErrorDialogueBox(wifiToAdd.getProvider() + " already in favourites", "This wifi location has already been " +
                         "added\nto this users favourites list.");
             }
         }

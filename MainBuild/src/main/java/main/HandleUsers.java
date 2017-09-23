@@ -3,6 +3,7 @@ package main;
 import dataAnalysis.RetailLocation;
 import dataAnalysis.Route;
 import dataAnalysis.WifiLocation;
+import dataHandler.DatabaseUser;
 import dataHandler.SQLiteDB;
 
 import java.sql.PreparedStatement;
@@ -12,14 +13,12 @@ import java.util.ArrayList;
 
 
 /**
- * Created by jto59 on 16/09/17.
- * Deals with users on the start up screen to choose which user is to be logged in or created.
+ * Handles users on the start up screen to choose which user is to be logged in or created.
  */
 public class HandleUsers {
-    private static ArrayList<String> userList = new ArrayList<>();
-    //public static String currentUserName;
-    public static Cyclist currentCyclist;
 
+    private static ArrayList<String> userList = new ArrayList<>();
+    public static Cyclist currentCyclist;
     public static ArrayList<String> getUserList() {
         return userList;
     }
@@ -52,6 +51,7 @@ public class HandleUsers {
 
     /**
      * Logs into the user whose parameter is handed into the function.
+     *
      * @param username user to be logged in
      */
     public static void logIn(String username) {
@@ -163,6 +163,7 @@ public class HandleUsers {
 
     /**
      * Checks if the username already exists, if not it creates a new user and adds them to the users list.
+     *
      * @param username the user who is getting an instance created for them
      */
     public static boolean createNewUser(String username) {
@@ -175,10 +176,11 @@ public class HandleUsers {
         } catch (SQLException e) { //What if the result set is not closed?
             e.getMessage();
             currentCyclist = new Cyclist(username);
-            DatabaseUser.addUser(username);
+            DatabaseUser d = new DatabaseUser(Main.getDB());
+            d.addUser(username);
+            userList.add(username);
+            created = true;
         }
-        userList.add(username);
-        created = true;
         return created;
     }
 }

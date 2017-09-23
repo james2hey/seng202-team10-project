@@ -1,7 +1,5 @@
 package main;
 
-import com.lynden.gmapsfx.javascript.object.Marker;
-import com.lynden.gmapsfx.shapes.Polyline;
 import dataAnalysis.RetailLocation;
 import dataAnalysis.Route;
 import dataAnalysis.WifiLocation;
@@ -12,8 +10,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.joda.time.DateTime;
-import org.joda.time.Duration;
 
 import java.util.ArrayList;
 
@@ -47,7 +43,7 @@ public class Main extends Application {
 //
         db = new SQLiteDB();
         Geocoder.init();
-        DatabaseUser.init();
+        DatabaseUser d = new DatabaseUser(db);
         HandleUsers.init();
         HandleUsers.fillUserList();
 

@@ -1,30 +1,28 @@
 package dataHandler;
 
-import dataHandler.SQLiteDB;
-
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /**
- * Created by jto59 on 21/09/17.
+ * Handles all of the favourite retail data for every user in the database.
  */
 public class FavouriteRetailData {
 
-    static SQLiteDB db;
-
-    String[] fields =
+    private static SQLiteDB db;
+    private String[] fields =
             {"name         VARCHAR(12)",
                     "RETAILER_NAME    VARCHAR(50) NOT NULL",
                     "ADDRESS            VARCHAR(50)"};
+    private String primaryKey = "name, RETAILER_NAME, ADDRESS";
+    private String tableName = "favourite_retail";
+    private PreparedStatement addRetail;
+    private String addRetailStatement = "insert or fail into favourite_retail values(?,?,?)";
 
 
-    String primaryKey = "name, RETAILER_NAME, ADDRESS";
-    String tableName = "favourite_retail";
-
-    static PreparedStatement addRetail;
-    static String addRetailStatement = "insert or fail into favourite_retail values(?,?,?)";
-
-
+    /**
+     * Initializes the database when creating an instance of the FavouriteRetailData.
+     * @param db database the retail data is added to
+     */
     public FavouriteRetailData(SQLiteDB db) {
         this.db = db;
         db.addTable(tableName, fields, primaryKey);
@@ -32,14 +30,19 @@ public class FavouriteRetailData {
     }
 
 
-    public static void addFavouriteRetail(String name, String retail_name, String address) {
+    /**
+     * Adds the given name, retail name and address to the table.
+     * @param name name of the user
+     * @param retail_name name of the retail store
+     * @param address address of the retail store
+     */
+    public void addFavouriteRetail(String name, String retail_name, String address) {
         try {
             addRetail.setObject(1, name);
             addRetail.setObject(2, retail_name);
             addRetail.setObject(3, address);
             addRetail.executeUpdate();
             db.commit();
-
         } catch (SQLException e) {
             addRetail = db.getPreparedStatement(addRetailStatement);
             System.out.println(e.getMessage());

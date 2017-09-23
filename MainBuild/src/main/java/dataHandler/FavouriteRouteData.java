@@ -6,13 +6,12 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /**
- * Created by jto59 on 20/09/17.
+ * Handles all of the favourite route data for every user in the database.
  */
 public class FavouriteRouteData {
 
-    static SQLiteDB db;
-
-    String[] fields =
+    private SQLiteDB db;
+    private String[] fields =
             {"name         VARCHAR(12)",
                     "start_year   VARCHAR(4)",
                     "start_month  VARCHAR(2)",
@@ -20,16 +19,16 @@ public class FavouriteRouteData {
                     "start_time   VARCHAR(19)",
                     "bikeid       VARCHAR(20)",
                     "rank         INTEGER"};
+    private String primaryKey = "name, start_year, start_month, start_day, start_time, bikeid";
+    private String tableName = "favourite_routes";
+    private  PreparedStatement addRoute;
+    private  String addRouteStatement = "insert or fail into favourite_routes values(?,?,?,?,?,?,?)";
 
 
-    String primaryKey = "name, start_year, start_month, start_day, start_time, bikeid";
-    String tableName = "favourite_routes";
-
-    static PreparedStatement addRoute;
-    static String addRouteStatement = "insert or fail into favourite_routes values(?,?,?,?,?,?,?)";
-
-
-
+    /**
+     * Initializes the database when creating an instance of the FavouriteRouteData.
+     * @param db database the retail data is added to
+     */
     public FavouriteRouteData(SQLiteDB db) {
         this.db = db;
         db.addTable(tableName, fields, primaryKey);
@@ -37,8 +36,17 @@ public class FavouriteRouteData {
     }
 
 
-
-    public static void addFavouriteRoute(String name, String start_year, String start_month, String start_day,
+    /**
+     * Adds the given name, start year, start month, start day, start time, bike ID and rank to the table.
+     * @param name name of the user
+     * @param start_year year the route started
+     * @param start_month month the route started
+     * @param start_day day the route started
+     * @param start_time time the route started
+     * @param bike_id identification number of the bike
+     * @param rank rating of the route that the user has chosen
+     */
+    public void addFavouriteRoute(String name, String start_year, String start_month, String start_day,
                                          String start_time, String bike_id, int rank) {
         try {
             addRoute.setObject(1, name);
@@ -50,7 +58,6 @@ public class FavouriteRouteData {
             addRoute.setObject(7, rank);
             addRoute.executeUpdate();
             db.commit();
-
         } catch (SQLException e) {
             addRoute = db.getPreparedStatement(addRouteStatement);
             System.out.println(e.getMessage());

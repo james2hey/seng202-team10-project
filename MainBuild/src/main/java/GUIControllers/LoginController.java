@@ -1,20 +1,15 @@
 package GUIControllers;
 
 import dataHandler.SQLiteDB;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import main.HandleUsers;
 import main.Main;
@@ -23,16 +18,16 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
+
 import java.util.ResourceBundle;
 
+/**
+ * Handles the logging in scene of the GUI.
+ */
 public class LoginController extends Controller implements Initializable {
 
     @FXML
     private TextField username;
-
-    @FXML
-    private Text nameInUse;
 
     @FXML
     private ComboBox<String> comboBox;
@@ -40,8 +35,8 @@ public class LoginController extends Controller implements Initializable {
 
     /**
      *
-     * @param location
-     * @param resources
+     * @param location;
+     * @param resources;
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -58,24 +53,27 @@ public class LoginController extends Controller implements Initializable {
 
 
     /**
-     * Creates new Cyclist instance with the given user name if it doesn't already exist in the database.
+     * Creates new Cyclist instance with the given user name if it doesn't already exist in the database. Otherwise
+     * it creates an error dialog box informing the use this name is already taken.
+     * @param event clicking the sign up button
+     * @throws IOException
      */
     @FXML
     public void createCyclist(ActionEvent event) throws IOException {
-        nameInUse.setVisible(false);
         String name = username.getText();
         boolean created = HandleUsers.createNewUser(name);
         if (created) {
             navigateHome(event);
         } else {
-            nameInUse.setVisible(true);
+            makeErrorDialogueBox("Name already in use.", "");
         }
     }
 
 
-
     /**
      * Logs user from the existingUser text field in, and takes them to the home screen.
+     * @param event clicking the sign in button
+     * @throws IOException
      */
     @FXML
     void logIn(ActionEvent event) throws IOException {
@@ -92,8 +90,8 @@ public class LoginController extends Controller implements Initializable {
 
     /**
      * Navigates the user to the home screen.
-     * @param event;
-     * @throws IOException;
+     * @param event clicking the home button
+     * @throws IOException
      */
     private void navigateHome(ActionEvent event) throws IOException {
         Parent homeParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/home.fxml"));
