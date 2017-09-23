@@ -75,16 +75,17 @@ public abstract class Location {
      * @return Equality boolean
      */
     public boolean equals(Object obj) {
-        if (!( obj instanceof Location))
+        if (!( obj instanceof Location)) {
             return false;
-        if (obj == this)
+        }
+        if (obj == this) {
             return true;
-
+        }
         Location rhs = (Location) obj;
         return new EqualsBuilder()
-                .append(latitude, rhs)
-                .append(longitude, rhs)
-                .append(name, rhs)
+                .append(latitude, rhs.getLatitude())
+                .append(longitude, rhs.getLongitude())
+                .append(name, rhs.getName())
                 .isEquals();
     }
 }

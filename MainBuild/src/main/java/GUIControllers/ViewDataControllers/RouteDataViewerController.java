@@ -17,6 +17,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import main.CurrentStates;
 import main.HandleUsers;
 import main.Main;
 
@@ -179,7 +180,8 @@ public class RouteDataViewerController extends DataViewerController {
         }
         tableView.getItems().clear();
         routeList.addAll(routes);
-        Main.routes = routes;
+        CurrentStates.clearRoutes();
+        CurrentStates.addRoutes(routes);
 
     }
 

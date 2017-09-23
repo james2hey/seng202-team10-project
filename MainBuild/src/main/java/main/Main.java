@@ -15,9 +15,6 @@ import java.util.ArrayList;
 
 public class Main extends Application {
     static SQLiteDB db;
-    public static ArrayList<WifiLocation> wifiLocations = new ArrayList<WifiLocation>();
-    public static ArrayList<RetailLocation> retailLocations = new ArrayList<RetailLocation>();
-    public static ArrayList<Route> routes = new ArrayList<Route>();
 
     @Override
     public void start(Stage primaryStage) throws Exception {

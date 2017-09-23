@@ -1,7 +1,8 @@
 package dataHandler;
 
+import com.google.maps.errors.ApiException;
 import com.opencsv.CSVReader;
-
+import javafx.scene.control.Alert;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.PreparedStatement;
@@ -49,7 +50,9 @@ public class RetailerDataHandler {
         try {
             System.out.println(record[1]);
             double[] latlon = Geocoder.addressToLatLon(record[1] + ", " + record[3] + ", " + record[4] + ", " + record[5] + ", ");
-            //double[] latlon = {0.1, 0.2};
+            if (latlon == null) {
+                return false;
+            }
 
             System.out.println(latlon[0]);
             System.out.println(latlon[1]);
@@ -86,6 +89,10 @@ public class RetailerDataHandler {
 
     public void processCSV(String url) {
         try {
+
+            if (!Geocoder.testConnection())
+                return;
+
             db.setAutoCommit(false);
             CSVReader reader = new CSVReader(new FileReader(url), ',');
 

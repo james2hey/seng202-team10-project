@@ -1,5 +1,6 @@
 package GUIControllers;
 
+import com.google.maps.errors.ApiException;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXTextField;
 
@@ -111,6 +112,10 @@ public class AddDataController extends Controller implements Initializable {
         String[] eDate = new String[3];
         double[] sLatLon = Geocoder.addressToLatLon(rSAddress.getText());
         double[] eLatLon = Geocoder.addressToLatLon(rEAddress.getText());
+        if (sLatLon == null || eLatLon == null) {
+            return;
+        }
+
 
         String username;
         try {
@@ -170,7 +175,6 @@ public class AddDataController extends Controller implements Initializable {
             errorOccurred = true;
             eLatError.setVisible(true);
         }
-
 
         try {// End Longitude
             eLongError.setVisible(false);

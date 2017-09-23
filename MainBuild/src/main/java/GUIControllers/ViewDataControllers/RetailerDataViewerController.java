@@ -2,6 +2,8 @@ package GUIControllers.ViewDataControllers;
 
 import dataManipulation.DataFilterer;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import main.CurrentStates;
 import main.HandleUsers;
 import main.Main;
 
@@ -117,7 +119,8 @@ public class RetailerDataViewerController extends DataViewerController {
         }
         tableView.getItems().clear();
         retailList.addAll(retailLocations);
-        Main.retailLocations = retailLocations;
+        CurrentStates.clearRetailLocations();
+        CurrentStates.addRetailLocations(retailLocations);
     }
 
 

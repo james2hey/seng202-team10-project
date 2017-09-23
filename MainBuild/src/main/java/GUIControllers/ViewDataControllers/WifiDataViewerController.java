@@ -11,6 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.cell.PropertyValueFactory;
+import main.CurrentStates;
 import main.HandleUsers;
 import main.Main;
 
@@ -107,8 +108,8 @@ public class WifiDataViewerController extends DataViewerController {
 
         tableView.getItems().clear();
         wifiList.addAll(wifiLocations);
-        Main.wifiLocations = wifiLocations;
-
+        CurrentStates.clearWifiLocations();
+        CurrentStates.addWifiLocations(wifiLocations);
     }
 
     /**

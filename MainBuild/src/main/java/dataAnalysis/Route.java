@@ -267,18 +267,18 @@ public class Route {
      * @return Equality boolean
      */
     public boolean equals(Object obj) {
-        if (!( obj instanceof Location))
+        if (!( obj instanceof Route))
             return false;
         if (obj == this)
             return true;
 
-        Location rhs = (Location) obj;
+        Route rhs = (Route) obj;
         return new EqualsBuilder()
-                .append(bikeid, rhs)
-                .append(startYear, rhs)
-                .append(startMonth, rhs)
-                .append(startDay, rhs)
-                .append(startTime, rhs)
+                .append(bikeid, rhs.getBikeID())
+                .append(startYear, rhs.getStartYear())
+                .append(startMonth, rhs.getStartMonth())
+                .append(startDay, rhs.getStartDay())
+                .append(startTime, rhs.getStartTime())
                 .isEquals();
     }
 

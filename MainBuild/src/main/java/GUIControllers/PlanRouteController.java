@@ -1,21 +1,14 @@
 package GUIControllers;
 
-import com.jfoenix.controls.JFXDrawer;
-import com.jfoenix.controls.JFXHamburger;
 import com.lynden.gmapsfx.ClusteredGoogleMapView;
-import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.MapComponentInitializedListener;
 import com.lynden.gmapsfx.javascript.event.UIEventType;
 import com.lynden.gmapsfx.javascript.object.*;
 
 import com.lynden.gmapsfx.service.directions.*;
-import com.lynden.gmapsfx.service.geocoding.GeocoderStatus;
-import com.lynden.gmapsfx.service.geocoding.GeocodingResult;
 import com.lynden.gmapsfx.service.geocoding.GeocodingService;
 import com.lynden.gmapsfx.shapes.Polyline;
 import com.lynden.gmapsfx.shapes.PolylineOptions;
-import com.lynden.gmapsfx.shapes.Rectangle;
-import com.lynden.gmapsfx.util.MarkerImageFactory;
 import dataAnalysis.RetailLocation;
 import dataAnalysis.Route;
 import dataAnalysis.WifiLocation;
@@ -26,27 +19,17 @@ import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import javafx.fxml.FXMLLoader;
-import javafx.stage.Stage;
+import main.CurrentStates;
 import main.Main;
 import main.helperFunctions;
 import netscape.javascript.JSObject;
 
 
-import java.io.IOException;
 import java.net.URL;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.ResourceBundle;
 
 
@@ -83,6 +66,7 @@ public class PlanRouteController extends Controller implements Initializable, Ma
     private DecimalFormat numberFormat = new DecimalFormat("0.00");
     private FindNearbyLocations nearbyFinder;
     private LatLong currentPoint;
+    private InfoWindow currentInfoWindow;
 
 
 
@@ -95,6 +79,7 @@ public class PlanRouteController extends Controller implements Initializable, Ma
         MapOptions mapOptions = new MapOptions();
 
         currentPoint = new LatLong(STARTLAT, STARTLON);
+        currentInfoWindow = new InfoWindow();
 
 
         mapOptions.center(new LatLong(STARTLAT, STARTLON))
@@ -112,10 +97,10 @@ public class PlanRouteController extends Controller implements Initializable, Ma
         directionsService = new DirectionsService();
         directionsPane = mapView.getDirec();
 
-        clearMarkers();
-        addWifiMarkers(Main.wifiLocations);
-        addRetailerMarkers(Main.retailLocations);
-        addTripMarkers(Main.routes);
+
+        renderWifiMarkers();
+        renderRetailerMarkers();
+        renderTripMarkers();
 
 //        db = Main.getDB();
 //        try {
@@ -133,6 +118,7 @@ public class PlanRouteController extends Controller implements Initializable, Ma
 //        }
 
     }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -154,11 +140,15 @@ public class PlanRouteController extends Controller implements Initializable, Ma
     public void directionsReceived(DirectionsResult results, DirectionStatus status) {
     }
 
-    public void addWifiMarkers(ArrayList<WifiLocation> locations) {
+    public void renderWifiMarkers() {
+        HashSet<WifiLocation> locations = CurrentStates.getWifiLocations();
+        System.out.println(locations.size());
+        for (Marker marker : wifiMarkers) {
+            map.removeClusterableMarker(marker);
+        }
+        wifiMarkers.clear();
 
         for (WifiLocation location : locations) {
-            if (Main.wifiLocations.contains(location))
-                continue;
             MarkerOptions options = new MarkerOptions();
             LatLong latLong = new LatLong(location.getLatitude(), location.getLongitude());
             options.position(latLong)
@@ -179,18 +169,22 @@ public class PlanRouteController extends Controller implements Initializable, Ma
                                 "Address: " + location.getAddress() + "<br>" +
                                 "Extra Info: " + location.getRemarks())
                         .position(latLong);
-                InfoWindow infoWindow = new InfoWindow(infoWindowOptions);
-                infoWindow.open(map);
+                currentInfoWindow.close();
+                currentInfoWindow = new InfoWindow(infoWindowOptions);
+                currentInfoWindow.open(map);
                 currentPoint = latLong;
             });
         }
     }
 
-    public void addRetailerMarkers(ArrayList<RetailLocation> locations) {
+    public void renderRetailerMarkers() {
+        HashSet<RetailLocation> locations = CurrentStates.getRetailLocations();
+        for (Marker marker : retailerMarkers) {
+            map.removeClusterableMarker(marker);
+        }
+        retailerMarkers.clear();
 
         for (RetailLocation location : locations) {
-            if (Main.retailLocations.contains(location))
-                continue;
             MarkerOptions options = new MarkerOptions();
             LatLong latLong = new LatLong(location.getLatitude(), location.getLongitude());
             options.position(latLong)
@@ -214,17 +208,26 @@ public class PlanRouteController extends Controller implements Initializable, Ma
                                 "Category: " + location.getMainType() + "<br>" +
                                 "Extra Info: " + location.getSecondaryType())
                         .position(latLong);
-                InfoWindow infoWindow = new InfoWindow(infoWindowOptions);
-                infoWindow.open(map);
+                currentInfoWindow.close();
+                currentInfoWindow = new InfoWindow(infoWindowOptions);
+                currentInfoWindow.open(map);
                 currentPoint = latLong;
             });
         }
     }
 
-    public void addTripMarkers(ArrayList<Route> routes) {
+    public void renderTripMarkers() {
+        HashSet<Route> routes = CurrentStates.getRoutes();
+        for (Marker marker : tripMarkers) {
+            map.removeClusterableMarker(marker);
+        }
+        for (Polyline line : tripLines) {
+            map.removeMapShape(line);
+        }
+        tripMarkers.clear();
+        tripLines.clear();
+
         for (Route route : routes) {
-            if (Main.routes.contains(route))
-                continue;
             MarkerOptions options = new MarkerOptions();
             System.out.println(route.getStartLatitude());
             System.out.println(route.getStartLongitude());
@@ -247,8 +250,9 @@ public class PlanRouteController extends Controller implements Initializable, Ma
                                 "Duration: " + helperFunctions.secondsToString(route.getDuration()) + "<br>" +
                                 "Distance: " + numberFormat.format(route.getDistance()) + "km")
                         .position(latLong);
-                InfoWindow infoWindow = new InfoWindow(infoWindowOptions);
-                infoWindow.open(map);
+                currentInfoWindow.close();
+                currentInfoWindow = new InfoWindow(infoWindowOptions);
+                currentInfoWindow.open(map);
                 currentPoint = latLong;
             });
 
@@ -274,8 +278,9 @@ public class PlanRouteController extends Controller implements Initializable, Ma
                                 "Duration: " + helperFunctions.secondsToString(route.getDuration()) + "<br>" +
                                 "Distance: " + numberFormat.format(route.getDistance()) + "km")
                         .position(latLong2);
-                InfoWindow infoWindow = new InfoWindow(infoWindowOptions);
-                infoWindow.open(map);
+                currentInfoWindow.close();
+                currentInfoWindow = new InfoWindow(infoWindowOptions);
+                currentInfoWindow.open(map);
                 currentPoint = latLong2;
             });
 
@@ -289,40 +294,21 @@ public class PlanRouteController extends Controller implements Initializable, Ma
         }
     }
 
-    public void clearMarkers() {
-        for (Marker marker : wifiMarkers) {
-            map.removeClusterableMarker(marker);
-        }
-        wifiMarkers.clear();
-
-        for (Marker marker : retailerMarkers) {
-            map.removeClusterableMarker(marker);
-        }
-        retailerMarkers.clear();
-
-        for (Marker marker : tripMarkers) {
-            map.removeClusterableMarker(marker);
-        }
-        for (Polyline line : tripLines) {
-            map.removeMapShape(line);
-        }
-        tripMarkers.clear();
-        tripLines.clear();
+    @FXML
+    public void showNearbyWifi() {
+        //Called by GUI when show nearby wifi button is pressed.
+        ArrayList<WifiLocation> wifiLocations = nearbyFinder.findNearbyWifi(currentPoint.getLatitude(), currentPoint.getLongitude());
+        CurrentStates.addWifiLocations(wifiLocations);
+        renderWifiMarkers();
     }
 
     @FXML
     public void showNearbyRetailers() {
         //Called by GUI when show nearby retails button is pressed.
         ArrayList<RetailLocation> retailLocations = nearbyFinder.findNearbyRetail(currentPoint.getLatitude(), currentPoint.getLongitude());
-        addRetailerMarkers(retailLocations);
+        CurrentStates.addRetailLocations(retailLocations);
+        renderRetailerMarkers();
 
-    }
-
-    @FXML
-    public void showNearbyWifi() {
-        //Called by GUI when show nearby wifi button is pressed.
-        ArrayList<WifiLocation> wifiLocations = nearbyFinder.findNearbyWifi(currentPoint.getLatitude(), currentPoint.getLongitude());
-        addWifiMarkers(wifiLocations);
     }
 
     @FXML
