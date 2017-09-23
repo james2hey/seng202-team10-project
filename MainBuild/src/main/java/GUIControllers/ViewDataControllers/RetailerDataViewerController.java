@@ -143,7 +143,7 @@ public class RetailerDataViewerController extends DataViewerController {
                 makeErrorDialogueBox(retailToAdd.getName() + " already in favourites", "This retail store has already been " +
                         "added\nto this users favourites list.");
                 }
-            }
+        }
     }
 
     @FXML

@@ -14,12 +14,12 @@ public class UpdateData {
     
     public static void updateRouteField(String field, String value, String bikeID, String year, String month, String day, String time) {
         SQLiteDB db = Main.getDB();
-        String sqlCommand = "UPDATE route_information SET " + value + " = ? WHERE" +
+        String sqlCommand = "UPDATE route_information SET " + field + " = ? WHERE " +
                 "bikeid = ? AND start_year = ? AND start_month = ? AND start_day = ? AND start_time = ?;";
 
         try {
             PreparedStatement pstmt = db.getPreparedStatement(sqlCommand);
-
+            System.out.println(sqlCommand);
             pstmt.setString(1, value);
             pstmt.setString(2, bikeID);
             pstmt.setString(3, year);

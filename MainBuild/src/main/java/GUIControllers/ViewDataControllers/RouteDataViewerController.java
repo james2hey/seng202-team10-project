@@ -2,6 +2,7 @@ package GUIControllers.ViewDataControllers;
 
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
+import dataAnalysis.RetailLocation;
 import customExceptions.FilterByTimeException;
 import dataAnalysis.Route;
 import dataManipulation.DataFilterer;
@@ -31,6 +32,8 @@ import java.util.ResourceBundle;
 
 
 public class RouteDataViewerController extends DataViewerController {
+
+    static private Route route = null;
 
     @FXML
     private JFXToggleButton female;
@@ -243,16 +246,26 @@ public class RouteDataViewerController extends DataViewerController {
     @FXML
     public void editData(ActionEvent event) throws IOException {
         //called by GUI button View/edit route.
-        Stage popup = new Stage();
-        popup.initModality(Modality.APPLICATION_MODAL);
-        popup.initOwner(((Node) event.getSource()).getScene().getWindow());
-        Parent popupParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/detailedRouteInformation.fxml"));
-        Scene popupScene = new Scene(popupParent);
-        popup.setScene(popupScene);
-        popup.show();
+
+        if (tableView.getSelectionModel().getSelectedItem() == null) {
+            makeErrorDialogueBox("No route selected.", "Please select a route from the table.");
+        } else {
+            route = tableView.getSelectionModel().getSelectedItem();
+            Stage popup = new Stage();
+            popup.initModality(Modality.APPLICATION_MODAL);
+            popup.initOwner(((Node) event.getSource()).getScene().getWindow());
+            Parent popupParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/detailedRouteInformation.fxml"));
+            Scene popupScene = new Scene(popupParent);
+            popup.setScene(popupScene);
+            popup.show();
+        }
     }
 
     private int getRank() {
         return 0;
+    }
+
+    static public Route getRoute() {
+        return route;
     }
 }

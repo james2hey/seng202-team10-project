@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="555.0" prefWidth="600.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIControllers.ViewDataControllers.DetailedRouteInformation">
+   <children>
+      <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Detailed Wifi Location Information" textAlignment="CENTER" wrappingWidth="597.7294921875">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Text>
+      <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#updateValues" prefHeight="25.0" prefWidth="319.0" text="Update Changes" textAlignment="CENTER" GridPane.columnSpan="2" GridPane.rowIndex="2">
+         <GridPane.margin>
+            <Insets left="150.0" />
+         </GridPane.margin>
+      </Button>
+      <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;" GridPane.rowIndex="1">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="131.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Wifi ID: " />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <JFXTextField fx:id="wifiID" prefHeight="23.0" prefWidth="200.0" />
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="131.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Provider: " />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <JFXTextField fx:id="provider" prefHeight="23.0" prefWidth="200.0" />
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="131.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Lattitude: " />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <JFXTextField fx:id="startLongitude" prefHeight="23.0" prefWidth="200.0" />
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="131.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Remarks: " />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <JFXTextField fx:id="remarks" editable="false" prefHeight="23.0" prefWidth="200.0" />
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="131.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="SSID: " />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <JFXTextField fx:id="SSID" editable="false" prefHeight="23.0" prefWidth="200.0" />
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="131.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Zip: " />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <JFXTextField fx:id="Zip" editable="false" prefHeight="23.0" prefWidth="200.0" />
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="131.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Address: " />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <JFXTextField fx:id="cost" prefHeight="23.0" prefWidth="172.0" />
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="131.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Cost: " />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <JFXTextField fx:id="address" prefHeight="23.0" prefWidth="173.0" />
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="39.0" prefWidth="117.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Longitude: " />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="39.0" prefWidth="184.0">
+                     <children>
+                        <JFXTextField fx:id="endLongitude" prefHeight="23.0" prefWidth="172.0" />
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="39.0" prefWidth="120.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="City: " />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="39.0" prefWidth="180.0">
+                     <children>
+                        <JFXTextField fx:id="city" prefHeight="23.0" prefWidth="170.0" />
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="131.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Suburb: " />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <JFXTextField fx:id="suburb" prefHeight="23.0" prefWidth="174.0" />
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="131.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+   <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="338.0" minWidth="10.0" prefWidth="299.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="304.0" minWidth="10.0" prefWidth="301.0" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints maxHeight="87.0" minHeight="10.0" prefHeight="53.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="455.0" minHeight="10.0" prefHeight="437.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="150.0" minHeight="9.0" prefHeight="48.0" vgrow="SOMETIMES" />
+   </rowConstraints>
+</GridPane>
