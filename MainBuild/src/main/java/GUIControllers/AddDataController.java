@@ -64,27 +64,28 @@ public class AddDataController extends Controller implements Initializable {
     private WifiDataHandler wifiDataHandler;
     private RouteDataHandler routeDataHandler;
 
+// (james done this) - Commented out cause its already in Controller and need to use it in 3 other classes.
+//    @FXML
+//    void makeErrorDialogueBox(String errorMessage, String errorDetails) {
+//        Alert alert = new Alert(Alert.AlertType.ERROR, errorDetails, ButtonType.OK);
+//        alert.setHeaderText(errorMessage);
+//        alert.showAndWait();
+//
+//        if (alert.getResult() == ButtonType.OK) {
+//            System.out.println("Added entry to database.");
+//        }
+//    }
 
-    @FXML
-    void makeErrorDialogueBox(String errorMessage, String errorDetails) {
-        Alert alert = new Alert(Alert.AlertType.ERROR, errorDetails, ButtonType.OK);
-        alert.setHeaderText(errorMessage);
-        alert.showAndWait();
-
-        if (alert.getResult() == ButtonType.OK) {
-            System.out.println("Added entry to database.");
-        }
-    }
-    @FXML
-    private void makeSuccessDialogueBox(String errorMessage, String errorDetails) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION, errorDetails, ButtonType.OK);
-        alert.setHeaderText(errorMessage);
-        alert.showAndWait();
-
-        if (alert.getResult() == ButtonType.OK) {
-            System.out.println("");
-        }
-    }
+//    @FXML
+//    private void makeSuccessDialogueBox(String errorMessage, String errorDetails) {
+//        Alert alert = new Alert(Alert.AlertType.INFORMATION, errorDetails, ButtonType.OK);
+//        alert.setHeaderText(errorMessage);
+//        alert.showAndWait();
+//
+//        if (alert.getResult() == ButtonType.OK) {
+//            System.out.println("");
+//        }
+//    }
 
     //Converts Dates to the right format for CSV insertion.
     private String[] convertDates(String date) {

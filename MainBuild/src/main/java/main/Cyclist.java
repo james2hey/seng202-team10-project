@@ -45,7 +45,13 @@ public class Cyclist extends User {
      * @param name
      * @return
      */
-    public boolean addRoute(Route route, String name, int rank) {
+    public void addRoute(Route route, String name, int rank) {
+            favouriteRouteList.add(route);
+            FavouriteRouteData.addFavouriteRoute(name, route.getStartYear(), route.getStartMonth(), route.getStartDay(),
+                    route.getStartTime(), route.getBikeID(), rank);
+    }
+
+    public boolean routeAlreadyInList(Route route) {
         boolean alreadyInList = false;
         for (int i = 0; i < favouriteRouteList.size(); i++) {
             Route tempRoute = favouriteRouteList.get(i);
@@ -55,11 +61,6 @@ public class Cyclist extends User {
                 alreadyInList = true;
                 break;
             }
-        }
-        if (!alreadyInList) {
-            favouriteRouteList.add(route);
-            FavouriteRouteData.addFavouriteRoute(name, route.getStartYear(), route.getStartMonth(), route.getStartDay(),
-                    route.getStartTime(), route.getBikeID(), rank);
         }
         return alreadyInList;
     }

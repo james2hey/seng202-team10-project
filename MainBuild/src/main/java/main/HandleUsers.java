@@ -74,7 +74,6 @@ public class HandleUsers {
             e.getMessage();
             userList.add(username);
         }
-        System.out.println("Logged into " + username + "'s account.");
     }
 
 
@@ -109,12 +108,6 @@ public class HandleUsers {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        System.out.println(currentCyclist.getName() + "'s favourite routes:");
-        System.out.println("-----------------");
-        for (int i = 0; i < currentCyclist.getFavouriteRouteList().size(); i++) {
-            System.out.println(currentCyclist.getFavouriteRouteList().get(i).getStartTime());
-        }
-        System.out.println("-----------------");
     }
 
 
@@ -143,12 +136,6 @@ public class HandleUsers {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        System.out.println(currentCyclist.getName() + "'s favourite wifi locations:");
-        System.out.println("-----------------");
-        for (int i = 0; i < currentCyclist.getFavouriteWifiLocations().size(); i++) {
-            System.out.println(currentCyclist.getFavouriteWifiLocations().get(i).getWifiID());
-        }
-        System.out.println("-----------------");
     }
 
     /**
@@ -176,13 +163,6 @@ public class HandleUsers {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        System.out.println(currentCyclist.getName() + "'s favourite retail locations:");
-        System.out.println("-----------------");
-        for (int i = 0; i < currentCyclist.getFavouriteRetailLocations().size(); i++) {
-            System.out.println(currentCyclist.getFavouriteRetailLocations().get(i).getName());
-        }
-        System.out.println("-----------------");
-        System.out.println();
     }
 
 

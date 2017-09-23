@@ -45,13 +45,9 @@ public class LoginController extends Controller implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        System.out.println("here");
         SQLiteDB db = Main.getDB();
-        System.out.println("here");
         try {
-            System.out.println("here");
             ResultSet rs = db.executeQuerySQL("SELECT * FROM users");
-            System.out.println("here");
             while (rs.next()) {
                 comboBox.getItems().add(rs.getString(1));
             }

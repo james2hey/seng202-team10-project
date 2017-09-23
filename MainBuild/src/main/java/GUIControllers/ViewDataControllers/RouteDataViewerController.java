@@ -24,6 +24,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 
@@ -176,25 +177,68 @@ public class RouteDataViewerController extends DataViewerController {
     /**
      * Adds the currently selected route to the Cyclists routeList.
      */
-    public void addFavouriteRoute() {
-        favouritesError.setVisible(false);
+    public void addFavouriteRoute(ActionEvent event) throws IOException {
         if (HandleUsers.currentAnalyst == null) {
             if (tableView.getSelectionModel().getSelectedItem() == null) {
                 System.out.println("Select route to add!");
             } else {
                 String name = HandleUsers.currentCyclist.getName();
                 Route routeToAdd = tableView.getSelectionModel().getSelectedItem();
-                int rank = getRank();
-                boolean alreadyInList = HandleUsers.currentCyclist.addRoute(routeToAdd, name, rank);
+                boolean alreadyInList = HandleUsers.currentCyclist.routeAlreadyInList(routeToAdd);
                 if (!alreadyInList) {
                     System.out.println("ADDED " + routeToAdd.getBikeID() + " to cyclist favourites."); // Put this on GUI
-                    favouritesError.setVisible(false);
+                    int rank = openRouteRankStage();
+                    HandleUsers.currentCyclist.addRoute(routeToAdd, name, rank);
+                    makeSuccessDialogueBox("Route successfully added.", "");
                 } else {
-                    favouritesError.setVisible(true);
+                    makeErrorDialogueBox("Route already in favourites", "This route has already been " +
+                            "added\nto this users favourites list.");
                 }
             }
         } else {
             System.out.println("Feature not available for analyst!");
+        }
+    }
+
+
+//    /**
+//     * Creates an error dialog box to tell the user what has gone wrong.
+//     * @param errorMessage what the error actually is
+//     * @param errorDetails details about the error
+//     */
+//    @FXML
+//    private void makeErrorDialogueBox(String errorMessage, String errorDetails) {
+//        Alert alert = new Alert(Alert.AlertType.ERROR, errorDetails, ButtonType.OK);
+//        alert.setHeaderText(errorMessage);
+//        alert.showAndWait();
+//
+//        if (alert.getResult() == ButtonType.OK) {
+//            System.out.println("Ok pressed");
+//        }
+//    }
+
+
+    /**
+     * Creates a ChoiceDialog which prompts the user the input their ranking of the route.
+     * @return the users ranking, 0 if exited
+     */
+    @FXML
+    private int openRouteRankStage() {
+        ArrayList<Integer> a = new ArrayList<>();
+        a.add(1);
+        a.add(2);
+        a.add(3);
+        a.add(4);
+        a.add(5);
+        ChoiceDialog<Integer> c = new ChoiceDialog<>(5, a);
+        c.setTitle("Rank this route!");
+        c.setHeaderText("Rank this route!");
+        c.setContentText("Rating");
+        Optional<Integer> result = c.showAndWait();
+        if (result.isPresent()) {
+            return result.get();
+        } else {
+            return 0;
         }
     }
 
@@ -218,16 +262,5 @@ public class RouteDataViewerController extends DataViewerController {
 
     private int getRank() {
         return 0;
-    }
-
-    @FXML
-    void openRouteRankStage(ActionEvent event) throws IOException {
-        Stage popup = new Stage();
-        popup.initModality(Modality.WINDOW_MODAL);
-        popup.initOwner(((Node) event.getSource()).getScene().getWindow());
-        Parent popupParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/routeRank.fxml"));
-        Scene popupScene = new Scene(popupParent);
-        popup.setScene(popupScene);
-        popup.show();
     }
 }

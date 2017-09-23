@@ -106,7 +106,7 @@ public abstract class Controller {
     }
 
     @FXML
-    void makeErrorDialogueBox(String errorMessage, String errorDetails) {
+    public void makeErrorDialogueBox(String errorMessage, String errorDetails) {
         Alert alert = new Alert(Alert.AlertType.ERROR, errorDetails, ButtonType.OK);
         alert.setHeaderText(errorMessage);
         alert.showAndWait();
@@ -115,25 +115,43 @@ public abstract class Controller {
             System.out.println("Ok pressed");
         }
     }
+//
+//    /**
+//     * Makes a confirmation dialogue box and returns yes as true, no as false.
+//     * Assumes that if dialogue is exited, result is no.
+//     *
+//     * @param errorMessage String that provides the error message for the dialogue box.
+//     * @param errorDetails String that provides the error details for the dialogue box.
+//     * @return boolean representing result of yes/no answer in confirmation box.
+//     */
+//    @FXML
+//    boolean makeConfirmationDialogueBox(String errorMessage, String errorDetails) {
+//        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, errorDetails, ButtonType.NO, ButtonType.YES);
+//        alert.setHeaderText(errorMessage);
+//        alert.showAndWait();
+//
+//        if (alert.getResult() == ButtonType.YES) {
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
 
     /**
      * Makes a confirmation dialogue box and returns yes as true, no as false.
      * Assumes that if dialogue is exited, result is no.
      *
-     * @param errorMessage String that provides the error message for the dialogue box.
-     * @param errorDetails String that provides the error details for the dialogue box.
-     * @return boolean representing result of yes/no answer in confirmation box.
+     * @param message String that provides the message for the dialogue box.
+     * @param details String that provides the details for the dialogue box.
      */
     @FXML
-    boolean makeConfirmationDialogueBox(String errorMessage, String errorDetails) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, errorDetails, ButtonType.NO, ButtonType.YES);
-        alert.setHeaderText(errorMessage);
+    public void makeSuccessDialogueBox(String message, String details) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, details, ButtonType.OK);
+        alert.setHeaderText(message);
         alert.showAndWait();
 
-        if (alert.getResult() == ButtonType.YES) {
-            return true;
-        } else {
-            return false;
+        if (alert.getResult() == ButtonType.OK) {
+            System.out.println("");
         }
     }
 

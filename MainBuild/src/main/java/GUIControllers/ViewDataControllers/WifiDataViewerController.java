@@ -108,14 +108,12 @@ public class WifiDataViewerController extends DataViewerController {
 
     }
 
-    //________________favourites_____________
-
-    @FXML
-    private Label favouritesError;
-
+    /**
+     * Adds the wifi location to the users favourites list if it is not already in their favourites, otherwise it
+     * creates an error dialogue box telling them it has already been added to their favourites.
+     */
     @FXML
     private void addFavouriteWifi() {
-        favouritesError.setVisible(false);
         if (HandleUsers.currentAnalyst == null) {
             if (tableView.getSelectionModel().getSelectedItem() == null) {
                 System.out.println("Select Wifi location to add!");
@@ -124,11 +122,10 @@ public class WifiDataViewerController extends DataViewerController {
                 WifiLocation wifiToAdd = tableView.getSelectionModel().getSelectedItem();
                 boolean alreadyInList= HandleUsers.currentCyclist.addFavouriteWifi(wifiToAdd, name);
                 if (!alreadyInList) {
-                    System.out.println("ADDED " + wifiToAdd.getWifiID() + " to cyclist favourites.");// Put this on GUI
-                    favouritesError.setVisible(false);
+                    makeSuccessDialogueBox(wifiToAdd.getWifiID() + " successfully added.", "");
                 } else {
-                    System.out.println("Already in favourites!");
-                    favouritesError.setVisible(true);
+                    makeErrorDialogueBox(wifiToAdd.getWifiID() + " already in favourites", "This wifi location has already been " +
+                            "added\nto this users favourites list.");
                 }
             }
         } else {

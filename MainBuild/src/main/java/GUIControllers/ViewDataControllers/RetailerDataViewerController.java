@@ -122,7 +122,6 @@ public class RetailerDataViewerController extends DataViewerController {
 
     @FXML
     private void addFavouriteRetail() {
-        favouritesError.setVisible(false);
         if (HandleUsers.currentAnalyst == null) {
             if (tableView.getSelectionModel().getSelectedItem() == null) {
                 System.out.println("Select retail location to add!");
@@ -131,11 +130,10 @@ public class RetailerDataViewerController extends DataViewerController {
                 RetailLocation retailToAdd = tableView.getSelectionModel().getSelectedItem();
                 boolean alreadyInList = HandleUsers.currentCyclist.addFavouriteRetail(retailToAdd, name);
                 if (!alreadyInList) {
-                    System.out.println("ADDED " + retailToAdd.getName() + " to cyclist favourites.");// Put this on GUI
-                    favouritesError.setVisible(false);
+                    makeSuccessDialogueBox(retailToAdd.getName() + " successfully added.", "");
                 } else {
-                    System.out.println("Already in favourites!");
-                    favouritesError.setVisible(true);
+                    makeErrorDialogueBox(retailToAdd.getName() + " already in favourites", "This retail store has already been " +
+                            "added\nto this users favourites list.");
 
                 }
             }
