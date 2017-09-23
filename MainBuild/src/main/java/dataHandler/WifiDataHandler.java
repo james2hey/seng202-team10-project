@@ -32,6 +32,10 @@ public class WifiDataHandler {
     PreparedStatement addData;
     String addDataStatement = "insert or fail into wifi_location values(?,?,?,?,?,?,?,?,?,?,?)";
 
+    /**
+     * Initializes an object, linked to the given database. Can process CSVs and add single entries
+     * @param db
+     */
     public WifiDataHandler (SQLiteDB db) {
         this.db = db;
         db.addTable(tableName, fields, primaryKey);
@@ -57,7 +61,22 @@ public class WifiDataHandler {
             return false;
         }
     }
-    
+
+    /**
+     * Takes a full list of parameters for an element in the table and adds that to the database using a PreparedStatement
+     * @param ID
+     * @param COST
+     * @param PROVIDER
+     * @param ADDRESS
+     * @param LAT
+     * @param LONG
+     * @param REMARKS
+     * @param CITY
+     * @param SSID
+     * @param SUBURB
+     * @param ZIP
+     * @return A value representing the success of the addition. Fails on such things as PrimaryKey collisions.
+     */
     public Boolean addSingleEntry(
             String ID, String COST, String PROVIDER, String ADDRESS, double LAT, double LONG,
             String REMARKS,String CITY, String SSID, String SUBURB, String ZIP) {
@@ -81,7 +100,11 @@ public class WifiDataHandler {
             return false;
         }
     }
-    
+
+    /**
+     * Takes a CSV file and repeatedly calls processLine on the records
+     * @param url A string directing to a valid filepath
+     */
     public void processCSV(String url) {
         try {
             db.setAutoCommit(false);

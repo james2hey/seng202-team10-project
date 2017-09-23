@@ -1,6 +1,6 @@
 package dataAnalysis;
 
-import main.helperFunctions;
+import main.HelperFunctions;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -175,7 +175,7 @@ public class Route {
     public double getAverageTime() {return averageTime;}
 
     public double getDistance() {
-        return helperFunctions.getDistance(getStartLatitude(), getStartLongitude(), getEndLatitude(), getEndLongitude());
+        return HelperFunctions.getDistance(getStartLatitude(), getStartLongitude(), getEndLatitude(), getEndLongitude());
     }
 
 

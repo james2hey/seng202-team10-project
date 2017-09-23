@@ -22,7 +22,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import main.CurrentStates;
 import main.Main;
-import main.helperFunctions;
+import main.HelperFunctions;
 import netscape.javascript.JSObject;
 
 
@@ -67,10 +67,8 @@ public class PlanRouteController extends Controller implements Initializable, Ma
     private FindNearbyLocations nearbyFinder;
     private LatLong currentPoint;
     private InfoWindow currentInfoWindow;
-
-
-
-    private SQLiteDB db;
+    private LatLong currentStart;
+    private LatLong currentEnd;
 
     @Override
     public void mapInitialized() {
@@ -101,22 +99,6 @@ public class PlanRouteController extends Controller implements Initializable, Ma
         renderWifiMarkers();
         renderRetailerMarkers();
         renderTripMarkers();
-
-//        db = Main.getDB();
-//        try {
-//            ResultSet rs = db.executeQuerySQL("SELECT * FROM retailer");
-//
-//            while (rs.next()) {
-//                MarkerOptions markerOptions = new MarkerOptions();
-//                LatLong latLong = new LatLong(rs.getDouble("LAT"), rs.getDouble("LONG"));
-//                markerOptions.position(latLong).title(rs.getString("ADDRESS"));
-//                Marker marker = new Marker(markerOptions);
-//                map.addClusterableMarker(marker);
-//            }
-//        } catch (SQLException e) {
-//            System.out.println(e.getMessage());
-//        }
-
     }
 
 
@@ -132,14 +114,20 @@ public class PlanRouteController extends Controller implements Initializable, Ma
 
     @FXML
     public void addressTextFieldAction(ActionEvent event) {
-        DirectionsRequest request = new DirectionsRequest(startAddress.get(), endAddress.get(), TravelModes.DRIVING);
+        DirectionsRequest request = new DirectionsRequest(startAddress.get(), endAddress.get(), TravelModes.BICYCLING);
+
         directionsService.getRoute(request, this, new DirectionsRenderer(true, mapView.getMap(), directionsPane));
     }
 
     @Override
     public void directionsReceived(DirectionsResult results, DirectionStatus status) {
+
     }
 
+    /**
+     * Renders the CurrentStates wifiLocations HashSet on the map.
+     * Initially removes all current wifiMarkers, then renders each one from the HashSet
+     */
     public void renderWifiMarkers() {
         HashSet<WifiLocation> locations = CurrentStates.getWifiLocations();
         System.out.println(locations.size());
@@ -155,7 +143,7 @@ public class PlanRouteController extends Controller implements Initializable, Ma
                     .title(location.getName())
                     .label("W")
                     .visible(true);
-                    //.icon(getClass().getClassLoader().getResource("Images/greenPin.png").getFile());
+            //.icon(getClass().getClassLoader().getResource("Images/greenPin.png").getFile());
             Marker marker = new Marker(options);
             wifiMarkers.add(marker);
             map.addClusterableMarker(marker);
@@ -165,9 +153,9 @@ public class PlanRouteController extends Controller implements Initializable, Ma
                 InfoWindowOptions infoWindowOptions = new InfoWindowOptions()
                         .content(
                                 "SSID: " + location.getSSID() + "<br>" +
-                                "Provider: " + location.getProvider() + "<br>" +
-                                "Address: " + location.getAddress() + "<br>" +
-                                "Extra Info: " + location.getRemarks())
+                                        "Provider: " + location.getProvider() + "<br>" +
+                                        "Address: " + location.getAddress() + "<br>" +
+                                        "Extra Info: " + location.getRemarks())
                         .position(latLong);
                 currentInfoWindow.close();
                 currentInfoWindow = new InfoWindow(infoWindowOptions);
@@ -177,6 +165,10 @@ public class PlanRouteController extends Controller implements Initializable, Ma
         }
     }
 
+    /**
+     * Renders the CurrentStates retailerMarkers HashSet on the map.
+     * Initially removes all current retailerMarkers, then renders each one from the HashSet
+     */
     public void renderRetailerMarkers() {
         HashSet<RetailLocation> locations = CurrentStates.getRetailLocations();
         for (Marker marker : retailerMarkers) {
@@ -191,7 +183,7 @@ public class PlanRouteController extends Controller implements Initializable, Ma
                     .title(location.getName())
                     .label("R")
                     .visible(true);
-                    //.icon(getClass().getClassLoader().getResource("Images/redPin.png").getFile());
+            //.icon(getClass().getClassLoader().getResource("Images/redPin.png").getFile());
             Marker marker = new Marker(options);
             retailerMarkers.add(marker);
             map.addClusterableMarker(marker);
@@ -204,9 +196,9 @@ public class PlanRouteController extends Controller implements Initializable, Ma
                 InfoWindowOptions infoWindowOptions = new InfoWindowOptions()
                         .content(
                                 "Name: " + location.getName() + "<br>" +
-                                "Address: " + location.getAddress() + "<br>" +
-                                "Category: " + location.getMainType() + "<br>" +
-                                "Extra Info: " + location.getSecondaryType())
+                                        "Address: " + location.getAddress() + "<br>" +
+                                        "Category: " + location.getMainType() + "<br>" +
+                                        "Extra Info: " + location.getSecondaryType())
                         .position(latLong);
                 currentInfoWindow.close();
                 currentInfoWindow = new InfoWindow(infoWindowOptions);
@@ -216,6 +208,10 @@ public class PlanRouteController extends Controller implements Initializable, Ma
         }
     }
 
+    /**
+     * Renders the CurrentStates routes HashSet on the map.
+     * Initially removes all current route markers, and route polylines, then for each route, adds a start and end marker, and a polyline between them.
+     */
     public void renderTripMarkers() {
         HashSet<Route> routes = CurrentStates.getRoutes();
         for (Marker marker : tripMarkers) {
@@ -245,10 +241,10 @@ public class PlanRouteController extends Controller implements Initializable, Ma
                 InfoWindowOptions infoWindowOptions = new InfoWindowOptions()
                         .content(
                                 "Start Address: " + route.getStartAddress() + "<br>" +
-                                "Start Date: " + route.getStartDate() + "<br>" +
-                                "Start Time: " + route.getStartTime() + "<br>" +
-                                "Duration: " + helperFunctions.secondsToString(route.getDuration()) + "<br>" +
-                                "Distance: " + numberFormat.format(route.getDistance()) + "km")
+                                        "Start Date: " + route.getStartDate() + "<br>" +
+                                        "Start Time: " + route.getStartTime() + "<br>" +
+                                        "Duration: " + HelperFunctions.secondsToString(route.getDuration()) + "<br>" +
+                                        "Distance: " + numberFormat.format(route.getDistance()) + "km")
                         .position(latLong);
                 currentInfoWindow.close();
                 currentInfoWindow = new InfoWindow(infoWindowOptions);
@@ -262,7 +258,7 @@ public class PlanRouteController extends Controller implements Initializable, Ma
                     .title(route.getName())
                     .label("E")
                     .visible(true);
-                    //.icon(getClass().getClassLoader().getResource("Images/pin.png").getFile());
+            //.icon(getClass().getClassLoader().getResource("Images/pin.png").getFile());
             Marker marker2 = new Marker(options2);
 
             tripMarkers.add(marker2);
@@ -273,10 +269,10 @@ public class PlanRouteController extends Controller implements Initializable, Ma
                 InfoWindowOptions infoWindowOptions = new InfoWindowOptions()
                         .content(
                                 "End Address: " + route.getEndAddress() + "<br>" +
-                                "End Date: " + route.getStopDate() + "<br>" +
-                                "End Time: " + route.getStopTime() + "<br>" +
-                                "Duration: " + helperFunctions.secondsToString(route.getDuration()) + "<br>" +
-                                "Distance: " + numberFormat.format(route.getDistance()) + "km")
+                                        "End Date: " + route.getStopDate() + "<br>" +
+                                        "End Time: " + route.getStopTime() + "<br>" +
+                                        "Duration: " + HelperFunctions.secondsToString(route.getDuration()) + "<br>" +
+                                        "Distance: " + numberFormat.format(route.getDistance()) + "km")
                         .position(latLong2);
                 currentInfoWindow.close();
                 currentInfoWindow = new InfoWindow(infoWindowOptions);

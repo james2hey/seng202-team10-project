@@ -1,12 +1,10 @@
 package main;
 
-import java.util.concurrent.TimeUnit;
-
 /**
  * Created by jes143 on 22/09/17.
  * Includes some useful static helper functions that may be applicable to multiple classes and that don't fit anywhere
  */
-public class helperFunctions {
+public class HelperFunctions {
 
     /**
      * Takes four doubles as two points and returns the distance between them. Uses the haversine formula as lat long coords are circle based.
@@ -28,6 +26,11 @@ public class helperFunctions {
         return d;
     }
 
+    /**
+     * Converts a simple int to a formatted string that's clear and concise
+     * @param seconds
+     * @return A String of the format "wd, xh, ym, zs", that only includes values that are significant (drops leading zeros)
+     */
     public static String secondsToString(int seconds) {
         int days;
         int hours;

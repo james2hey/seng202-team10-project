@@ -33,6 +33,10 @@ public class RetailerDataHandler {
     PreparedStatement addData;
     String addDataStatement = "insert or fail into retailer values(?,?,?,?,?,?,?,?,?)";
 
+    /**
+     * Initializes an object, linked to the given database. Can process CSVs and add single entries
+     * @param db
+     */
     public RetailerDataHandler(SQLiteDB db) {
         this.db = db;
         db.addTable(tableName, fields, primaryKey);
@@ -65,6 +69,19 @@ public class RetailerDataHandler {
         }
     }
 
+    /**
+     * Takes a full list of parameters for an element in the table and adds that to the database using a PreparedStatement
+     * @param RETAILER_NAME
+     * @param ADDRESS
+     * @param LAT
+     * @param LONG
+     * @param CITY
+     * @param STATE
+     * @param ZIP
+     * @param MAIN_TYPE
+     * @param SECONDARY_TYPE
+     * @return A value representing the success of the addition. Fails on such things as PrimaryKey collisions.
+     */
     public Boolean addSingleEntry(
             String RETAILER_NAME, String ADDRESS, double LAT, double LONG, String CITY,
             String STATE, String ZIP, String MAIN_TYPE, String SECONDARY_TYPE) {
@@ -87,6 +104,10 @@ public class RetailerDataHandler {
         }
     }
 
+    /**
+     * Takes a CSV file and repeatedly calls processLine on the records
+     * @param url A string directing to a valid filepath
+     */
     public void processCSV(String url) {
         try {
 

@@ -23,15 +23,23 @@ public class Geocoder {
 
     private static GeoApiContext context;
 
+    /**
+     * Creates a GeoApiContext object to be used for searching.
+     * Currently uses a static API key
+     */
     public static void init() {
         context = new GeoApiContext.Builder()
-                .apiKey("AIzaSyDEPEUGnJw2WaQ0cKzu8TVuKHeC3gYKnKc ")
+                .apiKey("AIzaSyDEPEUGnJw2WaQ0cKzu8TVuKHeC3gYKnKc")
                 .connectTimeout((long) 300, TimeUnit.MILLISECONDS)
                 .maxRetries(0)
                 .build();
     }
 
-
+    /**
+     * Takes an address and uses Google Geocoding API to get a latitude and longitude.
+     * @param address A string specifying the address to search
+     * @return The first result from the geocode search
+     */
     public static double[] addressToLatLon(String address) {
         GeocodingResult[] results;
         try {

@@ -130,11 +130,4 @@ public class SQLiteDB {
             System.out.println(e.getMessage());
         }
     }
-    public void rollback() {
-        try {
-            conn.rollback();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
 }

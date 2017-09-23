@@ -15,6 +15,7 @@ import main.CurrentStates;
 import main.HandleUsers;
 import main.Main;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -76,8 +77,8 @@ public class WifiDataViewerController extends DataViewerController {
 
 
     @FXML
-    void displayDataOnMap(ActionEvent event) {
-
+    void displayDataOnMap(ActionEvent event) throws IOException {
+        changeToPlanRouteScene(event);
     }
 
     @FXML

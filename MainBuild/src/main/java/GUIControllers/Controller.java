@@ -73,7 +73,7 @@ public abstract class Controller {
     }
 
     @FXML
-    void changeToPlanRouteScene(ActionEvent event) throws IOException {
+    public void changeToPlanRouteScene(ActionEvent event) throws IOException {
         Parent planRouteParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/planRoute.fxml"));
         Scene planRouteScene = new Scene(planRouteParent);
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();

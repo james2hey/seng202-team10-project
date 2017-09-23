@@ -19,6 +19,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -75,9 +76,9 @@ public class RetailerDataViewerController extends DataViewerController {
     }
 
     @FXML
-    void displayDataOnMap(ActionEvent event) {
+    void displayDataOnMap(ActionEvent event) throws IOException {
         //Called when GUI button View on map is pressed.
-
+        changeToPlanRouteScene(event);
     }
 
     @FXML

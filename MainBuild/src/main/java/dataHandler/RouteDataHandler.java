@@ -18,7 +18,8 @@ public class RouteDataHandler {
     SQLiteDB db;
 
     String[] fields =
-            {"tripduration            INTEGER",
+            {
+                    "tripduration            INTEGER",
                     "start_year              VARCHAR(4)",
                     "start_month             VARCHAR(2)",
                     "start_day               VARCHAR(2)",
@@ -46,9 +47,8 @@ public class RouteDataHandler {
     String addDataStatement = "insert or fail into route_information values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
     /**
-     * Initialiser for a RouteDataHandler object that can process CSV files and add to the specified database.
-     *
-     * @param db The database connection to add data to.
+     * Initializes an object, linked to the given database. Can process CSVs and add single entries
+     * @param db
      */
     public RouteDataHandler(SQLiteDB db) {
         this.db = db;
@@ -104,6 +104,31 @@ public class RouteDataHandler {
         }
     }
 
+    /**
+     * Takes a full list of parameters for an element in the table and adds that to the database using a PreparedStatement
+     * @param tripduration
+     * @param start_year
+     * @param start_month
+     * @param start_day
+     * @param start_time
+     * @param end_year
+     * @param end_month
+     * @param end_day
+     * @param end_time
+     * @param start_station_id
+     * @param start_station_name
+     * @param start_latitude
+     * @param start_longitude
+     * @param end_station_id
+     * @param end_station_name
+     * @param end_latitude
+     * @param end_longitude
+     * @param bikeid
+     * @param usertype
+     * @param birth_year
+     * @param gender
+     * @return A value representing the success of the addition. Fails on such things as PrimaryKey collisions.
+     */
     public Boolean addSingleEntry(int tripduration, String start_year, String start_month, String start_day, String start_time,
                                   String end_year, String end_month, String end_day, String end_time, String start_station_id,
                                   String start_station_name, double start_latitude, double start_longitude,
@@ -140,6 +165,10 @@ public class RouteDataHandler {
         }
     }
 
+    /**
+     * Takes a CSV file and repeatedly calls processLine on the records
+     * @param url A string directing to a valid filepath
+     */
     public void processCSV(String url) {
         try {
             db.setAutoCommit(false);
@@ -157,6 +186,18 @@ public class RouteDataHandler {
         }
     }
 
+    /**
+     * Takes a series of strings and calculates the difference in times between the two.
+     * @param start_year
+     * @param start_month
+     * @param start_day
+     * @param start_time
+     * @param end_year
+     * @param end_month
+     * @param end_day
+     * @param end_time
+     * @return Difference in seconds
+     */
     public int getDuration(String start_year, String start_month, String start_day, String start_time,
                            String end_year, String end_month, String end_day, String end_time) {
         String[] start_time_seperated = start_time.split(":");
