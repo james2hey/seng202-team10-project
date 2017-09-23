@@ -76,6 +76,15 @@ public class Cyclist {
 
 
     /**
+     * Updates the users favourite routes. This will set the Rank variable for the new Route object that has been added.
+     */
+    public void updateUserRouteFavourites() {
+        favouriteRouteList.clear();
+        HandleUsers.getUserRouteFavourites();
+    }
+
+
+    /**
      * Adds a Route to the Users routeList if it is not already in it.
      * @param route the route to be added
      * @param name the username of whose favourite route this is

@@ -64,6 +64,30 @@ public class Route {
     }
 
 
+    public Route(int tripDuration, String stTime, String spTime, String stDay, String stMonth, String stYear, String spDay,
+                 String spMonth, String spYear, double stStationLat, double stStationLong, double endStationLat,
+                 double endStationLong, int stStationID, int endStationID, String stStationAdr, String endStationAdr,
+                 String bId, int routeRank) {
+        duration = tripDuration;
+        startTime = stTime;
+        startDay = stDay;
+        startMonth = stMonth;
+        startYear = stYear;
+        stopTime = spTime;
+        stopDay = spDay;
+        stopMonth = spMonth;
+        stopYear = spYear;
+        bikeid = bId;
+        startLocation = new StationLocation(stStationID, stStationLat, stStationLong, stStationAdr);
+        endLocation = new StationLocation(endStationID, endStationLat, endStationLong, endStationAdr);
+        calculateDistance(startLocation, endLocation);
+        updateAverageTime(stTime, spTime);
+        startDate = getDateString(startDay, startMonth, startYear);
+        stopDate = getDateString(stopDay, stopMonth, stopYear);
+        rank = routeRank;
+    }
+
+
     public Route(int stStationID, double stStationLat, double stStationLong, int endStationID, double endStationLat,
                  double endStationLong, String stStationAdr, String endStationAdr, String time, String stDay, String stMonth, String stYear) {
         startLocation = new StationLocation(stStationID, stStationLat, stStationLong, stStationAdr);
@@ -145,6 +169,8 @@ public class Route {
     public double getEndLatitude() {return endLocation.getLatitude();}
 
     public double getEndLongitude() {return endLocation.getLongitude();}
+
+    public int getRank() {return rank;}
 
     public double getAverageTime() {return averageTime;}
 
