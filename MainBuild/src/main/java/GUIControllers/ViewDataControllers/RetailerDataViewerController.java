@@ -83,23 +83,28 @@ public class RetailerDataViewerController extends DataViewerController {
         System.out.println("Display button pressed");
 
         String address = streetInput.getText();
-        if (address == null || address.equals("Address")) {
+        if (address.equals("")) {
             address = null;
         }
+
         int zip;
         try {
-            if (zipInput.getText().equals("") || zipInput.getText().equals("Zip Code")) {
+            if (zipInput.getText().equals("")) {
                 zip = -1;
             } else {
                 if (Integer.valueOf(zipInput.getText()) <= 0) {
-                    throw new NumberFormatException("Please enter a number greater than 0");
+                    throw new NumberFormatException();
+                }
+                if (Integer.valueOf(zipInput.getText()) >= 100000000) {
+                    throw new NumberFormatException();
                 }
                 zip = Integer.valueOf(zipInput.getText());
             }
         } catch (NumberFormatException e) {
-            zipInput.setText("Enter a number greater than 0");
+            makeErrorDialogueBox("Incorrect input for zip number", "Please enter a positive number between 1 and 8\ndigits long.");
             zip = -1;
         }
+
         String primaryType = primaryInput.getSelectionModel().getSelectedItem();
         if (primaryType == null || primaryType.equals("No Selection")) {
             primaryType = null;

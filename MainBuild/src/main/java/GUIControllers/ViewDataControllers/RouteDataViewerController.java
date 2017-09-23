@@ -2,6 +2,7 @@ package GUIControllers.ViewDataControllers;
 
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
+import customExceptions.FilterByTimeException;
 import dataAnalysis.Route;
 import dataManipulation.DataFilterer;
 import javafx.collections.FXCollections;
@@ -109,13 +110,13 @@ public class RouteDataViewerController extends DataViewerController {
         } else {
             gender = Integer.valueOf(female.getUserData().toString());
         }
+
         String dateLower;
         String dateUpper;
         String pattern = "dd/MM/yyyy";
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
         LocalDate startDate = startDateInput.getValue();
         LocalDate endDate = endDateInput.getValue();
-        System.out.println(startDate);
         if (startDate != null) {
             dateLower = startDate.format(dateFormatter);
             System.out.println(dateLower);
@@ -127,38 +128,47 @@ public class RouteDataViewerController extends DataViewerController {
         } else {
             dateUpper = null;
         }
-        if ("DD/MM/YYYY".equals(dateLower) || "DD/MM/YYYY".equals(dateUpper)) {
-            dateLower = null;
-            dateUpper = null;
-        }
-        String timeLower = startTimeInput.getText();
-        String timeUpper = endTimeInput.getText();
-        if ("HH:MM:SS".equals(timeLower)) {
-            timeLower = null;
-        } else {
-            if (timeLower.matches("[0-9][0-9]:[0-9][0-9]:[0-9][0-9]") == false) {
-                startTimeInput.setText("Use the format HH:MM:SS");
-                timeLower = null;
-            }
-        }
-        if ("HH:MM:SS".equals(timeUpper)) {
-            timeUpper = null;
-        } else {
-            if (timeUpper.matches("[0-9][0-9]:[0-9][0-9]:[0-9][0-9]") == false) {
-                endTimeInput.setText("Use the format HH:MM:SS");
-                timeUpper = null;
-            }
-        }
 
+        String timeLower = startTimeInput.getText() + ":00";
+        String timeUpper = endTimeInput.getText() + ":00";
+        try {
+            if (":00".equals(timeLower)) {
+                timeLower = null;
+            } else {
+                if (timeLower.matches("[0-9][0-9]:[0-9][0-9]:00") == false) {
+                    throw new FilterByTimeException("Incorrect time format on start time");
+                }
+            }
+            if (":00".equals(timeUpper)) {
+                timeUpper = null;
+            } else {
+                if (timeUpper.matches("[0-9][0-9]:[0-9][0-9]:00") == false) {
+                    throw new FilterByTimeException("Incorrect time format on end time");
+                }
+            }
+            if ((timeLower == null && timeUpper == null) != true && (timeLower == null || timeUpper == null)) {
+                throw new FilterByTimeException("Missing time field");
+            }
+        } catch (FilterByTimeException e) {
+            String errorMessage = e.getMessage();
+            if (errorMessage.equals("Missing time field")) {
+                makeErrorDialogueBox("Missing time field", "Please enter both a lower and upper time limit\nto filter by.");
+            } else {
+                makeErrorDialogueBox(errorMessage, "Please enter both a lower and upper time limit\nto filter by.");
+            }
+            timeLower = null;
+            timeUpper = null;
+        }
 
         String startLocation = startLocationInput.getText();
         String endLocation = endLocationInput.getText();
-        if ("Address".equals(startLocation)) {
+        if ("".equals(startLocation)) {
             startLocation = null;
         }
-        if ("Address".equals(endLocation)) {
+        if ("".equals(endLocation)) {
             endLocation = null;
         }
+
         DataFilterer filterer = new DataFilterer(Main.getDB());
         ArrayList<Route> routes = filterer.filterRoutes(gender, dateLower, dateUpper,
                 timeLower, timeUpper, startLocation, endLocation);

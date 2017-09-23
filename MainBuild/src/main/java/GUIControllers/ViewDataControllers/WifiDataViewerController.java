@@ -84,17 +84,20 @@ public class WifiDataViewerController extends DataViewerController {
         System.out.println("Display button pressed");
 
         String provider = providerInput.getText();
-        if (provider.equals("Company Name") || provider.equals("")) {
+        if (provider.equals("")) {
             provider = null;
         }
+
         String suburb = boroughInput.getSelectionModel().getSelectedItem();
         if (suburb == null || suburb.equals("No Selection")) {
             suburb = null;
         }
+
         String cost = typeInput.getSelectionModel().getSelectedItem();
         if (cost == null || cost.equals("No Selection")) {
             cost = null;
         }
+
         DataFilterer filterer = new DataFilterer(Main.getDB());
         ArrayList<WifiLocation> wifiLocations = filterer.filterWifi(suburb, cost, provider);
         System.out.println("Got data");

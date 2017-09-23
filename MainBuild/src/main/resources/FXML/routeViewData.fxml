@@ -97,12 +97,12 @@
             </VBox>
             <VBox prefHeight="161.0" prefWidth="103.0">
                <children>
-                  <JFXTextField fx:id="startTimeInput" prefHeight="23.0" prefWidth="147.0" promptText="HH:MM:SS" />
+                  <JFXTextField fx:id="startTimeInput" prefHeight="23.0" prefWidth="147.0" promptText="HH:MM" />
                </children>
             </VBox>
             <VBox prefHeight="161.0" prefWidth="103.0">
                <children>
-                  <JFXTextField fx:id="endTimeInput" prefHeight="23.0" prefWidth="147.0" promptText="HH:MM:SS" />
+                  <JFXTextField fx:id="endTimeInput" prefHeight="23.0" prefWidth="147.0" promptText="HH:MM" />
                </children>
             </VBox>
             <VBox prefHeight="161.0" prefWidth="103.0">
