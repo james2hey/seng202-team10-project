@@ -24,10 +24,28 @@ public class HomeController extends Controller implements Initializable{
     private TableColumn<Route, String> FavRoutes;
 
     @FXML
+    private TableColumn<Route, String> StartAddress;
+
+    @FXML
+    private TableColumn<Route, String> Rating;
+
+    @FXML
     private TableColumn<WifiLocation, String> FavWifi;
 
     @FXML
+    private TableColumn<WifiLocation, String> SSID;
+
+    @FXML
+    private TableColumn<WifiLocation, String> WifiAddress;
+
+    @FXML
     private TableColumn<RetailLocation, String> FavRetailers;
+
+    @FXML
+    private TableColumn<RetailLocation, String> RetailerName;
+
+    @FXML
+    private TableColumn<RetailLocation, String> RetailerAddress;
 
     @FXML
     private TableView<Route> tableViewRoutes;
@@ -54,15 +72,18 @@ public class HomeController extends Controller implements Initializable{
         wifiList.addAll(HandleUsers.currentCyclist.getFavouriteWifiLocations());
         retailerList.addAll(HandleUsers.currentCyclist.getFavouriteRetailLocations());
 
-        FavRoutes.setCellValueFactory(new PropertyValueFactory<>("StartAddress"));
+        StartAddress.setCellValueFactory(new PropertyValueFactory<>("StartAddress"));
+        Rating.setCellValueFactory(new PropertyValueFactory<>("Rank"));
         tableViewRoutes.setItems(routeList);
         tableViewRoutes.getColumns().setAll(FavRoutes);
 
-        FavWifi.setCellValueFactory(new PropertyValueFactory<>("SSID"));
+        SSID.setCellValueFactory(new PropertyValueFactory<>("SSID"));
+        WifiAddress.setCellValueFactory(new PropertyValueFactory<>("Address"));
         tableViewWifi.setItems(wifiList);
         tableViewWifi.getColumns().setAll(FavWifi);
 
-        FavRetailers.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        RetailerName.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        RetailerAddress.setCellValueFactory(new PropertyValueFactory<>("Address"));
         tableViewRetailers.setItems(retailerList);
         tableViewRetailers.getColumns().setAll(FavRetailers);
 

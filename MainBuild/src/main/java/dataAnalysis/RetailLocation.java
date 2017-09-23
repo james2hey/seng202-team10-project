@@ -40,6 +40,8 @@ public class RetailLocation extends Location {
 
     public String getSecondaryType() {return secondaryType;}
 
+    public String getAddress() {return address;}
+
 
 
     /**

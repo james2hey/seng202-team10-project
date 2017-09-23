@@ -88,7 +88,8 @@ public class HandleUsers {
                         rsRoute.getDouble("start_longitude"), rsRoute.getDouble("end_latitude"),
                         rsRoute.getDouble("end_longitude"), rsRoute.getInt("start_station_id"),
                         rsRoute.getInt("end_station_id"), rsRoute.getString("start_station_name"),
-                        rsRoute.getString("end_station_name"), rsRoute.getString("bikeid"));
+                        rsRoute.getString("end_station_name"), rsRoute.getString("bikeid"),
+                        rsFavourites.getInt("rank"));
                 currentCyclist.addRouteInstance(tempRoute);
             }
         } catch (SQLException e) {
