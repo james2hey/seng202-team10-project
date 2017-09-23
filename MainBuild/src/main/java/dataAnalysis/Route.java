@@ -1,5 +1,6 @@
 package dataAnalysis;
 
+import dataManipulation.UpdateData;
 import main.helperFunctions;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -176,6 +177,13 @@ public class Route {
 
     public double getDistance() {
         return helperFunctions.getDistance(getStartLatitude(), getStartLongitude(), getEndLatitude(), getEndLongitude());
+    }
+
+
+
+    public void setStartAddress(String newAddress) {
+        startLocation.setAddress(newAddress);
+        UpdateData.updateRouteField("start_station_name", startLocation.getAddress(), bikeid, startYear, startMonth, stopDay, startTime);
     }
 
 
