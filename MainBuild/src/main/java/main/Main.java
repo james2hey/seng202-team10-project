@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class Main extends Application {
     static SQLiteDB db;
-    errorOccured = true;
+    public static HandleUsers hu;
     @Override
     public void start(Stage primaryStage) throws Exception {
 
