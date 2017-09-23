@@ -1,6 +1,8 @@
 package dataAnalysis;
 
 import main.helperFunctions;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 /**
  * Has methods for all main functionality of the routing.
@@ -215,5 +217,43 @@ public class Route {
 //        r.calculateDuration(r.getDistance());
 //        System.out.println(l1.getName() + " " + l2.getName());
 //    }
+
+    /**
+     * Defines the hashCode function.
+     * Allows for hashsets that don't collide on the same points
+     * Collides if the other route has same bikeid, and start date/time
+     * @return A hash value
+     */
+    public int hashCode() {
+        return new HashCodeBuilder(137, 337)
+                .append(bikeid)
+                .append(startYear)
+                .append(startMonth)
+                .append(startDay)
+                .append(startTime)
+                .toHashCode();
+    }
+
+    /**
+     * Defines the equals functions, allowing for easy equality testing
+     * Fails if the other location has same bikeid, and start date/time
+     * @param obj The object to compare
+     * @return Equality boolean
+     */
+    public boolean equals(Object obj) {
+        if (!( obj instanceof Location))
+            return false;
+        if (obj == this)
+            return true;
+
+        Location rhs = (Location) obj;
+        return new EqualsBuilder()
+                .append(bikeid, rhs)
+                .append(startYear, rhs)
+                .append(startMonth, rhs)
+                .append(startDay, rhs)
+                .append(startTime, rhs)
+                .isEquals();
+    }
 
 }

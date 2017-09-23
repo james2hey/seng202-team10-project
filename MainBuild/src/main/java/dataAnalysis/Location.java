@@ -1,5 +1,8 @@
 package dataAnalysis;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 /**
  * Superclass for all location types. Allows them to all
  * be generalised as a location and then further extended.
@@ -49,5 +52,39 @@ public abstract class Location {
         String la = Double.toString(latitude);
         String lo = Double.toString(longitude);
         return name + " " + la + " " + lo;
+    }
+
+    /**
+     * Defines the hashCode function.
+     * Allows for hashsets that don't collide on the same points
+     * Collides if the other location has same lat, lon, and name
+     * @return A hash value
+     */
+    public int hashCode() {
+        return new HashCodeBuilder(137, 337)
+                .append(latitude)
+                .append(longitude)
+                .append(name)
+                .toHashCode();
+    }
+
+    /**
+     * Defines the equals functions, allowing for easy equality testing
+     * Fails if the other location has same lat, lon, and name
+     * @param obj The object to compare
+     * @return Equality boolean
+     */
+    public boolean equals(Object obj) {
+        if (!( obj instanceof Location))
+            return false;
+        if (obj == this)
+            return true;
+
+        Location rhs = (Location) obj;
+        return new EqualsBuilder()
+                .append(latitude, rhs)
+                .append(longitude, rhs)
+                .append(name, rhs)
+                .isEquals();
     }
 }

@@ -14,10 +14,13 @@ import com.lynden.gmapsfx.service.geocoding.GeocodingResult;
 import com.lynden.gmapsfx.service.geocoding.GeocodingService;
 import com.lynden.gmapsfx.shapes.Polyline;
 import com.lynden.gmapsfx.shapes.PolylineOptions;
+import com.lynden.gmapsfx.shapes.Rectangle;
+import com.lynden.gmapsfx.util.MarkerImageFactory;
 import dataAnalysis.RetailLocation;
 import dataAnalysis.Route;
 import dataAnalysis.WifiLocation;
 import dataHandler.SQLiteDB;
+import dataManipulation.FindNearbyLocations;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
@@ -49,6 +52,9 @@ import java.util.ResourceBundle;
 
 public class PlanRouteController extends Controller implements Initializable, MapComponentInitializedListener, DirectionsServiceCallback {
 
+    private double STARTLAT = 40.745968;
+    private double STARTLON = -73.994039;
+
 
     @FXML
     protected TextField startAddressField;
@@ -75,6 +81,8 @@ public class PlanRouteController extends Controller implements Initializable, Ma
     private ArrayList<Marker> tripMarkers = new ArrayList<Marker>();
     private ArrayList<Polyline> tripLines = new ArrayList<Polyline>();
     private DecimalFormat numberFormat = new DecimalFormat("0.00");
+    private FindNearbyLocations nearbyFinder;
+    private LatLong currentPoint;
 
 
 
@@ -86,7 +94,10 @@ public class PlanRouteController extends Controller implements Initializable, Ma
         geocodingService = new GeocodingService();
         MapOptions mapOptions = new MapOptions();
 
-        mapOptions.center(new LatLong(40.745968, -73.994039))
+        currentPoint = new LatLong(STARTLAT, STARTLON);
+
+
+        mapOptions.center(new LatLong(STARTLAT, STARTLON))
                 .mapType(MapTypeIdEnum.ROADMAP)
                 .overviewMapControl(false)
                 .panControl(false)
@@ -101,6 +112,7 @@ public class PlanRouteController extends Controller implements Initializable, Ma
         directionsService = new DirectionsService();
         directionsPane = mapView.getDirec();
 
+        clearMarkers();
         addWifiMarkers(Main.wifiLocations);
         addRetailerMarkers(Main.retailLocations);
         addTripMarkers(Main.routes);
@@ -129,6 +141,7 @@ public class PlanRouteController extends Controller implements Initializable, Ma
         System.out.println("Init2");
         startAddress.bindBidirectional(startAddressField.textProperty());
         endAddress.bindBidirectional(endAddressField.textProperty());
+        nearbyFinder = new FindNearbyLocations(Main.getDB());
     }
 
     @FXML
@@ -142,11 +155,10 @@ public class PlanRouteController extends Controller implements Initializable, Ma
     }
 
     public void addWifiMarkers(ArrayList<WifiLocation> locations) {
-        for (Marker marker : wifiMarkers) {
-            map.removeClusterableMarker(marker);
-        }
-        wifiMarkers.clear();
+
         for (WifiLocation location : locations) {
+            if (Main.wifiLocations.contains(location))
+                continue;
             MarkerOptions options = new MarkerOptions();
             LatLong latLong = new LatLong(location.getLatitude(), location.getLongitude());
             options.position(latLong)
@@ -169,17 +181,16 @@ public class PlanRouteController extends Controller implements Initializable, Ma
                         .position(latLong);
                 InfoWindow infoWindow = new InfoWindow(infoWindowOptions);
                 infoWindow.open(map);
+                currentPoint = latLong;
             });
         }
     }
 
     public void addRetailerMarkers(ArrayList<RetailLocation> locations) {
-        for (Marker marker : retailerMarkers) {
-            map.removeClusterableMarker(marker);
-        }
-        System.out.println("Added1");
-        retailerMarkers.clear();
+
         for (RetailLocation location : locations) {
+            if (Main.retailLocations.contains(location))
+                continue;
             MarkerOptions options = new MarkerOptions();
             LatLong latLong = new LatLong(location.getLatitude(), location.getLongitude());
             options.position(latLong)
@@ -205,21 +216,15 @@ public class PlanRouteController extends Controller implements Initializable, Ma
                         .position(latLong);
                 InfoWindow infoWindow = new InfoWindow(infoWindowOptions);
                 infoWindow.open(map);
+                currentPoint = latLong;
             });
         }
     }
 
     public void addTripMarkers(ArrayList<Route> routes) {
-        for (Marker marker : tripMarkers) {
-            map.removeClusterableMarker(marker);
-        }
-        for (Polyline line : tripLines) {
-            map.removeMapShape(line);
-        }
-
-        tripMarkers.clear();
-        tripLines.clear();
         for (Route route : routes) {
+            if (Main.routes.contains(route))
+                continue;
             MarkerOptions options = new MarkerOptions();
             System.out.println(route.getStartLatitude());
             System.out.println(route.getStartLongitude());
@@ -228,7 +233,6 @@ public class PlanRouteController extends Controller implements Initializable, Ma
                     .title(route.getName())
                     .label("S")
                     .visible(true);
-                    //.icon(getClass().getClassLoader().getResource("Images/bluePin.png").getFile());
             Marker marker = new Marker(options);
 
             tripMarkers.add(marker);
@@ -244,7 +248,8 @@ public class PlanRouteController extends Controller implements Initializable, Ma
                                 "Distance: " + numberFormat.format(route.getDistance()) + "km")
                         .position(latLong);
                 InfoWindow infoWindow = new InfoWindow(infoWindowOptions);
-               infoWindow.open(map);
+                infoWindow.open(map);
+                currentPoint = latLong;
             });
 
             MarkerOptions options2 = new MarkerOptions();
@@ -271,6 +276,7 @@ public class PlanRouteController extends Controller implements Initializable, Ma
                         .position(latLong2);
                 InfoWindow infoWindow = new InfoWindow(infoWindowOptions);
                 infoWindow.open(map);
+                currentPoint = latLong2;
             });
 
             LatLong[] ary = new LatLong[]{latLong, latLong2};
@@ -283,16 +289,40 @@ public class PlanRouteController extends Controller implements Initializable, Ma
         }
     }
 
+    public void clearMarkers() {
+        for (Marker marker : wifiMarkers) {
+            map.removeClusterableMarker(marker);
+        }
+        wifiMarkers.clear();
+
+        for (Marker marker : retailerMarkers) {
+            map.removeClusterableMarker(marker);
+        }
+        retailerMarkers.clear();
+
+        for (Marker marker : tripMarkers) {
+            map.removeClusterableMarker(marker);
+        }
+        for (Polyline line : tripLines) {
+            map.removeMapShape(line);
+        }
+        tripMarkers.clear();
+        tripLines.clear();
+    }
+
     @FXML
     public void showNearbyRetailers() {
         //Called by GUI when show nearby retails button is pressed.
+        ArrayList<RetailLocation> retailLocations = nearbyFinder.findNearbyRetail(currentPoint.getLatitude(), currentPoint.getLongitude());
+        addRetailerMarkers(retailLocations);
 
     }
 
     @FXML
     public void showNearbyWifi() {
         //Called by GUI when show nearby wifi button is pressed.
-
+        ArrayList<WifiLocation> wifiLocations = nearbyFinder.findNearbyWifi(currentPoint.getLatitude(), currentPoint.getLongitude());
+        addWifiMarkers(wifiLocations);
     }
 
     @FXML

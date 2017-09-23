@@ -20,6 +20,7 @@ public class FindNearbyLocations {
 
     private void generateWifiArray(ResultSet rs) {
         try {
+            nearbyWifi.clear();
             while (rs.next()) {
                 nearbyWifi.add(new WifiLocation(rs.getDouble("wifi_id"), rs.getDouble("lat"),
                         rs.getDouble("lon"), rs.getString("address"),
@@ -53,43 +54,9 @@ public class FindNearbyLocations {
     }
 
 
-
-    public ArrayList<WifiLocation> findNearbyWifiToPoint(RetailLocation retailer) {
-        double pointLat = retailer.getLatitude();
-        double pointLong = retailer.getLongitude();
-        double upperLat  = pointLat + 0.01;
-        double lowerLat = pointLat - 0.01;
-        double upperLong = pointLong + 0.01;
-        double lowerLong = pointLong - 0.01;
-        ResultSet rs = generateWifiResultSet(lowerLat, upperLat, lowerLong, upperLong);
-        generateWifiArray(rs);
-
-        return nearbyWifi;
-    }
-
-
-    public ArrayList<WifiLocation> findNearbyWifiAlongRoute(Route route) {
-        double startLat = route.getStartLatitude();
-        double startLong = route.getStartLongitude();
-        double endLat = route.getEndLatitude();
-        double endLong = route.getEndLongitude();
-        double routeUpperLat = Double.max(startLat, endLat);
-        double routeLowerLat = Double.min(startLat, endLat);
-        double routeUpperLong = Double.max(startLong, endLong);
-        double routeLowerLong = Double.min(startLong, endLong);
-        double upperLat = routeUpperLat + 0.01;
-        double lowerLat = routeLowerLat - 0.01;
-        double upperLong = routeUpperLong + 0.01;
-        double lowerLong = routeLowerLong - 0.01;
-
-        ResultSet rs = generateWifiResultSet(lowerLat, upperLat, lowerLong, upperLong);
-        generateWifiArray(rs);
-        return nearbyWifi;
-    }
-
-
     private void generateRetailerArray(ResultSet rs) {
         try {
+            nearbyRetail.clear();
             while (rs.next()) {
                 nearbyRetail.add(new RetailLocation(rs.getString("retailer_name"),
                         rs.getString("address"), rs.getString("city"),
@@ -101,8 +68,6 @@ public class FindNearbyLocations {
             System.out.println(e.getMessage());
         }
     }
-
-
 
     private ResultSet generateRetailerResultSet(double lowerLat, double upperLat, double lowerLong, double upperLong) {
         PreparedStatement pstmt;
@@ -123,16 +88,38 @@ public class FindNearbyLocations {
         return rs;
     }
 
+    public ArrayList<WifiLocation> findNearbyWifi(double lat, double lon) {
+        ResultSet rs = generateWifiResultSet(lat - 0.01, lat + 0.01, lon - 0.01, lon + 0.01);
+        generateWifiArray(rs);
+        return nearbyWifi;
+    }
 
-    public ArrayList<RetailLocation> findNearByRetailerAlongRoute(Route route) {
-        double startLat = route.getStartLatitude();
-        double startLong = route.getStartLongitude();
-        double endLat = route.getEndLatitude();
-        double endLong = route.getEndLongitude();
-        double routeUpperLat = Double.max(startLat, endLat);
-        double routeLowerLat = Double.min(startLat, endLat);
-        double routeUpperLong = Double.max(startLong, endLong);
-        double routeLowerLong = Double.min(startLong, endLong);
+    public ArrayList<WifiLocation> findNearbyWifi(double lat1, double lon1, double lat2, double lon2) {
+        double routeUpperLat = Double.max(lat1, lat2);
+        double routeLowerLat = Double.min(lat1, lat2);
+        double routeUpperLong = Double.max(lon1, lon2);
+        double routeLowerLong = Double.min(lon1, lon2);
+        double upperLat = routeUpperLat + 0.01;
+        double lowerLat = routeLowerLat - 0.01;
+        double upperLong = routeUpperLong + 0.01;
+        double lowerLong = routeLowerLong - 0.01;
+
+        ResultSet rs = generateWifiResultSet(lowerLat, upperLat, lowerLong, upperLong);
+        generateWifiArray(rs);
+        return nearbyWifi;
+    }
+
+    public ArrayList<RetailLocation> findNearbyRetail(double lat, double lon) {
+        ResultSet rs = generateRetailerResultSet(lat - 0.01, lat + 0.01, lon - 0.01, lon + 0.01);
+        generateRetailerArray(rs);
+        return nearbyRetail;
+    }
+
+    public ArrayList<RetailLocation> findNearbyRetail(double lat1, double lon1, double lat2, double lon2) {
+        double routeUpperLat = Double.max(lat1, lat2);
+        double routeLowerLat = Double.min(lat1, lat2);
+        double routeUpperLong = Double.max(lon1, lon2);
+        double routeLowerLong = Double.min(lon1, lon2);
         double upperLat = routeUpperLat + 0.01;
         double lowerLat = routeLowerLat - 0.01;
         double upperLong = routeUpperLong + 0.01;
