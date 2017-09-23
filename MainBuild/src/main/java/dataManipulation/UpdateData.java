@@ -14,19 +14,18 @@ public class UpdateData {
     
     public static void updateRouteField(String field, String value, String bikeID, String year, String month, String day, String time) {
         SQLiteDB db = Main.getDB();
-        String sqlCommand = "UPDATE route_information SET ? = ? WHERE" +
+        String sqlCommand = "UPDATE route_information SET " + value + " = ? WHERE" +
                 "bikeid = ? AND start_year = ? AND start_month = ? AND start_day = ? AND start_time = ?;";
 
         try {
             PreparedStatement pstmt = db.getPreparedStatement(sqlCommand);
 
-            pstmt.setString(1, field);
-            pstmt.setString(2, value);
-            pstmt.setString(3, bikeID);
-            pstmt.setString(4, year);
-            pstmt.setString(5, month);
-            pstmt.setString(6, day);
-            pstmt.setString(7, time);
+            pstmt.setString(1, value);
+            pstmt.setString(2, bikeID);
+            pstmt.setString(3, year);
+            pstmt.setString(4, month);
+            pstmt.setString(5, day);
+            pstmt.setString(6, time);
 
             pstmt.executeUpdate();
 
