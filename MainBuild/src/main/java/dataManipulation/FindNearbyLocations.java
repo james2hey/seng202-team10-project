@@ -61,6 +61,7 @@ public class FindNearbyLocations {
                 nearbyRetail.add(new RetailLocation(rs.getString("retailer_name"),
                         rs.getString("address"), rs.getString("city"),
                         rs.getString("main_type"), rs.getString("secondary_type"),
+                        rs.getString("state"),
                         rs.getInt("zip"), rs.getDouble("lat"),
                         rs.getDouble("long")));
             }
