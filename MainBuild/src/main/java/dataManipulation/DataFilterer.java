@@ -338,7 +338,7 @@ public class DataFilterer {
     private void generateWifiArray(ResultSet rs) {
         try {
             while (rs.next()) {
-                wifiLocations.add(new WifiLocation(rs.getDouble("wifi_id"), rs.getDouble("lat"),
+                wifiLocations.add(new WifiLocation(rs.getString("wifi_id"), rs.getDouble("lat"),
                         rs.getDouble("lon"), rs.getString("address"),
                         rs.getString("ssid"), rs.getString("cost"),
                         rs.getString("provider"), rs.getString("remarks"),

@@ -23,7 +23,7 @@ public class FindNearbyLocations {
         try {
             nearbyWifi.clear();
             while (rs.next()) {
-                nearbyWifi.add(new WifiLocation(rs.getDouble("wifi_id"), rs.getDouble("lat"),
+                nearbyWifi.add(new WifiLocation(rs.getString("wifi_id"), rs.getDouble("lat"),
                         rs.getDouble("lon"), rs.getString("address"),
                         rs.getString("ssid"), rs.getString("cost"),
                         rs.getString("provider"), rs.getString("remarks"),

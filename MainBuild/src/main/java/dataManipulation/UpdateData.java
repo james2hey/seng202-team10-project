@@ -35,7 +35,7 @@ public class UpdateData {
     }
 
 
-    public static void updateWifiField(String field, String value, int wifiID) {
+    public static void updateWifiField(String field, String value, String wifiID) {
         SQLiteDB db = Main.getDB();
         String sqlCommand = "UPDATE wifi_location SET " + field + " = ? WHERE wifi_id = ?;";
 
@@ -44,7 +44,7 @@ public class UpdateData {
             System.out.println(sqlCommand);
             System.out.println(wifiID);
             pstmt.setString(1, value);
-            pstmt.setInt(2, wifiID);
+            pstmt.setString(2, wifiID);
 
             pstmt.executeUpdate();
 

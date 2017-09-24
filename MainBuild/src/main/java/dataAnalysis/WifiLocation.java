@@ -9,12 +9,11 @@ import dataManipulation.UpdateData;
 
 public class WifiLocation extends Location {
     private int zip;
-    private double wifiID;
-    private String SSID, cost, provider, remarks, city, suburb;
+    private String SSID, cost, provider, remarks, city, suburb, wifiID;
 
 
     // Constructor
-    public WifiLocation(double id, double wifiLatitude, double wifiLongitude, String wifiAddress, String wifiSSID,
+    public WifiLocation(String id, double wifiLatitude, double wifiLongitude, String wifiAddress, String wifiSSID,
                         String wifiCost, String wifiProvider, String wifiRemarks, String wifiCity, String wifiSuburb,
                         int wifiZIP) {
         wifiID = id;
@@ -47,7 +46,7 @@ public class WifiLocation extends Location {
 
     public String getCity() {return city;}
 
-    public double getWifiID() {return  wifiID;}
+    public String  getWifiID() {return  wifiID;}
 
     public double getLatitude() {return latitude;}
 
@@ -58,90 +57,70 @@ public class WifiLocation extends Location {
     public void setZip(int newZip) {
         if (newZip != zip) {
             zip = newZip;
-            Double w = wifiID;
-            Integer key = w.intValue();
-            UpdateData.updateWifiField("zip", Integer.toString(zip), key);
+            UpdateData.updateWifiField("zip", Integer.toString(zip), wifiID);
         }
     }
 
     public void setAddress(String newAddress) {
         if (!newAddress.equals(address)) {
             address = newAddress;
-            Double w = wifiID;
-            Integer key = w.intValue();
-            UpdateData.updateWifiField("address", address, key);
+            UpdateData.updateWifiField("address", address, wifiID);
         }
     }
 
     public void setProvider(String newProvider) {
         if (!newProvider.equals(provider)) {
             provider = newProvider;
-            Double w = wifiID;
-            Integer key = w.intValue();
-            UpdateData.updateWifiField("provider", provider, key);
+            UpdateData.updateWifiField("provider", provider, wifiID);
         }
     }
 
     public void setSuburb(String newSuburb) {
         if (!newSuburb.equals(suburb)) {
             suburb = newSuburb;
-            Double w = wifiID;
-            Integer key = w.intValue();
-            UpdateData.updateWifiField("suburb", suburb, key);
+            UpdateData.updateWifiField("suburb", suburb, wifiID);
         }
     }
 
     public void setCost(String newCost) {
         if (!newCost.equals(cost)) {
             cost = newCost;
-            Double w = wifiID;
-            Integer key = w.intValue();
-            UpdateData.updateWifiField("cost", cost, key);
+            UpdateData.updateWifiField("cost", cost, wifiID);
         }
     }
 
     public void setSSID(String newSSID) {
         if (!newSSID.equals(SSID)) {
             SSID = newSSID;
-            Double w = wifiID;
-            Integer key = w.intValue();
-            UpdateData.updateWifiField("ssid", SSID, key);
+            UpdateData.updateWifiField("ssid", SSID, wifiID);
         }
     }
 
     public void setRemarks(String newRemark) {
         if (!newRemark.equals(remarks)) {
             remarks = newRemark;
-            Double w = wifiID;
-            Integer key = w.intValue();
-            UpdateData.updateWifiField("remarks", remarks, key);
+            UpdateData.updateWifiField("remarks", remarks, wifiID);
         }
     }
 
     public void setCity(String newCity) {
         if (!newCity.equals(city)) {
             city = newCity;
-            Double w = wifiID;
-            Integer key = w.intValue();
-            UpdateData.updateWifiField("city", city, key);
+            UpdateData.updateWifiField("city", city, wifiID);
         }
     }
 
     public void setLatitude(double newLat) {
         if (newLat != latitude) {
             latitude = newLat;
-            Double w = wifiID;
-            Integer key = w.intValue();
-            UpdateData.updateWifiField("lat", Double.toString(latitude), key);
+            UpdateData.updateWifiField("lat", Double.toString(latitude), wifiID);
         }
     }
 
     public void setLongitude(double newLong) {
         if (newLong != longitude) {
             longitude = newLong;
-            Double w = wifiID;
-            Integer key = w.intValue();
-            UpdateData.updateWifiField("lon", Double.toString(longitude), key);
+            UpdateData.updateWifiField("lon", Double.toString(longitude), wifiID);
         }
     }
 }

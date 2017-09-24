@@ -59,7 +59,7 @@ public class DetailedWifiInformation extends DataViewerController {
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
         currentWifi = WifiDataViewerController.getWifi();
-        wifiID.setText(Double.toString(currentWifi.getWifiID()));
+        wifiID.setText(currentWifi.getWifiID());
         address.setText(currentWifi.getAddress());
         provider.setText(currentWifi.getProvider());
         cost.getSelectionModel().select(currentWifi.getCost());

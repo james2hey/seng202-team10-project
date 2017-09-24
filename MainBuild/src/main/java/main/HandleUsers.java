@@ -112,7 +112,7 @@ public class HandleUsers {
 
                 ps.setInt(1, rsFavourites.getInt(2));
                 rsWifi = ps.executeQuery();
-                tempWifi = new WifiLocation(rsWifi.getDouble("wifi_id"), rsWifi.getDouble("lat"),
+                tempWifi = new WifiLocation(rsWifi.getString("wifi_id"), rsWifi.getDouble("lat"),
                         rsWifi.getDouble("lon"), rsWifi.getString("address"),
                         rsWifi.getString("ssid"), rsWifi.getString("cost"),
                         rsWifi.getString("provider"), rsWifi.getString("remarks"),

@@ -33,7 +33,7 @@ public class FavouriteWifiData {
      * @param name name of the user
      * @param WIFI_ID identification number of the wifi service
      */
-    public void addFavouriteWifi(String name, double WIFI_ID) {
+    public void addFavouriteWifi(String name, String WIFI_ID) {
         try {
             addWifi.setObject(1, name);
             addWifi.setObject(2, WIFI_ID);
