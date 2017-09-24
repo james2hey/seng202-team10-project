@@ -15,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -153,6 +154,17 @@ public abstract class Controller {
         if (alert.getResult() == ButtonType.OK) {
             System.out.println("");
         }
+    }
+
+    @FXML
+    public void getHelp(ActionEvent event) throws IOException{
+        Stage popup = new Stage();
+        popup.initModality(Modality.WINDOW_MODAL);
+        popup.initOwner(((Node) event.getSource()).getScene().getWindow());
+        Parent popupParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/help.fxml"));
+        Scene popupScene = new Scene(popupParent);
+        popup.setScene(popupScene);
+        popup.show();
     }
 
 

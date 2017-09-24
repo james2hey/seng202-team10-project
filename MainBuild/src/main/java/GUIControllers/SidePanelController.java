@@ -50,13 +50,7 @@ public class SidePanelController extends Controller{
 
     @FXML
     void openHelpStage(ActionEvent event) throws IOException{
-        Stage popup = new Stage();
-        popup.initModality(Modality.WINDOW_MODAL);
-        popup.initOwner(((Node) event.getSource()).getScene().getWindow());
-        Parent popupParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/help.fxml"));
-        Scene popupScene = new Scene(popupParent);
-        popup.setScene(popupScene);
-        popup.show();
+        getHelp(event);
     }
 
 }

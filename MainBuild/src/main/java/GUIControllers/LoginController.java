@@ -10,8 +10,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
-import main.HandleUsers;
 import main.Main;
 
 import java.io.IOException;
@@ -105,6 +105,16 @@ public class LoginController extends Controller implements Initializable {
         Scene homeScene = new Scene(homeParent);
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.setScene(homeScene);
+    }
+
+    /**
+     * Displays the help screen.
+     * @param event clicking the help button
+     * @throws IOException
+     */
+    @FXML
+    private void openHelpStage(ActionEvent event) throws IOException {
+        getHelp(event);
     }
 
 }

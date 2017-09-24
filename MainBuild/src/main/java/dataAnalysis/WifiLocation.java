@@ -13,7 +13,7 @@ public class WifiLocation extends Location {
 
     // Constructor
     public WifiLocation(double id, double wifiLatitude, double wifiLongitude, String wifiAddress, String wifiSSID,
-                        String wifiCost, String wifiProvier, String wifiRemarks, String wifiCity, String wifiSuburb,
+                        String wifiCost, String wifiProvider, String wifiRemarks, String wifiCity, String wifiSuburb,
                         int wifiZIP) {
         wifiID = id;
         latitude = wifiLatitude;
@@ -21,7 +21,7 @@ public class WifiLocation extends Location {
         address = wifiAddress;
         SSID = wifiSSID;
         cost = wifiCost;
-        provider = wifiProvier;
+        provider = wifiProvider;
         remarks = wifiRemarks;
         city = wifiCity;
         suburb = wifiSuburb;

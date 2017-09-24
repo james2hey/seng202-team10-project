@@ -76,7 +76,7 @@ public class Cyclist {
 
 
     /**
-     * Updates the users favourite routes. This will set the Rank variable for the new Route object that has been added.
+     * Updates the users favourite routes. This will set the rank variable for the new Route object that has been added.
      */
     public void updateUserRouteFavourites() {
         favouriteRouteList.clear();
