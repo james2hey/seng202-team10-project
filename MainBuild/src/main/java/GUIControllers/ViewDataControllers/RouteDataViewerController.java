@@ -35,11 +35,9 @@ public class RouteDataViewerController extends DataViewerController {
 
     static private Route route = null;
 
-    @FXML
-    private JFXToggleButton female;
 
     @FXML
-    private JFXToggleButton male;
+    private ToggleGroup genderGroup;
 
     @FXML
     private JFXTextField startLocationInput;
@@ -107,12 +105,11 @@ public class RouteDataViewerController extends DataViewerController {
         System.out.println("Display button pressed");
 
         int gender;
-        if((male.isSelected() == true && female.isSelected() == true) || (male.isSelected() == false && female.isSelected() == false)) {
+        System.out.println(genderGroup.getSelectedToggle());
+        if(genderGroup.getSelectedToggle() == null) {
             gender = -1;
-        } else if (male.isSelected() == true){
-            gender = Integer.valueOf(male.getUserData().toString());
         } else {
-            gender = Integer.valueOf(female.getUserData().toString());
+            gender = Integer.parseInt(genderGroup.getSelectedToggle().getUserData().toString());
         }
 
         String dateLower;
