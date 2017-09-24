@@ -10,7 +10,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 
-public class DetailedRetailerInformation {
+public class DetailedRetailerInformation extends DataViewerController{
 
     @FXML
     private JFXTextField zip;
@@ -46,6 +46,7 @@ public class DetailedRetailerInformation {
 
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
+        System.out.println("here--------------------");
         currentRetailer = RetailerDataViewerController.getRetailer();
         retailerName.setText(currentRetailer.getName());
         address.setText(currentRetailer.getAddress());
@@ -61,7 +62,15 @@ public class DetailedRetailerInformation {
 
     @FXML
     void updateValues(ActionEvent event) {
-
+        currentRetailer.setAddress(address.getText());
+        currentRetailer.setLatitude(Double.parseDouble(latitude.getText()));
+        currentRetailer.setLongitude(Double.parseDouble(longitude.getText()));
+        currentRetailer.setCity(city.getText());
+        currentRetailer.setState(state.getText());
+        currentRetailer.setZip(Integer.parseInt(zip.getText()));
+        currentRetailer.setMainType(mainType.getText());
+        currentRetailer.setSecondaryType(secondaryType.getText());
+        System.out.println("----------------------------------");
     }
 
 }
