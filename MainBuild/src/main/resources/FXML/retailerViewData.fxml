@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import com.jfoenix.controls.*?>
 <?import javafx.collections.*?>
 <?import com.jfoenix.controls.JFXDrawer?>
@@ -42,6 +43,7 @@
             <VBox prefHeight="161.0" prefWidth="103.0">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name: " />
                </children>
             </VBox>
             <VBox prefHeight="161.0" prefWidth="103.0">
@@ -71,7 +73,17 @@
       </TableView>
       <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="5" GridPane.rowIndex="2">
          <children>
-            <VBox prefHeight="161.0" prefWidth="103.0" />
+            <VBox prefHeight="161.0" prefWidth="103.0">
+               <children>
+                  <JFXTextField fx:id="nameInput" prefHeight="23.0" prefWidth="180.0" promptText="Name">
+                     <padding>
+                        <Insets top="10.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </JFXTextField>
+               </children></VBox>
             <VBox prefHeight="161.0" prefWidth="103.0">
                <children>
                   <JFXTextField fx:id="streetInput" prefHeight="23.0" prefWidth="180.0" promptText="Address" />
