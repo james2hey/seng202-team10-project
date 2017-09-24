@@ -162,11 +162,10 @@ public class PlanRouteController extends Controller implements Initializable, Ma
                                 "SSID: " + location.getSSID() + "<br>" +
                                         "Provider: " + location.getProvider() + "<br>" +
                                         "Address: " + location.getAddress() + "<br>" +
-                                        "Extra Info: " + location.getRemarks())
-                        .position(latLong);
+                                        "Extra Info: " + location.getRemarks());
                 currentInfoWindow.close();
                 currentInfoWindow = new InfoWindow(infoWindowOptions);
-                currentInfoWindow.open(map);
+                currentInfoWindow.open(map, marker);
                 currentPoint = latLong;
             });
         }
@@ -203,11 +202,10 @@ public class PlanRouteController extends Controller implements Initializable, Ma
                                 "Name: " + location.getName() + "<br>" +
                                         "Address: " + location.getAddress() + "<br>" +
                                         "Category: " + location.getMainType() + "<br>" +
-                                        "Extra Info: " + location.getSecondaryType())
-                        .position(latLong);
+                                        "Extra Info: " + location.getSecondaryType());
                 currentInfoWindow.close();
                 currentInfoWindow = new InfoWindow(infoWindowOptions);
-                currentInfoWindow.open(map);
+                currentInfoWindow.open(map, marker);
                 currentPoint = latLong;
             });
         }
@@ -268,11 +266,10 @@ public class PlanRouteController extends Controller implements Initializable, Ma
                                             "Start Date: " + route.getStartDate() + "<br>" +
                                             "Start Time: " + route.getStartTime() + "<br>" +
                                             "Duration: " + HelperFunctions.secondsToString(route.getDuration()) + "<br>" +
-                                            "Distance: " + numberFormat.format(route.getDistance()) + "km")
-                            .position(latLong);
+                                            "Distance: " + numberFormat.format(route.getDistance()) + "km");
                     currentInfoWindow.close();
                     currentInfoWindow = new InfoWindow(infoWindowOptions);
-                    currentInfoWindow.open(map);
+                    currentInfoWindow.open(map, marker);
                     currentPoint = latLong;
                 });
 

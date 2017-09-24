@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
+<?import javafx.collections.*?>
 <?import com.jfoenix.controls.JFXDrawer?>
 <?import com.jfoenix.controls.JFXHamburger?>
 <?import com.jfoenix.controls.JFXTextField?>
@@ -8,6 +10,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
+
 <GridPane hgap="40.0" prefHeight="650.0" prefWidth="1100.0" style="-fx-background-color: grey;" vgap="30.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIControllers.ViewDataControllers.RetailerDataViewerController">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="269.0" minWidth="10.0" prefWidth="29.0" />
@@ -113,6 +116,6 @@
       </Label>
       <Button mnemonicParsing="false" onAction="#editData" prefHeight="25.0" prefWidth="206.0" text="View/Edit Retailer" GridPane.columnIndex="1" GridPane.rowIndex="4" />
       <Button mnemonicParsing="false" onAction="#displaySelectedDataOnMap" prefHeight="25.0" prefWidth="206.0" text="View Selected On Map" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-      <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" GridPane.rowSpan="6" />
+      <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" GridPane.rowSpan="7" />
    </children>
 </GridPane>
