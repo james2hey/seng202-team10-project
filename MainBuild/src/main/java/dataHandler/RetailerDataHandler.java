@@ -1,8 +1,7 @@
 package dataHandler;
 
-import com.google.maps.errors.ApiException;
 import com.opencsv.CSVReader;
-import javafx.scene.control.Alert;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.PreparedStatement;

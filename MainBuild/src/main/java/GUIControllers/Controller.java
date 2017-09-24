@@ -2,9 +2,6 @@ package GUIControllers;
 
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
-import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
-import com.jfoenix.transitions.hamburger.HamburgerBasicCloseTransition;
-import com.lynden.gmapsfx.javascript.object.LatLong;
 import dataAnalysis.RetailLocation;
 import dataAnalysis.Route;
 import dataAnalysis.WifiLocation;
@@ -17,15 +14,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public abstract class Controller {
 

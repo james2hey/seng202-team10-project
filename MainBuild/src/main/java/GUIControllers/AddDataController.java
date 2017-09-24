@@ -1,30 +1,21 @@
 package GUIControllers;
 
-import com.google.maps.errors.ApiException;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXTextField;
-
-import com.lynden.gmapsfx.javascript.object.LatLong;
 import dataHandler.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.SplitPane;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import main.HandleUsers;
 import main.Main;
 import tornadofx.control.DateTimePicker;
-
 
 import java.io.File;
 import java.io.IOException;

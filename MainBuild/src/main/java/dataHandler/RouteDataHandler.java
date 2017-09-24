@@ -4,7 +4,6 @@ import com.opencsv.CSVReader;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
-import org.joda.time.Interval;
 
 import java.io.FileReader;
 import java.io.IOException;

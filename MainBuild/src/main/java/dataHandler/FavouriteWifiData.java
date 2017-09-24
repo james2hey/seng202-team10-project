@@ -1,7 +1,5 @@
 package dataHandler;
 
-import dataHandler.SQLiteDB;
-
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 

@@ -1,8 +1,5 @@
 package main;
 
-import dataAnalysis.RetailLocation;
-import dataAnalysis.Route;
-import dataAnalysis.WifiLocation;
 import dataHandler.*;
 import dataManipulation.FindNearbyLocations;
 import javafx.application.Application;
@@ -10,8 +7,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
-import java.util.ArrayList;
 
 public class Main extends Application {
     static SQLiteDB db;

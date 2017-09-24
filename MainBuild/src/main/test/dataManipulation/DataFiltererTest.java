@@ -3,7 +3,10 @@ package dataManipulation;
 import dataAnalysis.RetailLocation;
 import dataAnalysis.Route;
 import dataAnalysis.WifiLocation;
-import dataHandler.*;
+import dataHandler.RetailerDataHandler;
+import dataHandler.RouteDataHandler;
+import dataHandler.SQLiteDB;
+import dataHandler.WifiDataHandler;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -12,7 +15,7 @@ import org.junit.Test;
 import java.nio.file.Files;
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 //----------------------------------------------------------------
 //--------ALL TESTS MUST BE RUN WITH THE TEST DATA FILES----------

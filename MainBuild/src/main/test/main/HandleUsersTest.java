@@ -3,18 +3,17 @@ package main;
 import dataAnalysis.RetailLocation;
 import dataAnalysis.Route;
 import dataAnalysis.WifiLocation;
-import dataHandler.*;
+import dataHandler.SQLiteDB;
 import dataManipulation.DataFilterer;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 
-
 import java.nio.file.Files;
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 
 /**

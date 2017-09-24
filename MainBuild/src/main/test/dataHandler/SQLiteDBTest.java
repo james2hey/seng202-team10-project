@@ -1,14 +1,11 @@
 package dataHandler;
 
-import dataManipulation.DataFilterer;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.nio.file.Files;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by jes143 on 19/09/17.

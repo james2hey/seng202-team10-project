@@ -1,19 +1,19 @@
 package dataManipulation;
 
 import dataAnalysis.RetailLocation;
-import dataAnalysis.Route;
-
 import dataAnalysis.WifiLocation;
-import dataHandler.*;
+import dataHandler.Geocoder;
+import dataHandler.RetailerDataHandler;
+import dataHandler.SQLiteDB;
+import dataHandler.WifiDataHandler;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 
 

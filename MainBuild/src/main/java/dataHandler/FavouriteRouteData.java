@@ -1,7 +1,5 @@
 package dataHandler;
 
-import dataHandler.SQLiteDB;
-import main.HandleUsers;
 import main.Main;
 
 import java.sql.PreparedStatement;

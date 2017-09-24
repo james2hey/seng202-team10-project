@@ -1,11 +1,9 @@
 package GUIControllers;
 
-import com.lynden.gmapsfx.ClusteredGoogleMapView;
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.MapComponentInitializedListener;
 import com.lynden.gmapsfx.javascript.event.UIEventType;
 import com.lynden.gmapsfx.javascript.object.*;
-
 import com.lynden.gmapsfx.service.directions.*;
 import com.lynden.gmapsfx.service.geocoding.GeocodingService;
 import com.lynden.gmapsfx.shapes.Polyline;
@@ -13,7 +11,6 @@ import com.lynden.gmapsfx.shapes.PolylineOptions;
 import dataAnalysis.RetailLocation;
 import dataAnalysis.Route;
 import dataAnalysis.WifiLocation;
-import dataHandler.SQLiteDB;
 import dataManipulation.FindNearbyLocations;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -21,11 +18,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
-import main.CurrentStates;
-import main.Main;
 import main.HelperFunctions;
+import main.Main;
 import netscape.javascript.JSObject;
-
 
 import java.io.IOException;
 import java.net.URL;

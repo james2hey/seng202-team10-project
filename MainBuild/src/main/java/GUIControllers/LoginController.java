@@ -10,7 +10,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.Main;
 
@@ -18,7 +17,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import java.util.ResourceBundle;
 
 import static java.lang.Character.isLetter;
@@ -118,4 +116,3 @@ public class LoginController extends Controller implements Initializable {
     }
 
 }
-

@@ -1,9 +1,6 @@
 package GUIControllers.ViewDataControllers;
 
-import GUIControllers.PlanRouteController;
 import com.jfoenix.controls.JFXTextField;
-import com.jfoenix.controls.JFXToggleButton;
-import dataAnalysis.RetailLocation;
 import customExceptions.FilterByTimeException;
 import dataAnalysis.Route;
 import dataManipulation.DataFilterer;
@@ -19,8 +16,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import main.CurrentStates;
-import main.HandleUsers;
 import main.Main;
 
 import java.io.IOException;

@@ -1,13 +1,8 @@
 package dataEntryTest;
 
 import GUIControllers.AddDataController;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.Assert.*;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class ImportTest {

@@ -1,11 +1,12 @@
 package dataManipulation;
 
-import dataAnalysis.Route;
-import dataAnalysis.WifiLocation;
 import dataAnalysis.RetailLocation;
+import dataAnalysis.WifiLocation;
 import dataHandler.SQLiteDB;
 
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 
