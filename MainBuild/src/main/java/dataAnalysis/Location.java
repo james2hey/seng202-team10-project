@@ -8,16 +8,18 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
  * be generalised as a location and then further extended.
  */
 public abstract class Location {
+    public int number;
     public double latitude, longitude;
     public String name, address;
 
     public Location(){}
 
-    public Location(double latitude, double longitude, String name, String address) {
+    public Location(double latitude, double longitude, String name, String address, int number) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.name = name;
         this.address = address;
+        this.number = number;
     }
 
     public double getLatitude() {
@@ -47,6 +49,10 @@ public abstract class Location {
     public String getAddress() { return address;}
 
     public void setAddress(String address) {this.address = address;}
+
+    public int getNumber() {return number;}
+
+    public void setNumber(int number) {this.number = number;}
 
     public String getString() {
         String la = Double.toString(latitude);

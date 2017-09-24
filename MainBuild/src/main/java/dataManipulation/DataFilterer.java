@@ -109,7 +109,9 @@ public class DataFilterer {
                         rs.getDouble("start_longitude"), rs.getDouble("end_latitude"),
                         rs.getDouble("end_longitude"), rs.getInt("start_station_id"),
                         rs.getInt("end_station_id"), rs.getString("start_station_name"),
-                        rs.getString("end_station_name"), rs.getString("bikeid")));
+                        rs.getString("end_station_name"), rs.getString("bikeid"),
+                        rs.getInt("gender"), rs.getString("usertype"),
+                        rs.getInt("birth_year")));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -416,8 +418,8 @@ public class DataFilterer {
                 retailLocations.add(new RetailLocation(rs.getString("retailer_name"),
                         rs.getString("address"), rs.getString("city"),
                         rs.getString("main_type"), rs.getString("secondary_type"),
-                        rs.getInt("zip"), rs.getDouble("lat"),
-                        rs.getDouble("long")));
+                        rs.getString("state"), rs.getInt("zip"),
+                        rs.getDouble("lat"), rs.getDouble("long")));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());

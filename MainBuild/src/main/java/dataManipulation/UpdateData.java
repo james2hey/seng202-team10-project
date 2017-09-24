@@ -37,14 +37,13 @@ public class UpdateData {
 
     public static void updateWifiField(String field, String value, String wifiID) {
         SQLiteDB db = Main.getDB();
-        String sqlCommand = "UPDATE wifi_location SET ? = ? WHERE wifi_id = ?;";
+        String sqlCommand = "UPDATE wifi_location SET " + field + " = ? WHERE wifi_id = ?;";
 
         try {
             PreparedStatement pstmt = db.getPreparedStatement(sqlCommand);
 
-            pstmt.setString(1, field);
-            pstmt.setString(2, value);
-            pstmt.setString(3, wifiID);
+            pstmt.setString(1, value);
+            pstmt.setString(2, wifiID);
 
             pstmt.executeUpdate();
 
@@ -56,15 +55,14 @@ public class UpdateData {
 
     public static void updateRetailerField(String field, String value, String name, String address) {
         SQLiteDB db = Main.getDB();
-        String sqlCommand = "UPDATE retailer SET ? = ? WHERE retailer_name = ? AND address = ?;";
+        String sqlCommand = "UPDATE retailer SET " + field + " = ? WHERE retailer_name = ? AND address = ?;";
 
         try {
             PreparedStatement pstmt = db.getPreparedStatement(sqlCommand);
 
-            pstmt.setString(1, field);
-            pstmt.setString(2, value);
-            pstmt.setString(3, name);
-            pstmt.setString(4, address);
+            pstmt.setString(1, value);
+            pstmt.setString(2, name);
+            pstmt.setString(3, address);
 
             pstmt.executeUpdate();
 
