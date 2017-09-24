@@ -9,6 +9,24 @@
 <?import javafx.collections.FXCollections?>
 
 <GridPane hgap="40.0" prefHeight="650.0" prefWidth="1100.0" style="-fx-background-color: grey;" vgap="30.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIControllers.ViewDataControllers.RetailerDataViewerController">
+   <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="269.0" minWidth="10.0" prefWidth="29.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="269.0" minWidth="10.0" prefWidth="153.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="269.0" minWidth="10.0" prefWidth="180.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="269.0" minWidth="5.0" prefWidth="151.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="616.0" minWidth="10.0" prefWidth="99.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="595.0" minWidth="10.0" prefWidth="229.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="455.0" minWidth="0.0" prefWidth="0.0" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints maxHeight="201.0" minHeight="10.0" prefHeight="91.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="392.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="475.0" minHeight="0.0" prefHeight="328.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="465.0" minHeight="1.0" prefHeight="1.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="465.0" minHeight="0.0" prefHeight="33.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="465.0" minHeight="0.0" prefHeight="33.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="465.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+   </rowConstraints>
    <children>
       <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Retailer Data Viewer" textAlignment="CENTER" wrappingWidth="953.193359375" GridPane.columnIndex="1" GridPane.columnSpan="6">
          <font>
@@ -97,22 +115,4 @@
       <Button mnemonicParsing="false" onAction="#displaySelectedDataOnMap" prefHeight="25.0" prefWidth="206.0" text="View Selected On Map" GridPane.columnIndex="2" GridPane.rowIndex="4" />
       <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" GridPane.rowSpan="6" />
    </children>
-   <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="269.0" minWidth="10.0" prefWidth="29.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="269.0" minWidth="10.0" prefWidth="153.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="269.0" minWidth="10.0" prefWidth="180.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="269.0" minWidth="5.0" prefWidth="151.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="616.0" minWidth="10.0" prefWidth="66.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="595.0" minWidth="10.0" prefWidth="254.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="455.0" minWidth="0.0" prefWidth="0.0" />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints maxHeight="201.0" minHeight="10.0" prefHeight="91.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="392.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="475.0" minHeight="0.0" prefHeight="328.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="465.0" minHeight="0.0" prefHeight="28.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="465.0" minHeight="0.0" prefHeight="20.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="465.0" minHeight="10.0" prefHeight="11.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="465.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
-   </rowConstraints>
 </GridPane>
