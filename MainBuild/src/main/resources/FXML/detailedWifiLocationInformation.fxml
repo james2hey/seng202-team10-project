@@ -5,6 +5,9 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<?import javafx.scene.control.ComboBox?>
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="555.0" prefWidth="600.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIControllers.ViewDataControllers.DetailedWifiInformation">
    <children>
       <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Detailed Wifi Location Information" textAlignment="CENTER" wrappingWidth="597.7294921875">
@@ -130,7 +133,15 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <JFXTextField fx:id="cost" prefHeight="23.0" prefWidth="173.0" />
+                        <ComboBox fx:id="cost" prefHeight="23.0" prefWidth="173.0">
+                           <items>
+                              <FXCollections fx:factory="observableArrayList">
+                                 <String fx:value="Free" />
+                                 <String fx:value="Limited Free" />
+                                 <String fx:value="Paid" />
+                              </FXCollections>
+                           </items>
+                        </ComboBox>
                      </children>
                   </HBox>
                </children>
@@ -172,7 +183,17 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <JFXTextField fx:id="suburb" prefHeight="23.0" prefWidth="174.0" />
+                        <ComboBox fx:id="suburb" prefHeight="23.0" prefWidth="174.0">
+                           <items>
+                              <FXCollections fx:factory="observableArrayList">
+                                 <String fx:value="Manhattan" />
+                                 <String fx:value="Brooklyn" />
+                                 <String fx:value="Queens" />
+                                 <String fx:value="Bronx" />
+                                 <String fx:value="Staten Island" />
+                              </FXCollections>
+                           </items>
+                        </ComboBox>
                      </children>
                   </HBox>
                </children>

@@ -6,6 +6,7 @@ import dataAnalysis.RetailLocation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -34,13 +35,10 @@ public class DetailedRetailerInformation extends DataViewerController{
     private JFXTextField city;
 
     @FXML
-    private JFXTextField wifiID;
-
-    @FXML
     private JFXTextField state;
 
     @FXML
-    private JFXTextField mainType;
+    private ComboBox<String> mainType;
 
     @FXML
     private JFXTextField longitude;
@@ -63,7 +61,7 @@ public class DetailedRetailerInformation extends DataViewerController{
         city.setText(currentRetailer.getCity());
         state.setText(currentRetailer.getState());
         zip.setText(Integer.toString(currentRetailer.getZip()));
-        mainType.setText(currentRetailer.getMainType());
+        mainType.getSelectionModel().select(currentRetailer.getMainType());
         secondaryType.setText(currentRetailer.getSecondaryType());
 
     }
@@ -76,7 +74,7 @@ public class DetailedRetailerInformation extends DataViewerController{
         currentRetailer.setCity(city.getText());
         currentRetailer.setState(state.getText());
         currentRetailer.setZip(Integer.parseInt(zip.getText()));
-        currentRetailer.setMainType(mainType.getText());
+        currentRetailer.setMainType(mainType.getSelectionModel().getSelectedItem());
         currentRetailer.setSecondaryType(secondaryType.getText());
 
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
