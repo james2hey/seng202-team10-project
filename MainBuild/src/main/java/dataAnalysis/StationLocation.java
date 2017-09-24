@@ -5,7 +5,6 @@ package dataAnalysis;
  */
 
 public class StationLocation extends Location {
-    int number;
 
     // Constructor
     public StationLocation(int stationNumber, double stationLatitude, double stationLongitude, String stationAddress) {
@@ -14,4 +13,5 @@ public class StationLocation extends Location {
         longitude = stationLongitude;
         address = stationAddress;
     }
+
 }

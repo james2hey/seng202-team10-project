@@ -92,6 +92,12 @@ public class DetailedRouteInformation extends RouteDataViewerController {
         endMonth.setText(currentRoute.getStopMonth());
         startYear.setText(currentRoute.getStartYear());
         endYear.setText(currentRoute.getStopYear());
+        startStationID.setText(Integer.toString(currentRoute.getStartStationID()));
+        endStationID.setText(Integer.toString(currentRoute.getEndStationID()));
+        tripDuration.setText(Integer.toString(currentRoute.getDuration()));
+        cyclistBirthYear.setText(Integer.toString(currentRoute.getAge()));
+        gender.setText(currentRoute.getGender());
+        userType.setText(currentRoute.getUserType());
         bikeID.setText(currentRoute.getBikeID());
     }
 
@@ -99,6 +105,7 @@ public class DetailedRouteInformation extends RouteDataViewerController {
     @FXML
     void updateValues(ActionEvent event) {
         currentRoute.setStartAddress(startAddress.getText());
+        currentRoute.setAge(Integer.parseInt(cyclistBirthYear.getText()));
 
     }
 

@@ -109,7 +109,9 @@ public class DataFilterer {
                         rs.getDouble("start_longitude"), rs.getDouble("end_latitude"),
                         rs.getDouble("end_longitude"), rs.getInt("start_station_id"),
                         rs.getInt("end_station_id"), rs.getString("start_station_name"),
-                        rs.getString("end_station_name"), rs.getString("bikeid")));
+                        rs.getString("end_station_name"), rs.getString("bikeid"),
+                        rs.getInt("gender"), rs.getString("usertype"),
+                        rs.getInt("birth_year")));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());

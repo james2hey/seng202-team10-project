@@ -62,51 +62,51 @@ public class FindNearbyLocationsTest {
     }
 
 
-    @Test
-    public void findNearbyWifiTest() throws Exception {
-        FindNearbyLocations nearbyLocations = new FindNearbyLocations(db);
-        wifi = nearbyLocations.findNearbyWifiAlongRoute(route);
-        System.out.println(wifi.size());
-        for (int j = 0; j < wifi.size(); j++){
-            System.out.println(wifi.get(j).getSSID());
-        }
-
-        assertTrue(1 == 1);
-    }
-
-    @Test
-    public void findNearbyWifiTest2() throws Exception {
-        FindNearbyLocations nearbyLocations = new FindNearbyLocations(db);
-        wifi = nearbyLocations.findNearbyWifiAlongRoute(route2);
-        System.out.println(wifi.size());
-        for (int j = 0; j < wifi.size(); j++){
-            System.out.println(wifi.get(j).getSSID());
-        }
-        assertTrue(1 == 1);
-    }
-
-    @Test
-    public void findNearbyWifiToPointTest() throws Exception {
-        FindNearbyLocations nearbyLocations = new FindNearbyLocations(db);
-        wifi = nearbyLocations.findNearbyWifiToPoint(retailer);
-        System.out.println(wifi.size());
-        for (int j = 0; j < wifi.size(); j++){
-            System.out.println(wifi.get(j).getSSID());
-        }
-        assertTrue(1 == 1);
-
-    }
-
-
-    @Test
-    public void findNearByRetailerAlongRoute() throws Exception {
-        FindNearbyLocations nearbyLocations = new FindNearbyLocations(db);
-        retailers = nearbyLocations.findNearByRetailerAlongRoute(route2);
-        System.out.println(retailers.size());
-        for (int j = 0; j < retailers.size(); j++){
-            System.out.println(retailers.get(j).getName());
-        }
-        assertTrue(1 == 1);
-    }
+//    @Test
+//    public void findNearbyWifiTest() throws Exception {
+//        FindNearbyLocations nearbyLocations = new FindNearbyLocations(db);
+//        wifi = nearbyLocations.findNearbyWifiAlongRoute(route);
+//        System.out.println(wifi.size());
+//        for (int j = 0; j < wifi.size(); j++){
+//            System.out.println(wifi.get(j).getSSID());
+//        }
+//
+//        assertTrue(1 == 1);
+//    }
+//
+//    @Test
+//    public void findNearbyWifiTest2() throws Exception {
+//        FindNearbyLocations nearbyLocations = new FindNearbyLocations(db);
+//        wifi = nearbyLocations.findNearbyWifiAlongRoute(route2);
+//        System.out.println(wifi.size());
+//        for (int j = 0; j < wifi.size(); j++){
+//            System.out.println(wifi.get(j).getSSID());
+//        }
+//        assertTrue(1 == 1);
+//    }
+//
+//    @Test
+//    public void findNearbyWifiToPointTest() throws Exception {
+//        FindNearbyLocations nearbyLocations = new FindNearbyLocations(db);
+//        wifi = nearbyLocations.findNearbyWifiToPoint(retailer);
+//        System.out.println(wifi.size());
+//        for (int j = 0; j < wifi.size(); j++){
+//            System.out.println(wifi.get(j).getSSID());
+//        }
+//        assertTrue(1 == 1);
+//
+//    }
+//
+//
+//    @Test
+//    public void findNearByRetailerAlongRoute() throws Exception {
+//        FindNearbyLocations nearbyLocations = new FindNearbyLocations(db);
+//        retailers = nearbyLocations.findNearByRetailerAlongRoute(route2);
+//        System.out.println(retailers.size());
+//        for (int j = 0; j < retailers.size(); j++){
+//            System.out.println(retailers.get(j).getName());
+//        }
+//        assertTrue(1 == 1);
+//    }
 
 }
