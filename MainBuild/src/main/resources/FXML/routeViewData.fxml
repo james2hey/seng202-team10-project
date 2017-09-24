@@ -136,7 +136,7 @@
          </font>
       </Label>
       <Button alignment="TOP_CENTER" mnemonicParsing="false" onAction="#viewSelectedOnMap" prefHeight="25.0" prefWidth="188.0" text="View Selected On Map" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-      <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" GridPane.rowSpan="6" />
+      <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" GridPane.rowSpan="7" />
       <Button alignment="TOP_CENTER" mnemonicParsing="false" onAction="#viewOnMap" prefHeight="25.0" prefWidth="187.0" text="View All On Map" GridPane.columnIndex="2" GridPane.rowIndex="5" />
    </children>
 </GridPane>

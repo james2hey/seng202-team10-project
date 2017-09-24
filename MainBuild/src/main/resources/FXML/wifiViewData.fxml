@@ -127,6 +127,6 @@
       </Label>
       <Button mnemonicParsing="false" onAction="#editData" prefHeight="25.0" prefWidth="206.0" text="View/Edit Wifi Location" GridPane.columnIndex="1" GridPane.rowIndex="4" />
       <Button mnemonicParsing="false" onAction="#displaySelectedDataOnMap" prefHeight="25.0" prefWidth="190.0" text="View Selected On Map" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-      <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" GridPane.rowSpan="6" />
+      <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" GridPane.rowSpan="7" />
    </children>
 </GridPane>
