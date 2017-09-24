@@ -1,5 +1,6 @@
 package GUIControllers.ViewDataControllers;
 
+import GUIControllers.PlanRouteController;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXTextField;
@@ -65,6 +66,7 @@ public class WifiDataViewerController extends DataViewerController {
     private TableColumn<WifiLocation, String> Cost;
 
     private ObservableList<WifiLocation> wifiList = FXCollections.observableArrayList();
+    private ArrayList<WifiLocation> wifiLocations = new ArrayList<>();
 
     static private WifiLocation wifi = null;
 
@@ -85,6 +87,8 @@ public class WifiDataViewerController extends DataViewerController {
 
     @FXML
     void displayDataOnMap(ActionEvent event) throws IOException {
+        PlanRouteController.clearAll();
+        PlanRouteController.addWifiLocations(wifiLocations);
         changeToPlanRouteScene(event);
     }
 
@@ -108,7 +112,7 @@ public class WifiDataViewerController extends DataViewerController {
         }
 
         DataFilterer filterer = new DataFilterer(Main.getDB());
-        ArrayList<WifiLocation> wifiLocations = filterer.filterWifi(suburb, cost, provider);
+        wifiLocations = filterer.filterWifi(suburb, cost, provider);
         System.out.println("Got data");
         for (int i = 0; i < wifiLocations.size(); i++) {
             System.out.println(wifiLocations.get(i).getSSID());
@@ -116,8 +120,6 @@ public class WifiDataViewerController extends DataViewerController {
 
         tableView.getItems().clear();
         wifiList.addAll(wifiLocations);
-        CurrentStates.clearWifiLocations();
-        CurrentStates.addWifiLocations(wifiLocations);
     }
 
     /**

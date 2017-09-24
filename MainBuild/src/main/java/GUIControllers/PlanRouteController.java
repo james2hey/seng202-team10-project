@@ -70,6 +70,10 @@ public class PlanRouteController extends Controller implements Initializable, Ma
     private LatLong currentStart;
     private LatLong currentEnd;
 
+    private static HashSet<WifiLocation> wifiLocations = new HashSet<>();
+    private static HashSet<RetailLocation> retailLocations = new HashSet<RetailLocation>();
+    private static HashSet<Route> routes = new HashSet<Route>();
+
     @Override
     public void mapInitialized() {
         System.out.println("Init");
@@ -129,14 +133,12 @@ public class PlanRouteController extends Controller implements Initializable, Ma
      * Initially removes all current wifiMarkers, then renders each one from the HashSet
      */
     public void renderWifiMarkers() {
-        HashSet<WifiLocation> locations = CurrentStates.getWifiLocations();
-        System.out.println(locations.size());
         for (Marker marker : wifiMarkers) {
             map.removeClusterableMarker(marker);
         }
         wifiMarkers.clear();
 
-        for (WifiLocation location : locations) {
+        for (WifiLocation location : wifiLocations) {
             MarkerOptions options = new MarkerOptions();
             LatLong latLong = new LatLong(location.getLatitude(), location.getLongitude());
             options.position(latLong)
@@ -170,13 +172,12 @@ public class PlanRouteController extends Controller implements Initializable, Ma
      * Initially removes all current retailerMarkers, then renders each one from the HashSet
      */
     public void renderRetailerMarkers() {
-        HashSet<RetailLocation> locations = CurrentStates.getRetailLocations();
         for (Marker marker : retailerMarkers) {
             map.removeClusterableMarker(marker);
         }
         retailerMarkers.clear();
 
-        for (RetailLocation location : locations) {
+        for (RetailLocation location : retailLocations) {
             MarkerOptions options = new MarkerOptions();
             LatLong latLong = new LatLong(location.getLatitude(), location.getLongitude());
             options.position(latLong)
@@ -213,7 +214,6 @@ public class PlanRouteController extends Controller implements Initializable, Ma
      * Initially removes all current route markers, and route polylines, then for each route, adds a start and end marker, and a polyline between them.
      */
     public void renderTripMarkers() {
-        HashSet<Route> routes = CurrentStates.getRoutes();
         for (Marker marker : tripMarkers) {
             map.removeClusterableMarker(marker);
         }
@@ -288,6 +288,42 @@ public class PlanRouteController extends Controller implements Initializable, Ma
             tripLines.add(polyline);
             map.addMapShape(polyline);
         }
+    }
+
+    public static void addWifiLocations(ArrayList<WifiLocation> newWifiLocations) {
+        for (WifiLocation location : newWifiLocations) {
+            wifiLocations.add(location);
+        }
+    }
+
+    public static void clearWifiLocations() {
+        wifiLocations.clear();
+    }
+
+    public static void addRetailLocations(ArrayList<RetailLocation> newRetailLocations) {
+        for (RetailLocation location : newRetailLocations) {
+            retailLocations.add(location);
+        }
+    }
+
+    public static void clearRetailLocations() {
+        retailLocations.clear();
+    }
+
+    public static void addRoutes(ArrayList<Route> newRoutes) {
+        for (Route route : newRoutes) {
+            routes.add(route);
+        }
+    }
+
+    public static void clearRoutes() {
+        routes.clear();
+    }
+
+    public static void clearAll() {
+        clearWifiLocations();
+        clearRetailLocations();
+        clearRoutes();
     }
 
     @FXML

@@ -1,5 +1,6 @@
 package GUIControllers.ViewDataControllers;
 
+import GUIControllers.PlanRouteController;
 import dataManipulation.DataFilterer;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -67,6 +68,7 @@ public class RetailerDataViewerController extends DataViewerController {
 
 
     private ObservableList<RetailLocation> retailList = FXCollections.observableArrayList();
+    private ArrayList<RetailLocation> retailLocations = new ArrayList<RetailLocation>();
 
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
@@ -84,6 +86,8 @@ public class RetailerDataViewerController extends DataViewerController {
     @FXML
     void displayDataOnMap(ActionEvent event) throws IOException {
         //Called when GUI button View on map is pressed.
+        PlanRouteController.clearAll();
+        PlanRouteController.addRetailLocations(retailLocations);
         changeToPlanRouteScene(event);
     }
 
@@ -119,15 +123,13 @@ public class RetailerDataViewerController extends DataViewerController {
             primaryType = null;
         }
         DataFilterer filterer = new DataFilterer(Main.getDB());
-        ArrayList<RetailLocation> retailLocations = filterer.filterRetailers(address, primaryType, zip);
+        retailLocations = filterer.filterRetailers(address, primaryType, zip);
         System.out.println("Got data");
         for (int i = 0; i < retailLocations.size(); i++) {
             System.out.println(retailLocations.get(i).getName());
         }
         tableView.getItems().clear();
         retailList.addAll(retailLocations);
-        CurrentStates.clearRetailLocations();
-        CurrentStates.addRetailLocations(retailLocations);
     }
 
 

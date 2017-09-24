@@ -1,5 +1,6 @@
 package GUIControllers.ViewDataControllers;
 
+import GUIControllers.PlanRouteController;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
 import dataAnalysis.RetailLocation;
@@ -79,6 +80,7 @@ public class RouteDataViewerController extends DataViewerController {
     private Label favouritesError;
 
     private ObservableList<Route> routeList = FXCollections.observableArrayList();
+    private ArrayList<Route> routes = new ArrayList<Route>();
 
 
     @FXML
@@ -171,7 +173,7 @@ public class RouteDataViewerController extends DataViewerController {
         }
 
         DataFilterer filterer = new DataFilterer(Main.getDB());
-        ArrayList<Route> routes = filterer.filterRoutes(gender, dateLower, dateUpper,
+        routes = filterer.filterRoutes(gender, dateLower, dateUpper,
                 timeLower, timeUpper, startLocation, endLocation);
         System.out.println("Got data");
         System.out.println(routes.size());
@@ -180,8 +182,6 @@ public class RouteDataViewerController extends DataViewerController {
         }
         tableView.getItems().clear();
         routeList.addAll(routes);
-        CurrentStates.clearRoutes();
-        CurrentStates.addRoutes(routes);
 
     }
 
@@ -237,6 +237,8 @@ public class RouteDataViewerController extends DataViewerController {
     @FXML
     public void viewOnMap(ActionEvent event) throws IOException {
         //called when GUI button view on map button is pressed.
+        PlanRouteController.clearAll();
+        PlanRouteController.addRoutes(routes);
         changeToPlanRouteScene(event);
     }
 

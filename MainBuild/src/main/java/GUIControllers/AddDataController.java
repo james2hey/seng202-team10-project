@@ -65,45 +65,44 @@ public class AddDataController extends Controller implements Initializable {
     private WifiDataHandler wifiDataHandler;
     private RouteDataHandler routeDataHandler;
 
-// (james done this) - Commented out cause its already in Controller and need to use it in 3 other classes.
-//    @FXML
-//    void makeErrorDialogueBox(String errorMessage, String errorDetails) {
-//        Alert alert = new Alert(Alert.AlertType.ERROR, errorDetails, ButtonType.OK);
-//        alert.setHeaderText(errorMessage);
-//        alert.showAndWait();
-//
-//        if (alert.getResult() == ButtonType.OK) {
-//            System.out.println("Added entry to database.");
-//        }
-//    }
-
-//    @FXML
-//    private void makeSuccessDialogueBox(String errorMessage, String errorDetails) {
-//        Alert alert = new Alert(Alert.AlertType.INFORMATION, errorDetails, ButtonType.OK);
-//        alert.setHeaderText(errorMessage);
-//        alert.showAndWait();
-//
-//        if (alert.getResult() == ButtonType.OK) {
-//            System.out.println("");
-//        }
-//    }
-
-    //Converts Dates to the right format for CSV insertion.
-    private String[] convertDates(String date) {
+    /**
+     * Turns the date input into a three part String array where
+     * the values are year, month, day respectively.
+     *
+     * @param date String of the form yyyy-MM-dd
+     */
+    public static String[] convertDates(String date) {
         String dateInts[] = new String[3];
-        if (date == null || date.length() != 10) {
+        if (date == null || date.length() != 10 || date.charAt(4) != '-'  || date.charAt(7) != '-') {
             return null;
         }
         dateInts[0] = date.substring(0, 4);
         dateInts[1] = date.substring(5, 7);
         dateInts[2] = date.substring(8);
+        if(Integer.parseInt(dateInts[1]) > 12 || Integer.parseInt(dateInts[2]) > 31){
+            return null;
+        }
 
         return dateInts;
     }
 
+    public static Boolean checkTime(String time){
+        if (time == null || time.length() != 8 || time.charAt(2) != ':'  || time.charAt(5) != ':') {
+            return false;
+        }
+        if(Integer.parseInt(time.substring(0, 2)) > 24 || Integer.parseInt(time.substring(3, 5)) > 59 || Integer.parseInt(time.substring(6, 8)) > 59){
+            return false;
+        }
+        return true;
+    }
 
-
-
+    /**
+     * Collects, formats and checks for valid data input by user
+     *  to create a valid entry into the route section of the local database.
+     * Contains calls to convertDates and routeDataHandler.
+     * @param event Clicking the Add to Database button on the manual entry page.
+     * @throws IOException
+     */
     @FXML
     void routeCSVLine(ActionEvent event) throws IOException {
         double SLatitude = 0, SLongitude = 0, ELatitude = 0, ELongitude = 0;
@@ -138,7 +137,6 @@ public class AddDataController extends Controller implements Initializable {
         }
         try { // Start Latitude
             sLatError.setVisible(false);
-            //SLatitude = Double.parseDouble(rSLatitude.getText());
             SLatitude = sLatLon[0];
         } catch (Exception e) {
             sLatError.setVisible(true);
@@ -147,7 +145,6 @@ public class AddDataController extends Controller implements Initializable {
         }
         try { // Start Longitude
             sLongError.setVisible(false);
-            //SLongitude = Double.parseDouble(rSLongitude.getText());
             SLongitude = sLatLon[1];
         } catch (Exception e) {
             errorOccurred = true;
@@ -169,7 +166,6 @@ public class AddDataController extends Controller implements Initializable {
 
         try { //End Latitude
             eLatError.setVisible(false);
-            //ELatitude = Double.parseDouble(rELatitude.getText());
             ELatitude = eLatLon[0];
         } catch (Exception e) {
             errorOccurred = true;
@@ -178,18 +174,24 @@ public class AddDataController extends Controller implements Initializable {
 
         try {// End Longitude
             eLongError.setVisible(false);
-            //ELongitude = Double.parseDouble(rELongitude.getText());
             ELongitude = eLatLon[1];
         } catch (Exception e) {
             eLongError.setVisible(true);
             errorOccurred = true;
         }
 
-        if(rSTime.getText().length() < 1) {
+        if(checkTime(rSTime.getText())) {
+            sTimeError.setVisible(false);
+        } else {
             errorOccurred = true;
             sTimeError.setVisible(true);
+        }
+
+        if(checkTime(rETime.getText())) {
+            eTimeError.setVisible(false);
         } else {
-            sTimeError.setVisible(false);
+            eTimeError.setVisible(true);
+            errorOccurred = true;
         }
         if(errorOccurred == true){
             return;
@@ -210,7 +212,14 @@ public class AddDataController extends Controller implements Initializable {
         }
     }
 
-
+    /**
+     * Collects, formats and checks for valid data input by user
+     *  to create a valid entry into the retailer section of the local database.
+     * Contains calls to convertDates and retailerDataHandler.
+     *
+     * @param event Clicking the Add to Database button on the retailer entry page.
+     * @throws IOException
+     */
     @FXML
     void retailerCSVLine(ActionEvent event) throws IOException {
         Boolean errorOccured = false;
@@ -244,6 +253,14 @@ public class AddDataController extends Controller implements Initializable {
         }
     }
 
+    /**
+     * Collects, formats and checks for valid data input by user
+     *  to create a valid entry into the wifi section of the local database.
+     * Contains calls to convertDates and wifiDataHandler.
+     *
+     * @param event Clicking the Add to Database button on the wifi entry page.
+     * @throws IOException
+     */
     @FXML
     void wifiCSVLine(ActionEvent event) throws IOException {
         Boolean errorOccured = false;
@@ -279,7 +296,14 @@ public class AddDataController extends Controller implements Initializable {
     }
 
 
-
+    /**
+     * Simple function to make the separate import buttons
+     * (Routes, Retailers and Wifi Hot-spots)
+     * visible to the user.
+     *
+     * @param event Clicking the File Import Button.
+     * @throws IOException
+     */
     @FXML
     void chooseFile(ActionEvent event) throws IOException {
         if(!importRoute.isVisible()){
@@ -291,7 +315,14 @@ public class AddDataController extends Controller implements Initializable {
 
 
 
-
+    /**
+     * Opens system file viewer and accepts only *.csv type files,
+     * will print the file string to system and send it to the
+     * routeDataHandler.
+     *
+     * @param event Clicking the Routes button after Import File.
+     * @throws IOException
+     */
     @FXML // Import file -> only allows *.csv and prints location afterwards for now...
     void chooseRoute(ActionEvent event) throws IOException {
         FileChooser fileChooser = new FileChooser();
@@ -304,6 +335,15 @@ public class AddDataController extends Controller implements Initializable {
         }
         routeDataHandler.processCSV(file.toString());
     }
+
+    /**
+     * Opens system file viewer and accepts only *.csv type files,
+     * will print the file string to system and send it to the
+     * retailerDataHandler.
+     *
+     * @param event Clicking the Retailers button after Import File.
+     * @throws IOException
+     */
     @FXML //Specifies file types.
     void chooseRetailer(ActionEvent event) throws IOException {
         FileChooser fileChooser = new FileChooser();
@@ -316,6 +356,14 @@ public class AddDataController extends Controller implements Initializable {
         }
         retailerDataHandler.processCSV(file.toString());
     }
+    /**
+     * Opens system file viewer and accepts only *.csv type files,
+     * will print the file string to system and send it to the
+     * wifiDataHandler.
+     *
+     * @param event Clicking the Wifi button after Import File.
+     * @throws IOException
+     */
     @FXML
     void chooseWifi(ActionEvent event) throws IOException {
         FileChooser fileChooser = new FileChooser();
@@ -328,6 +376,7 @@ public class AddDataController extends Controller implements Initializable {
         }
         wifiDataHandler.processCSV(file.toString());
     }
+
     @FXML
     void changeToRouteEntryScene(ActionEvent event) throws IOException {
         Parent manualEntryParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/manualEntry.fxml"));
