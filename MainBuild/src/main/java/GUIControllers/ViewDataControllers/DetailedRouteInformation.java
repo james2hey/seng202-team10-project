@@ -106,6 +106,7 @@ public class DetailedRouteInformation extends RouteDataViewerController {
 
     @FXML
     void updateValues(ActionEvent event) {
+        System.out.println("Update button clicked");
         currentRoute.setStartAddress(startAddress.getText());
         currentRoute.setEndAddress(endAddress.getText());
         currentRoute.setStartLat(Double.parseDouble(startLatitude.getText()));

@@ -68,6 +68,7 @@ public class DetailedWifiInformation extends RouteDataViewerController {
 
     @FXML
     void updateValues(ActionEvent event) {
+        System.out.println("Update button clicked");
         currentWifi.setAddress(address.getText());
         currentWifi.setProvider(provider.getText());
         currentWifi.setCost(cost.getText());

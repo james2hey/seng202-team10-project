@@ -58,70 +58,90 @@ public class WifiLocation extends Location {
     public void setZip(int newZip) {
         if (newZip != zip) {
             zip = newZip;
-            UpdateData.updateWifiField("zip", Integer.toString(zip), Double.toString(wifiID));
+            Double w = wifiID;
+            Integer key = w.intValue();
+            UpdateData.updateWifiField("zip", Integer.toString(zip), key);
         }
     }
 
     public void setAddress(String newAddress) {
         if (!newAddress.equals(address)) {
             address = newAddress;
-            UpdateData.updateWifiField("address", address, Double.toString(wifiID));
+            Double w = wifiID;
+            Integer key = w.intValue();
+            UpdateData.updateWifiField("address", address, key);
         }
     }
 
     public void setProvider(String newProvider) {
         if (!newProvider.equals(provider)) {
             provider = newProvider;
-            UpdateData.updateWifiField("provider", provider, Double.toString(wifiID));
+            Double w = wifiID;
+            Integer key = w.intValue();
+            UpdateData.updateWifiField("provider", provider, key);
         }
     }
 
     public void setSuburb(String newSuburb) {
         if (!newSuburb.equals(suburb)) {
             suburb = newSuburb;
-            UpdateData.updateWifiField("suburb", suburb, Double.toString(wifiID));
+            Double w = wifiID;
+            Integer key = w.intValue();
+            UpdateData.updateWifiField("suburb", suburb, key);
         }
     }
 
     public void setCost(String newCost) {
-        if (!newCost.equals(city)) {
-            city = newCost;
-            UpdateData.updateWifiField("cost", cost, Double.toString(wifiID));
+        if (!newCost.equals(cost)) {
+            cost = newCost;
+            Double w = wifiID;
+            Integer key = w.intValue();
+            UpdateData.updateWifiField("cost", cost, key);
         }
     }
 
     public void setSSID(String newSSID) {
         if (!newSSID.equals(SSID)) {
             SSID = newSSID;
-            UpdateData.updateWifiField("ssid", SSID, Double.toString(wifiID));
+            Double w = wifiID;
+            Integer key = w.intValue();
+            UpdateData.updateWifiField("ssid", SSID, key);
         }
     }
 
     public void setRemarks(String newRemark) {
         if (!newRemark.equals(remarks)) {
             remarks = newRemark;
-            UpdateData.updateWifiField("remarks", remarks, Double.toString(wifiID));
+            Double w = wifiID;
+            Integer key = w.intValue();
+            UpdateData.updateWifiField("remarks", remarks, key);
         }
     }
 
     public void setCity(String newCity) {
         if (!newCity.equals(city)) {
             city = newCity;
-            UpdateData.updateWifiField("city", city, Double.toString(wifiID));
+            Double w = wifiID;
+            Integer key = w.intValue();
+            UpdateData.updateWifiField("city", city, key);
         }
     }
 
     public void setLatitude(double newLat) {
         if (newLat != latitude) {
             latitude = newLat;
-            UpdateData.updateWifiField("lat", Double.toString(latitude), Double.toString(wifiID));
+            Double w = wifiID;
+            Integer key = w.intValue();
+            UpdateData.updateWifiField("lat", Double.toString(latitude), key);
         }
     }
 
     public void setLongitude(double newLong) {
         if (newLong != longitude) {
             longitude = newLong;
-            UpdateData.updateWifiField("lon", Double.toString(longitude), Double.toString(wifiID));
+            Double w = wifiID;
+            Integer key = w.intValue();
+            UpdateData.updateWifiField("lon", Double.toString(longitude), key);
         }
     }
 }
