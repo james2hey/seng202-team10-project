@@ -112,7 +112,6 @@ public class Route {
     }
 
     //Getters for primary key info
-
     public String getBikeID() { return bikeid;}
 
     public String getStartTime() { return startTime;}
@@ -123,8 +122,8 @@ public class Route {
 
     public String getStartYear() {return startYear;}
 
-    //Getters
 
+    // Getters
     public int getDuration() {
         return duration;
     }
@@ -176,8 +175,7 @@ public class Route {
     }
 
 
-    //Setters
-
+    // Setters
     public void setStopDate() {stopDate = getDateString(stopDay, stopMonth, stopYear);}
 
     public void setStartAddress(String newAddress) {
