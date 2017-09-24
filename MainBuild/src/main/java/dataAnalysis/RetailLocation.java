@@ -24,6 +24,7 @@ public class RetailLocation extends Location {
         longitude = lon;
     }
 
+
     // Getters
     public int getZip() {return zip;}
 
