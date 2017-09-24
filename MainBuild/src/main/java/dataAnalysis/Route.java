@@ -306,6 +306,9 @@ public class Route {
             } else if ("Female".equals(newGender)) {
                 gender = newGender;
                 UpdateData.updateRouteField("gender", "2", bikeid, startYear, startMonth, stopDay, startTime);
+            } else if ("Other".equals(newGender)) {
+                gender = newGender;
+                UpdateData.updateRouteField("gender", "3", bikeid, startYear, startMonth, stopDay, startTime);
             } else {
                 gender = newGender;
                 UpdateData.updateRouteField("gender", "0", bikeid, startYear, startMonth, stopDay, startTime);
@@ -319,8 +322,10 @@ public class Route {
             gender = "Male";
         } else if (riderGender == 2) {
             gender = "Female";
+        } else if (riderGender == 3){
+            gender = "Other";
         } else {
-            gender = "Not Specified/Other";
+            gender = "Not Specified";
         }
     }
 

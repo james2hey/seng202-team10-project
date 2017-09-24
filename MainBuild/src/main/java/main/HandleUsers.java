@@ -142,10 +142,8 @@ public class HandleUsers {
                 tempRetail = new RetailLocation(rsRetail.getString("retailer_name"),
                         rsRetail.getString("address"), rsRetail.getString("city"),
                         rsRetail.getString("main_type"), rsRetail.getString("secondary_type"),
-                        rsRetail.getString("state"),
-                        rsRetail.getInt("zip"),
-                        rsRetail.getDouble("lat"),
-                        rsRetail.getDouble("long"));
+                        rsRetail.getString("state") , rsRetail.getInt("zip"),
+                        rsRetail.getDouble("lat"), rsRetail.getDouble("long"));
                 currentCyclist.addRetailInstance(tempRetail);
             }
         } catch (SQLException e) {

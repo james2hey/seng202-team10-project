@@ -4,6 +4,8 @@ import com.jfoenix.controls.JFXTextField;
 import dataAnalysis.Route;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -11,7 +13,7 @@ import java.util.ResourceBundle;
 public class DetailedRouteInformation extends RouteDataViewerController {
 
     @FXML
-    private JFXTextField gender;
+    private ComboBox<String> gender;
 
     @FXML
     private JFXTextField startMonth;
@@ -96,7 +98,7 @@ public class DetailedRouteInformation extends RouteDataViewerController {
         endStationID.setText(Integer.toString(currentRoute.getEndStationID()));
         tripDuration.setText(Integer.toString(currentRoute.getDuration()));
         cyclistBirthYear.setText(Integer.toString(currentRoute.getAge()));
-        gender.setText(currentRoute.getGender());
+        gender.getSelectionModel().select(currentRoute.getGender());
         userType.setText(currentRoute.getUserType());
         bikeID.setText(currentRoute.getBikeID());
     }
@@ -105,7 +107,21 @@ public class DetailedRouteInformation extends RouteDataViewerController {
     @FXML
     void updateValues(ActionEvent event) {
         currentRoute.setStartAddress(startAddress.getText());
+        currentRoute.setEndAddress(endAddress.getText());
+        currentRoute.setStartLat(Double.parseDouble(startLatitude.getText()));
+        currentRoute.setEndLat(Double.parseDouble(endLatitude.getText()));
+        currentRoute.setStartLong(Double.parseDouble(startLongitude.getText()));
+        currentRoute.setEndLong(Double.parseDouble(endLongitude.getText()));
+        currentRoute.setStopTime(endTime.getText());
+        currentRoute.setStopDay(endDay.getText());
+        currentRoute.setStopMonth(endMonth.getText());
+        currentRoute.setStopYear(endYear.getText());
+        currentRoute.setStartID(Integer.parseInt(startStationID.getText()));
+        currentRoute.setEndID(Integer.parseInt(endStationID.getText()));
+        currentRoute.setDuration(Integer.parseInt(tripDuration.getText()));
         currentRoute.setAge(Integer.parseInt(cyclistBirthYear.getText()));
+        currentRoute.setGender(gender.getSelectionModel().getSelectedItem());
+        currentRoute.setUserType(userType.getText());
 
     }
 
