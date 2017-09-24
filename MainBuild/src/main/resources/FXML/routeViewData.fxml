@@ -12,8 +12,8 @@
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="269.0" minWidth="10.0" prefWidth="153.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="269.0" minWidth="10.0" prefWidth="180.0" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="269.0" minWidth="5.0" prefWidth="151.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="616.0" minWidth="10.0" prefWidth="107.0" />
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="595.0" minWidth="10.0" prefWidth="203.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="616.0" minWidth="10.0" prefWidth="99.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="595.0" minWidth="10.0" prefWidth="229.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="455.0" minWidth="0.0" prefWidth="0.0" />
   </columnConstraints>
   <rowConstraints>
@@ -35,7 +35,7 @@
          <children>
             <VBox prefHeight="161.0" prefWidth="103.0">
                <children>
-                  <JFXToggleButton fx:id="male" prefHeight="58.0" prefWidth="135.0" text="Male" toggleColor="#ff0404" userData="1" />
+                  <JFXToggleButton fx:id="male" prefHeight="58.0" prefWidth="122.0" text="Male" toggleColor="#ff0404" userData="1" />
                </children>
             </VBox>
             <VBox prefHeight="161.0" prefWidth="103.0">
@@ -78,11 +78,16 @@
             <TableColumn fx:id="EndTime" prefWidth="90.0" text="End Time" />
          </columns>
       </TableView>
-      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="5" GridPane.rowIndex="2">
+      <VBox prefHeight="326.0" prefWidth="262.0" GridPane.columnIndex="5" GridPane.rowIndex="2">
          <children>
             <VBox prefHeight="161.0" prefWidth="103.0">
                <children>
-                  <JFXToggleButton fx:id="female" prefHeight="31.0" prefWidth="167.0" text="Female" toggleColor="#ff0404" userData="2" />
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <JFXToggleButton fx:id="female" prefHeight="58.0" prefWidth="180.0" text="Female" toggleColor="#ff0404" userData="2" />
+                        <JFXToggleButton fx:id="other" prefHeight="31.0" prefWidth="167.0" text="Other" toggleColor="#ff0404" userData="2" />
+                     </children>
+                  </HBox>
                </children>
             </VBox>
             <VBox prefHeight="161.0" prefWidth="103.0">
