@@ -5,6 +5,9 @@ import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import com.jfoenix.transitions.hamburger.HamburgerBasicCloseTransition;
 import com.lynden.gmapsfx.javascript.object.LatLong;
+import dataAnalysis.RetailLocation;
+import dataAnalysis.Route;
+import dataAnalysis.WifiLocation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,6 +22,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import java.io.IOException;
@@ -81,6 +85,19 @@ public abstract class Controller {
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.setScene(planRouteScene);
     }
+
+    @FXML
+    public void changeToPlanRouteScene(ActionEvent event, ArrayList<WifiLocation> wifiLocations, ArrayList<RetailLocation> retailLocations, ArrayList<Route> routes) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/planRoute.fxml"));
+        Scene planRouteScene = new Scene(loader.load());
+        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        PlanRouteController controller = loader.<PlanRouteController>getController();
+        controller.addWifiLocations(wifiLocations);
+        controller.addRetailLocations(retailLocations);
+        controller.addRoutes(routes);
+        currentStage.setScene(planRouteScene);
+    }
+
 
     @FXML
     void changeToHomeScene(ActionEvent event) throws IOException {

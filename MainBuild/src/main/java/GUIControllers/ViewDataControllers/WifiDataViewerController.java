@@ -88,9 +88,7 @@ public class WifiDataViewerController extends DataViewerController {
 
     @FXML
     void displayDataOnMap(ActionEvent event) throws IOException {
-        PlanRouteController.clearAll();
-        PlanRouteController.addWifiLocations(wifiLocations);
-        changeToPlanRouteScene(event);
+        changeToPlanRouteScene(event, wifiLocations, null, null);
     }
 
     @FXML
@@ -99,11 +97,9 @@ public class WifiDataViewerController extends DataViewerController {
             makeErrorDialogueBox("No Wifi Location selected.", "Please select one from the table.");
         } else {
             //Get it done...
-            PlanRouteController.clearAll();
             ArrayList<WifiLocation> wifiLocation = new ArrayList<>();
             wifiLocation.add(tableView.getSelectionModel().getSelectedItem());
-            PlanRouteController.addWifiLocations(wifiLocation);
-            changeToPlanRouteScene(event);
+            changeToPlanRouteScene(event, wifiLocation, null, null);
         }
     }
 

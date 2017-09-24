@@ -232,10 +232,16 @@ public class AddDataController extends Controller implements Initializable {
     @FXML
     void retailerCSVLine(ActionEvent event) throws IOException {
         Boolean errorOccured = false;
-        Double retLat = 0.0, retLong = 0.0;
+        double[] latLon;
+        double retLat = 0;
+        double retLon = 0;
+
+        if ((latLon = Geocoder.addressToLatLon(retailerAddress.getText())) == null) {
+            return;
+        }
         try {
             retailerLongError.setVisible(false);
-            retLong = Double.parseDouble(retailerLong.getText());
+            retLon = latLon[1];
         } catch (Exception e) {
             retailerLongError.setVisible(true);
             errorOccured = true;
@@ -243,7 +249,7 @@ public class AddDataController extends Controller implements Initializable {
 
         try {
             retailerLatError.setVisible(false);
-            retLat = Double.parseDouble(retailerLat.getText());
+            retLat = latLon[0];
         } catch (Exception e) {
             errorOccured = true;
             retailerLatError.setVisible(true);
@@ -253,7 +259,7 @@ public class AddDataController extends Controller implements Initializable {
             return;
         }
         RetailerDataHandler newRetailer = new RetailerDataHandler(Main.getDB());
-        Boolean fromHandler = newRetailer.addSingleEntry(retailerName.getText(), retailerAddress.getText(), retLat, retLong, null,
+        Boolean fromHandler = newRetailer.addSingleEntry(retailerName.getText(), retailerAddress.getText(), retLat, retLon, null,
                 null, null, retailerPrim.getText(), retailerSec.getText());
         if(fromHandler == false) {
             makeErrorDialogueBox("Something wrong with input", "Check for nulls and already existing entrys");
@@ -273,11 +279,17 @@ public class AddDataController extends Controller implements Initializable {
     @FXML
     void wifiCSVLine(ActionEvent event) throws IOException {
         Boolean errorOccured = false;
-        Double wLat = 0.0, wLong = 0.0;
+        double[] latLon;
+
+        if ((latLon = Geocoder.addressToLatLon(wifiAddress.getText())) == null) {
+            return;
+        }
+
+        double wLat = 0.0, wLong = 0.0;
 
         try {
             wifiLongError.setVisible(false);
-            wLat = Double.parseDouble(wifiLong.getText());
+            wLat = latLon[0];
         } catch (Exception e) {
             wifiLongError.setVisible(true);
             errorOccured = true;
@@ -285,7 +297,7 @@ public class AddDataController extends Controller implements Initializable {
 
         try {
             wifiLatError.setVisible(false);
-            wLong = Double.parseDouble(wifiLat.getText());
+            wLong = latLon[1];
         } catch (Exception e) {
             errorOccured = true;
             wifiLatError.setVisible(true);

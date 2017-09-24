@@ -86,9 +86,7 @@ public class RetailerDataViewerController extends DataViewerController {
     @FXML
     void displayDataOnMap(ActionEvent event) throws IOException {
         //Called when GUI button View on map is pressed.
-        PlanRouteController.clearAll();
-        PlanRouteController.addRetailLocations(retailLocations);
-        changeToPlanRouteScene(event);
+        changeToPlanRouteScene(event, null, retailLocations, null);
     }
 
     @FXML
@@ -97,11 +95,9 @@ public class RetailerDataViewerController extends DataViewerController {
             makeErrorDialogueBox("No retailer selected.", "Please select a retailer from the table.");
         } else {
             //Get it done.
-            PlanRouteController.clearAll();
             ArrayList<RetailLocation> retailLocation = new ArrayList<>();
             retailLocation.add(tableView.getSelectionModel().getSelectedItem());
-            PlanRouteController.addRetailLocations(retailLocation);
-            changeToPlanRouteScene(event);
+            changeToPlanRouteScene(event, null, retailLocation, null);
         }
     }
 

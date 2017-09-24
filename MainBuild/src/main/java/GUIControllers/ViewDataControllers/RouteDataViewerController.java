@@ -237,9 +237,7 @@ public class RouteDataViewerController extends DataViewerController {
     @FXML
     public void viewOnMap(ActionEvent event) throws IOException {
         //called when GUI button view on map button is pressed.
-        PlanRouteController.clearAll();
-        PlanRouteController.addRoutes(routes);
-        changeToPlanRouteScene(event);
+        changeToPlanRouteScene(event, null, null, routes);
     }
 
     @FXML
@@ -248,11 +246,9 @@ public class RouteDataViewerController extends DataViewerController {
             makeErrorDialogueBox("No route selected.", "Please select a route from the table.");
         } else {
             //Get it done...
-            PlanRouteController.clearAll();
             ArrayList<Route> route = new ArrayList<>();
             route.add(tableView.getSelectionModel().getSelectedItem());
-            PlanRouteController.addRoutes(route);
-            changeToPlanRouteScene(event);
+            changeToPlanRouteScene(event, null, null, route);
         }
     }
 

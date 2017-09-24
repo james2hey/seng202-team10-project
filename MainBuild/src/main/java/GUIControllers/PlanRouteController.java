@@ -1,6 +1,7 @@
 package GUIControllers;
 
 import com.lynden.gmapsfx.ClusteredGoogleMapView;
+import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.MapComponentInitializedListener;
 import com.lynden.gmapsfx.javascript.event.UIEventType;
 import com.lynden.gmapsfx.javascript.object.*;
@@ -47,7 +48,7 @@ public class PlanRouteController extends Controller implements Initializable, Ma
     protected TextField endAddressField;
 
     @FXML
-    protected ClusteredGoogleMapView mapView;
+    protected GoogleMapView mapView;
 
     protected DirectionsService directionsService;
 
@@ -57,7 +58,7 @@ public class PlanRouteController extends Controller implements Initializable, Ma
 
     private GeocodingService geocodingService;
 
-    private ClusteredGoogleMap map;
+    private GoogleMap map;
 
     private StringProperty startAddress = new SimpleStringProperty();
     private StringProperty endAddress = new SimpleStringProperty();
@@ -73,9 +74,9 @@ public class PlanRouteController extends Controller implements Initializable, Ma
     private String currentStart;
     private String currentEnd;
 
-    private static HashSet<WifiLocation> wifiLocations = new HashSet<>();
-    private static HashSet<RetailLocation> retailLocations = new HashSet<RetailLocation>();
-    private static HashSet<Route> routes = new HashSet<Route>();
+    private HashSet<WifiLocation> wifiLocations = new HashSet<>();
+    private HashSet<RetailLocation> retailLocations = new HashSet<RetailLocation>();
+    private HashSet<Route> routes = new HashSet<Route>();
 
     @Override
     public void mapInitialized() {
@@ -83,9 +84,7 @@ public class PlanRouteController extends Controller implements Initializable, Ma
         geocodingService = new GeocodingService();
         MapOptions mapOptions = new MapOptions();
 
-        currentPoint = new LatLong(STARTLAT, STARTLON);
         currentInfoWindow = new InfoWindow();
-
 
         mapOptions.center(new LatLong(STARTLAT, STARTLON))
                 .mapType(MapTypeIdEnum.ROADMAP)
@@ -146,7 +145,7 @@ public class PlanRouteController extends Controller implements Initializable, Ma
      */
     public void renderWifiMarkers() {
         for (Marker marker : wifiMarkers) {
-            map.removeClusterableMarker(marker);
+            map.removeMarker(marker);
         }
         wifiMarkers.clear();
 
@@ -159,7 +158,7 @@ public class PlanRouteController extends Controller implements Initializable, Ma
                     .icon("http://maps.google.com/mapfiles/ms/icons/orange-dot.png");
             Marker marker = new Marker(options);
             wifiMarkers.add(marker);
-            map.addClusterableMarker(marker);
+            map.addMarker(marker);
 
             map.addUIEventHandler(marker, UIEventType.click, (JSObject obj) -> {
                 System.out.println("Clicked");
@@ -184,7 +183,7 @@ public class PlanRouteController extends Controller implements Initializable, Ma
      */
     public void renderRetailerMarkers() {
         for (Marker marker : retailerMarkers) {
-            map.removeClusterableMarker(marker);
+            map.removeMarker(marker);
         }
         retailerMarkers.clear();
 
@@ -197,7 +196,7 @@ public class PlanRouteController extends Controller implements Initializable, Ma
                     .icon("http://maps.google.com/mapfiles/ms/icons/blue-dot.png");
             Marker marker = new Marker(options);
             retailerMarkers.add(marker);
-            map.addClusterableMarker(marker);
+            map.addMarker(marker);
             System.out.println("Added");
             System.out.println(location.getLatitude());
             System.out.println(location.getLongitude());
@@ -226,7 +225,7 @@ public class PlanRouteController extends Controller implements Initializable, Ma
      */
     public void renderTripMarkers() {
         for (Marker marker : tripMarkers) {
-            map.removeClusterableMarker(marker);
+            map.removeMarker(marker);
         }
         for (Polyline line : tripLines) {
             map.removeMapShape(line);
@@ -265,7 +264,7 @@ public class PlanRouteController extends Controller implements Initializable, Ma
                 Marker marker = new Marker(options);
 
                 tripMarkers.add(marker);
-                map.addClusterableMarker(marker);
+                map.addMarker(marker);
                 map.addUIEventHandler(marker, UIEventType.click, (JSObject obj) -> {
                     System.out.println("Clicked");
                     InfoWindowOptions infoWindowOptions = new InfoWindowOptions()
@@ -291,7 +290,7 @@ public class PlanRouteController extends Controller implements Initializable, Ma
                 Marker marker2 = new Marker(options2);
 
                 tripMarkers.add(marker2);
-                map.addClusterableMarker(marker2);
+                map.addMarker(marker2);
 
                 map.addUIEventHandler(marker2, UIEventType.click, (JSObject obj) -> {
                     System.out.println("Clicked");
@@ -320,37 +319,46 @@ public class PlanRouteController extends Controller implements Initializable, Ma
         }
     }
 
-    public static void addWifiLocations(ArrayList<WifiLocation> newWifiLocations) {
-        for (WifiLocation location : newWifiLocations) {
-            wifiLocations.add(location);
+    public void addWifiLocations(ArrayList<WifiLocation> wifiLocations) {
+        if (wifiLocations == null) {
+            return;
+        }
+        for (WifiLocation location : wifiLocations) {
+            this.wifiLocations.add(location);
         }
     }
 
-    public static void clearWifiLocations() {
+    public void clearWifiLocations() {
         wifiLocations.clear();
     }
 
-    public static void addRetailLocations(ArrayList<RetailLocation> newRetailLocations) {
-        for (RetailLocation location : newRetailLocations) {
-            retailLocations.add(location);
+    public void addRetailLocations(ArrayList<RetailLocation> retailLocations) {
+        if (retailLocations == null) {
+            return;
+        }
+        for (RetailLocation location : retailLocations) {
+            this.retailLocations.add(location);
         }
     }
 
-    public static void clearRetailLocations() {
+    public void clearRetailLocations() {
         retailLocations.clear();
     }
 
-    public static void addRoutes(ArrayList<Route> newRoutes) {
-        for (Route route : newRoutes) {
-            routes.add(route);
+    public void addRoutes(ArrayList<Route> routes) {
+        if (routes == null) {
+            return;
+        }
+        for (Route route : routes) {
+            this.routes.add(route);
         }
     }
 
-    public static void clearRoutes() {
+    public void clearRoutes() {
         routes.clear();
     }
 
-    public static void clearAll() {
+    public void clearAll() {
         clearWifiLocations();
         clearRetailLocations();
         clearRoutes();
@@ -359,17 +367,25 @@ public class PlanRouteController extends Controller implements Initializable, Ma
     @FXML
     public void showNearbyWifi() {
         //Called by GUI when show nearby wifi button is pressed.
-        ArrayList<WifiLocation> newLocations = nearbyFinder.findNearbyWifi(currentPoint.getLatitude(), currentPoint.getLongitude());
-        addWifiLocations(newLocations);
-        renderWifiMarkers();
+        if (currentPoint == null) {
+            makeErrorDialogueBox("Error", "Please select a point");
+        } else {
+            ArrayList<WifiLocation> newLocations = nearbyFinder.findNearbyWifi(currentPoint.getLatitude(), currentPoint.getLongitude());
+            addWifiLocations(newLocations);
+            renderWifiMarkers();
+        }
     }
 
     @FXML
     public void showNearbyRetailers() {
         //Called by GUI when show nearby retails button is pressed.
-        ArrayList<RetailLocation> newLocations = nearbyFinder.findNearbyRetail(currentPoint.getLatitude(), currentPoint.getLongitude());
-        addRetailLocations(newLocations);
-        renderRetailerMarkers();
+        if (currentPoint == null) {
+            makeErrorDialogueBox("Error", "Please select a point");
+        } else {
+            ArrayList<RetailLocation> newLocations = nearbyFinder.findNearbyRetail(currentPoint.getLatitude(), currentPoint.getLongitude());
+            addRetailLocations(newLocations);
+            renderRetailerMarkers();
+        }
 
     }
 
