@@ -9,10 +9,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import main.Main;
+import javafx.fxml.Initializable;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class SidePanelController extends Controller{
+public class SidePanelController extends Controller implements Initializable{
 
     @FXML
     private Button addDataButton;
@@ -29,12 +32,11 @@ public class SidePanelController extends Controller{
     @FXML
     private Button logoutButton;
 
-    /**
-     * Sets the log out text so that the user can identify which account they are logging out of.
-     * @param textToAdd text to be added to the log out button.
-     */
-    public void setLogOutText(String textToAdd) {
-        logoutButton.setText("Log Out (" + textToAdd + ")");
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        String userName = Main.hu.currentCyclist.getName();
+        logoutButton.setText("Log Out (" + userName + ")");
     }
 
     @FXML
