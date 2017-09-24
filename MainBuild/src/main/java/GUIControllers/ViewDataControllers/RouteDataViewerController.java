@@ -243,6 +243,15 @@ public class RouteDataViewerController extends DataViewerController {
     }
 
     @FXML
+    public void viewSelectedOnMap(ActionEvent event) throws IOException {
+        if (tableView.getSelectionModel().getSelectedItem() == null) {
+            makeErrorDialogueBox("No route selected.", "Please select a route from the table.");
+        } else {
+            //Get it done...
+        }
+    }
+
+    @FXML
     public void editData(ActionEvent event) throws IOException {
         //called by GUI button View/edit route.
 

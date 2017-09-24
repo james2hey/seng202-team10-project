@@ -23,6 +23,7 @@ import main.CurrentStates;
 import main.HandleUsers;
 import main.Main;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -90,6 +91,15 @@ public class WifiDataViewerController extends DataViewerController {
         PlanRouteController.clearAll();
         PlanRouteController.addWifiLocations(wifiLocations);
         changeToPlanRouteScene(event);
+    }
+
+    @FXML
+    void displaySelectedDataOnMap(ActionEvent event) throws IOException {
+        if (tableView.getSelectionModel().getSelectedItem() == null) {
+            makeErrorDialogueBox("No Wifi Location selected.", "Please select one from the table.");
+        } else {
+            //Get it done...
+        }
     }
 
     @FXML

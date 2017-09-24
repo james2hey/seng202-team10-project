@@ -22,7 +22,8 @@
     <RowConstraints maxHeight="475.0" minHeight="0.0" prefHeight="328.0" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="465.0" minHeight="1.0" prefHeight="1.0" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="465.0" minHeight="0.0" prefHeight="33.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="465.0" minHeight="0.0" prefHeight="26.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="465.0" minHeight="0.0" prefHeight="33.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="465.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
       <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Route Data Viewer" textAlignment="CENTER" wrappingWidth="953.193359375" GridPane.columnIndex="1" GridPane.columnSpan="6">
@@ -35,10 +36,10 @@
          <children>
             <VBox prefHeight="161.0" prefWidth="103.0">
                <children>
-                   <fx:define>
-                       <ToggleGroup fx:id="genderGroup" />
-                   </fx:define>
-                  <JFXToggleButton fx:id="male" prefHeight="58.0" prefWidth="122.0" text="Male" toggleColor="#ff0404" toggleGroup="$genderGroup" userData="1" />
+                  <JFXToggleButton fx:id="male" prefHeight="58.0" prefWidth="122.0" text="Male" toggleColor="#ff0404" userData="1">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="genderGroup" />
+                     </toggleGroup></JFXToggleButton>
                </children>
             </VBox>
             <VBox prefHeight="161.0" prefWidth="103.0">
@@ -125,7 +126,7 @@
             </VBox>
          </children>
       </VBox>
-      <Button alignment="TOP_CENTER" mnemonicParsing="false" onAction="#editData" prefHeight="25.0" prefWidth="184.0" text="View/Edit Route" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="4" />
+      <Button alignment="TOP_CENTER" mnemonicParsing="false" onAction="#editData" prefHeight="25.0" prefWidth="155.0" text="View/Edit Route" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4" />
       <Button mnemonicParsing="false" onAction="#displayData" prefHeight="25.0" prefWidth="342.0" text="Filter" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="3" />
       <Button mnemonicParsing="false" onAction="#showRoutes" prefHeight="25.0" prefWidth="163.0" text="View Routes" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       <Button mnemonicParsing="false" onAction="#showWifiLocations" prefHeight="25.0" prefWidth="206.0" text="View Wifi Locations" GridPane.columnIndex="2" GridPane.rowIndex="1" />
@@ -136,7 +137,8 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <Button alignment="TOP_CENTER" mnemonicParsing="false" onAction="#viewOnMap" prefHeight="25.0" prefWidth="163.0" text="View On Map" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <Button alignment="TOP_CENTER" mnemonicParsing="false" onAction="#viewSelectedOnMap" prefHeight="25.0" prefWidth="188.0" text="View Selected On Map" GridPane.columnIndex="2" GridPane.rowIndex="4" />
       <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" GridPane.rowSpan="6" />
+      <Button alignment="TOP_CENTER" mnemonicParsing="false" onAction="#viewOnMap" prefHeight="25.0" prefWidth="187.0" text="View All On Map" GridPane.columnIndex="2" GridPane.rowIndex="5" />
    </children>
 </GridPane>

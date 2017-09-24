@@ -46,7 +46,6 @@ public class DetailedRetailerInformation extends DataViewerController{
 
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
-        System.out.println("here--------------------");
         currentRetailer = RetailerDataViewerController.getRetailer();
         retailerName.setText(currentRetailer.getName());
         address.setText(currentRetailer.getAddress());
@@ -70,7 +69,12 @@ public class DetailedRetailerInformation extends DataViewerController{
         currentRetailer.setZip(Integer.parseInt(zip.getText()));
         currentRetailer.setMainType(mainType.getText());
         currentRetailer.setSecondaryType(secondaryType.getText());
-        System.out.println("----------------------------------");
+
+
+    }
+
+    void shutDown(ActionEvent event) {
+
     }
 
 }

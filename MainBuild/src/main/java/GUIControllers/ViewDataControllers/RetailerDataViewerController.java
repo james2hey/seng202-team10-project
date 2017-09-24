@@ -92,6 +92,16 @@ public class RetailerDataViewerController extends DataViewerController {
     }
 
     @FXML
+    void displaySelectedDataOnMap(ActionEvent event) throws IOException {
+        if (tableView.getSelectionModel().getSelectedItem() == null) {
+            makeErrorDialogueBox("No retailer selected.", "Please select a retailer from the table.");
+        } else {
+            //Get it done.
+
+        }
+    }
+
+    @FXML
     void displayData(ActionEvent event) {
         System.out.println("Display button pressed");
 
@@ -161,7 +171,7 @@ public class RetailerDataViewerController extends DataViewerController {
         //Called when view/edit retailer is pressed.
 
         if (tableView.getSelectionModel().getSelectedItem() == null) {
-            makeErrorDialogueBox("No route selected.", "Please select a route from the table.");
+            makeErrorDialogueBox("No retailer selected.", "Please select a retailer from the table.");
         } else {
             retailer = tableView.getSelectionModel().getSelectedItem();
             Stage popup = new Stage();
