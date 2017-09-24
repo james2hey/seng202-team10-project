@@ -248,6 +248,11 @@ public class RouteDataViewerController extends DataViewerController {
             makeErrorDialogueBox("No route selected.", "Please select a route from the table.");
         } else {
             //Get it done...
+            PlanRouteController.clearAll();
+            ArrayList<Route> route = new ArrayList<>();
+            route.add(tableView.getSelectionModel().getSelectedItem());
+            PlanRouteController.addRoutes(route);
+            changeToPlanRouteScene(event);
         }
     }
 

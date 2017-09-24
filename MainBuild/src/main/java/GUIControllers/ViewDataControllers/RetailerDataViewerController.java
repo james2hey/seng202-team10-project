@@ -97,7 +97,11 @@ public class RetailerDataViewerController extends DataViewerController {
             makeErrorDialogueBox("No retailer selected.", "Please select a retailer from the table.");
         } else {
             //Get it done.
-
+            PlanRouteController.clearAll();
+            ArrayList<RetailLocation> retailLocation = new ArrayList<>();
+            retailLocation.add(tableView.getSelectionModel().getSelectedItem());
+            PlanRouteController.addRetailLocations(retailLocation);
+            changeToPlanRouteScene(event);
         }
     }
 

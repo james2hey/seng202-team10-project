@@ -26,6 +26,7 @@ import main.HelperFunctions;
 import netscape.javascript.JSObject;
 
 
+import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -52,6 +53,8 @@ public class PlanRouteController extends Controller implements Initializable, Ma
 
     protected DirectionsPane directionsPane;
 
+    protected DirectionsRenderer directionsRenderer;
+
     private GeocodingService geocodingService;
 
     private ClusteredGoogleMap map;
@@ -67,8 +70,8 @@ public class PlanRouteController extends Controller implements Initializable, Ma
     private FindNearbyLocations nearbyFinder;
     private LatLong currentPoint;
     private InfoWindow currentInfoWindow;
-    private LatLong currentStart;
-    private LatLong currentEnd;
+    private String currentStart;
+    private String currentEnd;
 
     private static HashSet<WifiLocation> wifiLocations = new HashSet<>();
     private static HashSet<RetailLocation> retailLocations = new HashSet<RetailLocation>();
@@ -98,6 +101,7 @@ public class PlanRouteController extends Controller implements Initializable, Ma
         map = mapView.createMap(mapOptions);
         directionsService = new DirectionsService();
         directionsPane = mapView.getDirec();
+        directionsRenderer = new DirectionsRenderer(true, mapView.getMap(), directionsPane);
 
 
         renderWifiMarkers();
@@ -119,13 +123,21 @@ public class PlanRouteController extends Controller implements Initializable, Ma
     @FXML
     public void addressTextFieldAction(ActionEvent event) {
         DirectionsRequest request = new DirectionsRequest(startAddress.get(), endAddress.get(), TravelModes.BICYCLING);
-
-        directionsService.getRoute(request, this, new DirectionsRenderer(true, mapView.getMap(), directionsPane));
+        directionsService.getRoute(request, this, directionsRenderer);
+        currentStart = startAddress.get();
+        currentEnd = endAddress.get();
     }
 
     @Override
     public void directionsReceived(DirectionsResult results, DirectionStatus status) {
-
+        System.out.println(results.getRoutes().size());
+        results.getRoutes().get(0).getLegs().get(0);
+        DirectionsLeg leg = results.getRoutes().get(0).getLegs().get(0);
+        double midLat = (leg.getStartLocation().getLatitude() + leg.getEndLocation().getLatitude()) / 2;
+        double midLon = (leg.getStartLocation().getLongitude() + leg.getEndLocation().getLongitude()) / 2;
+        LatLong mid = new LatLong(midLat, midLon);
+        System.out.println(mid);
+        currentPoint = mid;
     }
 
     /**
@@ -143,9 +155,8 @@ public class PlanRouteController extends Controller implements Initializable, Ma
             LatLong latLong = new LatLong(location.getLatitude(), location.getLongitude());
             options.position(latLong)
                     .title(location.getName())
-                    .label("W")
-                    .visible(true);
-            //.icon(getClass().getClassLoader().getResource("Images/greenPin.png").getFile());
+                    .visible(true)
+                    .icon("http://maps.google.com/mapfiles/ms/icons/orange-dot.png");
             Marker marker = new Marker(options);
             wifiMarkers.add(marker);
             map.addClusterableMarker(marker);
@@ -182,9 +193,8 @@ public class PlanRouteController extends Controller implements Initializable, Ma
             LatLong latLong = new LatLong(location.getLatitude(), location.getLongitude());
             options.position(latLong)
                     .title(location.getName())
-                    .label("R")
-                    .visible(true);
-            //.icon(getClass().getClassLoader().getResource("Images/redPin.png").getFile());
+                    .visible(true)
+                    .icon("http://maps.google.com/mapfiles/ms/icons/blue-dot.png");
             Marker marker = new Marker(options);
             retailerMarkers.add(marker);
             map.addClusterableMarker(marker);
@@ -212,6 +222,7 @@ public class PlanRouteController extends Controller implements Initializable, Ma
     /**
      * Renders the CurrentStates routes HashSet on the map.
      * Initially removes all current route markers, and route polylines, then for each route, adds a start and end marker, and a polyline between them.
+     * If there is only one trip, render it singularly as a direction based route, otherwise render the set with polylines
      */
     public void renderTripMarkers() {
         for (Marker marker : tripMarkers) {
@@ -223,70 +234,89 @@ public class PlanRouteController extends Controller implements Initializable, Ma
         tripMarkers.clear();
         tripLines.clear();
 
-        for (Route route : routes) {
-            MarkerOptions options = new MarkerOptions();
-            System.out.println(route.getStartLatitude());
-            System.out.println(route.getStartLongitude());
-            LatLong latLong = new LatLong(route.getStartLatitude(), route.getStartLongitude());
-            options.position(latLong)
-                    .title(route.getName())
-                    .label("S")
-                    .visible(true);
-            Marker marker = new Marker(options);
+        System.out.println(routes.size());
 
-            tripMarkers.add(marker);
-            map.addClusterableMarker(marker);
-            map.addUIEventHandler(marker, UIEventType.click, (JSObject obj) -> {
-                System.out.println("Clicked");
-                InfoWindowOptions infoWindowOptions = new InfoWindowOptions()
-                        .content(
-                                "Start Address: " + route.getStartAddress() + "<br>" +
-                                        "Start Date: " + route.getStartDate() + "<br>" +
-                                        "Start Time: " + route.getStartTime() + "<br>" +
-                                        "Duration: " + HelperFunctions.secondsToString(route.getDuration()) + "<br>" +
-                                        "Distance: " + numberFormat.format(route.getDistance()) + "km")
-                        .position(latLong);
-                currentInfoWindow.close();
-                currentInfoWindow = new InfoWindow(infoWindowOptions);
-                currentInfoWindow.open(map);
-                currentPoint = latLong;
-            });
+        if (routes.size() == 1) {
+            System.out.println(routes.size());
+            Route route = routes.iterator().next();
+            System.out.println(route);
+            LatLong start = new LatLong(route.getStartLatitude(), route.getStartLongitude());
+            LatLong end = new LatLong(route.getEndLatitude(), route.getEndLongitude());
+            System.out.println(start);
+            System.out.println(route.getStartAddress());
+            //DirectionsRequest request = new DirectionsRequest(start, end, TravelModes.BICYCLING);
+            currentStart = route.getStartAddress();
+            System.out.println(currentStart);
+            currentEnd = route.getEndAddress();
+            DirectionsRequest request = new DirectionsRequest(route.getStartAddress(), route.getEndAddress(), TravelModes.DRIVING);
+            directionsService.getRoute(request, this, directionsRenderer);
+        }
+        else {
 
-            MarkerOptions options2 = new MarkerOptions();
-            LatLong latLong2 = new LatLong(route.getEndLatitude(), route.getEndLongitude());
-            options2.position(latLong2)
-                    .title(route.getName())
-                    .label("E")
-                    .visible(true);
-            //.icon(getClass().getClassLoader().getResource("Images/pin.png").getFile());
-            Marker marker2 = new Marker(options2);
+            for (Route route : routes) {
+                MarkerOptions options = new MarkerOptions();
+                System.out.println(route.getStartLatitude());
+                System.out.println(route.getStartLongitude());
+                LatLong latLong = new LatLong(route.getStartLatitude(), route.getStartLongitude());
+                options.position(latLong)
+                        .title(route.getName())
+                        .visible(true)
+                        .icon("http://maps.google.com/mapfiles/ms/icons/green-dot.png");
+                Marker marker = new Marker(options);
 
-            tripMarkers.add(marker2);
-            map.addClusterableMarker(marker2);
+                tripMarkers.add(marker);
+                map.addClusterableMarker(marker);
+                map.addUIEventHandler(marker, UIEventType.click, (JSObject obj) -> {
+                    System.out.println("Clicked");
+                    InfoWindowOptions infoWindowOptions = new InfoWindowOptions()
+                            .content(
+                                    "Start Address: " + route.getStartAddress() + "<br>" +
+                                            "Start Date: " + route.getStartDate() + "<br>" +
+                                            "Start Time: " + route.getStartTime() + "<br>" +
+                                            "Duration: " + HelperFunctions.secondsToString(route.getDuration()) + "<br>" +
+                                            "Distance: " + numberFormat.format(route.getDistance()) + "km")
+                            .position(latLong);
+                    currentInfoWindow.close();
+                    currentInfoWindow = new InfoWindow(infoWindowOptions);
+                    currentInfoWindow.open(map);
+                    currentPoint = latLong;
+                });
 
-            map.addUIEventHandler(marker2, UIEventType.click, (JSObject obj) -> {
-                System.out.println("Clicked");
-                InfoWindowOptions infoWindowOptions = new InfoWindowOptions()
-                        .content(
-                                "End Address: " + route.getEndAddress() + "<br>" +
-                                        "End Date: " + route.getStopDate() + "<br>" +
-                                        "End Time: " + route.getStopTime() + "<br>" +
-                                        "Duration: " + HelperFunctions.secondsToString(route.getDuration()) + "<br>" +
-                                        "Distance: " + numberFormat.format(route.getDistance()) + "km")
-                        .position(latLong2);
-                currentInfoWindow.close();
-                currentInfoWindow = new InfoWindow(infoWindowOptions);
-                currentInfoWindow.open(map);
-                currentPoint = latLong2;
-            });
+                MarkerOptions options2 = new MarkerOptions();
+                LatLong latLong2 = new LatLong(route.getEndLatitude(), route.getEndLongitude());
+                options2.position(latLong2)
+                        .title(route.getName())
+                        .visible(true)
+                        .icon("http://maps.google.com/mapfiles/ms/icons/red-dot.png");
+                Marker marker2 = new Marker(options2);
 
-            LatLong[] ary = new LatLong[]{latLong, latLong2};
-            MVCArray mvc = new MVCArray(ary);
-            PolylineOptions polylineOptions = new PolylineOptions().path(mvc).strokeColor("red").strokeWeight(2);
-            Polyline polyline = new Polyline(polylineOptions);
+                tripMarkers.add(marker2);
+                map.addClusterableMarker(marker2);
 
-            tripLines.add(polyline);
-            map.addMapShape(polyline);
+                map.addUIEventHandler(marker2, UIEventType.click, (JSObject obj) -> {
+                    System.out.println("Clicked");
+                    InfoWindowOptions infoWindowOptions = new InfoWindowOptions()
+                            .content(
+                                    "End Address: " + route.getEndAddress() + "<br>" +
+                                            "End Date: " + route.getStopDate() + "<br>" +
+                                            "End Time: " + route.getStopTime() + "<br>" +
+                                            "Duration: " + HelperFunctions.secondsToString(route.getDuration()) + "<br>" +
+                                            "Distance: " + numberFormat.format(route.getDistance()) + "km")
+                            .position(latLong2);
+                    currentInfoWindow.close();
+                    currentInfoWindow = new InfoWindow(infoWindowOptions);
+                    currentInfoWindow.open(map);
+                    currentPoint = latLong2;
+                });
+
+                LatLong[] ary = new LatLong[]{latLong, latLong2};
+                MVCArray mvc = new MVCArray(ary);
+                PolylineOptions polylineOptions = new PolylineOptions().path(mvc).strokeColor("red").strokeWeight(2);
+                Polyline polyline = new Polyline(polylineOptions);
+
+                tripLines.add(polyline);
+                map.addMapShape(polyline);
+            }
         }
     }
 
@@ -329,25 +359,25 @@ public class PlanRouteController extends Controller implements Initializable, Ma
     @FXML
     public void showNearbyWifi() {
         //Called by GUI when show nearby wifi button is pressed.
-        ArrayList<WifiLocation> wifiLocations = nearbyFinder.findNearbyWifi(currentPoint.getLatitude(), currentPoint.getLongitude());
-        CurrentStates.addWifiLocations(wifiLocations);
+        ArrayList<WifiLocation> newLocations = nearbyFinder.findNearbyWifi(currentPoint.getLatitude(), currentPoint.getLongitude());
+        addWifiLocations(newLocations);
         renderWifiMarkers();
     }
 
     @FXML
     public void showNearbyRetailers() {
         //Called by GUI when show nearby retails button is pressed.
-        ArrayList<RetailLocation> retailLocations = nearbyFinder.findNearbyRetail(currentPoint.getLatitude(), currentPoint.getLongitude());
-        CurrentStates.addRetailLocations(retailLocations);
+        ArrayList<RetailLocation> newLocations = nearbyFinder.findNearbyRetail(currentPoint.getLatitude(), currentPoint.getLongitude());
+        addRetailLocations(newLocations);
         renderRetailerMarkers();
 
     }
 
     @FXML
-    public void addRouteToDatabase() {
+    public void addRouteToDatabase(ActionEvent event) throws IOException {
         //called by GUI when add current route to database button is pressed.
+        changeToAddDataScene(event, currentStart, currentEnd);
 
     }
-
 
 }

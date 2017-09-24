@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import com.jfoenix.transitions.hamburger.HamburgerBasicCloseTransition;
+import com.lynden.gmapsfx.javascript.object.LatLong;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -96,6 +97,18 @@ public abstract class Controller {
         Scene addDataScene = new Scene(addDataParent);
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.setScene(addDataScene);
+    }
+
+    @FXML
+    void changeToAddDataScene(ActionEvent event, String startAddress, String endAddress) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/addData.fxml"));
+        Scene addDataScene = new Scene(loader.load());
+        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        AddDataController controller = loader.<AddDataController>getController();
+
+        AddDataController.setRouteVals(startAddress, endAddress);
+        System.out.println(endAddress);
+        controller.changeToRouteEntryScene(event, currentStage);
     }
 
     @FXML

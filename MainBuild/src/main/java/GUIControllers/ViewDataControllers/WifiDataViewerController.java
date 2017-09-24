@@ -99,6 +99,11 @@ public class WifiDataViewerController extends DataViewerController {
             makeErrorDialogueBox("No Wifi Location selected.", "Please select one from the table.");
         } else {
             //Get it done...
+            PlanRouteController.clearAll();
+            ArrayList<WifiLocation> wifiLocation = new ArrayList<>();
+            wifiLocation.add(tableView.getSelectionModel().getSelectedItem());
+            PlanRouteController.addWifiLocations(wifiLocation);
+            changeToPlanRouteScene(event);
         }
     }
 

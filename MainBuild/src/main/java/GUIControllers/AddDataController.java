@@ -4,6 +4,7 @@ import com.google.maps.errors.ApiException;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXTextField;
 
+import com.lynden.gmapsfx.javascript.object.LatLong;
 import dataHandler.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -64,6 +65,14 @@ public class AddDataController extends Controller implements Initializable {
     private RetailerDataHandler retailerDataHandler;
     private WifiDataHandler wifiDataHandler;
     private RouteDataHandler routeDataHandler;
+    public static String startAddress = "";
+    public static String endAddress = "";
+
+
+    public static void setRouteVals(String newStartAddress, String newEndAddress) {
+        startAddress = newStartAddress;
+        endAddress = newEndAddress;
+    }
 
     /**
      * Turns the date input into a three part String array where
@@ -384,6 +393,30 @@ public class AddDataController extends Controller implements Initializable {
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.setScene(manualEntryScene);
     }
+    @FXML
+    void changeToRouteEntryScene(ActionEvent event, Stage stage) throws IOException {
+        Parent manualEntryParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/manualEntry.fxml"));
+        Scene manualEntryScene = new Scene(manualEntryParent);
+        stage.setScene(manualEntryScene);
+    }
+//
+//    @FXML
+//    void changeToRouteEntryScene(ActionEvent event, String startAddress, String endAddress, Stage stage) throws IOException {
+////        Parent manualEntryParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/manualEntry.fxml"));
+////        Scene manualEntryScene = new Scene(manualEntryParent);
+////        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+////        currentStage.setScene(manualEntryScene);
+//
+//        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/manualEntry.fxml"));
+//        Scene manualEntryScene = new Scene(loader.load());
+//
+//        AddDataController controller = loader.<AddDataController>getController();
+//        controller.setRouteVals(startAddress, endAddress);
+//        controller.rSAddress.setText(startAddress);
+//        stage.setScene(manualEntryScene);
+//        //controller.changeToRouteEntryScene(event, startAddress, endAddress);
+//
+//    }
 
     @FXML
     void changeToWifiEntryScene(ActionEvent event) throws IOException {
@@ -403,6 +436,14 @@ public class AddDataController extends Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        if (location.equals(getClass().getClassLoader().getResource("FXML/manualEntry.fxml"))) {
+            System.out.println(rSAddress.getText());
+            System.out.println(startAddress);
+            rSAddress.setText(startAddress);
+            rEAddress.setText(endAddress);
+        }
+
+        System.out.println(location);
         db = Main.getDB();
         retailerDataHandler = new RetailerDataHandler(db);
         wifiDataHandler = new WifiDataHandler(db);
