@@ -3,14 +3,21 @@ package GUIControllers.ViewDataControllers;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXTextField;
+import dataAnalysis.Route;
 import dataAnalysis.WifiLocation;
 import dataManipulation.DataFilterer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import main.CurrentStates;
 import main.HandleUsers;
 import main.Main;
@@ -21,9 +28,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 
-/**
- * Created by bal65 on 19/09/17.
- */
+
 public class WifiDataViewerController extends DataViewerController {
 
     @FXML
@@ -60,6 +65,8 @@ public class WifiDataViewerController extends DataViewerController {
     private TableColumn<WifiLocation, String> Cost;
 
     private ObservableList<WifiLocation> wifiList = FXCollections.observableArrayList();
+
+    static private WifiLocation wifi = null;
 
 
     @FXML
@@ -135,8 +142,24 @@ public class WifiDataViewerController extends DataViewerController {
     }
 
     @FXML
-    void editData(ActionEvent event) {
-    //Called when view/edit wifi location button is pressed.
+    void editData(ActionEvent event) throws IOException {
+        //Called when view/edit wifi location button is pressed.
+        if (tableView.getSelectionModel().getSelectedItem() == null) {
+            makeErrorDialogueBox("No Wifi Location selected.", "Please select one from the table.");
+        } else {
+            wifi = tableView.getSelectionModel().getSelectedItem();
+            Stage popup = new Stage();
+            popup.initModality(Modality.APPLICATION_MODAL);
+            popup.initOwner(((Node) event.getSource()).getScene().getWindow());
+            Parent popupParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/detailedWifiLocationInformation.fxml"));
+            Scene popupScene = new Scene(popupParent);
+            popup.setScene(popupScene);
+            popup.show();
+        }
+    }
+
+    static public WifiLocation getWifi() {
+        return wifi;
     }
 
 

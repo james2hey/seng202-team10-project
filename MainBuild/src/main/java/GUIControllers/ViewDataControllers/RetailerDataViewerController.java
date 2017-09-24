@@ -1,8 +1,14 @@
 package GUIControllers.ViewDataControllers;
 
 import dataManipulation.DataFilterer;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import main.CurrentStates;
 import main.HandleUsers;
 import main.Main;
@@ -146,10 +152,29 @@ public class RetailerDataViewerController extends DataViewerController {
         }
     }
 
+    static private RetailLocation retailer = null;
+
     @FXML
-    void editData(ActionEvent event) {
+    void editData(ActionEvent event) throws IOException{
         //Called when view/edit retailer is pressed.
 
+        if (tableView.getSelectionModel().getSelectedItem() == null) {
+            makeErrorDialogueBox("No route selected.", "Please select a route from the table.");
+        } else {
+            retailer = tableView.getSelectionModel().getSelectedItem();
+            Stage popup = new Stage();
+            popup.initModality(Modality.APPLICATION_MODAL);
+            popup.initOwner(((Node) event.getSource()).getScene().getWindow());
+            Parent popupParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/detailedRetailerInformation.fxml"));
+            Scene popupScene = new Scene(popupParent);
+            popup.setScene(popupScene);
+            popup.show();
+
+        }
+    }
+
+    static public RetailLocation getRetailer() {
+        return retailer;
     }
 
 }
