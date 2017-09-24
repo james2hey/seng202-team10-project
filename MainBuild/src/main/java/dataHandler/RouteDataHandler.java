@@ -1,5 +1,6 @@
 package dataHandler;
 
+import GUIControllers.Controller;
 import com.opencsv.CSVReader;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
@@ -180,8 +181,9 @@ public class RouteDataHandler {
             }
             db.setAutoCommit(true);
             db.commit();
-        } catch (IOException e) {
-            System.out.println("File not found");
+        } catch (Exception e) {
+            System.out.println("Error in file.");
+            Controller.makeErrorDialogueBox("Incorrect File", "Error in file unable to parse retailers");
         }
     }
 

@@ -1,5 +1,6 @@
 package dataHandler;
 
+import GUIControllers.Controller;
 import com.opencsv.CSVReader;
 
 import java.io.FileReader;
@@ -117,8 +118,9 @@ public class WifiDataHandler {
             }
             db.setAutoCommit(true);
             db.commit();
-        } catch (IOException e) {
-            System.out.println("File not found");
+        } catch (Exception e) {
+            System.out.println("Error in file.");
+            Controller.makeErrorDialogueBox("Incorrect File", "Error in file unable to parse retailers");
         }
     }
 }

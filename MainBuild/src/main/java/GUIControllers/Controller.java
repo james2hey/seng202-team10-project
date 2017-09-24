@@ -113,7 +113,7 @@ public abstract class Controller {
     }
 
     @FXML
-    public void makeErrorDialogueBox(String errorMessage, String errorDetails) {
+    public static void makeErrorDialogueBox(String errorMessage, String errorDetails) {
         Alert alert = new Alert(Alert.AlertType.ERROR, errorDetails, ButtonType.OK);
         alert.setHeaderText(errorMessage);
         alert.showAndWait();
@@ -152,7 +152,7 @@ public abstract class Controller {
      * @param details String that provides the details for the dialogue box.
      */
     @FXML
-    public void makeSuccessDialogueBox(String message, String details) {
+    public static void makeSuccessDialogueBox(String message, String details) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION, details, ButtonType.OK);
         alert.setHeaderText(message);
         alert.showAndWait();

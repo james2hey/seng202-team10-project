@@ -3,6 +3,7 @@ package dataEntryTest;
 import GUIControllers.AddDataController;
 import org.junit.Test;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class ImportTest {
@@ -30,10 +31,14 @@ public class ImportTest {
     @Test
     public void timeChecking() {
         String time1 = "11:22:33";
-        /*String time2 = "25-12-2017";
-        String time3 = "2017/12/25";
-        String time4 = "1111111111";
-        String time5 = "2017-13-32"; // Edge case*/
-        assertTrue(AddDataController.checkTime(time1).equals(true));
+        String time2 = "25-12-2017";
+        String time3 = "11111111";
+        String time4 = "23:59:59";// Edge case*/
+        String time5 = "-3:-4:-5";
+        assertTrue(AddDataController.checkTime(time1));
+        assertFalse(AddDataController.checkTime(time2));
+        assertFalse(AddDataController.checkTime(time3));
+        assertTrue(AddDataController.checkTime(time4));
+        assertFalse(AddDataController.checkTime(time5));
     }
 }

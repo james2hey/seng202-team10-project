@@ -90,7 +90,8 @@ public class AddDataController extends Controller implements Initializable {
         if (time == null || time.length() != 8 || time.charAt(2) != ':'  || time.charAt(5) != ':') {
             return false;
         }
-        if(Integer.parseInt(time.substring(0, 2)) > 24 || Integer.parseInt(time.substring(3, 5)) > 59 || Integer.parseInt(time.substring(6, 8)) > 59){
+        if(Integer.parseInt(time.substring(0, 2)) > 23 || Integer.parseInt(time.substring(3, 5)) > 59 || Integer.parseInt(time.substring(6, 8)) > 59
+        || Integer.parseInt(time.substring(0, 2)) < 0 || Integer.parseInt(time.substring(3, 5)) < 0 || Integer.parseInt(time.substring(6, 8)) < 0){
             return false;
         }
         return true;

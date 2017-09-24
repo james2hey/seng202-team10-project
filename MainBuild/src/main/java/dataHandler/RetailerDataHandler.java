@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import GUIControllers.Controller;
 
 /**
  * Created by jes143 on 18/09/17.
@@ -123,8 +124,9 @@ public class RetailerDataHandler {
             }
             db.setAutoCommit(true);
             db.commit();
-        } catch (IOException e) {
-            System.out.println("File not found");
+        } catch (Exception e) {
+            System.out.println("Error in file.");
+            Controller.makeErrorDialogueBox("Incorrect File", "Error in file unable to parse retailers");
         }
     }
 }
