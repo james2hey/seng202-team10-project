@@ -5,7 +5,10 @@ import com.jfoenix.controls.JFXTextField;
 import dataAnalysis.RetailLocation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -44,6 +47,12 @@ public class DetailedRetailerInformation extends DataViewerController{
 
     private RetailLocation currentRetailer = null;
 
+    static private ActionEvent mainAppEvent = null;
+
+    static public void setMainAppEvent(ActionEvent event) {
+        mainAppEvent = event;
+    }
+
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
         currentRetailer = RetailerDataViewerController.getRetailer();
@@ -60,7 +69,7 @@ public class DetailedRetailerInformation extends DataViewerController{
     }
 
     @FXML
-    void updateValues(ActionEvent event) {
+    void updateValues(ActionEvent event) throws IOException{
         currentRetailer.setAddress(address.getText());
         currentRetailer.setLatitude(Double.parseDouble(latitude.getText()));
         currentRetailer.setLongitude(Double.parseDouble(longitude.getText()));
@@ -70,7 +79,9 @@ public class DetailedRetailerInformation extends DataViewerController{
         currentRetailer.setMainType(mainType.getText());
         currentRetailer.setSecondaryType(secondaryType.getText());
 
-
+        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        currentStage.close();
+        showRetailers(mainAppEvent);
     }
 
     void shutDown(ActionEvent event) {

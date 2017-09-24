@@ -4,8 +4,11 @@ import com.jfoenix.controls.JFXTextField;
 import dataAnalysis.Route;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -77,6 +80,12 @@ public class DetailedRouteInformation extends RouteDataViewerController {
 
     private Route currentRoute = null;
 
+    static private ActionEvent mainAppEvent = null;
+
+    static public void setMainAppEvent(ActionEvent event) {
+        mainAppEvent = event;
+    }
+
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
         currentRoute = RouteDataViewerController.getRoute();
@@ -105,7 +114,7 @@ public class DetailedRouteInformation extends RouteDataViewerController {
 
 
     @FXML
-    void updateValues(ActionEvent event) {
+    void updateValues(ActionEvent event) throws IOException{
         System.out.println("Update button clicked");
         currentRoute.setStartAddress(startAddress.getText());
         currentRoute.setEndAddress(endAddress.getText());
@@ -124,6 +133,9 @@ public class DetailedRouteInformation extends RouteDataViewerController {
         currentRoute.setGender(gender.getSelectionModel().getSelectedItem());
         currentRoute.setUserType(userType.getText());
 
+        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        currentStage.close();
+        showRoutes(mainAppEvent);
     }
 
 }

@@ -267,6 +267,7 @@ public class RouteDataViewerController extends DataViewerController {
             Scene popupScene = new Scene(popupParent);
             popup.setScene(popupScene);
             popup.show();
+            DetailedRouteInformation.setMainAppEvent(event);
         }
     }
 

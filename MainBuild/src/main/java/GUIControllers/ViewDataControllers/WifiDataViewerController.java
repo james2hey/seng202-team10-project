@@ -104,8 +104,7 @@ public class WifiDataViewerController extends DataViewerController {
     }
 
     @FXML
-    void displayData(ActionEvent event) {
-        System.out.println("Display button pressed");
+    public void displayData(ActionEvent event) {
 
         String provider = providerInput.getText();
         if (provider.equals("")) {
@@ -168,12 +167,15 @@ public class WifiDataViewerController extends DataViewerController {
             Scene popupScene = new Scene(popupParent);
             popup.setScene(popupScene);
             popup.show();
+            DetailedWifiInformation.setMainAppEvent(event);
         }
     }
 
     static public WifiLocation getWifi() {
         return wifi;
     }
+
+
 
 
 }

@@ -181,7 +181,7 @@ public class RetailerDataViewerController extends DataViewerController {
             Scene popupScene = new Scene(popupParent);
             popup.setScene(popupScene);
             popup.show();
-
+            DetailedRetailerInformation.setMainAppEvent(event);
         }
     }
 

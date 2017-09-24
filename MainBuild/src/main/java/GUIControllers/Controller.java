@@ -53,28 +53,10 @@ public abstract class Controller {
         VBox box = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/SidePanel.fxml"));
         drawer.setSidePane(box);
 
-//        HamburgerBasicCloseTransition transition = new HamburgerBasicCloseTransition(hamburger);
-//
-//        transition.setRate(-1);
-//        hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED,(e)->{
-//            transition.setRate(transition.getRate()*-1);
-//            transition.play();
-//        });
-
         if (drawer.isShown()) {
-//            HamburgerBasicCloseTransition transition2 = new HamburgerBasicCloseTransition(hamburger);
-//            transition2.setRate(-1);
-//            transition2.play();
             drawer.close();
-
-
-        }
-        else {
+        } else {
             drawer.open();
-//            HamburgerBasicCloseTransition transition2 = new HamburgerBasicCloseTransition(hamburger);
-//            transition2.setRate(1);
-//            transition2.play();
-
         }
     }
 
@@ -100,7 +82,7 @@ public abstract class Controller {
 
 
     @FXML
-    void changeToHomeScene(ActionEvent event) throws IOException {
+    public void changeToHomeScene(ActionEvent event) throws IOException {
         Parent homeParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/home.fxml"));
         Scene homeScene = new Scene(homeParent);
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -109,7 +91,7 @@ public abstract class Controller {
 
 
     @FXML
-    void changeToAddDataScene(ActionEvent event) throws IOException {
+    public void changeToAddDataScene(ActionEvent event) throws IOException {
         Parent addDataParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/addData.fxml"));
         Scene addDataScene = new Scene(addDataParent);
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -129,7 +111,7 @@ public abstract class Controller {
     }
 
     @FXML
-    void changeToViewDataScene(ActionEvent event) throws IOException {
+    public void changeToViewDataScene(ActionEvent event) throws IOException {
         Parent viewDataParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/routeViewData.fxml"));
         Scene viewDataScene = new Scene(viewDataParent);
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
