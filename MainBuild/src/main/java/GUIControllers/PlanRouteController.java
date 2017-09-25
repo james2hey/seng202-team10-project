@@ -30,6 +30,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.ResourceBundle;
 
+/**
+ * Controller for the plan route scene.
+ */
 
 public class PlanRouteController extends Controller implements Initializable, MapComponentInitializedListener, DirectionsServiceCallback {
 
@@ -61,10 +64,8 @@ public class PlanRouteController extends Controller implements Initializable, Ma
     private GeocodingService geocodingService;
 
     private GoogleMap map;
-
     private StringProperty startAddress = new SimpleStringProperty();
     private StringProperty endAddress = new SimpleStringProperty();
-
     private ArrayList<Marker> wifiMarkers = new ArrayList<Marker>();
     private ArrayList<Marker> retailerMarkers = new ArrayList<Marker>();
     private ArrayList<Marker> tripMarkers = new ArrayList<Marker>();
@@ -80,6 +81,9 @@ public class PlanRouteController extends Controller implements Initializable, Ma
     private HashSet<RetailLocation> retailLocations = new HashSet<RetailLocation>();
     private HashSet<Route> routes = new HashSet<Route>();
 
+    /**
+     * Called automatically when the map is loaded. Loads the map.
+     */
     @Override
     public void mapInitialized() {
         System.out.println("Init");
@@ -111,17 +115,25 @@ public class PlanRouteController extends Controller implements Initializable, Ma
         renderTripMarkers();
     }
 
-
+    /**
+     * Called when the fxml is loaded. Initialises the start and end address text fields so they cna be used to
+     * create routes.
+     * @param location Location of the fxml
+     * @param resources Locale-specific data required for the method to run automatically
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("Init");
         mapView.addMapInializedListener(this);
-        System.out.println("Init2");
         startAddress.bindBidirectional(startAddressField.textProperty());
         endAddress.bindBidirectional(endAddressField.textProperty());
         nearbyFinder = new FindNearbyLocations(Main.getDB());
     }
 
+    /**
+     * Called when enter key is pressed from inside the address textfields. Requests a route and loads it on the map.
+     * @param event Created when the method is called
+     */
     @FXML
     public void addressTextFieldAction(ActionEvent event) {
         String start = startAddress.get().replace("'", "\'");
@@ -132,6 +144,12 @@ public class PlanRouteController extends Controller implements Initializable, Ma
         currentEnd = endAddress.get();
     }
 
+    /**
+     * Called when a route is created. It gets the start and end location latitude and longitude to find the mid point
+     * of the route. This can then be used to find nearby retailers and wifi locations.
+     * @param results The directions the route takes
+     * @param status default constructor when collecting route directions
+     */
     @Override
     public void directionsReceived(DirectionsResult results, DirectionStatus status) {
         nearbyRetailerButton.setDisable(false);
@@ -329,6 +347,10 @@ public class PlanRouteController extends Controller implements Initializable, Ma
         }
     }
 
+    /**
+     * Adds a list of wifi locations to the map.
+     * @param wifiLocations A list of wifi locations
+     */
     public void addWifiLocations(ArrayList<WifiLocation> wifiLocations) {
         if (wifiLocations == null) {
             return;
@@ -338,10 +360,17 @@ public class PlanRouteController extends Controller implements Initializable, Ma
         }
     }
 
+    /**
+     * Clears wifi Locations from the map.
+     */
     public void clearWifiLocations() {
         wifiLocations.clear();
     }
 
+    /**
+     * Adds a list of retailers to the map.
+     * @param retailLocations List of retailers to be added to the map
+     */
     public void addRetailLocations(ArrayList<RetailLocation> retailLocations) {
         if (retailLocations == null) {
             return;
@@ -351,10 +380,17 @@ public class PlanRouteController extends Controller implements Initializable, Ma
         }
     }
 
+    /**
+     * Removes all retailers from the map.
+     */
     public void clearRetailLocations() {
         retailLocations.clear();
     }
 
+    /**
+     * Adds a list of routes to the map.
+     * @param routes List of routes to be added to the map.
+     */
     public void addRoutes(ArrayList<Route> routes) {
         if (routes == null) {
             return;
@@ -364,16 +400,26 @@ public class PlanRouteController extends Controller implements Initializable, Ma
         }
     }
 
+    /**
+     * Removes all routes from the map.
+     */
     public void clearRoutes() {
         routes.clear();
     }
 
+    /**
+     * Clears the map.
+     */
     public void clearAll() {
         clearWifiLocations();
         clearRetailLocations();
         clearRoutes();
     }
 
+    /**
+     * If a marker has been selected, this will add nearby wifi locations to the map. Else, it will inform the user that
+     * either a marker must be selected or that there are no nearby wifi locations.
+     */
     @FXML
     public void showNearbyWifi() {
         //Called by GUI when show nearby wifi button is pressed.
@@ -390,6 +436,10 @@ public class PlanRouteController extends Controller implements Initializable, Ma
         }
     }
 
+    /**
+     * If a marker has been selected, this will add nearby retailers to the map. Else, it will inform the user that
+     * either a marker must be selected or that there are no nearby retailers.
+     */
     @FXML
     public void showNearbyRetailers() {
         //Called by GUI when show nearby retails button is pressed.
@@ -404,14 +454,17 @@ public class PlanRouteController extends Controller implements Initializable, Ma
             addRetailLocations(newLocations);
             renderRetailerMarkers();
         }
-
     }
 
+    /**
+     * Changes the scene to the add data scene while pre-loading the start and end address that was being viewed
+     * on the map.
+     * @param event Created when the method is called
+     * @throws IOException Handles errors caused by an fxml not loading correctly
+     */
     @FXML
     public void addRouteToDatabase(ActionEvent event) throws IOException {
         //called by GUI when add current route to database button is pressed.
         changeToAddDataScene(event, currentStart, currentEnd);
-
     }
-
 }

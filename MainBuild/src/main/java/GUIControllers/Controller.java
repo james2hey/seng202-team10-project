@@ -96,7 +96,11 @@ public abstract class Controller {
         currentStage.setScene(planRouteScene);
     }
 
-
+    /**
+     * Changes scene to the home scene.
+     * @param event Created when the method is called
+     * @throws IOException Handles errors caused by an fxml not loading correctly
+     */
     @FXML
     public void changeToHomeScene(ActionEvent event) throws IOException {
         Parent homeParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/home.fxml"));
@@ -105,7 +109,11 @@ public abstract class Controller {
         currentStage.setScene(homeScene);
     }
 
-
+    /**
+     * Changes scene to the add data scene.
+     * @param event Created when the method is called
+     * @throws IOException Handles errors caused by an fxml not loading correctly
+     */
     @FXML
     public void changeToAddDataScene(ActionEvent event) throws IOException {
         Parent addDataParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/addData.fxml"));
@@ -114,6 +122,13 @@ public abstract class Controller {
         currentStage.setScene(addDataScene);
     }
 
+    /**
+     * Changes scene to the add data scene taking parameters to preallocate some of the fields.
+     * @param event Created when the method is called
+     * @param startAddress Preallocated string as the start of the route to add.
+     * @param endAddress Preallocated string as the end of the route to add.
+     * @throws IOException Handles errors caused by an fxml not loading correctly
+     */
     @FXML
     void changeToAddDataScene(ActionEvent event, String startAddress, String endAddress) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/addData.fxml"));
@@ -126,6 +141,11 @@ public abstract class Controller {
         controller.changeToRouteEntryScene(event);
     }
 
+    /**
+     * Changes the scene to view data.
+     * @param event Created when the method is called
+     * @throws IOException Handles errors caused by an fxml not loading correctly
+     */
     @FXML
     public void changeToViewDataScene(ActionEvent event) throws IOException {
         Parent viewDataParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/DataViewerFXMLs/routeViewData.fxml"));

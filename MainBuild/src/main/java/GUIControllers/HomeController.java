@@ -17,6 +17,10 @@ import main.Main;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Controller class for home.
+ */
+
 public class HomeController extends Controller implements Initializable{
 
     @FXML
@@ -59,10 +63,16 @@ public class HomeController extends Controller implements Initializable{
     private Text welcomeText;
 
     private ObservableList<Route> routeList = FXCollections.observableArrayList();
+
     private ObservableList<WifiLocation> wifiList = FXCollections.observableArrayList();
+
     private ObservableList<RetailLocation> retailerList = FXCollections.observableArrayList();
 
-
+    /**
+     * Runs on successfully loading the fxml. Fills the favourites tables.
+     * @param location Location of the fxml
+     * @param resources Locale-specific data required for the method to run automatically
+     */
     public void initialize(URL location, ResourceBundle resources) {
         String username = Main.hu.currentCyclist.getName();
         welcomeText.setText("Welcome: " + username);
@@ -85,10 +95,5 @@ public class HomeController extends Controller implements Initializable{
         RetailerAddress.setCellValueFactory(new PropertyValueFactory<>("Address"));
         tableViewRetailers.setItems(retailerList);
         tableViewRetailers.getColumns().setAll(FavRetailers);
-
-
     }
-
-
-
 }
