@@ -7,9 +7,15 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /**
- * Created by mki58 on 23/09/17.
+ * UpdateData class contains methods that are used to update fields of data entries in the database.
  */
 public class UpdateData {
+
+    private static SQLiteDB db;
+
+    public static void init(SQLiteDB sqLiteDB) {
+        db = sqLiteDB;
+    }
 
 
     /**
@@ -26,13 +32,12 @@ public class UpdateData {
      * @param time of type String, this is the startTime value for the route to be updated
      */
     public static void updateRouteField(String field, String value, String bikeID, String year, String month, String day, String time) {
-        SQLiteDB db = Main.getDB();
         String sqlCommand = "UPDATE route_information SET " + field + " = ? WHERE " +
                 "bikeid = ? AND start_year = ? AND start_month = ? AND start_day = ? AND start_time = ?;";
 
         try {
-            PreparedStatement pstmt = db.getPreparedStatement(sqlCommand);
             System.out.println(sqlCommand);
+            PreparedStatement pstmt = db.getPreparedStatement(sqlCommand);
             pstmt.setString(1, value);
             pstmt.setString(2, bikeID);
             pstmt.setString(3, year);
@@ -58,13 +63,11 @@ public class UpdateData {
      * @param wifiID of type String, this is the wifiID field for the wifi location to be updated
      */
     public static void updateWifiField(String field, String value, String wifiID) {
-        SQLiteDB db = Main.getDB();
         String sqlCommand = "UPDATE wifi_location SET " + field + " = ? WHERE wifi_id = ?;";
 
         try {
             PreparedStatement pstmt = db.getPreparedStatement(sqlCommand);
             System.out.println(sqlCommand);
-            System.out.println(wifiID);
             pstmt.setString(1, value);
             pstmt.setString(2, wifiID);
 
@@ -87,7 +90,6 @@ public class UpdateData {
      * @param address of type String, this is the address value of the retail location to be updated
      */
     public static void updateRetailerField(String field, String value, String name, String address) {
-        SQLiteDB db = Main.getDB();
         String sqlCommand = "UPDATE retailer SET " + field + " = ? WHERE retailer_name = ? AND address = ?;";
 
         try {

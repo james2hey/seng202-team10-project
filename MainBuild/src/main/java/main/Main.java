@@ -2,6 +2,7 @@ package main;
 
 import dataHandler.*;
 import dataManipulation.FindNearbyLocations;
+import dataManipulation.UpdateData;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -21,6 +22,7 @@ public class Main extends Application {
         hu = new HandleUsers();
         hu.init();
         hu.fillUserList();
+        UpdateData.init(db);
 
         FindNearbyLocations nearbyLocations = new FindNearbyLocations(db);
         FavouriteRouteData favRouteData = new FavouriteRouteData(db);
