@@ -14,7 +14,8 @@ import java.util.ArrayList;
 
 
 /**
- * DataFilterer class uses methods that sent requests to the database and return a array of data.
+ * DataFilterer class contains methods that sent requests to the database and return a array of data based on what
+ * filtering parameters are passed in.
  */
 public class DataFilterer {
 

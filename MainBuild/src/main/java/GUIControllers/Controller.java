@@ -123,7 +123,7 @@ public abstract class Controller {
 
         AddDataController.setRouteVals(startAddress, endAddress);
         System.out.println(endAddress);
-        controller.changeToRouteEntryScene(event, currentStage);
+        controller.changeToRouteEntryScene(event);
     }
 
     @FXML

@@ -10,6 +10,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 
+/**
+ * FindNearByLocations class contains methods that find WifiLocation and RetailLocation objects given a set of
+ * coordinates.
+ */
 public class FindNearbyLocations {
 
     private ArrayList<WifiLocation> nearbyWifi = new ArrayList<>();

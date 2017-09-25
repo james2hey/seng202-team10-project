@@ -26,7 +26,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-
+/**
+ * Controller class for wifi data viewer.
+ */
 
 public class WifiDataViewerController extends DataViewerController {
 
@@ -67,11 +69,22 @@ public class WifiDataViewerController extends DataViewerController {
     private TableColumn<WifiLocation, String> Cost;
 
     private ObservableList<WifiLocation> wifiList = FXCollections.observableArrayList();
+
     private ArrayList<WifiLocation> wifiLocations = new ArrayList<>();
 
     static private WifiLocation wifi = null;
 
+    static public WifiLocation getWifi() {
+        return wifi;
+    }
 
+    /**
+     * Runs on startup of the fxml. It gets the wifi information from the database and display it in the table.
+     * A call of displayData is used to refresh the GUI.
+     *
+     * @param location Location of the fxml
+     * @param resources Locale-specific data required for the method to run automatically
+     */
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
         Name.setCellValueFactory(new PropertyValueFactory<>("SSID"));
@@ -85,12 +98,24 @@ public class WifiDataViewerController extends DataViewerController {
         displayData(event);
     }
 
-
+    /**
+     * Called when the display all on map button is pressed. Changes the scene to the plan route one.
+     *
+     * @param event Created when the method is called
+     * @throws IOException Handles errors caused by an fxml not loading correctly
+     */
     @FXML
     void displayDataOnMap(ActionEvent event) throws IOException {
         changeToPlanRouteScene(event, wifiLocations, null, null);
     }
 
+    /**
+     * Called when the display selected button is pressed. If nothing is selected, it will prompt the user. Otherwise,
+     * it will get the selected wifi location, and load the plan route scene with it in it.
+     *
+     * @param event Created when the method is called
+     * @throws IOException Handles errors caused by an fxml not loading correctly
+     */
     @FXML
     void displaySelectedDataOnMap(ActionEvent event) throws IOException {
         if (tableView.getSelectionModel().getSelectedItem() == null) {
@@ -103,6 +128,12 @@ public class WifiDataViewerController extends DataViewerController {
         }
     }
 
+    /**
+     * Called when the filter button is pressed. It checks the user input and filters the data by those fields. It then
+     * refreshes the table so it can be viewed visually.
+     *
+     * @param event Created when the method is called
+     */
     @FXML
     public void displayData(ActionEvent event) {
 
@@ -158,9 +189,16 @@ public class WifiDataViewerController extends DataViewerController {
         }
     }
 
+    /**
+     * Called when view/edit wifi location button is pressed. If nothing is selected, it will prompt the user, otherwise,
+     * it will get the selection and launch the detailed view of it.
+     *
+     * @param event Created when the method is called
+     * @throws IOException Handles errors caused by an fxml not loading correctly
+     */
     @FXML
     void editData(ActionEvent event) throws IOException {
-        //Called when view/edit wifi location button is pressed.
+
         if (tableView.getSelectionModel().getSelectedItem() == null) {
             makeErrorDialogueBox("No Wifi Location selected.", "Please select one from the table.");
         } else {
@@ -175,12 +213,4 @@ public class WifiDataViewerController extends DataViewerController {
             DetailedWifiInformation.setMainAppEvent(event);
         }
     }
-
-    static public WifiLocation getWifi() {
-        return wifi;
-    }
-
-
-
-
 }

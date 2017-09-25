@@ -43,8 +43,8 @@ public abstract class DataViewerController extends Controller implements Initial
     /**
      * Changes the current scene to wifi location viewer.
      *
-     * @param event Created when the method is called.
-     * @throws IOException Handles errors caused by an fxml not loading correctly.
+     * @param event Created when the method is called
+     * @throws IOException Handles errors caused by an fxml not loading correctly
      */
     @FXML
     void showWifiLocations(ActionEvent event) throws IOException{
