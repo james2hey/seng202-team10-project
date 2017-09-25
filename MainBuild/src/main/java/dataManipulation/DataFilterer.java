@@ -26,6 +26,7 @@ public class DataFilterer {
     private String dateCommand;
     private String startAddressCommand;
     private String endAddressCommand;
+    private String bikeIDCommand;
     private String getAllRoutesCommand;
 
 
@@ -71,6 +72,7 @@ public class DataFilterer {
         timeCommand = "start_time BETWEEN ? AND ?";
         startAddressCommand = "start_station_name LIKE ?";
         endAddressCommand = "end_station_name LIKE ?";
+        bikeIDCommand = "bikeid = ?";
         getAllRoutesCommand = "SELECT * FROM route_information;";
         //---Wifi Strings---
         wifiCommand = "SELECT * FROM wifi_location WHERE ";
@@ -185,7 +187,7 @@ public class DataFilterer {
      * @return queryCommand, of type String. This is the string that will be used as a query statement to the database
      */
     private String generateQueryString(int gender, String dateLower, String dateUpper, String timeLower,
-                                       String timeUpper, String startLocation, String endLocation) {
+                                       String timeUpper, String startLocation, String endLocation, String bikeID) {
         String queryCommand = routeCommand;
         int queryLength = 0;
 
@@ -217,6 +219,12 @@ public class DataFilterer {
             queryCommand = addAndToStmt(queryCommand, queryLength);
             queryCommand = queryCommand + endAddressCommand;
             filterVariableStrings.add("%" + endLocation + "%");
+            queryLength = 1;
+        }
+        if (bikeID != null) {
+            queryCommand = addAndToStmt(queryCommand, queryLength);
+            queryCommand = queryCommand + bikeIDCommand;
+            filterVariableStrings.add(bikeID);
             queryLength = 1;
         }
         if (queryLength > 0) {
@@ -287,11 +295,11 @@ public class DataFilterer {
      *                      to filter by
      * @return ArrayList<Route>, this is an ArrayList that contains all filtered routes
      */
-    public ArrayList<Route> filterRoutes(int gender, String dateLower, String dateUpper,
-                                   String timeLower, String timeUpper, String startLocation, String endLocation) {
+    public ArrayList<Route> filterRoutes(int gender, String dateLower, String dateUpper, String timeLower,
+                                         String timeUpper, String startLocation, String endLocation, String bikeID) {
         String queryString;
         queryString = generateQueryString(gender, dateLower, dateUpper, timeLower, timeUpper, startLocation,
-                endLocation);
+                endLocation, bikeID);
         if (queryString.equals(routeCommand)) {
             getAllRoutes();
             return routes;

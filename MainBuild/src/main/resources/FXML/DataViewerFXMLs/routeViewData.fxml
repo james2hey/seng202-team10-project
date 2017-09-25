@@ -131,7 +131,7 @@
             </VBox>
             <VBox prefHeight="161.0" prefWidth="103.0">
                <children>
-                  <JFXTextField fx:id="bikeID" prefHeight="23.0" prefWidth="147.0" promptText="Bike ID" />
+                  <JFXTextField fx:id="bikeIDInput" prefHeight="23.0" prefWidth="147.0" promptText="Bike ID" />
                </children>
             </VBox>
          </children>

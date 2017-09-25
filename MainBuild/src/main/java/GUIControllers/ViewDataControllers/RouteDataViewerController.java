@@ -51,6 +51,9 @@ public class RouteDataViewerController extends DataViewerController {
     private JFXTextField endTimeInput;
 
     @FXML
+    private JFXTextField bikeIDInput;
+
+    @FXML
     private TableView<Route> tableView;
 
     @FXML
@@ -188,9 +191,14 @@ public class RouteDataViewerController extends DataViewerController {
             endLocation = null;
         }
 
+        String bikeID = bikeIDInput.getText();
+        if ("".equals(bikeID)) {
+            bikeID = null;
+        }
+
         DataFilterer filterer = new DataFilterer(Main.getDB());
         routes = filterer.filterRoutes(gender, dateLower, dateUpper,
-                timeLower, timeUpper, startLocation, endLocation);
+                timeLower, timeUpper, startLocation, endLocation, bikeID);
         System.out.println("Got data");
         System.out.println(routes.size());
         for (int i = 0; i < routes.size(); i++) {
