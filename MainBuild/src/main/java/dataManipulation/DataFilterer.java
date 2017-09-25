@@ -230,6 +230,7 @@ public class DataFilterer {
         if (queryLength > 0) {
             queryCommand = queryCommand + commandEnd;
         }
+        System.out.println(queryCommand);
         return queryCommand;
     }
 
@@ -499,7 +500,6 @@ public class DataFilterer {
             queryString = queryString + zipCommand;
             queryLen += 1;
             filterVariables.add(zip);
-            System.out.println(filterVariables.get(0));
         }
 
         if (queryLen > 0) {
@@ -510,17 +510,14 @@ public class DataFilterer {
             getAllRetailLocations();
             return retailLocations;
         }
-        System.out.println(queryString);
         try {
             PreparedStatement pstmt;
             pstmt = db.getPreparedStatement(queryString);
             int i;
             for (i = 0; i < filterVariableStrings.size(); i++) {
-                System.out.println(filterVariableStrings.get(i));
                 pstmt.setString(i + 1, filterVariableStrings.get(i));
             }
             for (int j = 0; j < filterVariables.size(); j++) {
-                System.out.println(filterVariables.get(j));
                 pstmt.setInt(i + 1, filterVariables.get(j));
                 i++;
             }

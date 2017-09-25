@@ -304,6 +304,15 @@ public class DataFilterer_Routes_Wifi_Test {
 
 
     @Test
+    public void filterRoutesTestStartAddress__() throws Exception {
+        routes = dataFilterer.filterRoutes(-1, null, null, null, null,
+                "", null, null);
+        int size = routes.size();
+        assertTrue(50 == size);
+    }
+
+
+    @Test
     public void filterRoutesTestStartAddress_test_() throws Exception {
         routes = dataFilterer.filterRoutes(-1, null, null, null, null,
                 "test", null, null);
@@ -378,7 +387,16 @@ public class DataFilterer_Routes_Wifi_Test {
 
 
     @Test
-    public void filterRoutesTestBikeID_() throws Exception {
+    public void filterRoutesTestEndAddress__() throws Exception {
+        routes = dataFilterer.filterRoutes(-1, null, null, null, null,
+                null, "", null);
+        int size = routes.size();
+        assertTrue(50 == size);
+    }
+
+
+    @Test
+    public void filterRoutesTestBikeID_24042_() throws Exception {
         ArrayList<String> bikeID = new ArrayList<>();
         bikeID.add("24042");
         routes = dataFilterer.filterRoutes(-1, null, null, null, null,
@@ -387,6 +405,16 @@ public class DataFilterer_Routes_Wifi_Test {
         for (int i = 0; i < size; i++){
             assertTrue(bikeID.get(i).equals(routes.get(i).getBikeID()));
         }
+    }
+
+
+    @Test
+    public void filterRoutesTestBikeID__() throws Exception {
+        routes = dataFilterer.filterRoutes(-1, null, null, null, null,
+                null, null, "");
+        int size = routes.size();
+        assertTrue(size == 0);
+
     }
 
 
@@ -426,6 +454,14 @@ public class DataFilterer_Routes_Wifi_Test {
         wifiLocations = dataFilterer.filterWifi("l", null, null, null);
         int size = wifiLocations.size();
         assertTrue(size == 42);
+    }
+
+
+    @Test
+    public void filterWifiTestName__() throws Exception {
+        wifiLocations = dataFilterer.filterWifi("", null, null, null);
+        int size = wifiLocations.size();
+        assertTrue(size == 50);
     }
 
 
