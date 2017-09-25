@@ -15,7 +15,6 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import main.Main;
-import tornadofx.control.DateTimePicker;
 
 import java.io.File;
 import java.io.IOException;
@@ -357,26 +356,26 @@ public class AddDataController extends Controller implements Initializable {
 
     @FXML
     void changeToRouteEntryScene(ActionEvent event) throws IOException {
-        Parent manualEntryParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/manualEntry.fxml"));
+        Parent manualEntryParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/routeManualEntry.fxml"));
         Scene manualEntryScene = new Scene(manualEntryParent);
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.setScene(manualEntryScene);
     }
     @FXML
     void changeToRouteEntryScene(ActionEvent event, Stage stage) throws IOException {
-        Parent manualEntryParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/manualEntry.fxml"));
+        Parent manualEntryParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/routeManualEntry.fxml"));
         Scene manualEntryScene = new Scene(manualEntryParent);
         stage.setScene(manualEntryScene);
     }
 //
 //    @FXML
 //    void changeToRouteEntryScene(ActionEvent event, String startAddress, String endAddress, Stage stage) throws IOException {
-////        Parent manualEntryParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/manualEntry.fxml"));
+////        Parent manualEntryParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/routeManualEntry.fxml"));
 ////        Scene manualEntryScene = new Scene(manualEntryParent);
 ////        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 ////        currentStage.setScene(manualEntryScene);
 //
-//        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/manualEntry.fxml"));
+//        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/routeManualEntry.fxml"));
 //        Scene manualEntryScene = new Scene(loader.load());
 //
 //        AddDataController controller = loader.<AddDataController>getController();
@@ -389,7 +388,7 @@ public class AddDataController extends Controller implements Initializable {
 
     @FXML
     void changeToWifiEntryScene(ActionEvent event) throws IOException {
-        Parent manualEntryParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/wifiEntry.fxml"));
+        Parent manualEntryParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/wifiManualEntry.fxml"));
         Scene manualEntryScene = new Scene(manualEntryParent);
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.setScene(manualEntryScene);
@@ -397,7 +396,7 @@ public class AddDataController extends Controller implements Initializable {
 
     @FXML
     void changeToRetailerEntryScene(ActionEvent event) throws IOException {
-        Parent manualEntryParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/retailerEntry.fxml"));
+        Parent manualEntryParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/retailerManualEntry.fxml"));
         Scene manualEntryScene = new Scene(manualEntryParent);
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.setScene(manualEntryScene);
@@ -405,7 +404,7 @@ public class AddDataController extends Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if (location.equals(getClass().getClassLoader().getResource("FXML/manualEntry.fxml"))) {
+        if (location.equals(getClass().getClassLoader().getResource("FXML/routeManualEntry.fxml"))) {
             System.out.println(rSAddress.getText());
             System.out.println(startAddress);
             rSAddress.setText(startAddress);

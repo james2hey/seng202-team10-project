@@ -258,7 +258,7 @@ public class RouteDataViewerController extends DataViewerController {
             Stage popup = new Stage();
             popup.initModality(Modality.APPLICATION_MODAL);
             popup.initOwner(((Node) event.getSource()).getScene().getWindow());
-            Parent popupParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/detailedRouteInformation.fxml"));
+            Parent popupParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/DataViewerFXMLs/detailedRouteInformation.fxml"));
             Scene popupScene = new Scene(popupParent);
             popup.setScene(popupScene);
             popup.show();

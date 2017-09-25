@@ -168,7 +168,7 @@ public class WifiDataViewerController extends DataViewerController {
             Stage popup = new Stage();
             popup.initModality(Modality.APPLICATION_MODAL);
             popup.initOwner(((Node) event.getSource()).getScene().getWindow());
-            Parent popupParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/detailedWifiLocationInformation.fxml"));
+            Parent popupParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/DataViewerFXMLs/detailedWifiLocationInformation.fxml"));
             Scene popupScene = new Scene(popupParent);
             popup.setScene(popupScene);
             popup.show();

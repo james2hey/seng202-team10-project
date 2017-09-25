@@ -15,8 +15,8 @@
 <GridPane hgap="40.0" prefHeight="650.0" prefWidth="1100.0" style="-fx-background-color: grey;" vgap="30.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIControllers.ViewDataControllers.WifiDataViewerController">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="269.0" minWidth="10.0" prefWidth="29.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="269.0" minWidth="10.0" prefWidth="153.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="269.0" minWidth="10.0" prefWidth="180.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="269.0" minWidth="10.0" prefWidth="166.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="269.0" minWidth="10.0" prefWidth="173.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="269.0" minWidth="5.0" prefWidth="151.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="616.0" minWidth="10.0" prefWidth="99.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="595.0" minWidth="10.0" prefWidth="229.0" />
