@@ -1,5 +1,6 @@
 package dataHandler;
 
+import main.HandleUsers;
 import main.Main;
 
 import java.sql.PreparedStatement;
@@ -47,7 +48,7 @@ public class FavouriteRouteData {
      * @param rank rating of the route that the user has chosen
      */
     public void addFavouriteRoute(String name, String start_year, String start_month, String start_day,
-                                         String start_time, String bike_id, int rank) {
+                                  String start_time, String bike_id, int rank, HandleUsers hu) {
         try {
             addRoute.setObject(1, name);
             addRoute.setObject(2, start_year);
@@ -58,7 +59,7 @@ public class FavouriteRouteData {
             addRoute.setObject(7, rank);
             addRoute.executeUpdate();
             db.commit();
-            Main.hu.currentCyclist.updateUserRouteFavourites();
+            hu.currentCyclist.updateUserRouteFavourites(hu);
 
         } catch (SQLException e) {
             addRoute = db.getPreparedStatement(addRouteStatement);

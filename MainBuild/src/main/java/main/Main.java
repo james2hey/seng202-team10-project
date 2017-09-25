@@ -20,8 +20,7 @@ public class Main extends Application {
         Geocoder.init();
         DatabaseUser d = new DatabaseUser(db);
         hu = new HandleUsers();
-        hu.init();
-        hu.fillUserList();
+        hu.init(db);
         UpdateData.init(db);
 
         FindNearbyLocations nearbyLocations = new FindNearbyLocations(db);
@@ -35,12 +34,6 @@ public class Main extends Application {
         primaryStage.setTitle("Pedals");
         primaryStage.setScene(new Scene(root, 1100, 650));
         primaryStage.show();
-    }
-
-    /**Initializes the user and does
-     */
-    private static void initCyclist() {
-        Cyclist cyclist = new Cyclist();
     }
 
     public static SQLiteDB getDB() {

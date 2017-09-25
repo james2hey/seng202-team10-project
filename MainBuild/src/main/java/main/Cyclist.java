@@ -78,9 +78,9 @@ public class Cyclist {
     /**
      * Updates the users favourite routes. This will set the rank variable for the new Route object that has been added.
      */
-    public void updateUserRouteFavourites() {
+    public void updateUserRouteFavourites(HandleUsers hu) {
         favouriteRouteList.clear();
-        Main.hu.getUserRouteFavourites();
+        hu.getUserRouteFavourites();
     }
 
 
@@ -94,7 +94,7 @@ public class Cyclist {
         favouriteRouteList.add(route);
         FavouriteRouteData f = new FavouriteRouteData((Main.getDB()));
         f.addFavouriteRoute(name, route.getStartYear(), route.getStartMonth(), route.getStartDay(),
-                route.getStartTime(), route.getBikeID(), rank);
+                route.getStartTime(), route.getBikeID(), rank, Main.hu);
     }
 
 

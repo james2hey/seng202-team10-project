@@ -17,36 +17,16 @@ import java.util.ArrayList;
  */
 public class HandleUsers {
 
-    private ArrayList<String> userList = new ArrayList<>();
     public Cyclist currentCyclist;
-    public ArrayList<String> getUserList() {
-        return userList;
-    }
-
     private SQLiteDB db;
 
 
     /**
      * Initializes the database.
+     * @param sqLiteDB database to be initialized.
      */
-    public void init() {
-        db = Main.getDB();
-    }
-
-
-    /**
-     * Fills the database with existing users from an external csv.
-     */
-    public void fillUserList() {
-        try {
-            ResultSet rs;
-            rs = db.executeQuerySQL("SELECT * FROM users;");
-            while (rs.next()) {
-                userList.add(rs.getString("name"));
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+    public void init(SQLiteDB sqLiteDB) {
+        db = sqLiteDB;
     }
 
     /**
@@ -176,9 +156,8 @@ public class HandleUsers {
         } catch (SQLException e) { //What if the result set is not closed?
             e.getMessage();
             currentCyclist = new Cyclist(username);
-            DatabaseUser d = new DatabaseUser(Main.getDB());
+            DatabaseUser d = new DatabaseUser(db);
             d.addUser(username);
-            userList.add(username);
             created = true;
         }
         return created;
