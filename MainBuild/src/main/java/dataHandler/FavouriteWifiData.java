@@ -11,7 +11,7 @@ public class FavouriteWifiData {
     private SQLiteDB db;
     private String[] fields =
             {"name         VARCHAR(12)",
-                    "WIFI_ID    DOUBLE"};
+                    "WIFI_ID    VARCHAR(12)"};
     private String primaryKey = "name, WIFI_ID";
     private String tableName = "favourite_wifi";
     private PreparedStatement addWifi;

@@ -110,7 +110,7 @@ public class HandleUsers {
             while (rsFavourites.next()) {
                 PreparedStatement ps = db.getPreparedStatement("SELECT * FROM wifi_location where WIFI_ID = ?");
 
-                ps.setInt(1, rsFavourites.getInt(2));
+                ps.setString(1, rsFavourites.getString(2));
                 rsWifi = ps.executeQuery();
                 tempWifi = new WifiLocation(rsWifi.getString("wifi_id"), rsWifi.getDouble("lat"),
                         rsWifi.getDouble("lon"), rsWifi.getString("address"),
