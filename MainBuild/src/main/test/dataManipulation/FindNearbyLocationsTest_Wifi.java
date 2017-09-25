@@ -84,15 +84,15 @@ public class FindNearbyLocationsTest_Wifi {
 //    }
 
 
-    @Test
-    public void findNearByRetailerAlongRoute() throws Exception {
-        FindNearbyLocations nearbyLocations = new FindNearbyLocations(db);
-        retailers = nearbyLocations.findNearbyRetail(40.717828, -74.00096200000002);
-        System.out.println(retailers.size());
-        for (int j = 0; j < retailers.size(); j++){
-            System.out.println(retailers.get(j).getName());
-        }
-        assertTrue(1 == 1);
-    }
+//    @Test
+//    public void findNearByRetailerAlongRoute() throws Exception {
+//        FindNearbyLocations nearbyLocations = new FindNearbyLocations(db);
+//        retailers = nearbyLocations.findNearbyRetail(40.717828, -74.00096200000002);
+//        System.out.println(retailers.size());
+//        for (int j = 0; j < retailers.size(); j++){
+//            System.out.println(retailers.get(j).getName());
+//        }
+//        assertTrue(1 == 1);
+//    }
 
 }
