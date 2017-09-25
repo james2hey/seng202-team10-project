@@ -23,12 +23,12 @@ public class HandleUsersTest {
     private Cyclist currentCyclist;
     private HandleUsers hu;
 
-
-    @AfterClass
-    public static void clearDB() throws Exception {
-        String home = System.getProperty("user.home");
-        java.nio.file.Path path = java.nio.file.Paths.get(home, "testdatabase.db");
-        Files.delete(path);
+    @Before
+    public void setUp() throws Exception {
+        currentCyclist = new Cyclist("Tester");
+        hu = new HandleUsers();
+        hu.init(db);
+        hu.currentCyclist = currentCyclist;
     }
 
 
@@ -37,15 +37,6 @@ public class HandleUsersTest {
         String home = System.getProperty("user.home");
         java.nio.file.Path path = java.nio.file.Paths.get(home, "testdatabase.db");
         db = new SQLiteDB(path.toString());
-    }
-
-
-    @Before
-    public void setUp() throws Exception {
-        currentCyclist = new Cyclist("Tester");
-        hu = new HandleUsers();
-        hu.init(db);
-        hu.currentCyclist = currentCyclist;
     }
 
 
@@ -64,6 +55,14 @@ public class HandleUsersTest {
         db.executeUpdateSQL("DROP TABLE favourite_wifi");
         db.executeUpdateSQL("DROP TABLE favourite_retail");
         db.executeUpdateSQL("DROP TABLE users");
+    }
+
+
+    @AfterClass
+    public static void clearDB() throws Exception {
+        String home = System.getProperty("user.home");
+        java.nio.file.Path path = java.nio.file.Paths.get(home, "testdatabase.db");
+        Files.delete(path);
     }
 
 

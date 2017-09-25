@@ -6,6 +6,7 @@ import dataAnalysis.WifiLocation;
 import dataHandler.FavouriteRetailData;
 import dataHandler.FavouriteRouteData;
 import dataHandler.FavouriteWifiData;
+import dataHandler.SQLiteDB;
 
 import java.util.ArrayList;
 
@@ -89,10 +90,11 @@ public class Cyclist {
      * @param route the route to be added
      * @param name the username of whose favourite route this is
      * @param rank the rank score which the user gives. If none is given it is set to 0
+     * @param db the database's favourite_route table that is to have the row added.
      */
-    public void addRoute(Route route, String name, int rank) {
+    public void addRoute(Route route, String name, int rank, SQLiteDB db) {
         favouriteRouteList.add(route);
-        FavouriteRouteData f = new FavouriteRouteData((Main.getDB()));
+        FavouriteRouteData f = new FavouriteRouteData(db);
         f.addFavouriteRoute(name, route.getStartYear(), route.getStartMonth(), route.getStartDay(),
                 route.getStartTime(), route.getBikeID(), rank, Main.hu);
     }
@@ -125,7 +127,7 @@ public class Cyclist {
      * @param name   name of the user
      * @return true if the Retail is already in the favouriteRetail list, false otherwise
      */
-    public boolean addFavouriteRetail(RetailLocation retail, String name) {
+    public boolean addFavouriteRetail(RetailLocation retail, String name, SQLiteDB db) {
         boolean alreadyInList = false;
         for (int i = 0; i < favouriteRetailLocations.size(); i++) {
             RetailLocation tempRetail = favouriteRetailLocations.get(i);
@@ -136,7 +138,7 @@ public class Cyclist {
         }
         if (!alreadyInList) {
             favouriteRetailLocations.add(retail);
-            FavouriteRetailData f = new FavouriteRetailData(Main.getDB());
+            FavouriteRetailData f = new FavouriteRetailData(db);
             f.addFavouriteRetail(name, retail.getName(), retail.getAddress());
         }
         return alreadyInList;
@@ -150,7 +152,7 @@ public class Cyclist {
      * @param name name of the user
      * @return true if the Wifi is already in the favouriteWifi, false otherwise
      */
-    public boolean addFavouriteWifi(WifiLocation wifi, String name) {
+    public boolean addFavouriteWifi(WifiLocation wifi, String name, SQLiteDB db) {
         boolean alreadyInList = false;
         for (int i = 0; i < favouriteWifiLocations.size(); i++) {
             WifiLocation tempWifi = favouriteWifiLocations.get(i);
@@ -161,7 +163,7 @@ public class Cyclist {
         }
         if (!alreadyInList) {
             favouriteWifiLocations.add(wifi);
-            FavouriteWifiData f = new FavouriteWifiData(Main.getDB());
+            FavouriteWifiData f = new FavouriteWifiData(db);
             f.addFavouriteWifi(name, wifi.getWifiID());
         }
         return alreadyInList;
