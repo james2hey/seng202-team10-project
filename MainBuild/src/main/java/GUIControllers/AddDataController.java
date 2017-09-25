@@ -19,6 +19,7 @@ import tornadofx.control.DateTimePicker;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.ConnectException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -112,10 +113,21 @@ public class AddDataController extends Controller implements Initializable {
      */
     @FXML
     void routeCSVLine(ActionEvent event) throws IOException {
-        double SLatitude = 0, SLongitude = 0, ELatitude = 0, ELongitude = 0;
+        double SLatitude, SLongitude, ELatitude, ELongitude;
         boolean errorOccurred = false;
         String[] sDate = new String[3];
         String[] eDate = new String[3];
+
+        double[] sLatLon = Geocoder.addressToLatLon(rSAddress.getText());
+        double[] eLatLon = Geocoder.addressToLatLon(rEAddress.getText());
+        if (sLatLon == null || eLatLon == null) {
+            return;
+        } else {
+            SLatitude = sLatLon[0];
+            SLongitude = sLatLon[1];
+            ELatitude = eLatLon[0];
+            ELongitude = eLatLon[1];
+        }
 
         String username;
         try {
@@ -193,9 +205,6 @@ public class AddDataController extends Controller implements Initializable {
     void retailerCSVLine(ActionEvent event) throws IOException {
         Boolean errorOccured = false;
         double[] latLon;
-        double retLat = 0;
-        double retLon = 0;
-
         if ((latLon = Geocoder.addressToLatLon(retailerAddress.getText())) == null) {
             return;
         }
@@ -204,7 +213,7 @@ public class AddDataController extends Controller implements Initializable {
             return;
         }
         RetailerDataHandler newRetailer = new RetailerDataHandler(Main.getDB());
-        Boolean fromHandler = newRetailer.addSingleEntry(retailerName.getText(), retailerAddress.getText(), retLat, retLon, null,
+        Boolean fromHandler = newRetailer.addSingleEntry(retailerName.getText(), retailerAddress.getText(), latLon[0], latLon[1], null,
                 null, null, retailerPrim.getValue().toString(), retailerSec.getText());
         if(fromHandler == false) {
             makeErrorDialogueBox("Something wrong with input", "Check for nulls and already existing entries");
@@ -230,13 +239,11 @@ public class AddDataController extends Controller implements Initializable {
             return;
         }
 
-        double wLat = 0.0, wLong = 0.0;
-
         if(errorOccured == true){
             return;
         }
         WifiDataHandler newWifi = new WifiDataHandler(Main.getDB());
-        Boolean fromHandler = newWifi.addSingleEntry(wifiName.getText(), "", "", wifiAddress.getText(), wLat, wLong,
+        Boolean fromHandler = newWifi.addSingleEntry(wifiName.getText(), "", "", wifiAddress.getText(), latLon[0], latLon[1],
         wifiComments.getText(), "", wifiName.getText(), "", wifiPostcode.getText());
         if(fromHandler == false) {
             makeErrorDialogueBox("Something wrong with input", "Check for nulls and already existing entries");
@@ -270,7 +277,6 @@ public class AddDataController extends Controller implements Initializable {
      * Opens system file viewer and accepts only *.csv type files,
      * will print the file string to system and send it to the
      * routeDataHandler.
-     *
      * @param event Clicking the Routes button after Import File.
      * @throws IOException
      */
@@ -284,7 +290,14 @@ public class AddDataController extends Controller implements Initializable {
         if(file == null) {
             return;
         }
-        routeDataHandler.processCSV(file.toString());
+        try {
+            int[] successFailCounts = routeDataHandler.processCSV(file.toString());
+            Controller.makeSuccessDialogueBox("Import results", String.format("Successfully imported %d records.\nFailed to import %d records.", successFailCounts[0], successFailCounts[1]));
+        } catch (NoSuchFieldException e) {
+            Controller.makeErrorDialogueBox("Incorrect File", e.getMessage());
+        } catch (IOException e) {
+            Controller.makeErrorDialogueBox("Incorrect File", "Could not read the file, please ensure it is correct");
+        }
     }
 
     /**
@@ -305,7 +318,16 @@ public class AddDataController extends Controller implements Initializable {
         if(file == null) {
             return;
         }
-        retailerDataHandler.processCSV(file.toString());
+        try {
+            int[] successFailCounts = retailerDataHandler.processCSV(file.toString());
+            Controller.makeSuccessDialogueBox("Import results", String.format("Successfully imported %d records.\nFailed to import %d records.", successFailCounts[0], successFailCounts[1]));
+        } catch (NoSuchFieldException e) {
+            Controller.makeErrorDialogueBox("Incorrect File", e.getMessage());
+        } catch (ConnectException e) {
+            Controller.makeErrorDialogueBox("Connection Error", e.getMessage());
+        } catch (IOException e) {
+            Controller.makeErrorDialogueBox("Incorrect File", "Could not read the file, please ensure it is correct");
+        }
     }
     /**
      * Opens system file viewer and accepts only *.csv type files,
@@ -325,7 +347,14 @@ public class AddDataController extends Controller implements Initializable {
         if(file == null) {
             return;
         }
-        wifiDataHandler.processCSV(file.toString());
+        try {
+            int[] successFailCounts = wifiDataHandler.processCSV(file.toString());
+            Controller.makeSuccessDialogueBox("Import results", String.format("Successfully imported %d records.\nFailed to import %d records.", successFailCounts[0], successFailCounts[1]));
+        } catch (NoSuchFieldException e) {
+            Controller.makeErrorDialogueBox("Incorrect File", e.getMessage());
+        } catch (IOException e) {
+            Controller.makeErrorDialogueBox("Incorrect File", "Could not read the file, please ensure it is correct");
+        }
     }
 
     @FXML

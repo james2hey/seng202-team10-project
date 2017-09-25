@@ -56,6 +56,9 @@ public class Geocoder {
         }
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        System.out.println(gson);
+        System.out.println("Called");
+        System.out.println(gson.toJson(results[0]));
         Double lat = Double.parseDouble(gson.toJson(results[0].geometry.location.lat));
         Double lon = Double.parseDouble(gson.toJson(results[0].geometry.location.lng));
         return new double[]{lat, lon};

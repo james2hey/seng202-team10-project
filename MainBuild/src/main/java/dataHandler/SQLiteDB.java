@@ -52,7 +52,7 @@ public class SQLiteDB {
      * @param fields A string list of columns and their properties
      * @param primaryKey A value or values for the primary key, can be comma separated
      */
-    public void addTable(String tableName, String[] fields, String primaryKey) {
+    public boolean addTable(String tableName, String[] fields, String primaryKey) {
         try {
             String fieldsText = "";
             fieldsText += fields[0];
@@ -61,9 +61,10 @@ public class SQLiteDB {
             }
             String f = String.format(addTable, tableName, fieldsText, primaryKey);
             stmt.execute(f);
-
+            return true;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+            return false;
         }
     }
 

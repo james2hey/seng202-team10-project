@@ -4,6 +4,7 @@ import GUIControllers.Controller;
 import com.opencsv.CSVReader;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.joda.time.Duration;
 
 import java.io.FileReader;
@@ -168,27 +169,36 @@ public class RouteDataHandler {
     /**
      * Takes a CSV file and repeatedly calls processLine on the records
      * @param url A string directing to a valid filepath
+     * @return An integer list with the count of successful additions and failed additions.
+     * @throws IOException Thrown if there are errors reading the file
+     * @throws NoSuchFieldException Thrown if there are an incorrect number of fields in the CSV
      */
-    public void processCSV(String url) {
-        try {
-            db.setAutoCommit(false);
-            CSVReader reader = new CSVReader(new FileReader(url), ',');
+    public int[] processCSV(String url) throws IOException, NoSuchFieldException {
+        int[] successFailCounts = {0, 0};
+        db.setAutoCommit(false);
+        CSVReader reader = new CSVReader(new FileReader(url), ',');
 
-            String[] record;
-            reader.readNext(); // Skip first line as it's the desc
-            while ((record = reader.readNext()) != null) {
-                System.out.println(processLine(record));
-            }
-            db.setAutoCommit(true);
-            db.commit();
-        } catch (Exception e) {
-            System.out.println("Error in file.");
-            Controller.makeErrorDialogueBox("Incorrect File", "Error in file unable to parse retailers");
+        String[] record;
+        record = reader.readNext(); // Skip first line as it's the desc
+        if (record.length != 15) {
+            throw new NoSuchFieldException("Incorrect number of fields, expected 15 but got " + record.length);
         }
+        while ((record = reader.readNext()) != null) {
+            if (processLine(record)) {
+                successFailCounts[0] += 1;
+                System.out.println("Suc");
+            } else {
+                successFailCounts[1] += 1;
+                System.out.println("F");
+            }
+        }
+        db.setAutoCommit(true);
+        db.commit();
+        return successFailCounts;
     }
 
     /**
-     * Takes a series of strings and calculates the difference in times between the two.
+     * Takes a series of strings and calculates the difference in times between the two. Ignore daylight savings time currently
      * @param start_year
      * @param start_month
      * @param start_day
@@ -219,8 +229,8 @@ public class RouteDataHandler {
         int end_month_int = Integer.parseInt(end_month);
         int end_day_int = Integer.parseInt(end_day);
 
-        DateTime start = new DateTime(start_year_int, start_month_int, start_day_int, start_hour, start_min, start_sec);
-        DateTime end = new DateTime(end_year_int, end_month_int, end_day_int, end_hour, end_min, end_sec);
+        DateTime start = new DateTime(start_year_int, start_month_int, start_day_int, start_hour, start_min, start_sec, DateTimeZone.UTC);
+        DateTime end = new DateTime(end_year_int, end_month_int, end_day_int, end_hour, end_min, end_sec, DateTimeZone.UTC);
         Duration duration = new Duration(start, end);
         return duration.toStandardSeconds().getSeconds();
     }

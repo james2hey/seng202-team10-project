@@ -5,7 +5,11 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.*;
+
 import java.nio.file.Files;
+import java.sql.ResultSet;
+
 
 /**
  * Created by jes143 on 19/09/17.
@@ -46,18 +50,51 @@ public class SQLiteDBTest {
     }
 
     @Test
-    public void addTable() throws Exception {
+    public void addTableWhenExists() throws Exception {
+        String[] fields =
+                { "F1 VARCHAR(5)",
+                        "F2 INTEGER NOT NULL"};
 
+        String primaryKey = "F1";
+        String tableName = "table";
+        db.addTable(tableName, fields, primaryKey);
+        assertFalse(db.addTable(tableName, fields, primaryKey));
+
+    }
+
+    @Test
+    public void addTableWhenNotExists() throws Exception {
+        String[] fields =
+                { "F1 VARCHAR(5)",
+                        "F2 INTEGER NOT NULL"};
+
+        String primaryKey = "F1";
+        String tableName = "table";
+        assertTrue(db.addTable(tableName, fields, primaryKey));
+    }
+
+    @Test
+    public void addTableInvalidFieldExists() throws Exception {
+        String[] fields =
+                { "F1 VARCHAR(5)",
+                "F2 INTEGER NOT NULL"};
+
+        String primaryKey = "F1";
+        String tableName = "table";
+        assertTrue(db.addTable(tableName, fields, primaryKey));
     }
 
     @Test
     public void executeUpdateSQL() throws Exception {
-
+        db.executeUpdateSQL("DELETE * FROM route_information");
+        ResultSet rs = db.executeQuerySQL("SELECT * FROM route_information");
+        assertTrue(rs.next());
     }
 
     @Test
     public void executeQuerySQL() throws Exception {
-
+        ResultSet rs = db.executeQuerySQL("SELECT * FROM route_information");
+        assertTrue(rs.next());
     }
 
     @Test

@@ -105,22 +105,31 @@ public class WifiDataHandler {
     /**
      * Takes a CSV file and repeatedly calls processLine on the records
      * @param url A string directing to a valid filepath
+     * @return An integer list with the count of successful additions and failed additions.
+     * @throws IOException Thrown if there are errors reading the file
+     * @throws NoSuchFieldException Thrown if there are an incorrect number of fields in the CSV
      */
-    public void processCSV(String url) {
-        try {
-            db.setAutoCommit(false);
-            CSVReader reader = new CSVReader(new FileReader(url), ',');
+    public int[] processCSV(String url) throws IOException, NoSuchFieldException {
+        int[] successFailCounts = {0, 0};
+        db.setAutoCommit(false);
+        CSVReader reader = new CSVReader(new FileReader(url), ',');
 
-            String[] record;
-            reader.readNext(); // Skip first line as it's the desc
-            while ((record = reader.readNext()) != null) {
-                System.out.println(processLine(record));
-            }
-            db.setAutoCommit(true);
-            db.commit();
-        } catch (Exception e) {
-            System.out.println("Error in file.");
-            Controller.makeErrorDialogueBox("Incorrect File", "Error in file unable to parse retailers");
+        String[] record;
+        record = reader.readNext(); // Skip first line as it's the desc
+        if (record.length != 29) {
+            throw new NoSuchFieldException("Incorrect number of fields, expected 29 but got " + record.length);
         }
+        while ((record = reader.readNext()) != null) {
+            if (processLine(record)) {
+                successFailCounts[0] += 1;
+                System.out.println("Suc");
+            } else {
+                successFailCounts[1] += 1;
+                System.out.println("F");
+            }
+        }
+        db.setAutoCommit(true);
+        db.commit();
+        return successFailCounts;
     }
 }

@@ -4,6 +4,7 @@ import com.opencsv.CSVReader;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.ConnectException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import GUIControllers.Controller;
@@ -82,7 +83,7 @@ public class RetailerDataHandler {
      * @param SECONDARY_TYPE
      * @return A value representing the success of the addition. Fails on such things as PrimaryKey collisions.
      */
-    public Boolean addSingleEntry(
+    public Boolean addSingleEntry (
             String RETAILER_NAME, String ADDRESS, double LAT, double LONG, String CITY,
             String STATE, String ZIP, String MAIN_TYPE, String SECONDARY_TYPE) {
         try {
@@ -107,26 +108,34 @@ public class RetailerDataHandler {
     /**
      * Takes a CSV file and repeatedly calls processLine on the records
      * @param url A string directing to a valid filepath
+     * @return An integer list with the count of successful additions and failed additions.
+     * @throws ConnectException Thrown if the geocoder could not establish a connection
+     * @throws IOException Thrown if there are errors reading the file
+     * @throws NoSuchFieldException Thrown if there are an incorrect number of fields in the CSV
      */
-    public void processCSV(String url) {
-        try {
+    public int[] processCSV(String url) throws IOException, NoSuchFieldException {
+        if (!Geocoder.testConnection())
+            throw new ConnectException("Geocoder could not connect");
+        int[] successFailCounts = {0, 0};
+        db.setAutoCommit(false);
+        CSVReader reader = new CSVReader(new FileReader(url), ',');
 
-            if (!Geocoder.testConnection())
-                return;
-
-            db.setAutoCommit(false);
-            CSVReader reader = new CSVReader(new FileReader(url), ',');
-
-            String[] record;
-            reader.readNext(); // Skip first line as it's the desc
-            while ((record = reader.readNext()) != null) {
-                System.out.println(processLine(record));
-            }
-            db.setAutoCommit(true);
-            db.commit();
-        } catch (Exception e) {
-            System.out.println("Error in file.");
-            Controller.makeErrorDialogueBox("Incorrect File", "Error in file unable to parse retailers");
+        String[] record;
+        record = reader.readNext(); // Skip first line as it's the desc
+        if (record.length != 9) {
+            throw new NoSuchFieldException("Incorrect number of fields, expected 9 but got " + record.length);
         }
+        while ((record = reader.readNext()) != null) {
+            if (processLine(record)) {
+                successFailCounts[0] += 1;
+                System.out.println("Suc");
+            } else {
+                successFailCounts[1] += 1;
+                System.out.println("F");
+            }
+        }
+        db.setAutoCommit(true);
+        db.commit();
+        return successFailCounts;
     }
 }
