@@ -32,7 +32,7 @@ public class FavouriteRouteData {
      */
     public FavouriteRouteData(SQLiteDB db) {
         this.db = db;
-        db.addTable(tableName, fields, primaryKey);
+        System.out.println(db.addTable(tableName, fields, primaryKey));
         addRoute = db.getPreparedStatement(addRouteStatement);
     }
 

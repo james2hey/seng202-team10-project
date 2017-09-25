@@ -1,5 +1,6 @@
 package dataHandler;
 
+import main.Cyclist;
 import main.HandleUsers;
 import org.junit.*;
 
@@ -29,24 +30,32 @@ public class FavouriteRouteDataTest {
         String home = System.getProperty("user.home");
         java.nio.file.Path path = java.nio.file.Paths.get(home, "testdatabase.db");
         db = new SQLiteDB(path.toString());
+        hu = new HandleUsers();
+        hu.init(db);
+        hu.currentCyclist = new Cyclist("Tester");
+        System.out.println("gere1");
     }
 
     @After
     public void tearDown() throws Exception {
-        db.executeUpdateSQL("DROP TABLE favourite_retail");
+        db.executeUpdateSQL("DROP TABLE favourite_routes");
     }
 
     @Before
     public void init() throws Exception {
+        System.out.println("ger2e");
         favouriteRouteData = new FavouriteRouteData(db);
     }
+
     @Test
     public void addFavouriteRoute() throws Exception {
+        System.out.println("ger3e");
+        RouteDataHandler rdh = new RouteDataHandler(db);
         favouriteRouteData.addFavouriteRoute("Tester", "2016", "01", "01",
                 "00:00:00", "10000", 1, hu);
         ResultSet rs;
         rs = db.executeQuerySQL("SELECT * FROM favourite_routes WHERE name = 'Tester' AND start_year = '2016' AND " +
-                        "start_month = '01' AND start_day = '01' AND start_time = '00:00:00' AND bike_id = '10000' " +
+                        "start_month = '01' AND start_day = '01' AND start_time = '00:00:00' AND bikeid = '10000' " +
                         "AND rank = '1';");
         assertFalse(rs.isClosed());
     }

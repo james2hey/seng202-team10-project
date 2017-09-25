@@ -11,6 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import static org.apache.commons.text.WordUtils.capitalizeFully;
+
 
 /**
  * Handles users on the start up screen to choose which user is to be logged in or created.
@@ -155,9 +157,10 @@ public class HandleUsers {
 
         } catch (SQLException e) { //What if the result set is not closed?
             e.getMessage();
-            currentCyclist = new Cyclist(username);
+            String name = capitalizeFully(username);
+            currentCyclist = new Cyclist(name);
             DatabaseUser d = new DatabaseUser(db);
-            d.addUser(username);
+            d.addUser(name);
             created = true;
         }
         return created;

@@ -27,7 +27,7 @@ public class Cyclist {
     }
 
     public Cyclist(String cName) {
-        name = capitalizeFully(cName);
+        name = cName;
     }
 
     //Getters
