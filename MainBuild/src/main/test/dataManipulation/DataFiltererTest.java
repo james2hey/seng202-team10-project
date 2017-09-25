@@ -288,7 +288,7 @@ public class DataFiltererTest {
 
     @Test
     public void filterWifiTest() throws Exception {
-        wifiLocations = dataFilterer.filterWifi("Brooklyn", null, null);
+        wifiLocations = dataFilterer.filterWifi(null, "Brooklyn", null, null);
         for (int i = 0; i < wifiLocations.size(); i++) {
             System.out.println(wifiLocations.get(1).getSSID());
         }
@@ -297,7 +297,7 @@ public class DataFiltererTest {
 
     @Test
     public void filterWifiTestAll() throws Exception {
-        wifiLocations = dataFilterer.filterWifi("Brooklyn", "Limited Free", "USA");
+        wifiLocations = dataFilterer.filterWifi(null, "Brooklyn", "Limited Free", "USA");
         for (int i = 0; i < wifiLocations.size(); i++) {
             System.out.println(wifiLocations.get(1).getSSID());
         }
@@ -307,7 +307,7 @@ public class DataFiltererTest {
 
     @Test
     public void filterRetailersTest() throws Exception {
-        retailLocations = dataFilterer.filterRetailers(null, null, 10004);
+        retailLocations = dataFilterer.filterRetailers(null, null, null, 10004);
         System.out.println(retailLocations.size());
         for (int i = 0; i < retailLocations.size(); i++) {
             System.out.println(retailLocations.get(i).getName());
@@ -317,7 +317,7 @@ public class DataFiltererTest {
 
     @Test
     public void filterRetailersTestAll() throws Exception {
-        retailLocations = dataFilterer.filterRetailers("new", "casual", 10004);
+        retailLocations = dataFilterer.filterRetailers(null, "new", "casual", 10004);
         System.out.println(retailLocations.size());
         for (int i = 0; i < retailLocations.size(); i++) {
             System.out.println(retailLocations.get(i).getName());
@@ -327,7 +327,7 @@ public class DataFiltererTest {
 
     @Test
     public void filterRetailersTestNone() throws Exception {
-        retailLocations = dataFilterer.filterRetailers(null, null, -1);
+        retailLocations = dataFilterer.filterRetailers(null, null, null, -1);
         System.out.println(retailLocations.size());
         for (int i = 0; i < retailLocations.size(); i++) {
             System.out.println(retailLocations.get(i).getName());

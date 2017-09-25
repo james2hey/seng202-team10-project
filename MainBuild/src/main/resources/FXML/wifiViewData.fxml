@@ -86,7 +86,7 @@
                   <VBox prefHeight="161.0" prefWidth="103.0">
                      <children>
                         <JFXTextField fx:id="nameInput" prefHeight="25.0" prefWidth="231.0" promptText="Name" />
-                        <JFXTextField fx:id="providerInput1" prefHeight="33.0" prefWidth="231.0" promptText="Company Name">
+                        <JFXTextField fx:id="providerInput" prefHeight="33.0" prefWidth="231.0" promptText="Company Name">
                            <VBox.margin>
                               <Insets top="30.0" />
                            </VBox.margin>

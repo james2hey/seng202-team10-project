@@ -23,7 +23,6 @@ public class DataFilterer {
     private String genderCommand;
     private String timeCommand;
     private String dateCommand;
-    private String durationCommand;
     private String startAddressCommand;
     private String endAddressCommand;
     private String getAllRoutesCommand;
@@ -31,6 +30,7 @@ public class DataFilterer {
 
     //---Wifi Strings---
     private String wifiCommand;
+    private String wifiNameCommand;
     private String boroughCommand;
     private String typeCommand;
     private String providerCommand;
@@ -38,6 +38,7 @@ public class DataFilterer {
 
     //---Retailer Commands---
     private String retailerCommand;
+    private String retailerNameCommand;
     private String streetCommand;
     private String zipCommand;
     private String primaryCommand;
@@ -64,7 +65,6 @@ public class DataFilterer {
         //---Route Strings---
         routeCommand = "SELECT * FROM route_information WHERE ";
         genderCommand = "gender = ?";
-        durationCommand = "tripduration BETWEEN ? AND ?";
         dateCommand = "start_year || start_month || start_day BETWEEN ? AND ?";
         timeCommand = "start_time BETWEEN ? AND ?";
         startAddressCommand = "start_station_name LIKE ?";
@@ -72,12 +72,14 @@ public class DataFilterer {
         getAllRoutesCommand = "SELECT * FROM route_information;";
         //---Wifi Strings---
         wifiCommand = "SELECT * FROM wifi_location WHERE ";
+        wifiNameCommand = "SSID LIKE ?";
         boroughCommand = "suburb LIKE ?";
         typeCommand = "cost LIKE ?";
         providerCommand = "provider LIKE ?";
         getAllWifiCommand = "SELECT * FROM wifi_location;";
         //---Retailer Strings---
         retailerCommand = "SELECT * FROM retailer WHERE ";
+        retailerNameCommand = "retailer_name LIKE ?";
         streetCommand = "address LIKE ?";
         zipCommand = "zip = ?";
         primaryCommand = "main_type LIKE ?";
@@ -94,6 +96,27 @@ public class DataFilterer {
         this.db = db;
     }
 
+
+    /**
+     * addAndToStmt checks if the query statement has at least one other filter requirement included. If it does the
+     * andCommand string is appended to the end of the query command. Takes a string, queryCommand, and a int,
+     * queryLength, as parameters. Returns the query command.
+     *
+     * @param queryCommand queryCommand of type String. This is the string that will be used as the query statement to
+     *                     the database.
+     * @param queryLength  queryLength of type int. This is the number of filter requirements that have been added to the
+     *                     queryCommand already.
+     * @return queryCommand, of type String. This is the string that will be used as a query statement to the database.
+     */
+    private String addAndToStmt(String queryCommand, int queryLength) {
+        if (queryLength > 0) {
+            queryCommand = queryCommand + andCommand;
+        }
+        return queryCommand;
+    }
+
+
+///////////////////////////////---ROUTE FILTERING---\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
     /**
      * GenerateRouteArray takes a result set (set of records received from a database query) and creates a Route from
@@ -123,57 +146,14 @@ public class DataFilterer {
 
 
     /**
-     * addAndToStmt checks if the query statement has at least one other filter requirement included. If it does the
-     * andCommand string is appended to the end of the query command. Takes a string, queryCommand, and a int,
-     * queryLength, as parameters. Returns the query command.
+     * convertDates takes an upper and lower bound of dates and converts them into a single number. The date format
+     * must be DD/MM/YYYY. The date will be converted into the format: YYYYMMDD. This allows the easy querying of dates
+     * in the database.
      *
-     * @param queryCommand queryCommand of type String. This is the string that will be used as the query statement to
-     *                     the database.
-     * @param queryLength  queryLength of type int. This is the number of filter requirements that have been added to the
-     *                     queryCommand already.
-     * @return queryCommand, of type String. This is the string that will be used as a query statement to the database.
-     */
-    private String addAndToStmt(String queryCommand, int queryLength) {
-        if (queryLength > 0) {
-            queryCommand = queryCommand + andCommand;
-        }
-        return queryCommand;
-    }
-
-
-    /**
-     * convertAges takes a lower and upper age and coverts them to a year of birth. This is required when filtering by
-     * age as only the year of birth is stored for each record in the database, but the user will input the age to be
-     * filtered by, not the year of birth.
-     *
-     * @param ageLower ageLower is of type int. It is the lower age limit of the person that completed a route, that the
-     *                 user wants to filter by.
-     * @param ageUpper ageUpper is of type int. It is the upper age limit of the person that completed a route, that the
-     *                 user wants to filter by.
-     * @return yearsOfBirth, of type int Array. This contains the upper and lower year of birth that data needs to be
-     * filtered by.
-     */
-//    private int[] convertAges(int ageLower, int ageUpper) {
-//        int yearsOfBirth[] = new int[2];
-//        int year = Year.now().getValue();
-//        int lowerRequiredYear = year - ageUpper;
-//        int upperRequiredYear = year - ageLower;
-//        yearsOfBirth[0] = lowerRequiredYear;
-//        yearsOfBirth[1] = upperRequiredYear;
-//        return yearsOfBirth;
-//    }
-
-
-    /**
-     * convertDates takes an upper and lower bound of dates and splits them up into separate integers. The date format
-     * must be DD/MM/YYYY. These integers are added to a array, the order in the array is {DD,DD,MM,MM,YYYY,YYYY} with
-     * the lowerDate values first. This array is returned.
-     *
-     * Ex. date: 21/01/2016 will be split into the integers 21, 1 and 2016
+     * Ex. date: 21/01/2016 will be converted into 20160121
      *
      * @param dateLower dateLower is of type String.
      * @param dateUpper dateUpper is of type String.
-     * @return dateInts, of type int[]. This array holds all the integers from the lower and upper dates.
      */
     private void convertDates(String dateLower, String dateUpper) {
         filterVariableStrings.add(dateLower.substring(6) + dateLower.substring(3, 5) + dateLower.substring(0, 2));
@@ -244,8 +224,8 @@ public class DataFilterer {
     }
 
     /**
-     * setQueryParameters takes a PreparedStatement as a parameter and uses the values in an class variable ArrayList,
-     * filterVariables, to set the parameters of the PreparedStatement.
+     * setQueryParameters takes a PreparedStatement as a parameter and uses the values in class ArrayList variables,
+     * filterVariables and filterVariableStrings, to set the parameters of the PreparedStatement.
      *
      * @param pstmt pstmt of type PreparedStatement. This is the query statement to be called to the database.
      * @return pstmt, of type PreparedStatement. The updated PreparedStatement, now with its parameters set to the
@@ -289,8 +269,8 @@ public class DataFilterer {
 
 
     /**
-     * filter takes all the possible filter requirement values and returns a ArrayList of routes that meet the filter
-     * requirements.
+     * filterRoutes takes all the possible filter values for routes and returns a ArrayList of Routes that meet the
+     * filter requirements.
      *
      * @param gender        gender of type int. A value of -1 means not to filter by gender, 1 means filter by males and 2
      *                      means filter by females.
@@ -335,6 +315,12 @@ public class DataFilterer {
 
 ///////////////////////////////---WIFI FILTERING---\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
+    /**
+     * GenerateWifiArray takes a result set (set of records received from a database query) and creates a WifiLocation
+     * from each result and adds them to an ArrayList.
+     *
+     * @param rs rs is a result set of data records from a query to the database.
+     */
     private void generateWifiArray(ResultSet rs) {
         try {
             while (rs.next()) {
@@ -350,7 +336,10 @@ public class DataFilterer {
         }
     }
 
-
+    /**
+     * getAllWifiLocations gets all wifi points from the database and returns these as WifiLocation objects in an
+     * ArrayList.
+     */
     private void getAllWifiLocations() {
         String queryString = getAllWifiCommand;
         try {
@@ -365,12 +354,27 @@ public class DataFilterer {
         }
     }
 
-
-    public ArrayList<WifiLocation> filterWifi(String suburb, String type, String provider) {
+    /**
+     * filterWifi takes all the possible filter values for wifi points and returns a ArrayList of WifiLocations that
+     * meet the filter requirements.
+     *
+     * @param name name of type String. This is a sub string that the user wants to filter wifi SSIDs by.
+     * @param suburb suburb of type String. This is a string that the user wants to filter wifi suburbs by.
+     * @param type type of type String. This is a string that the user wants to filter wifi types by.
+     * @param provider provider of type String. This is a sub string that the user wants to filter providers by.
+     * @return
+     */
+    public ArrayList<WifiLocation> filterWifi(String name, String suburb, String type, String provider) {
         int queryLen = 0;
         String queryString = wifiCommand;
 
+        if (name != null) {
+            queryString = queryString + wifiNameCommand;
+            queryLen += 1;
+            filterVariableStrings.add("%" + name + "%");
+        }
         if (suburb != null) {
+            queryString = addAndToStmt(queryString, queryLen);
             queryString = queryString + boroughCommand;
             queryLen += 1;
             filterVariableStrings.add(suburb);
@@ -414,7 +418,12 @@ public class DataFilterer {
 
 ///////////////////////////////---RETAIL FILTERING---\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
-
+    /**
+     * GenerateRetailArray takes a result set (set of records received from a database query) and creates a
+     * RetailLocation from each result and adds them to an ArrayList.
+     *
+     * @param rs rs is a result set of data records from a query to the database.
+     */
     private void generateRetailArray(ResultSet rs) {
         try {
             while (rs.next()) {
@@ -429,7 +438,10 @@ public class DataFilterer {
         }
     }
 
-
+    /**
+     * getAllRetailLocations gets all retailers from the database and returns these as RetailLocations objects in an
+     * ArrayList.
+     */
     private void getAllRetailLocations() {
         String queryString = getAllRetailersCommand;
         try {
@@ -444,12 +456,27 @@ public class DataFilterer {
         }
     }
 
-
-    public ArrayList<RetailLocation> filterRetailers(String address, String primary,int zip) {
+    /**
+     * filterRetailers takes all the possible filter values for retailers and returns a ArrayList of retailLocations
+     * that meet the filter requirements.
+     *
+     * @param name name of type String. This is a sub string that the user wants to filter retail names by.
+     * @param address address of type String. This is a sub string that the user wants to filter retail addresses by.
+     * @param primary primary of type String. This is a string that the user wants to filter retail primary types by.
+     * @param zip zip of type int. This is a integer that the user wants to filter retailer zip codes by.
+     * @return
+     */
+    public ArrayList<RetailLocation> filterRetailers(String name, String address, String primary,int zip) {
         int queryLen = 0;
         String queryString = retailerCommand;
 
+        if (name != null) {
+            queryString = queryString + retailerNameCommand;
+            queryLen += 1;
+            filterVariableStrings.add("%" + name + "%");
+        }
         if (address != null) {
+            queryString = addAndToStmt(queryString, queryLen);
             queryString = queryString + streetCommand;
             queryLen += 1;
             filterVariableStrings.add("%" + address + "%");

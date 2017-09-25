@@ -31,6 +31,9 @@ import java.util.ResourceBundle;
 public class WifiDataViewerController extends DataViewerController {
 
     @FXML
+    private JFXTextField nameInput;
+
+    @FXML
     private JFXTextField providerInput;
 
     @FXML
@@ -103,6 +106,11 @@ public class WifiDataViewerController extends DataViewerController {
     @FXML
     public void displayData(ActionEvent event) {
 
+        String name = nameInput.getText();
+        if (name.equals("")) {
+            name = null;
+        }
+
         String provider = providerInput.getText();
         if (provider.equals("")) {
             provider = null;
@@ -119,7 +127,7 @@ public class WifiDataViewerController extends DataViewerController {
         }
 
         DataFilterer filterer = new DataFilterer(Main.getDB());
-        wifiLocations = filterer.filterWifi(suburb, cost, provider);
+        wifiLocations = filterer.filterWifi(name, suburb, cost, provider);
         System.out.println("Got data");
         for (int i = 0; i < wifiLocations.size(); i++) {
             System.out.println(wifiLocations.get(i).getSSID());

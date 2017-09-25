@@ -41,6 +41,9 @@ public class RetailerDataViewerController extends DataViewerController {
     private TableView<RetailLocation> tableView;
 
     @FXML
+    private JFXTextField nameInput;
+
+    @FXML
     private JFXDrawer drawer;
 
     @FXML
@@ -68,7 +71,7 @@ public class RetailerDataViewerController extends DataViewerController {
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
         Name.setCellValueFactory(new PropertyValueFactory<>("Name"));
-        Address.setCellValueFactory(new PropertyValueFactory<>("Street"));
+        Address.setCellValueFactory(new PropertyValueFactory<>("Address"));
         Zip.setCellValueFactory(new PropertyValueFactory<>("Zip"));
         PrimaryType.setCellValueFactory(new PropertyValueFactory<>("MainType"));
         tableView.setItems(retailList);
@@ -100,6 +103,11 @@ public class RetailerDataViewerController extends DataViewerController {
     void displayData(ActionEvent event) {
         System.out.println("Display button pressed");
 
+        String name = nameInput.getText();
+        if (name.equals("")) {
+            name = null;
+        }
+
         String address = streetInput.getText();
         if (address.equals("")) {
             address = null;
@@ -128,7 +136,7 @@ public class RetailerDataViewerController extends DataViewerController {
             primaryType = null;
         }
         DataFilterer filterer = new DataFilterer(Main.getDB());
-        retailLocations = filterer.filterRetailers(address, primaryType, zip);
+        retailLocations = filterer.filterRetailers(name, address, primaryType, zip);
         System.out.println("Got data");
         for (int i = 0; i < retailLocations.size(); i++) {
             System.out.println(retailLocations.get(i).getName());
