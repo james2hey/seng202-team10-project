@@ -35,13 +35,11 @@ public class Geocoder {
      * @param address A string specifying the address to search
      * @return The first result from the geocode search
      */
-    public static double[] addressToLatLon(String address) throws ApiException, IOException, InterruptedException {
+    public static double[] addressToLatLon(String address) throws ApiException, IOException, InterruptedException, ArrayIndexOutOfBoundsException {
         GeocodingResult[] results;
         results = GeocodingApi.geocode(context, address).await();
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        System.out.println(gson);
-        System.out.println("Called");
-        System.out.println(gson.toJson(results[0]));
+
         Double lat = Double.parseDouble(gson.toJson(results[0].geometry.location.lat));
         Double lon = Double.parseDouble(gson.toJson(results[0].geometry.location.lng));
         return new double[]{lat, lon};

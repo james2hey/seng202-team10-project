@@ -1,18 +1,18 @@
 package dataHandler;
 
-        import org.junit.*;
-        import org.junit.rules.ExpectedException;
+import org.junit.*;
+import org.junit.rules.ExpectedException;
 
-        import java.io.FileNotFoundException;
-        import java.io.IOException;
-        import java.net.ConnectException;
-        import java.nio.file.Files;
-        import java.sql.ResultSet;
-        import java.util.HashMap;
-        import java.util.Map;
-        import java.util.Properties;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.ConnectException;
+import java.nio.file.Files;
+import java.sql.ResultSet;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
 
-        import static org.junit.Assert.*;
+import static org.junit.Assert.*;
 
 /**
  * Created by jes143 on 25/09/17.
