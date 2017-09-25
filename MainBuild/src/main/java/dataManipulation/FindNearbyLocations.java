@@ -55,10 +55,10 @@ public class FindNearbyLocations {
      * an upper and lower latitude and upper and lower longitude to query the database and find all wifi data entries
      * that fall between these values. Returns the result set.
      *
-     * @param lowerLat lowerLat is of type Double. A number describing a latitude value
-     * @param upperLat upperLat is of type Double. A number describing a latitude value
-     * @param lowerLong lowerLong is of type Double. A number describing a latitude value
-     * @param upperLong upperLong is of type Double. A number describing a latitude value
+     * @param lowerLat of type Double. A number describing a latitude value
+     * @param upperLat of type Double. A number describing a latitude value
+     * @param lowerLong of type Double. A number describing a latitude value
+     * @param upperLong of type Double. A number describing a latitude value
      * @return result set of wifi data entries from the query to the database
      */
     private ResultSet generateWifiResultSet(double lowerLat, double upperLat, double lowerLong, double upperLong) {
@@ -109,10 +109,10 @@ public class FindNearbyLocations {
      * an upper and lower latitude and upper and lower longitude to query the database and find all retail data entries
      * that fall between these values. Returns the result set.
      *
-     * @param lowerLat lowerLat is of type Double. A number describing a latitude value
-     * @param upperLat upperLat is of type Double. A number describing a latitude value
-     * @param lowerLong lowerLong is of type Double. A number describing a latitude value
-     * @param upperLong upperLong is of type Double. A number describing a latitude value
+     * @param lowerLat of type Double. A number describing a latitude value
+     * @param upperLat of type Double. A number describing a latitude value
+     * @param lowerLong of type Double. A number describing a latitude value
+     * @param upperLong of type Double. A number describing a latitude value
      * @return result set of retail data entries from the query to the database
      */
     private ResultSet generateRetailerResultSet(double lowerLat, double upperLat, double lowerLong, double upperLong) {
@@ -140,8 +140,8 @@ public class FindNearbyLocations {
      * findNearbyWifi finds wifi data entries that are nearby the coordinates given as the parameters, lat and lon.
      * Returns all found wifi entries as WifiLocation objects in an ArrayList.
      *
-     * @param lat lat is of type Double. A number describing a latitude value
-     * @param lon lon is of type Double. A number describing a longitude value
+     * @param lat of type Double. A number describing a latitude value
+     * @param lon of type Double. A number describing a longitude value
      * @return ArrayList<WifiLocation>, contains all results from the query.
      */
     public ArrayList<WifiLocation> findNearbyWifi(double lat, double lon) {
@@ -156,8 +156,8 @@ public class FindNearbyLocations {
      * findNearbyRetail finds retail data entries that are nearby the coordinates given as the parameters, lat and lon.
      * Returns all found retail entries as RetailLocation objects in an ArrayList.
      *
-     * @param lat lat is of type Double. A number describing a latitude value
-     * @param lon lon is of type Double. A number describing a longitude value
+     * @param lat of type Double. A number describing a latitude value
+     * @param lon of type Double. A number describing a longitude value
      * @return ArrayList<RetailLocation>, contains all results from the query.
      */
     public ArrayList<RetailLocation> findNearbyRetail(double lat, double lon) {

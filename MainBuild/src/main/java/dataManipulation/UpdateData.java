@@ -17,13 +17,13 @@ public class UpdateData {
      * the bikeID, year, month, day and time parameters as these are the primary keys for the route_information table
      * in the database.
      *
-     * @param field
-     * @param value
-     * @param bikeID
-     * @param year
-     * @param month
-     * @param day
-     * @param time
+     * @param field of type String, this is the field in that database to be updated
+     * @param value of type String, this is the new value that will replace the current value in the stated field
+     * @param bikeID of type String, this is the bikeID value for the route to be updated
+     * @param year of type String, this is the startYear value for the route to be updated
+     * @param month of type String, this is the startMonth value for the route to be updated
+     * @param day of type String, this is the startDay value for the route to be updated
+     * @param time of type String, this is the startTime value for the route to be updated
      */
     public static void updateRouteField(String field, String value, String bikeID, String year, String month, String day, String time) {
         SQLiteDB db = Main.getDB();
@@ -49,11 +49,13 @@ public class UpdateData {
 
 
     /**
+     * updateWifiField updates a single wifi entry in the database. The wifi entry to be updated is identified using
+     * the wifiID parameter as this is the primary key for the wifi_location table
+     * in the database.
      *
-     *
-     * @param field
-     * @param value
-     * @param wifiID
+     * @param field of type String, this is the field in that database to be updated
+     * @param value of type String, this is the new value that will replace the current value in the stated field
+     * @param wifiID of type String, this is the wifiID field for the wifi location to be updated
      */
     public static void updateWifiField(String field, String value, String wifiID) {
         SQLiteDB db = Main.getDB();
@@ -75,12 +77,14 @@ public class UpdateData {
 
 
     /**
+     * updateRetailerField updates a single retailer entry in the database. The retailer entry to be updated is
+     * identified using the name and address parameters as these are the primary keys for the retailer table in the
+     * database.
      *
-     *
-     * @param field
-     * @param value
-     * @param name
-     * @param address
+     * @param field of type String, this is the field in that database to be updated
+     * @param value of type String, this is the new value that will replace the current value in the stated field
+     * @param name of type String, this is the name value of the retail location to be updated
+     * @param address of type String, this is the address value of the retail location to be updated
      */
     public static void updateRetailerField(String field, String value, String name, String address) {
         SQLiteDB db = Main.getDB();

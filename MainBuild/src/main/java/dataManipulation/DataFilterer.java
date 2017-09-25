@@ -102,11 +102,11 @@ public class DataFilterer {
      * andCommand string is appended to the end of the query command. Takes a string, queryCommand, and a int,
      * queryLength, as parameters. Returns the query command.
      *
-     * @param queryCommand queryCommand of type String. This is the string that will be used as the query statement to
-     *                     the database.
-     * @param queryLength  queryLength of type int. This is the number of filter requirements that have been added to the
-     *                     queryCommand already.
-     * @return queryCommand, of type String. This is the string that will be used as a query statement to the database.
+     * @param queryCommand of type String. This is the string that will be used as the query statement to
+     *                     the database
+     * @param queryLength  of type int. This is the number of filter requirements that have been added to the
+     *                     queryCommand already
+     * @return queryCommand, of type String. This is the string that will be used as a query statement to the database
      */
     private String addAndToStmt(String queryCommand, int queryLength) {
         if (queryLength > 0) {
@@ -122,7 +122,7 @@ public class DataFilterer {
      * GenerateRouteArray takes a result set (set of records received from a database query) and creates a Route from
      * each result and adds them to an ArrayList.
      *
-     * @param rs rs is a result set of data records from a query to the database.
+     * @param rs is a result set of data records from a query to the database
      */
     private void generateRouteArray(ResultSet rs) {
         try {
@@ -152,8 +152,8 @@ public class DataFilterer {
      *
      * Ex. date: 21/01/2016 will be converted into 20160121
      *
-     * @param dateLower dateLower is of type String.
-     * @param dateUpper dateUpper is of type String.
+     * @param dateLower of type String
+     * @param dateUpper of type String
      */
     private void convertDates(String dateLower, String dateUpper) {
         filterVariableStrings.add(dateLower.substring(6) + dateLower.substring(3, 5) + dateLower.substring(0, 2));
@@ -166,21 +166,21 @@ public class DataFilterer {
      * end of the database query statement. A value of -1 (int) or null (string) means the parameter has not been set
      * by the user, and this will not be used in the query.
      *
-     * @param gender        gender of type int. A value of -1 means not to filter by gender, 1 means filter by males and 2
-     *                      means filter by females.
-     * @param dateLower     dateLower is of type String. It is the lower limit that a route was started on, specified by
-     *                      the user.
-     * @param dateUpper     dateUpper is of type String. It is the upper limit that a route was started on, specified by
-     *                      the user.
-     * @param timeLower     timeLower is of type String. It is the lower time limit of starting a route the user wants to
-     *                      filter by.planRoute
-     * @param timeUpper     timeUpper is of type String. It is the upper time limit of starting a route the user wants to
-     *                      filter by.
-     * @param startLocation startLocation is of type String. It is the starting address of a route that the user wants
-     *                      to filter by.
-     * @param endLocation   endLocation is of type String. It is the ending address of a route that the user wants
-     *                      to filter by.
-     * @return queryCommand, of type String. This is the string that will be used as a query statement to the database.
+     * @param gender        of type int. A value of -1 means not to filter by gender, 1 means filter by males and 2
+     *                      means filter by females
+     * @param dateLower     of type String. It is the lower limit that a route was started on, specified by
+     *                      the user
+     * @param dateUpper     dof type String. It is the upper limit that a route was started on, specified by
+     *                      the user
+     * @param timeLower     tof type String. It is the lower time limit of starting a route the user wants to
+     *                      filter by
+     * @param timeUpper     of type String. It is the upper time limit of starting a route the user wants to
+     *                      filter by
+     * @param startLocation of type String. It is the starting address of a route that the user wants
+     *                      to filter by
+     * @param endLocation   of type String. It is the ending address of a route that the user wants
+     *                      to filter by
+     * @return queryCommand, of type String. This is the string that will be used as a query statement to the database
      */
     private String generateQueryString(int gender, String dateLower, String dateUpper, String timeLower,
                                        String timeUpper, String startLocation, String endLocation) {
@@ -227,9 +227,9 @@ public class DataFilterer {
      * setQueryParameters takes a PreparedStatement as a parameter and uses the values in class ArrayList variables,
      * filterVariables and filterVariableStrings, to set the parameters of the PreparedStatement.
      *
-     * @param pstmt pstmt of type PreparedStatement. This is the query statement to be called to the database.
-     * @return pstmt, of type PreparedStatement. The updated PreparedStatement, now with its parameters set to the
-     * correct values.
+     * @param pstmt of type PreparedStatement. This is the query statement to be called to the database
+     * @return PreparedStatement, the updated PreparedStatement, now with its parameters set to the
+     * correct values
      */
     private PreparedStatement setQueryParameters(PreparedStatement pstmt) {
         try {
@@ -272,21 +272,21 @@ public class DataFilterer {
      * filterRoutes takes all the possible filter values for routes and returns a ArrayList of Routes that meet the
      * filter requirements.
      *
-     * @param gender        gender of type int. A value of -1 means not to filter by gender, 1 means filter by males and 2
-     *                      means filter by females.
-     * @param dateLower     dateLower is of type String. It is the lower limit that a route was started on, specified by
-     *                      the user.
-     * @param dateUpper     dateUpper is of type String. It is the upper limit that a route was started on, specified by
-     *                      the user.
-     * @param timeLower     timeLower is of type String. It is the lower time limit of starting a route the user wants to
-     *                      filter by.
-     * @param timeUpper     timeUpper is of type String. It is the upper time limit of starting a route the user wants to
-     *                      filter by.
-     * @param startLocation startLocation is of type String. It is the starting address of a route that the user wants
-     *                      to filter by.
-     * @param endLocation   endLocation is of type String. It is the ending address of a route that the user wants
-     *                      to filter by.
-     * @return routes, of type ArrayList. This is the array that contains all filtered routes.
+     * @param gender        of type int. A value of -1 means not to filter by gender, 1 means filter by males and 2
+     *                      means filter by females
+     * @param dateLower     of type String. It is the lower limit that a route was started on, specified by
+     *                      the user
+     * @param dateUpper     of type String. It is the upper limit that a route was started on, specified by
+     *                      the user
+     * @param timeLower     of type String. It is the lower time limit of starting a route the user wants to
+     *                      filter by
+     * @param timeUpper     of type String. It is the upper time limit of starting a route the user wants to
+     *                      filter by
+     * @param startLocation of type String. It is the starting address of a route that the user wants
+     *                      to filter by
+     * @param endLocation   of type String. It is the ending address of a route that the user wants
+     *                      to filter by
+     * @return ArrayList<Route>, this is an ArrayList that contains all filtered routes
      */
     public ArrayList<Route> filterRoutes(int gender, String dateLower, String dateUpper,
                                    String timeLower, String timeUpper, String startLocation, String endLocation) {
@@ -319,7 +319,7 @@ public class DataFilterer {
      * GenerateWifiArray takes a result set (set of records received from a database query) and creates a WifiLocation
      * from each result and adds them to an ArrayList.
      *
-     * @param rs rs is a result set of data records from a query to the database.
+     * @param rs is a result set of data records from a query to the database
      */
     private void generateWifiArray(ResultSet rs) {
         try {
@@ -358,11 +358,11 @@ public class DataFilterer {
      * filterWifi takes all the possible filter values for wifi points and returns a ArrayList of WifiLocations that
      * meet the filter requirements.
      *
-     * @param name name of type String. This is a sub string that the user wants to filter wifi SSIDs by.
-     * @param suburb suburb of type String. This is a string that the user wants to filter wifi suburbs by.
-     * @param type type of type String. This is a string that the user wants to filter wifi types by.
-     * @param provider provider of type String. This is a sub string that the user wants to filter providers by.
-     * @return
+     * @param name of type String. This is a sub string that the user wants to filter wifi SSIDs by
+     * @param suburb of type String. This is a string that the user wants to filter wifi suburbs by
+     * @param type of type String. This is a string that the user wants to filter wifi types by
+     * @param provider of type String. This is a sub string that the user wants to filter providers by
+     * @return ArrayList<WifiLocation>, an ArrayList that contains WifiLocation objects
      */
     public ArrayList<WifiLocation> filterWifi(String name, String suburb, String type, String provider) {
         int queryLen = 0;
@@ -422,7 +422,7 @@ public class DataFilterer {
      * GenerateRetailArray takes a result set (set of records received from a database query) and creates a
      * RetailLocation from each result and adds them to an ArrayList.
      *
-     * @param rs rs is a result set of data records from a query to the database.
+     * @param rs is a result set of data records from a query to the database
      */
     private void generateRetailArray(ResultSet rs) {
         try {
@@ -460,11 +460,11 @@ public class DataFilterer {
      * filterRetailers takes all the possible filter values for retailers and returns a ArrayList of retailLocations
      * that meet the filter requirements.
      *
-     * @param name name of type String. This is a sub string that the user wants to filter retail names by.
-     * @param address address of type String. This is a sub string that the user wants to filter retail addresses by.
-     * @param primary primary of type String. This is a string that the user wants to filter retail primary types by.
-     * @param zip zip of type int. This is a integer that the user wants to filter retailer zip codes by.
-     * @return
+     * @param name of type String. This is a sub string that the user wants to filter retail names by
+     * @param address of type String. This is a sub string that the user wants to filter retail addresses by
+     * @param primary of type String. This is a string that the user wants to filter retail primary types by
+     * @param zip of type int. This is a integer that the user wants to filter retailer zip codes by
+     * @return ArrayList<RetailLocation>, this is an ArrayList of RetailLocations objects
      */
     public ArrayList<RetailLocation> filterRetailers(String name, String address, String primary,int zip) {
         int queryLen = 0;
