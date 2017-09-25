@@ -1,9 +1,6 @@
 package dataHandler;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 
 import static org.junit.Assert.*;
 
@@ -17,7 +14,7 @@ import java.sql.ResultSet;
  */
 public class SQLiteDBTest {
 
-    private SQLiteDB db;
+    private static SQLiteDB db;
 
     @AfterClass
     public static void clearDB() throws Exception {
@@ -26,8 +23,8 @@ public class SQLiteDBTest {
         Files.delete(path);
     }
 
-    @Before
-    public void setUp() throws Exception {
+    @BeforeClass
+    public static void setUp() throws Exception {
         String home = System.getProperty("user.home");
         java.nio.file.Path path = java.nio.file.Paths.get(home, "testdatabase.db");
         db = new SQLiteDB(path.toString());
@@ -125,20 +122,5 @@ public class SQLiteDBTest {
         create_test_table();
         PreparedStatement ps = db.getPreparedStatement("select * from test_table where F4 = ?");
         assertNull(ps);
-    }
-
-    @Test
-    public void setAutoCommit() throws Exception {
-
-    }
-
-    @Test
-    public void commit() throws Exception {
-
-    }
-
-    @Test
-    public void rollback() throws Exception {
-
     }
 }

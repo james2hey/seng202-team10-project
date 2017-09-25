@@ -21,10 +21,10 @@ public class RouteDataHandler {
     String[] fields =
             {
                     "tripduration            INTEGER",
-                    "start_year              VARCHAR(4)",
-                    "start_month             VARCHAR(2)",
-                    "start_day               VARCHAR(2)",
-                    "start_time              VARCHAR(19)",
+                    "start_year              VARCHAR(4) NOT NULL",
+                    "start_month             VARCHAR(2) NOT NULL",
+                    "start_day               VARCHAR(2) NOT NULL",
+                    "start_time              VARCHAR(19) NOT NULL",
                     "end_year                VARCHAR(4)",
                     "end_month               VARCHAR(2)",
                     "end_day                 VARCHAR(2)",
@@ -37,7 +37,7 @@ public class RouteDataHandler {
                     "end_station_name        VARCHAR(21)",
                     "end_latitude            NUMERIC(9,6) NOT NULL",
                     "end_longitude           NUMERIC(9,6) NOT NULL",
-                    "bikeid                  VARCHAR(20)",
+                    "bikeid                  VARCHAR(20) NOT NULL",
                     "usertype                VARCHAR(10)",
                     "birth_year              INTEGER",
                     "gender                  INTEGER"};

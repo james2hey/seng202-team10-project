@@ -19,7 +19,7 @@ public class RetailerDataHandler {
 
     String[] fields =
           { "RETAILER_NAME      VARCHAR(50) NOT NULL",
-            "ADDRESS            VARCHAR(50)",
+            "ADDRESS            VARCHAR(50) NOT NULL",
             "LAT                NUMERIC(9,6) NOT NULL",
             "LONG               NUMERIC(9,6) NOT NULL",
             "CITY               VARCHAR(20)",
