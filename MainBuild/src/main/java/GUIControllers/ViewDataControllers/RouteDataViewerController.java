@@ -133,14 +133,14 @@ public class RouteDataViewerController extends DataViewerController {
             if (":00".equals(timeLower)) {
                 timeLower = null;
             } else {
-                if (timeLower.matches("[0-9][0-9]:[0-9][0-9]:00") == false) {
+                if (timeLower.matches("[0-2][0-9]:[0-5][0-9]:00") == false) {
                     throw new FilterByTimeException("Incorrect time format on start time");
                 }
             }
             if (":00".equals(timeUpper)) {
                 timeUpper = null;
             } else {
-                if (timeUpper.matches("[0-9][0-9]:[0-9][0-9]:00") == false) {
+                if (timeUpper.matches("[0-2][0-9]:[0-5][0-9]:00") == false) {
                     throw new FilterByTimeException("Incorrect time format on end time");
                 }
             }
