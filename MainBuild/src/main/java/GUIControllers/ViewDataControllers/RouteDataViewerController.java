@@ -152,7 +152,7 @@ public class RouteDataViewerController extends DataViewerController {
             if (errorMessage.equals("Missing time field")) {
                 makeErrorDialogueBox("Missing time field", "Please enter both a lower and upper time limit\nto filter by.");
             } else {
-                makeErrorDialogueBox(errorMessage, "Please enter both a lower and upper time limit\nto filter by.");
+                makeErrorDialogueBox(errorMessage, "Please use the format HH:SS.");
             }
             timeLower = null;
             timeUpper = null;

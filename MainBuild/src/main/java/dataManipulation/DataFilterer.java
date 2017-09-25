@@ -228,10 +228,8 @@ public class DataFilterer {
      * filterVariables and filterVariableStrings, to set the parameters of the PreparedStatement.
      *
      * @param pstmt of type PreparedStatement. This is the query statement to be called to the database
-     * @return PreparedStatement, the updated PreparedStatement, now with its parameters set to the
-     * correct values
      */
-    private PreparedStatement setQueryParameters(PreparedStatement pstmt) {
+    private void setQueryParameters(PreparedStatement pstmt) {
         try {
             int i;
             for (i = 0; i < filterVariables.size(); i++) {
@@ -245,7 +243,6 @@ public class DataFilterer {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return pstmt;
     }
 
 
@@ -402,7 +399,7 @@ public class DataFilterer {
         try {
             PreparedStatement pstmt;
             pstmt = db.getPreparedStatement(queryString);
-            for (int i = 0; i < queryLen; i++) {;
+            for (int i = 0; i < queryLen; i++) {
                 pstmt.setString(i + 1, filterVariableStrings.get(i));
             }
 
