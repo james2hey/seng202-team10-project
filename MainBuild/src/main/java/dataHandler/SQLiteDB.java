@@ -3,7 +3,7 @@ package dataHandler;
 import java.sql.*;
 
 /**
- * Created by jes143 on 17/09/17.
+ * Class controlling the database.
  */
 public class SQLiteDB {
 
