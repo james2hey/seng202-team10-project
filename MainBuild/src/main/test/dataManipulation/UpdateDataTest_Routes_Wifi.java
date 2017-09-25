@@ -1,21 +1,15 @@
 package dataManipulation;
 
-import dataAnalysis.RetailLocation;
-import dataAnalysis.Route;
-import dataAnalysis.WifiLocation;
+import dataHandler.RetailerDataHandler;
 import dataHandler.RouteDataHandler;
 import dataHandler.SQLiteDB;
 import dataHandler.WifiDataHandler;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.nio.file.Files;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
@@ -47,8 +41,8 @@ public class UpdateDataTest_Routes_Wifi {
         RouteDataHandler rdh = new RouteDataHandler(db);
         rdh.processCSV(getClass().getClassLoader().getResource("CSV/201601-citibike-tripdata-test.csv").getFile());
 
-//        RetailerDataHandler retailerDataHandler = new RetailerDataHandler(db);
-//        retailerDataHandler.processCSV(getClass().getClassLoader().getResource("CSV/Lower_Manhattan_Retailers-test.csv").getFile());
+        RetailerDataHandler retailerDataHandler = new RetailerDataHandler(db);
+        retailerDataHandler.processCSV(getClass().getClassLoader().getResource("CSV/Lower_Manhattan_Retailers-test.csv").getFile());
     }
 
 
@@ -626,10 +620,5 @@ public class UpdateDataTest_Routes_Wifi {
         int zip = rs.getInt("zip");
         assertTrue(zip == 0);
     }
-
-//    @Test
-//    public void updateRetailerField() throws Exception {
-//
-//    }
 
 }
