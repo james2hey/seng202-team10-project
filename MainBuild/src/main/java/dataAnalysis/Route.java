@@ -63,8 +63,6 @@ public class Route {
         setGender(riderGender);
         startLocation = new StationLocation(stStationID, stStationLat, stStationLong, stStationAdr);
         endLocation = new StationLocation(endStationID, endStationLat, endStationLong, endStationAdr);
-        calculateDistance(startLocation, endLocation);
-        updateAverageTime(stTime, spTime);
         startDate = getDateString(startDay, startMonth, startYear);
         stopDate = getDateString(stopDay, stopMonth, stopYear);
     }
@@ -92,8 +90,6 @@ public class Route {
         setGender(riderGender);
         startLocation = new StationLocation(stStationID, stStationLat, stStationLong, stStationAdr);
         endLocation = new StationLocation(endStationID, endStationLat, endStationLong, endStationAdr);
-        calculateDistance(startLocation, endLocation);
-        updateAverageTime(stTime, spTime);
         startDate = getDateString(startDay, startMonth, startYear);
         stopDate = getDateString(stopDay, stopMonth, stopYear);
         rank = routeRank;
@@ -345,32 +341,6 @@ public class Route {
         String dateString = day + "/" + month + "/" + year;
         return dateString;
     }
-
-
-    /**
-     * Calculates the distance between two locations based on the difference between
-     * their positions.
-     * @param location1;
-     * @param location2;
-     * @return distance
-     */
-    public int calculateDistance(Location location1, Location location2) {
-        return 0;
-    }
-
-
-    /**
-     * Updates the average route time.
-     * @param stTime;
-     * @param spTime;
-     */
-    public void updateAverageTime(String stTime, String spTime) {
-        timesTaken++;
-        // convert stTime and spTime to doubles;
-        // double newTime = spTime - stTime;
-        // averageTime = (averageTime + newTime) / timesTaken
-    }
-
 
     /**
      * Defines the hashCode function.
