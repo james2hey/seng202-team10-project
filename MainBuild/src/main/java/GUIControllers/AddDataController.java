@@ -116,12 +116,6 @@ public class AddDataController extends Controller implements Initializable {
         boolean errorOccurred = false;
         String[] sDate = new String[3];
         String[] eDate = new String[3];
-        double[] sLatLon = Geocoder.addressToLatLon(rSAddress.getText());
-        double[] eLatLon = Geocoder.addressToLatLon(rEAddress.getText());
-        if (sLatLon == null || eLatLon == null) {
-            return;
-        }
-
 
         String username;
         try {
@@ -142,22 +136,6 @@ public class AddDataController extends Controller implements Initializable {
             sDateError.setVisible(true);
             errorOccurred = true;
         }
-        try { // Start Latitude
-            sLatError.setVisible(false);
-            SLatitude = sLatLon[0];
-        } catch (Exception e) {
-            sLatError.setVisible(true);
-            errorOccurred = true;
-
-        }
-        try { // Start Longitude
-            sLongError.setVisible(false);
-            SLongitude = sLatLon[1];
-        } catch (Exception e) {
-            errorOccurred = true;
-            sLongError.setVisible(true);
-
-        }
 
         try { // End Date
             eDateError.setVisible(false);
@@ -168,22 +146,6 @@ public class AddDataController extends Controller implements Initializable {
             }
         } catch(Exception e){
             eDateError.setVisible(true);
-            errorOccurred = true;
-        }
-
-        try { //End Latitude
-            eLatError.setVisible(false);
-            ELatitude = eLatLon[0];
-        } catch (Exception e) {
-            errorOccurred = true;
-            eLatError.setVisible(true);
-        }
-
-        try {// End Longitude
-            eLongError.setVisible(false);
-            ELongitude = eLatLon[1];
-        } catch (Exception e) {
-            eLongError.setVisible(true);
             errorOccurred = true;
         }
 
@@ -237,21 +199,6 @@ public class AddDataController extends Controller implements Initializable {
         if ((latLon = Geocoder.addressToLatLon(retailerAddress.getText())) == null) {
             return;
         }
-        try {
-            retailerLongError.setVisible(false);
-            retLon = latLon[1];
-        } catch (Exception e) {
-            retailerLongError.setVisible(true);
-            errorOccured = true;
-        }
-
-        try {
-            retailerLatError.setVisible(false);
-            retLat = latLon[0];
-        } catch (Exception e) {
-            errorOccured = true;
-            retailerLatError.setVisible(true);
-        }
 
         if(errorOccured == true){
             return;
@@ -284,22 +231,6 @@ public class AddDataController extends Controller implements Initializable {
         }
 
         double wLat = 0.0, wLong = 0.0;
-
-        try {
-            wifiLongError.setVisible(false);
-            wLat = latLon[0];
-        } catch (Exception e) {
-            wifiLongError.setVisible(true);
-            errorOccured = true;
-        }
-
-        try {
-            wifiLatError.setVisible(false);
-            wLong = latLon[1];
-        } catch (Exception e) {
-            errorOccured = true;
-            wifiLatError.setVisible(true);
-        }
 
         if(errorOccured == true){
             return;
