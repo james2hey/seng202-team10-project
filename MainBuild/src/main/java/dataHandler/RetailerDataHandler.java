@@ -1,5 +1,6 @@
 package dataHandler;
 
+import com.google.maps.errors.ApiException;
 import com.opencsv.CSVReader;
 
 import java.io.FileReader;
@@ -54,18 +55,14 @@ public class RetailerDataHandler {
     private Boolean processLine(String[] record) {
         try {
             System.out.println(record[1]);
-            double[] latlon = Geocoder.addressToLatLon(record[1] + ", " + record[3] + ", " + record[4] + ", " + record[5] + ", ");
-            if (latlon == null) {
-                return false;
-            }
 
+            double[] latlon = Geocoder.addressToLatLon(record[1] + ", " + record[3] + ", " + record[4] + ", " + record[5] + ", ");
             System.out.println(latlon[0]);
             System.out.println(latlon[1]);
 
             return addSingleEntry(record[0], record[1], latlon[0], latlon[1], record[3], record[4], record[5], record[7], record[8]);
 
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("Incorrect string array size");
+        } catch (IndexOutOfBoundsException | ApiException | IOException | InterruptedException e) {
             return false;
         }
     }
@@ -109,13 +106,11 @@ public class RetailerDataHandler {
      * Takes a CSV file and repeatedly calls processLine on the records
      * @param url A string directing to a valid filepath
      * @return An integer list with the count of successful additions and failed additions.
+     * @throws NoSuchFieldException Thrown if there are an incorrect number of fields in the CSV
      * @throws ConnectException Thrown if the geocoder could not establish a connection
      * @throws IOException Thrown if there are errors reading the file
-     * @throws NoSuchFieldException Thrown if there are an incorrect number of fields in the CSV
      */
     public int[] processCSV(String url) throws IOException, NoSuchFieldException {
-        if (!Geocoder.testConnection())
-            throw new ConnectException("Geocoder could not connect");
         int[] successFailCounts = {0, 0};
         db.setAutoCommit(false);
         CSVReader reader = new CSVReader(new FileReader(url), ',');
@@ -125,6 +120,8 @@ public class RetailerDataHandler {
         if (record.length != 9) {
             throw new NoSuchFieldException("Incorrect number of fields, expected 9 but got " + record.length);
         }
+        if (!Geocoder.testConnection())
+            throw new ConnectException("Geocoder could not connect");
         while ((record = reader.readNext()) != null) {
             if (processLine(record)) {
                 successFailCounts[0] += 1;

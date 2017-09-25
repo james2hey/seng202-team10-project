@@ -1,5 +1,9 @@
 package main;
 
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+import org.joda.time.Duration;
+
 /**
  * Created by jes143 on 22/09/17.
  * Includes some useful static helper functions that may be applicable to multiple classes and that don't fit anywhere
@@ -51,6 +55,44 @@ public class HelperFunctions {
         System.out.println(mins);
         System.out.println(secs);
         return out;
+    }
+
+    /**
+     * Takes a series of strings and calculates the difference in times between the two. Ignore daylight savings time currently
+     * @param start_year
+     * @param start_month
+     * @param start_day
+     * @param start_time
+     * @param end_year
+     * @param end_month
+     * @param end_day
+     * @param end_time
+     * @return Difference in seconds
+     */
+    public static int getDuration(String start_year, String start_month, String start_day, String start_time,
+                           String end_year, String end_month, String end_day, String end_time) {
+        String[] start_time_seperated = start_time.split(":");
+        int start_hour = Integer.parseInt(start_time_seperated[0]);
+        int start_min = Integer.parseInt(start_time_seperated[1]);
+        int start_sec = Integer.parseInt(start_time_seperated[2]);
+
+        String[] end_time_seperated = end_time.split(":");
+        int end_hour = Integer.parseInt(end_time_seperated[0]);
+        int end_min = Integer.parseInt(end_time_seperated[1]);
+        int end_sec = Integer.parseInt(end_time_seperated[2]);
+
+        int start_year_int = Integer.parseInt(start_year);
+        int start_month_int = Integer.parseInt(start_month);
+        int start_day_int = Integer.parseInt(start_day);
+
+        int end_year_int = Integer.parseInt(end_year);
+        int end_month_int = Integer.parseInt(end_month);
+        int end_day_int = Integer.parseInt(end_day);
+
+        DateTime start = new DateTime(start_year_int, start_month_int, start_day_int, start_hour, start_min, start_sec, DateTimeZone.UTC);
+        DateTime end = new DateTime(end_year_int, end_month_int, end_day_int, end_hour, end_min, end_sec, DateTimeZone.UTC);
+        Duration duration = new Duration(start, end);
+        return duration.toStandardSeconds().getSeconds();
     }
 
 }

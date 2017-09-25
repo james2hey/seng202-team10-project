@@ -1,5 +1,6 @@
 package GUIControllers;
 
+import com.google.maps.errors.ApiException;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXTextField;
 import dataHandler.*;
@@ -10,10 +11,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import main.HelperFunctions;
 import main.Main;
 
 import java.io.File;
@@ -21,7 +26,6 @@ import java.io.IOException;
 import java.net.ConnectException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
 
 
 public class AddDataController extends Controller implements Initializable {
@@ -77,25 +81,25 @@ public class AddDataController extends Controller implements Initializable {
      */
     public static String[] convertDates(String date) {
         String dateInts[] = new String[3];
-        if (date == null || date.length() != 10 || date.charAt(4) != '-'  || date.charAt(7) != '-') {
+        if (date == null || date.length() != 10 || date.charAt(4) != '-' || date.charAt(7) != '-') {
             return null;
         }
         dateInts[0] = date.substring(0, 4);
         dateInts[1] = date.substring(5, 7);
         dateInts[2] = date.substring(8);
-        if(Integer.parseInt(dateInts[1]) > 12 || Integer.parseInt(dateInts[2]) > 31){
+        if (Integer.parseInt(dateInts[1]) > 12 || Integer.parseInt(dateInts[2]) > 31) {
             return null;
         }
 
         return dateInts;
     }
 
-    public static Boolean checkTime(String time){
-        if (time == null || time.length() != 8 || time.charAt(2) != ':'  || time.charAt(5) != ':') {
+    public static Boolean checkTime(String time) {
+        if (time == null || time.length() != 8 || time.charAt(2) != ':' || time.charAt(5) != ':') {
             return false;
         }
-        if(Integer.parseInt(time.substring(0, 2)) > 23 || Integer.parseInt(time.substring(3, 5)) > 59 || Integer.parseInt(time.substring(6, 8)) > 59
-        || Integer.parseInt(time.substring(0, 2)) < 0 || Integer.parseInt(time.substring(3, 5)) < 0 || Integer.parseInt(time.substring(6, 8)) < 0){
+        if (Integer.parseInt(time.substring(0, 2)) > 23 || Integer.parseInt(time.substring(3, 5)) > 59 || Integer.parseInt(time.substring(6, 8)) > 59
+                || Integer.parseInt(time.substring(0, 2)) < 0 || Integer.parseInt(time.substring(3, 5)) < 0 || Integer.parseInt(time.substring(6, 8)) < 0) {
             return false;
         }
         return true;
@@ -103,8 +107,9 @@ public class AddDataController extends Controller implements Initializable {
 
     /**
      * Collects, formats and checks for valid data input by user
-     *  to create a valid entry into the route section of the local database.
+     * to create a valid entry into the route section of the local database.
      * Contains calls to convertDates and routeDataHandler.
+     *
      * @param event Clicking the Add to Database button on the manual entry page.
      * @throws IOException
      */
@@ -115,33 +120,46 @@ public class AddDataController extends Controller implements Initializable {
         String[] sDate = new String[3];
         String[] eDate = new String[3];
 
-        double[] sLatLon = Geocoder.addressToLatLon(rSAddress.getText());
-        double[] eLatLon = Geocoder.addressToLatLon(rEAddress.getText());
-        if (sLatLon == null || eLatLon == null) {
+        double[] sLatLon;
+        double[] eLatLon;
+        try {
+            sLatLon = Geocoder.addressToLatLon(rSAddress.getText());
+            eLatLon = Geocoder.addressToLatLon(rEAddress.getText());
+        } catch (ApiException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("API Error");
+            alert.setHeaderText("Google API Error");
+            alert.setContentText("The application could not get the lat and lon because there was an issue with the API");
+            alert.showAndWait();
             return;
-        } else {
-            SLatitude = sLatLon[0];
-            SLongitude = sLatLon[1];
-            ELatitude = eLatLon[0];
-            ELongitude = eLatLon[1];
+        } catch (IOException | InterruptedException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("IO Error");
+            alert.setHeaderText("Input Error");
+            alert.setContentText("The application could not convert the address as it could not connect to the internet");
+            alert.showAndWait();
+            return;
         }
+        SLatitude = sLatLon[0];
+        SLongitude = sLatLon[1];
+        ELatitude = eLatLon[0];
+        ELongitude = eLatLon[1];
 
         String username;
         try {
             username = Main.hu.currentCyclist.getName();
-        } catch(Exception e){
+        } catch (Exception e) {
             username = "_";
         }
 
         try { //Start Date
             sDateError.setVisible(false);
             sDate = convertDates(rSDate.getValue().toString());
-            if(sDate == null){
+            if (sDate == null) {
                 errorOccurred = true;
                 sDateError.setVisible(true);
             }
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             sDateError.setVisible(true);
             errorOccurred = true;
         }
@@ -149,41 +167,41 @@ public class AddDataController extends Controller implements Initializable {
         try { // End Date
             eDateError.setVisible(false);
             eDate = convertDates(rEDate.getValue().toString());
-            if(eDate == null){
+            if (eDate == null) {
                 errorOccurred = true;
                 //eDateError.setVisible(true);
             }
-        } catch(Exception e){
+        } catch (Exception e) {
             eDateError.setVisible(true);
             errorOccurred = true;
         }
 
-        if(checkTime(rSTime.getText())) {
+        if (checkTime(rSTime.getText())) {
             sTimeError.setVisible(false);
         } else {
             errorOccurred = true;
             sTimeError.setVisible(true);
         }
 
-        if(checkTime(rETime.getText())) {
+        if (checkTime(rETime.getText())) {
             eTimeError.setVisible(false);
         } else {
             eTimeError.setVisible(true);
             errorOccurred = true;
         }
-        if(errorOccurred == true){
+        if (errorOccurred == true) {
             return;
         }
         System.out.println(rSTime.getText());
         System.out.println(rSTime.getText());
-        int duration = routeDataHandler.getDuration(sDate[0], sDate[1], sDate[2], rSTime.getText(),
+        int duration = HelperFunctions.getDuration(sDate[0], sDate[1], sDate[2], rSTime.getText(),
                 eDate[0], eDate[1], eDate[2], rETime.getText());
         RouteDataHandler newRoute = new RouteDataHandler(Main.getDB());
         Boolean fromHandler = newRoute.addSingleEntry(duration, sDate[0], sDate[1], sDate[2], rSTime.getText(),
                 eDate[0], eDate[1], eDate[2], rETime.getText(), "1",
                 rSAddress.getText(), SLatitude, SLongitude, "2", rEAddress.getText(), ELatitude, ELongitude,
                 "1", username, 2017, 3);
-        if(fromHandler == false) {
+        if (fromHandler == false) {
             makeErrorDialogueBox("Something wrong with input", "Check for nulls and already existing entrys");
         } else {
             makeSuccessDialogueBox("Successfully added route to Database", "You may add more entries");
@@ -192,7 +210,7 @@ public class AddDataController extends Controller implements Initializable {
 
     /**
      * Collects, formats and checks for valid data input by user
-     *  to create a valid entry into the retailer section of the local database.
+     * to create a valid entry into the retailer section of the local database.
      * Contains calls to convertDates and retailerDataHandler.
      *
      * @param event Clicking the Add to Database button on the retailer entry page.
@@ -202,17 +220,31 @@ public class AddDataController extends Controller implements Initializable {
     void retailerCSVLine(ActionEvent event) throws IOException {
         Boolean errorOccured = false;
         double[] latLon;
-        if ((latLon = Geocoder.addressToLatLon(retailerAddress.getText())) == null) {
+        try {
+            latLon = Geocoder.addressToLatLon(retailerAddress.getText());
+        } catch (ApiException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("API Error");
+            alert.setHeaderText("Google API Error");
+            alert.setContentText("The application could not get the lat and lon because there was an issue with the API");
+            alert.showAndWait();
+            return;
+        } catch (IOException | InterruptedException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("IO Error");
+            alert.setHeaderText("Input Error");
+            alert.setContentText("The application could not convert the address as it could not connect to the internet");
+            alert.showAndWait();
             return;
         }
 
-        if(errorOccured == true){
+        if (errorOccured == true) {
             return;
         }
         RetailerDataHandler newRetailer = new RetailerDataHandler(Main.getDB());
         Boolean fromHandler = newRetailer.addSingleEntry(retailerName.getText(), retailerAddress.getText(), latLon[0], latLon[1], null,
                 null, null, retailerPrim.getValue().toString(), retailerSec.getText());
-        if(fromHandler == false) {
+        if (fromHandler == false) {
             makeErrorDialogueBox("Something wrong with input", "Check for nulls and already existing entries");
         } else {
             makeSuccessDialogueBox("Successfully added to retailer to Database", "You may add more entries");
@@ -221,7 +253,7 @@ public class AddDataController extends Controller implements Initializable {
 
     /**
      * Collects, formats and checks for valid data input by user
-     *  to create a valid entry into the wifi section of the local database.
+     * to create a valid entry into the wifi section of the local database.
      * Contains calls to convertDates and wifiDataHandler.
      *
      * @param event Clicking the Add to Database button on the wifi entry page.
@@ -232,17 +264,31 @@ public class AddDataController extends Controller implements Initializable {
         Boolean errorOccured = false;
         double[] latLon;
 
-        if ((latLon = Geocoder.addressToLatLon(wifiAddress.getText())) == null) {
+        try {
+            latLon = Geocoder.addressToLatLon(wifiAddress.getText());
+        } catch (ApiException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("API Error");
+            alert.setHeaderText("Google API Error");
+            alert.setContentText("The application could not get the lat and lon because there was an issue with the API");
+            alert.showAndWait();
+            return;
+        } catch (IOException | InterruptedException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("IO Error");
+            alert.setHeaderText("Input Error");
+            alert.setContentText("The application could not convert the address as it could not connect to the internet");
+            alert.showAndWait();
             return;
         }
 
-        if(errorOccured == true){
+        if (errorOccured == true) {
             return;
         }
         WifiDataHandler newWifi = new WifiDataHandler(Main.getDB());
         Boolean fromHandler = newWifi.addSingleEntry(wifiName.getText(), "", "", wifiAddress.getText(), latLon[0], latLon[1],
-        wifiComments.getText(), "", wifiName.getText(), "", wifiPostcode.getText());
-        if(fromHandler == false) {
+                wifiComments.getText(), "", wifiName.getText(), "", wifiPostcode.getText());
+        if (fromHandler == false) {
             makeErrorDialogueBox("Something wrong with input", "Check for nulls and already existing entries");
         } else {
             makeSuccessDialogueBox("Successfully added Wifi to Database", "You may add more entries");
@@ -260,7 +306,7 @@ public class AddDataController extends Controller implements Initializable {
      */
     @FXML
     void chooseFile(ActionEvent event) throws IOException {
-        if(!importRoute.isVisible()){
+        if (!importRoute.isVisible()) {
             selectMessage.setVisible(true);
             importRoute.setVisible(true);
             importRetailer.setVisible(true);
@@ -269,22 +315,23 @@ public class AddDataController extends Controller implements Initializable {
     }
 
 
-
     /**
      * Opens system file viewer and accepts only *.csv type files,
      * will print the file string to system and send it to the
      * routeDataHandler.
+     *
      * @param event Clicking the Routes button after Import File.
      * @throws IOException
      */
-    @FXML // Import file -> only allows *.csv and prints location afterwards for now...
+    @FXML
+    // Import file -> only allows *.csv and prints location afterwards for now...
     void chooseRoute(ActionEvent event) throws IOException {
         FileChooser fileChooser = new FileChooser();
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV (*.csv)", "*.csv");
         fileChooser.getExtensionFilters().add(extFilter);
         File file = fileChooser.showOpenDialog(((Node) event.getSource()).getScene().getWindow());
         System.out.println(file);
-        if(file == null) {
+        if (file == null) {
             return;
         }
         try {
@@ -305,14 +352,15 @@ public class AddDataController extends Controller implements Initializable {
      * @param event Clicking the Retailers button after Import File.
      * @throws IOException
      */
-    @FXML //Specifies file types.
+    @FXML
+    //Specifies file types.
     void chooseRetailer(ActionEvent event) throws IOException {
         FileChooser fileChooser = new FileChooser();
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV (*.csv)", "*.csv");
         fileChooser.getExtensionFilters().add(extFilter);
         File file = fileChooser.showOpenDialog(((Node) event.getSource()).getScene().getWindow());
         System.out.println(file);
-        if(file == null) {
+        if (file == null) {
             return;
         }
         try {
@@ -326,6 +374,7 @@ public class AddDataController extends Controller implements Initializable {
             Controller.makeErrorDialogueBox("Incorrect File", "Could not read the file, please ensure it is correct");
         }
     }
+
     /**
      * Opens system file viewer and accepts only *.csv type files,
      * will print the file string to system and send it to the
@@ -341,7 +390,7 @@ public class AddDataController extends Controller implements Initializable {
         fileChooser.getExtensionFilters().add(extFilter);
         File file = fileChooser.showOpenDialog(((Node) event.getSource()).getScene().getWindow());
         System.out.println(file);
-        if(file == null) {
+        if (file == null) {
             return;
         }
         try {
@@ -361,6 +410,7 @@ public class AddDataController extends Controller implements Initializable {
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.setScene(manualEntryScene);
     }
+
     @FXML
     void changeToRouteEntryScene(ActionEvent event, Stage stage) throws IOException {
         Parent manualEntryParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/routeManualEntry.fxml"));

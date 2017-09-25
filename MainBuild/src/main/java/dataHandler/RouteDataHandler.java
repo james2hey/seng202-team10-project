@@ -16,9 +16,9 @@ import java.sql.SQLException;
  * Created by jes143 on 17/09/17.
  */
 public class RouteDataHandler {
-    SQLiteDB db;
+    private SQLiteDB db;
 
-    String[] fields =
+    private String[] fields =
             {
                     "tripduration            INTEGER",
                     "start_year              VARCHAR(4) NOT NULL",
@@ -41,11 +41,11 @@ public class RouteDataHandler {
                     "usertype                VARCHAR(10)",
                     "birth_year              INTEGER",
                     "gender                  INTEGER"};
-    String primaryKey = "start_year, start_month, start_day, start_time, bikeid";
-    String tableName = "route_information";
+    private String primaryKey = "start_year, start_month, start_day, start_time, bikeid";
+    private String tableName = "route_information";
 
-    PreparedStatement addData;
-    String addDataStatement = "insert or fail into route_information values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    private PreparedStatement addData;
+    private String addDataStatement = "insert or fail into route_information values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
     /**
      * Initializes an object, linked to the given database. Can process CSVs and add single entries
@@ -195,44 +195,6 @@ public class RouteDataHandler {
         db.setAutoCommit(true);
         db.commit();
         return successFailCounts;
-    }
-
-    /**
-     * Takes a series of strings and calculates the difference in times between the two. Ignore daylight savings time currently
-     * @param start_year
-     * @param start_month
-     * @param start_day
-     * @param start_time
-     * @param end_year
-     * @param end_month
-     * @param end_day
-     * @param end_time
-     * @return Difference in seconds
-     */
-    public int getDuration(String start_year, String start_month, String start_day, String start_time,
-                           String end_year, String end_month, String end_day, String end_time) {
-        String[] start_time_seperated = start_time.split(":");
-        int start_hour = Integer.parseInt(start_time_seperated[0]);
-        int start_min = Integer.parseInt(start_time_seperated[1]);
-        int start_sec = Integer.parseInt(start_time_seperated[2]);
-
-        String[] end_time_seperated = end_time.split(":");
-        int end_hour = Integer.parseInt(end_time_seperated[0]);
-        int end_min = Integer.parseInt(end_time_seperated[1]);
-        int end_sec = Integer.parseInt(end_time_seperated[2]);
-
-        int start_year_int = Integer.parseInt(start_year);
-        int start_month_int = Integer.parseInt(start_month);
-        int start_day_int = Integer.parseInt(start_day);
-
-        int end_year_int = Integer.parseInt(end_year);
-        int end_month_int = Integer.parseInt(end_month);
-        int end_day_int = Integer.parseInt(end_day);
-
-        DateTime start = new DateTime(start_year_int, start_month_int, start_day_int, start_hour, start_min, start_sec, DateTimeZone.UTC);
-        DateTime end = new DateTime(end_year_int, end_month_int, end_day_int, end_hour, end_min, end_sec, DateTimeZone.UTC);
-        Duration duration = new Duration(start, end);
-        return duration.toStandardSeconds().getSeconds();
     }
 }
 

@@ -35,26 +35,9 @@ public class Geocoder {
      * @param address A string specifying the address to search
      * @return The first result from the geocode search
      */
-    public static double[] addressToLatLon(String address) {
+    public static double[] addressToLatLon(String address) throws ApiException, IOException, InterruptedException {
         GeocodingResult[] results;
-        try {
-            results = GeocodingApi.geocode(context, address).await();
-        } catch (ApiException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("API Error");
-            alert.setHeaderText("Google API Error");
-            alert.setContentText("The application could not get the lat and lon because there was an issue with the API");
-            alert.showAndWait();
-            return null;
-        } catch (IOException | InterruptedException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("IO Error");
-            alert.setHeaderText("Input Error");
-            alert.setContentText("The application could not convert the address as it could not connect to the internet");
-            alert.showAndWait();
-            return null;
-        }
-
+        results = GeocodingApi.geocode(context, address).await();
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         System.out.println(gson);
         System.out.println("Called");
@@ -69,6 +52,10 @@ public class Geocoder {
      * @return If a value was successfully returned
      */
     public static boolean testConnection() {
-        return (Geocoder.addressToLatLon("123 Fake St") != null);
+        try {
+            return (Geocoder.addressToLatLon("123 Fake St") != null);
+        } catch (ApiException | IOException | InterruptedException e) {
+            return false;
+        }
     }
 }
