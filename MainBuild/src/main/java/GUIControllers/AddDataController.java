@@ -18,10 +18,11 @@ import main.Main;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InterruptedIOException;
 import java.net.ConnectException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
+import java.util.concurrent.TimeUnit;
 
 
 public class AddDataController extends Controller implements Initializable {
@@ -110,6 +111,7 @@ public class AddDataController extends Controller implements Initializable {
      */
     @FXML
     void routeCSVLine(ActionEvent event) throws IOException {
+        makeErrorDialogueBox("File importing has begun.", "This may take a few seconds...");
         double SLatitude, SLongitude, ELatitude, ELongitude;
         boolean errorOccurred = false;
         String[] sDate = new String[3];
@@ -229,6 +231,7 @@ public class AddDataController extends Controller implements Initializable {
      */
     @FXML
     void wifiCSVLine(ActionEvent event) throws IOException {
+        makeErrorDialogueBox("File importing has begun.", "This may take a few seconds...");
         Boolean errorOccured = false;
         double[] latLon;
 
@@ -284,10 +287,14 @@ public class AddDataController extends Controller implements Initializable {
         fileChooser.getExtensionFilters().add(extFilter);
         File file = fileChooser.showOpenDialog(((Node) event.getSource()).getScene().getWindow());
         System.out.println(file);
-        if(file == null) {
+        if (file == null) {
             return;
         }
         try {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "This may take a few seconds. Press OK to begin.", ButtonType.OK);
+            alert.setHeaderText("The programme may become unresponsive during the import.");
+            alert.showAndWait();
+
             int[] successFailCounts = routeDataHandler.processCSV(file.toString());
             Controller.makeSuccessDialogueBox("Import results", String.format("Successfully imported %d records.\nFailed to import %d records.", successFailCounts[0], successFailCounts[1]));
         } catch (NoSuchFieldException e) {
@@ -307,23 +314,29 @@ public class AddDataController extends Controller implements Initializable {
      */
     @FXML //Specifies file types.
     void chooseRetailer(ActionEvent event) throws IOException {
-        FileChooser fileChooser = new FileChooser();
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV (*.csv)", "*.csv");
-        fileChooser.getExtensionFilters().add(extFilter);
-        File file = fileChooser.showOpenDialog(((Node) event.getSource()).getScene().getWindow());
-        System.out.println(file);
-        if(file == null) {
-            return;
-        }
-        try {
-            int[] successFailCounts = retailerDataHandler.processCSV(file.toString());
-            Controller.makeSuccessDialogueBox("Import results", String.format("Successfully imported %d records.\nFailed to import %d records.", successFailCounts[0], successFailCounts[1]));
-        } catch (NoSuchFieldException e) {
-            Controller.makeErrorDialogueBox("Incorrect File", e.getMessage());
-        } catch (ConnectException e) {
-            Controller.makeErrorDialogueBox("Connection Error", e.getMessage());
-        } catch (IOException e) {
-            Controller.makeErrorDialogueBox("Incorrect File", "Could not read the file, please ensure it is correct");
+        boolean result = makeConfirmationDialogueBox("Warning! Depending on file size, this may take a few minutes.", "Are you sure you want to continue?");
+        if (result) {
+            FileChooser fileChooser = new FileChooser();
+            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV (*.csv)", "*.csv");
+            fileChooser.getExtensionFilters().add(extFilter);
+            File file = fileChooser.showOpenDialog(((Node) event.getSource()).getScene().getWindow());
+            System.out.println(file);
+            if (file == null) {
+                return;
+            }
+            try {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "This may take a few minutes. Press OK to begin.", ButtonType.OK);
+                alert.setHeaderText("The programme may become unresponsive during the import.");
+                alert.showAndWait();
+                int[] successFailCounts = retailerDataHandler.processCSV(file.toString());
+                Controller.makeSuccessDialogueBox("Import results", String.format("Successfully imported %d records.\nFailed to import %d records.", successFailCounts[0], successFailCounts[1]));
+            } catch (NoSuchFieldException e) {
+                Controller.makeErrorDialogueBox("Incorrect File", e.getMessage());
+            } catch (ConnectException e) {
+                Controller.makeErrorDialogueBox("Connection Error", e.getMessage());
+            } catch (IOException e) {
+                Controller.makeErrorDialogueBox("Incorrect File", "Could not read the file, please ensure it is correct");
+            }
         }
     }
     /**
@@ -345,6 +358,10 @@ public class AddDataController extends Controller implements Initializable {
             return;
         }
         try {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "This may take a few seconds. Press OK to begin.", ButtonType.OK);
+            alert.setHeaderText("The programme may become unresponsive during the import.");
+            alert.showAndWait();
+
             int[] successFailCounts = wifiDataHandler.processCSV(file.toString());
             Controller.makeSuccessDialogueBox("Import results", String.format("Successfully imported %d records.\nFailed to import %d records.", successFailCounts[0], successFailCounts[1]));
         } catch (NoSuchFieldException e) {

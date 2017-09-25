@@ -35,7 +35,7 @@
             <Font name="System Bold" size="17.0" />
          </font>
       </Button>
-      <Button fx:id="importButton" mnemonicParsing="false" onAction="#chooseFile" prefHeight="93.0" prefWidth="476.0" text="File Import" GridPane.columnIndex="2" GridPane.rowIndex="2">
+      <Button fx:id="importButton" mnemonicParsing="false" onAction="#chooseFile" prefHeight="93.0" prefWidth="476.0" text="Import CSV File" GridPane.columnIndex="2" GridPane.rowIndex="2">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>
