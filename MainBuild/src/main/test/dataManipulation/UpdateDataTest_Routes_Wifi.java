@@ -41,8 +41,6 @@ public class UpdateDataTest_Routes_Wifi {
         RouteDataHandler rdh = new RouteDataHandler(db);
         rdh.processCSV(getClass().getClassLoader().getResource("CSV/201601-citibike-tripdata-test.csv").getFile());
 
-        RetailerDataHandler retailerDataHandler = new RetailerDataHandler(db);
-        retailerDataHandler.processCSV(getClass().getClassLoader().getResource("CSV/Lower_Manhattan_Retailers-test.csv").getFile());
     }
 
 
