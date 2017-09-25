@@ -11,7 +11,20 @@ import java.sql.SQLException;
  */
 public class UpdateData {
 
-    
+
+    /**
+     * updateRouteField updates a single route entry in the database. The route entry to be updated is identified using
+     * the bikeID, year, month, day and time parameters as these are the primary keys for the route_information table
+     * in the database.
+     *
+     * @param field
+     * @param value
+     * @param bikeID
+     * @param year
+     * @param month
+     * @param day
+     * @param time
+     */
     public static void updateRouteField(String field, String value, String bikeID, String year, String month, String day, String time) {
         SQLiteDB db = Main.getDB();
         String sqlCommand = "UPDATE route_information SET " + field + " = ? WHERE " +
@@ -35,6 +48,13 @@ public class UpdateData {
     }
 
 
+    /**
+     *
+     *
+     * @param field
+     * @param value
+     * @param wifiID
+     */
     public static void updateWifiField(String field, String value, String wifiID) {
         SQLiteDB db = Main.getDB();
         String sqlCommand = "UPDATE wifi_location SET " + field + " = ? WHERE wifi_id = ?;";
@@ -54,6 +74,14 @@ public class UpdateData {
     }
 
 
+    /**
+     *
+     *
+     * @param field
+     * @param value
+     * @param name
+     * @param address
+     */
     public static void updateRetailerField(String field, String value, String name, String address) {
         SQLiteDB db = Main.getDB();
         String sqlCommand = "UPDATE retailer SET " + field + " = ? WHERE retailer_name = ? AND address = ?;";

@@ -11,14 +11,28 @@ import java.util.ArrayList;
 
 
 public class FindNearbyLocations {
+
     private ArrayList<WifiLocation> nearbyWifi = new ArrayList<>();
     private ArrayList<RetailLocation> nearbyRetail = new ArrayList<>();
     private SQLiteDB db;
 
+
+    /**
+     * Constructor initializes the database for use within the FindNearByLocations class.
+     *
+     * @param database SQLite database connection
+     */
     public FindNearbyLocations(SQLiteDB database) {
         db = database;
     }
 
+
+    /**
+     * generateWifiArray takes a result set, rs of wifi data entries from the database, it converts each one into a
+     * WifiLocation object and adds them to and ArrayList.
+     *
+     * @param rs result set of data entries from the wifi_location table of the database
+     */
     private void generateWifiArray(ResultSet rs) {
         try {
             nearbyWifi.clear();
@@ -35,6 +49,18 @@ public class FindNearbyLocations {
         }
     }
 
+
+    /**
+     * Creates a Result Set of wifi data entries from the table wifi_location in the database. Uses the four parameters,
+     * an upper and lower latitude and upper and lower longitude to query the database and find all wifi data entries
+     * that fall between these values. Returns the result set.
+     *
+     * @param lowerLat lowerLat is of type Double. A number describing a latitude value
+     * @param upperLat upperLat is of type Double. A number describing a latitude value
+     * @param lowerLong lowerLong is of type Double. A number describing a latitude value
+     * @param upperLong upperLong is of type Double. A number describing a latitude value
+     * @return result set of wifi data entries from the query to the database
+     */
     private ResultSet generateWifiResultSet(double lowerLat, double upperLat, double lowerLong, double upperLong) {
         PreparedStatement pstmt;
         ResultSet rs;
@@ -45,7 +71,8 @@ public class FindNearbyLocations {
             pstmt.setDouble(2, upperLat);
             pstmt.setDouble(3, lowerLong);
             pstmt.setDouble(4, upperLong);
-            System.out.println("SELECT * FROM wifi_location WHERE LAT BETWEEN " + lowerLat + " AND " + upperLat + " AND LON BETWEEN " + lowerLong + " AND " + upperLong);
+            System.out.println("SELECT * FROM wifi_location WHERE LAT BETWEEN " + lowerLat + " AND " + upperLat +
+                    " AND LON BETWEEN " + lowerLong + " AND " + upperLong);
             rs = pstmt.executeQuery();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -55,6 +82,12 @@ public class FindNearbyLocations {
     }
 
 
+    /**
+     * generateRetailArray takes a result set, rs of retail data entries from the database, it converts each one into a
+     * RetailLocation object and adds them to and ArrayList.
+     *
+     * @param rs result set of data entries from the retailer table of the database
+     */
     private void generateRetailerArray(ResultSet rs) {
         try {
             nearbyRetail.clear();
@@ -71,6 +104,17 @@ public class FindNearbyLocations {
     }
 
 
+    /**
+     * Creates a Result Set of retail data entries from the table retailer in the database. Uses the four parameters,
+     * an upper and lower latitude and upper and lower longitude to query the database and find all retail data entries
+     * that fall between these values. Returns the result set.
+     *
+     * @param lowerLat lowerLat is of type Double. A number describing a latitude value
+     * @param upperLat upperLat is of type Double. A number describing a latitude value
+     * @param lowerLong lowerLong is of type Double. A number describing a latitude value
+     * @param upperLong upperLong is of type Double. A number describing a latitude value
+     * @return result set of retail data entries from the query to the database
+     */
     private ResultSet generateRetailerResultSet(double lowerLat, double upperLat, double lowerLong, double upperLong) {
         PreparedStatement pstmt;
         ResultSet rs;
@@ -81,7 +125,8 @@ public class FindNearbyLocations {
             pstmt.setDouble(2, upperLat);
             pstmt.setDouble(3, lowerLong);
             pstmt.setDouble(4, upperLong);
-            System.out.println("SELECT * FROM retailer WHERE LAT BETWEEN " + lowerLat + " AND " + upperLat + " AND LON BETWEEN " + lowerLong + " AND " + upperLong);
+            System.out.println("SELECT * FROM retailer WHERE LAT BETWEEN " + lowerLat + " AND " + upperLat +
+                    " AND LON BETWEEN " + lowerLong + " AND " + upperLong);
             rs = pstmt.executeQuery();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -91,15 +136,33 @@ public class FindNearbyLocations {
     }
 
 
+    /**
+     * findNearbyWifi finds wifi data entries that are nearby the coordinates given as the parameters, lat and lon.
+     * Returns all found wifi entries as WifiLocation objects in an ArrayList.
+     *
+     * @param lat lat is of type Double. A number describing a latitude value
+     * @param lon lon is of type Double. A number describing a longitude value
+     * @return ArrayList<WifiLocation>, contains all results from the query.
+     */
     public ArrayList<WifiLocation> findNearbyWifi(double lat, double lon) {
-        ResultSet rs = generateWifiResultSet(lat - 0.01, lat + 0.01, lon - 0.01, lon + 0.01);
+        ResultSet rs = generateWifiResultSet(lat - 0.01, lat + 0.01, lon - 0.01,
+                lon + 0.01);
         generateWifiArray(rs);
         return nearbyWifi;
     }
 
 
+    /**
+     * findNearbyRetail finds retail data entries that are nearby the coordinates given as the parameters, lat and lon.
+     * Returns all found retail entries as RetailLocation objects in an ArrayList.
+     *
+     * @param lat lat is of type Double. A number describing a latitude value
+     * @param lon lon is of type Double. A number describing a longitude value
+     * @return ArrayList<RetailLocation>, contains all results from the query.
+     */
     public ArrayList<RetailLocation> findNearbyRetail(double lat, double lon) {
-        ResultSet rs = generateRetailerResultSet(lat - 0.01, lat + 0.01, lon - 0.01, lon + 0.01);
+        ResultSet rs = generateRetailerResultSet(lat - 0.01, lat + 0.01, lon - 0.01,
+                lon + 0.01);
         generateRetailerArray(rs);
         return nearbyRetail;
     }
