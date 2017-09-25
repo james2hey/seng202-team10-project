@@ -10,7 +10,7 @@ public class SQLiteDB {
     private Connection conn;
     private Statement stmt;
 
-    private String addTable = "CREATE TABLE IF NOT EXISTS %s(%s, PRIMARY KEY(%s))";
+    private String addTable = "CREATE TABLE %s(%s, PRIMARY KEY(%s))";
 
 
     /**
@@ -71,12 +71,14 @@ public class SQLiteDB {
     /**
      * Executes SQL update on the database. Vulnerable to SQL injection so do not expose the fields to users without sanitization.
      * @param sql The statement to be executed
+     * @return int The sql executeUpdate outcome or -1 if failed
      */
-    public void executeUpdateSQL(String sql) {
+    public int executeUpdateSQL(String sql) {
         try {
-            stmt.executeUpdate(sql);
+            return stmt.executeUpdate(sql);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+            return -1;
         }
     }
 
