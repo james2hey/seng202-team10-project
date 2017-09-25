@@ -19,7 +19,7 @@
       </Text>
       <AnchorPane prefHeight="112.0" prefWidth="287.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1">
          <children>
-            <Button fx:id="wifiPageButton" layoutX="331.0" layoutY="28.0" mnemonicParsing="false" onAction="#changeToWifiEntryScene" prefHeight="25.0" prefWidth="200.0" text="Wifi">
+            <Button fx:id="wifiPageButton" disable="true" layoutX="331.0" layoutY="28.0" mnemonicParsing="false" onAction="#changeToWifiEntryScene" prefHeight="25.0" prefWidth="200.0" text="Wifi">
                <font>
                   <Font size="20.0" />
                </font>
@@ -29,48 +29,11 @@
                   <Font size="20.0" />
                </font>
             </Button>
-            <Button fx:id="routePageButton" disable="true" layoutX="57.0" layoutY="28.0" mnemonicParsing="false" onAction="#changeToRouteEntryScene" prefHeight="38.0" prefWidth="200.0" text="Route">
+            <Button fx:id="routePageButton" layoutX="57.0" layoutY="28.0" mnemonicParsing="false" onAction="#changeToRouteEntryScene" prefHeight="38.0" prefWidth="200.0" text="Route">
                <font>
                   <Font size="20.0" />
                </font>
             </Button>
-         </children>
-      </AnchorPane>
-      <AnchorPane prefHeight="270.0" prefWidth="389.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-         <children>
-            <Text layoutX="156.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address:" AnchorPane.topAnchor="70.0" />
-            <Text layoutX="140.0" layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Time:" AnchorPane.leftAnchor="140.0" AnchorPane.topAnchor="117.93310546875" />
-            <Text layoutX="199.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start of Route">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Text>
-            <Text layoutX="176.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date:" AnchorPane.leftAnchor="176.0" AnchorPane.topAnchor="167.0" />
-            <JFXTextField fx:id="rSAddress" layoutX="225.0" layoutY="67.0" prefHeight="23.0" prefWidth="170.0" AnchorPane.topAnchor="67.0" />
-            <JFXTextField fx:id="rSTime" layoutX="225.0" layoutY="115.0" prefHeight="23.0" prefWidth="170.0" promptText="e.g. hh:mm:ss" />
-            <DatePicker fx:id="rSDate" layoutX="229.0" layoutY="162.0" prefHeight="25.0" prefWidth="170.0" />
-            <Text fx:id="sTimeError" fill="RED" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ERROR: Type Error" visible="false" AnchorPane.topAnchor="116.93310546875" />
-            <Text fx:id="sDateError" fill="RED" layoutY="178.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ERROR: Type Error" visible="false" AnchorPane.topAnchor="165.93310546875" />
-         </children>
-         <GridPane.margin>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </GridPane.margin>
-      </AnchorPane>
-      <AnchorPane prefHeight="264.0" prefWidth="147.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
-         <children>
-            <Text layoutX="19.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address:" AnchorPane.topAnchor="83.93310546875" />
-            <Text layoutX="14.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End Time:" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="128.0" />
-            <Text layoutX="79.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End of Route">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Text>
-            <JFXTextField fx:id="rEAddress" layoutX="89.0" layoutY="81.0" prefHeight="23.0" prefWidth="170.0" AnchorPane.topAnchor="81.0" />
-            <JFXTextField fx:id="rETime" layoutX="89.0" layoutY="124.0" prefHeight="23.0" prefWidth="170.0" promptText="e.g. hh:mm:ss" />
-            <Text layoutX="41.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date:" AnchorPane.leftAnchor="41.0" AnchorPane.topAnchor="172.93310546875" />
-            <DatePicker fx:id="rEDate" layoutX="89.0" layoutY="168.0" prefHeight="25.0" prefWidth="170.0" />
-            <Text fx:id="eTimeError" fill="RED" layoutX="268.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ERROR: Type Error" visible="false" />
-            <Text fx:id="eDateError" fill="RED" layoutX="274.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ERROR: Type Error" visible="false" />
          </children>
       </AnchorPane>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
@@ -98,8 +61,8 @@
       </AnchorPane>
    </children>
    <columnConstraints>
-      <ColumnConstraints maxWidth="800.0" minWidth="10.0" prefWidth="84.0" />
-      <ColumnConstraints maxWidth="800.0" minWidth="10.0" prefWidth="421.0" />
+      <ColumnConstraints maxWidth="800.0" minWidth="10.0" prefWidth="110.0" />
+      <ColumnConstraints maxWidth="800.0" minWidth="10.0" prefWidth="396.0" />
       <ColumnConstraints maxWidth="991.0" minWidth="10.0" prefWidth="55.0" />
       <ColumnConstraints maxWidth="891.0" minWidth="114.0" prefWidth="391.0" />
       <ColumnConstraints maxWidth="891.0" minWidth="109.0" prefWidth="109.0" />

@@ -1,52 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
 <?import com.jfoenix.controls.JFXDrawer?>
 <?import com.jfoenix.controls.JFXHamburger?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
+
 <GridPane alignment="center" hgap="10" prefHeight="650.0" prefWidth="1100.0" style="-fx-background-color: grey;" vgap="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIControllers.AddDataController">
    <columnConstraints>
-      <ColumnConstraints maxWidth="800.0" minWidth="10.0" prefWidth="207.0" />
-      <ColumnConstraints maxWidth="800.0" minWidth="10.0" prefWidth="198.0" />
-      <ColumnConstraints maxWidth="991.0" minWidth="10.0" prefWidth="238.0" />
-      <ColumnConstraints maxWidth="891.0" minWidth="114.0" prefWidth="207.0" />
-      <ColumnConstraints maxWidth="891.0" minWidth="114.0" prefWidth="222.0" />
+      <ColumnConstraints maxWidth="800.0" minWidth="10.0" prefWidth="86.0" />
+      <ColumnConstraints maxWidth="800.0" minWidth="10.0" prefWidth="267.0" />
+      <ColumnConstraints maxWidth="891.0" minWidth="114.0" prefWidth="374.0" />
+      <ColumnConstraints maxWidth="891.0" minWidth="59.0" prefWidth="198.0" />
+      <ColumnConstraints maxWidth="891.0" minWidth="114.0" prefWidth="154.0" />
    </columnConstraints>
    <rowConstraints>
-      <RowConstraints maxHeight="251.0" minHeight="10.0" prefHeight="179.0" />
-      <RowConstraints maxHeight="251.0" minHeight="10.0" prefHeight="179.0" />
-      <RowConstraints maxHeight="393.0" minHeight="6.0" prefHeight="144.0" />
-      <RowConstraints maxHeight="510.0" minHeight="42.0" prefHeight="96.0" />
-      <RowConstraints maxHeight="510.0" minHeight="7.0" prefHeight="32.0" />
+      <RowConstraints maxHeight="251.0" minHeight="10.0" prefHeight="188.0" />
+      <RowConstraints maxHeight="251.0" minHeight="10.0" prefHeight="131.0" />
+      <RowConstraints maxHeight="393.0" minHeight="6.0" prefHeight="110.0" />
+      <RowConstraints />
+      <RowConstraints />
    </rowConstraints>
    <children>
-      <Pane prefHeight="500.0" prefWidth="800.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-      <Text fx:id="buttonPressedText" strokeType="OUTSIDE" strokeWidth="0.0" text="Button Pressed" textAlignment="CENTER" visible="false" wrappingWidth="269.6552734375" GridPane.columnIndex="2" GridPane.rowIndex="3" />
       <JFXHamburger fx:id="hamburger" onMouseClicked="#openDrawer" GridPane.columnIndex="4" />
-      <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Data Adder" textAlignment="CENTER" wrappingWidth="671.193359375" GridPane.columnIndex="1" GridPane.columnSpan="2">
+      <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Data Adder" textAlignment="CENTER" wrappingWidth="392.193359375" GridPane.columnIndex="2" GridPane.columnSpan="2">
          <font>
             <Font size="60.0" />
          </font>
       </Text>
-      <Button fx:id="manualEntryButton" mnemonicParsing="false" onAction="#changeToRouteEntryScene" prefHeight="93.0" prefWidth="257.0" style="-fx-background-color: #ff2b0a;" text="Manual Entry" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
+      <Button fx:id="manualEntryButton" mnemonicParsing="false" onAction="#changeToRouteEntryScene" prefHeight="93.0" prefWidth="579.0" style="-: #ff2b0a;" text="Manual Entry" GridPane.columnIndex="2" GridPane.rowIndex="1">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>
       </Button>
-      <Button fx:id="importButton" mnemonicParsing="false" onAction="#chooseFile" prefHeight="93.0" prefWidth="257.0" style="-fx-background-color: #ff2b0a;" text="File Import" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="2">
+      <Button fx:id="importButton" mnemonicParsing="false" onAction="#chooseFile" prefHeight="93.0" prefWidth="476.0" text="File Import" GridPane.columnIndex="2" GridPane.rowIndex="2">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>
       </Button>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
+      <AnchorPane prefHeight="144.0" prefWidth="385.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
          <children>
-            <Button fx:id="importRoute" layoutX="14.0" layoutY="27.0" mnemonicParsing="false" onAction="#chooseRoute" text="Routes" visible="false" />
-            <Button fx:id="importRetailer" layoutX="14.0" layoutY="71.0" mnemonicParsing="false" onAction="#chooseRetailer" text="Retailers" visible="false" />
-            <Button fx:id="importWifi" layoutX="14.0" layoutY="115.0" mnemonicParsing="false" onAction="#chooseWifi" text="Wifi Hotspots" visible="false" />
+            <Button fx:id="importRetailer" layoutX="136.0" layoutY="44.0" mnemonicParsing="false" onAction="#chooseRetailer" prefHeight="25.0" prefWidth="114.0" text="Retailers" visible="false" />
+            <Button fx:id="importRoute" layoutY="44.0" mnemonicParsing="false" onAction="#chooseRoute" prefHeight="25.0" prefWidth="114.0" text="Routes" visible="false" />
+            <Button fx:id="importWifi" layoutX="271.0" layoutY="44.0" mnemonicParsing="false" onAction="#chooseWifi" prefHeight="25.0" prefWidth="114.0" text="Wifi Hotspots" visible="false" />
+            <Text fx:id="selectMessage" layoutX="69.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please select a type of data to import:" visible="false" />
          </children>
       </AnchorPane>
-      <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" prefHeight="650.0" prefWidth="186.0" style="-fx-background-color: grey;" GridPane.rowSpan="5" />
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Username: " wrappingWidth="220.01025390625" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+      <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" prefHeight="664.0" prefWidth="145.0" style="-fx-background-color: grey;" GridPane.rowSpan="5" />
    </children>
 </GridPane>

@@ -10,7 +10,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.DatePicker;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -41,7 +44,7 @@ public class AddDataController extends Controller implements Initializable {
     private JFXTextField retailerName, retailerAddress, retailerLong, retailerLat, retailerPrim, retailerSec;
 
     @FXML
-    private DateTimePicker rSDate, rEDate;
+    private DatePicker rSDate, rEDate;
 
     @FXML // Wifi Fields
     private JFXTextField wifiName, wifiLong, wifiLat, wifiAddress, wifiPostcode, wifiComments;
@@ -51,6 +54,9 @@ public class AddDataController extends Controller implements Initializable {
 
     @FXML
     private JFXDrawer drawer;
+
+    @FXML
+    private Text selectMessage;
 
     private SQLiteDB db;
     private RetailerDataHandler retailerDataHandler;
@@ -320,6 +326,7 @@ public class AddDataController extends Controller implements Initializable {
     @FXML
     void chooseFile(ActionEvent event) throws IOException {
         if(!importRoute.isVisible()){
+            selectMessage.setVisible(true);
             importRoute.setVisible(true);
             importRetailer.setVisible(true);
             importWifi.setVisible(true);
