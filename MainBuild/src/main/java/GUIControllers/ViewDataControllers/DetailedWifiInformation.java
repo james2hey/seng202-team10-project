@@ -75,21 +75,24 @@ public class DetailedWifiInformation extends DataViewerController {
 
     @FXML
     void updateValues(ActionEvent event) throws IOException{
-        System.out.println("Update button clicked");
-        currentWifi.setAddress(address.getText());
-        currentWifi.setProvider(provider.getText());
-        currentWifi.setCost(cost.getSelectionModel().getSelectedItem());
-        currentWifi.setLatitude(Double.parseDouble(lattitude.getText()));
-        currentWifi.setLongitude(Double.parseDouble(longitude.getText()));
-        currentWifi.setRemarks(remarks.getText());
-        currentWifi.setCity(city.getText());
-        currentWifi.setSSID(SSID.getText());
-        currentWifi.setSuburb(suburb.getSelectionModel().getSelectedItem());
-        currentWifi.setZip(Integer.parseInt(Zip.getText()));
+        try {
+            currentWifi.setAddress(address.getText());
+            currentWifi.setProvider(provider.getText());
+            currentWifi.setCost(cost.getSelectionModel().getSelectedItem());
+            currentWifi.setLatitude(Double.parseDouble(lattitude.getText()));
+            currentWifi.setLongitude(Double.parseDouble(longitude.getText()));
+            currentWifi.setRemarks(remarks.getText());
+            currentWifi.setCity(city.getText());
+            currentWifi.setSSID(SSID.getText());
+            currentWifi.setSuburb(suburb.getSelectionModel().getSelectedItem());
+            currentWifi.setZip(Integer.parseInt(Zip.getText()));
 
-        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        currentStage.close();
-        showWifiLocations(mainAppEvent);
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            currentStage.close();
+            showWifiLocations(mainAppEvent);
+        } catch (Exception exception) {
+            makeErrorDialogueBox("Cannot update data.", "One (or more) field(s) is of an incorrect type.");
+        }
     }
 
 }

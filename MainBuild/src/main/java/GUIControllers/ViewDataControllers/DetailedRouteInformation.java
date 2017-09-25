@@ -115,27 +115,31 @@ public class DetailedRouteInformation extends RouteDataViewerController {
 
     @FXML
     void updateValues(ActionEvent event) throws IOException{
-        System.out.println("Update button clicked");
-        currentRoute.setStartAddress(startAddress.getText());
-        currentRoute.setEndAddress(endAddress.getText());
-        currentRoute.setStartLat(Double.parseDouble(startLatitude.getText()));
-        currentRoute.setEndLat(Double.parseDouble(endLatitude.getText()));
-        currentRoute.setStartLong(Double.parseDouble(startLongitude.getText()));
-        currentRoute.setEndLong(Double.parseDouble(endLongitude.getText()));
-        currentRoute.setStopTime(endTime.getText());
-        currentRoute.setStopDay(endDay.getText());
-        currentRoute.setStopMonth(endMonth.getText());
-        currentRoute.setStopYear(endYear.getText());
-        currentRoute.setStartID(Integer.parseInt(startStationID.getText()));
-        currentRoute.setEndID(Integer.parseInt(endStationID.getText()));
-        currentRoute.setDuration(Integer.parseInt(tripDuration.getText()));
-        currentRoute.setAge(Integer.parseInt(cyclistBirthYear.getText()));
-        currentRoute.setGender(gender.getSelectionModel().getSelectedItem());
-        currentRoute.setUserType(userType.getText());
+        try {
+            System.out.println("Update button clicked");
+            currentRoute.setStartAddress(startAddress.getText());
+            currentRoute.setEndAddress(endAddress.getText());
+            currentRoute.setStartLat(Double.parseDouble(startLatitude.getText()));
+            currentRoute.setEndLat(Double.parseDouble(endLatitude.getText()));
+            currentRoute.setStartLong(Double.parseDouble(startLongitude.getText()));
+            currentRoute.setEndLong(Double.parseDouble(endLongitude.getText()));
+            currentRoute.setStopTime(endTime.getText());
+            currentRoute.setStopDay(endDay.getText());
+            currentRoute.setStopMonth(endMonth.getText());
+            currentRoute.setStopYear(endYear.getText());
+            currentRoute.setStartID(Integer.parseInt(startStationID.getText()));
+            currentRoute.setEndID(Integer.parseInt(endStationID.getText()));
+            currentRoute.setDuration(Integer.parseInt(tripDuration.getText()));
+            currentRoute.setAge(Integer.parseInt(cyclistBirthYear.getText()));
+            currentRoute.setGender(gender.getSelectionModel().getSelectedItem());
+            currentRoute.setUserType(userType.getText());
 
-        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        currentStage.close();
-        showRoutes(mainAppEvent);
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            currentStage.close();
+            showRoutes(mainAppEvent);
+        } catch (Exception exception) {
+            makeErrorDialogueBox("Cannot update data.", "One (or more) field(s) is of an incorrect type.");
+        }
     }
 
 }

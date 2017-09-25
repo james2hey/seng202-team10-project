@@ -68,18 +68,22 @@ public class DetailedRetailerInformation extends DataViewerController{
 
     @FXML
     void updateValues(ActionEvent event) throws IOException{
-        currentRetailer.setAddress(address.getText());
-        currentRetailer.setLatitude(Double.parseDouble(latitude.getText()));
-        currentRetailer.setLongitude(Double.parseDouble(longitude.getText()));
-        currentRetailer.setCity(city.getText());
-        currentRetailer.setState(state.getText());
-        currentRetailer.setZip(Integer.parseInt(zip.getText()));
-        currentRetailer.setMainType(mainType.getSelectionModel().getSelectedItem());
-        currentRetailer.setSecondaryType(secondaryType.getText());
+        try {
+            currentRetailer.setAddress(address.getText());
+            currentRetailer.setLatitude(Double.parseDouble(latitude.getText()));
+            currentRetailer.setLongitude(Double.parseDouble(longitude.getText()));
+            currentRetailer.setCity(city.getText());
+            currentRetailer.setState(state.getText());
+            currentRetailer.setZip(Integer.parseInt(zip.getText()));
+            currentRetailer.setMainType(mainType.getSelectionModel().getSelectedItem());
+            currentRetailer.setSecondaryType(secondaryType.getText());
 
-        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        currentStage.close();
-        showRetailers(mainAppEvent);
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            currentStage.close();
+            showRetailers(mainAppEvent);
+        } catch (Exception exception) {
+            makeErrorDialogueBox("Cannot update data.", "One (or more) field(s) is of an incorrect type.");
+        }
     }
 
     void shutDown(ActionEvent event) {
