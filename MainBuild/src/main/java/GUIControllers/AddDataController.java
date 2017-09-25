@@ -24,9 +24,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 
-/**
- * Created by bal65 on 16/09/17.
- */
+
 public class AddDataController extends Controller implements Initializable {
 
     @FXML //This importButton reveals other buttons

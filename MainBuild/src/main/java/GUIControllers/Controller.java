@@ -41,6 +41,12 @@ public abstract class Controller {
     @FXML
     private JFXHamburger hamburger;
 
+    /**
+     * Should be called every time the jfoenix hamburger is clicked. It will open the side panel if it
+     * is currently closed, or close it if it is currently open.
+     *
+     * @throws IOException Catches error if fxml does not load correctly
+     */
     @FXML
     void openDrawer() throws IOException {
 //
@@ -54,6 +60,12 @@ public abstract class Controller {
         }
     }
 
+    /**
+     * Changes the current scene to the plan route scene. This method is used when a blank map is to be loaded.
+     *
+     * @param event Event Created when function called, used to identify the current stage.
+     * @throws IOException Catches error if fxml does not load correctly
+     */
     @FXML
     public void changeToPlanRouteScene(ActionEvent event) throws IOException {
         Parent planRouteParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/planRoute.fxml"));
@@ -62,6 +74,16 @@ public abstract class Controller {
         currentStage.setScene(planRouteScene);
     }
 
+    /**
+     * Changes the current scene to the plan route scene. This method is used when preselected data is to be loaded into the map
+     * when it loads.
+     *
+     * @param event Event created on method call
+     * @param wifiLocations Array list of Wifi Locations that are to be loaded into map (can be null)
+     * @param retailLocations Array list of Retailers that are to be loaded into map (can be null)
+     * @param routes Array list of Routes that are to be loaded into map (can be null)
+     * @throws IOException Catches error if fxml does not load correctly
+     */
     @FXML
     public void changeToPlanRouteScene(ActionEvent event, ArrayList<WifiLocation> wifiLocations, ArrayList<RetailLocation> retailLocations, ArrayList<Route> routes) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/planRoute.fxml"));
@@ -112,6 +134,12 @@ public abstract class Controller {
         currentStage.setScene(viewDataScene);
     }
 
+    /**
+     * Creates a dialogue box over current scene with two strings that explain to the user why the dialogue box has popped up.
+     *
+     * @param errorMessage String providing message for top of dialogue box eg. "Error: 404"
+     * @param errorDetails String providing message for bottom of dialogue box eg. "Please refresh the page"
+     */
     @FXML
     public static void makeErrorDialogueBox(String errorMessage, String errorDetails) {
         Alert alert = new Alert(Alert.AlertType.ERROR, errorDetails, ButtonType.OK);
@@ -122,27 +150,27 @@ public abstract class Controller {
             System.out.println("Ok pressed");
         }
     }
-//
-//    /**
-//     * Makes a confirmation dialogue box and returns yes as true, no as false.
-//     * Assumes that if dialogue is exited, result is no.
-//     *
-//     * @param errorMessage String that provides the error message for the dialogue box.
-//     * @param errorDetails String that provides the error details for the dialogue box.
-//     * @return boolean representing result of yes/no answer in confirmation box.
-//     */
-//    @FXML
-//    boolean makeConfirmationDialogueBox(String errorMessage, String errorDetails) {
-//        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, errorDetails, ButtonType.NO, ButtonType.YES);
-//        alert.setHeaderText(errorMessage);
-//        alert.showAndWait();
-//
-//        if (alert.getResult() == ButtonType.YES) {
-//            return true;
-//        } else {
-//            return false;
-//        }
-//    }
+
+    /**
+     * Makes a confirmation dialogue box and returns yes as true, no as false.
+     * Assumes that if dialogue is exited, result is no.
+     *
+     * @param errorMessage String that provides the error message for the dialogue box
+     * @param errorDetails String that provides the error details for the dialogue box
+     * @return boolean representing result of yes/no answer in confirmation box.
+     */
+    @FXML
+    boolean makeConfirmationDialogueBox(String errorMessage, String errorDetails) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, errorDetails, ButtonType.NO, ButtonType.YES);
+        alert.setHeaderText(errorMessage);
+        alert.showAndWait();
+
+        if (alert.getResult() == ButtonType.YES) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     /**
      * Makes a confirmation dialogue box and returns yes as true, no as false.
@@ -162,6 +190,13 @@ public abstract class Controller {
         }
     }
 
+    /**
+     * Launches the help screen.
+     *
+     * @param event Event created on method call
+     * @throws IOException Catches error if fxml does not load correctly
+     */
+
     @FXML
     public void getHelp(ActionEvent event) throws IOException{
         Stage popup = new Stage();
@@ -172,9 +207,6 @@ public abstract class Controller {
         popup.setScene(popupScene);
         popup.show();
     }
-
-
-
 
 
 }

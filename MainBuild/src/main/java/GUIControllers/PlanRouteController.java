@@ -17,6 +17,7 @@ import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import main.HelperFunctions;
 import main.Main;
@@ -44,6 +45,12 @@ public class PlanRouteController extends Controller implements Initializable, Ma
 
     @FXML
     protected GoogleMapView mapView;
+
+    @FXML
+    private Button nearbyWifiButton;
+
+    @FXML
+    private Button nearbyRetailerButton;
 
     protected DirectionsService directionsService;
 
@@ -124,6 +131,8 @@ public class PlanRouteController extends Controller implements Initializable, Ma
 
     @Override
     public void directionsReceived(DirectionsResult results, DirectionStatus status) {
+        nearbyRetailerButton.setDisable(false);
+        nearbyWifiButton.setDisable(false);
         System.out.println(results.getRoutes().size());
         results.getRoutes().get(0).getLegs().get(0);
         DirectionsLeg leg = results.getRoutes().get(0).getLegs().get(0);
@@ -156,6 +165,8 @@ public class PlanRouteController extends Controller implements Initializable, Ma
             map.addMarker(marker);
 
             map.addUIEventHandler(marker, UIEventType.click, (JSObject obj) -> {
+                nearbyRetailerButton.setDisable(false);
+                nearbyWifiButton.setDisable(false);
                 System.out.println("Clicked");
                 InfoWindowOptions infoWindowOptions = new InfoWindowOptions()
                         .content(
@@ -196,6 +207,8 @@ public class PlanRouteController extends Controller implements Initializable, Ma
             System.out.println(location.getLongitude());
 
             map.addUIEventHandler(marker, UIEventType.click, (JSObject obj) -> {
+                nearbyRetailerButton.setDisable(false);
+                nearbyWifiButton.setDisable(false);
                 System.out.println("Clicked");
                 InfoWindowOptions infoWindowOptions = new InfoWindowOptions()
                         .content(
@@ -259,6 +272,8 @@ public class PlanRouteController extends Controller implements Initializable, Ma
                 tripMarkers.add(marker);
                 map.addMarker(marker);
                 map.addUIEventHandler(marker, UIEventType.click, (JSObject obj) -> {
+                    nearbyRetailerButton.setDisable(false);
+                    nearbyWifiButton.setDisable(false);
                     System.out.println("Clicked");
                     InfoWindowOptions infoWindowOptions = new InfoWindowOptions()
                             .content(
@@ -285,6 +300,8 @@ public class PlanRouteController extends Controller implements Initializable, Ma
                 map.addMarker(marker2);
 
                 map.addUIEventHandler(marker2, UIEventType.click, (JSObject obj) -> {
+                    nearbyRetailerButton.setDisable(false);
+                    nearbyWifiButton.setDisable(false);
                     System.out.println("Clicked");
                     InfoWindowOptions infoWindowOptions = new InfoWindowOptions()
                             .content(
@@ -292,11 +309,10 @@ public class PlanRouteController extends Controller implements Initializable, Ma
                                             "End Date: " + route.getStopDate() + "<br>" +
                                             "End Time: " + route.getStopTime() + "<br>" +
                                             "Duration: " + HelperFunctions.secondsToString(route.getDuration()) + "<br>" +
-                                            "Distance: " + numberFormat.format(route.getDistance()) + "km")
-                            .position(latLong2);
+                                            "Distance: " + numberFormat.format(route.getDistance()) + "km");
                     currentInfoWindow.close();
                     currentInfoWindow = new InfoWindow(infoWindowOptions);
-                    currentInfoWindow.open(map);
+                    currentInfoWindow.open(map, marker2);
                     currentPoint = latLong2;
                 });
 
