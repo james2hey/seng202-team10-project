@@ -103,6 +103,7 @@ public class PlanRouteController extends Controller implements Initializable, Ma
         directionsService = new DirectionsService();
         directionsPane = mapView.getDirec();
         directionsRenderer = new DirectionsRenderer(true, mapView.getMap(), directionsPane);
+        directionsRenderer.setOptions("true, suppressBicyclingLayer: true");
 
 
         renderWifiMarkers();
@@ -249,11 +250,10 @@ public class PlanRouteController extends Controller implements Initializable, Ma
             LatLong end = new LatLong(route.getEndLatitude(), route.getEndLongitude());
             System.out.println(start);
             System.out.println(route.getStartAddress());
-            //DirectionsRequest request = new DirectionsRequest(start, end, TravelModes.BICYCLING);
             currentStart = route.getStartAddress();
             System.out.println(currentStart);
             currentEnd = route.getEndAddress();
-            DirectionsRequest request = new DirectionsRequest(route.getStartAddress(), route.getEndAddress(), TravelModes.DRIVING);
+            DirectionsRequest request = new DirectionsRequest(route.getStartAddress(), route.getEndAddress(), TravelModes.BICYCLING);
             directionsService.getRoute(request, this, directionsRenderer);
         }
         else {
@@ -379,6 +379,10 @@ public class PlanRouteController extends Controller implements Initializable, Ma
             makeErrorDialogueBox("Error", "Please select a point");
         } else {
             ArrayList<WifiLocation> newLocations = nearbyFinder.findNearbyWifi(currentPoint.getLatitude(), currentPoint.getLongitude());
+            if (newLocations.size() == 0) {
+                makeErrorDialogueBox("Nothing Nearby", "We couldn't find any locations nearby\nHave you imported any data?");
+                return;
+            }
             addWifiLocations(newLocations);
             renderWifiMarkers();
         }
@@ -391,6 +395,10 @@ public class PlanRouteController extends Controller implements Initializable, Ma
             makeErrorDialogueBox("Error", "Please select a point");
         } else {
             ArrayList<RetailLocation> newLocations = nearbyFinder.findNearbyRetail(currentPoint.getLatitude(), currentPoint.getLongitude());
+            if (newLocations.size() == 0) {
+                makeErrorDialogueBox("Nothing Nearby", "We couldn't find any locations nearby\nHave you imported any data?");
+                return;
+            }
             addRetailLocations(newLocations);
             renderRetailerMarkers();
         }
