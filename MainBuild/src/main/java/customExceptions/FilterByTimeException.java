@@ -1,9 +1,15 @@
 package customExceptions;
 
 /**
- * Created by mki58 on 23/09/17.
+ * Custom exceptions defined in this class.
  */
 public class FilterByTimeException extends Exception {
+
+    /**
+     * Defines custom exception. thrown when user inputs data to filter by incorrectly.
+     *
+     * @param message;
+     */
     public FilterByTimeException(String message) {
         super(message);
     }
