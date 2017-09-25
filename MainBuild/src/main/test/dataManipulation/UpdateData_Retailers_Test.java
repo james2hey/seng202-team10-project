@@ -13,7 +13,7 @@ import java.sql.ResultSet;
 import static org.junit.Assert.*;
 
 
-public class UpdateDataTest_Retailers {
+public class UpdateData_Retailers_Test {
 
     private SQLiteDB db;
 

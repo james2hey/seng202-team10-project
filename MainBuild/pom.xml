@@ -5,17 +5,63 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>seng202.team10</groupId>
-    <artifactId>MainBuild</artifactId>
+    <artifactId>Pedals</artifactId>
+    <name>${project.artifactId}</name>
+    <description>A Java application for searching, storing, and planning bike trips.</description>
+    <url>https://eng-git.canterbury.ac.nz/jes143/seng202-team10-project</url>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>MainBuild</name>
-    <url>http://maven.apache.org</url>
+    <!--<licenses>-->
+        <!--<license>-->
+            <!--<name>The Apache Software License, Version 2.0</name>-->
+            <!--<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>-->
+        <!--</license>-->
+    <!--</licenses>-->
+    <developers>
+        <developer>
+            <name>Jack Steel</name>
+            <email>jes143@uclive.ac.nz</email>
+            <organization>University of Canterbury</organization>
+            <organizationUrl>http://www.canterbury.ac.nz</organizationUrl>
+        </developer>
+        <developer>
+            <name>Braden Alsford</name>
+            <email>bal65@uclive.ac.nz</email>
+            <organization>University of Canterbury</organization>
+            <organizationUrl>http://www.canterbury.ac.nz</organizationUrl>
+        </developer>
+        <developer>
+            <name>Matt King</name>
+            <email>mki58@uclive.ac.nz</email>
+            <organization>University of Canterbury</organization>
+            <organizationUrl>http://www.canterbury.ac.nz</organizationUrl>
+        </developer>
+        <developer>
+            <name>James Toohey</name>
+            <email>jto59@uclive.ac.nz</email>
+            <organization>University of Canterbury</organization>
+            <organizationUrl>http://www.canterbury.ac.nz</organizationUrl>
+        </developer>
+        <developer>
+            <name>Lewis White</name>
+            <email>lwh34@uclive.ac.nz</email>
+            <organization>University of Canterbury</organization>
+            <organizationUrl>http://www.canterbury.ac.nz</organizationUrl>
+        </developer>
+    </developers>
+    <!--<properties>-->
+        <!--<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>-->
+        <!--<mainClass>main.MainApp</mainClass>-->
+        <!--<maven.compiler.source>1.8</maven.compiler.source>-->
+        <!--<maven.compiler.target>1.8</maven.compiler.target>-->
+    <!--</properties>-->
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.opencsv</groupId>
@@ -54,6 +100,7 @@
         </dependency>
     </dependencies>
     <build>
+        <testSourceDirectory>src/main/test</testSourceDirectory>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -62,6 +109,35 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>main.Main</mainClass>
+                        </manifest>
+                    </archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <additionalparam>-Xdoclint:none</additionalparam>
                 </configuration>
             </plugin>
         </plugins>

@@ -61,6 +61,7 @@ public class DataFilterer {
 
     /**
      * Constructor for DataFilterer class.
+     * @param db
      */
     public DataFilterer(SQLiteDB db) {
         //---Route Strings---

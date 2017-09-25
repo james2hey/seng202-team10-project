@@ -34,6 +34,10 @@ public class Geocoder {
      * Takes an address and uses Google Geocoding API to get a latitude and longitude.
      * @param address A string specifying the address to search
      * @return The first result from the geocode search
+     * @throws ApiException
+     * @throws IOException
+     * @throws InterruptedException
+     * @throws ArrayIndexOutOfBoundsException
      */
     public static double[] addressToLatLon(String address) throws ApiException, IOException, InterruptedException, ArrayIndexOutOfBoundsException {
         GeocodingResult[] results;
