@@ -404,6 +404,24 @@ public class DataFiltererTest_Routes_Wifi {
     }
 
 
+    @Test
+    public void filterWifiTestName() throws Exception {
+        ArrayList<String> wifiID = new ArrayList<>();
+        wifiID.add("3");
+        wifiID.add("27");
+        wifiID.add("49");
+        wifiID.add("458");
+        wifiID.add("578");
+        wifiID.add("805");
+        wifiID.add("858");
+        wifiID.add("894");
+        wifiLocations = dataFilterer.filterWifi("guest", null, null, null);
+        for (int i = 0; i < wifiLocations.size(); i++) {
+            assertTrue(wifiID.get(i).equals(wifiLocations.get(i).getWifiID()));
+        }
+    }
+
+
 //    @Test
 //    public void filterRetailersTest() throws Exception {
 //        retailLocations = dataFilterer.filterRetailers(null, null, null, 10004);
