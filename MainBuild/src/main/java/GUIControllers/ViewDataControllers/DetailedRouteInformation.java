@@ -12,6 +12,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Controller class for the detailed route information.
+ */
 
 public class DetailedRouteInformation extends RouteDataViewerController {
 
@@ -86,6 +89,12 @@ public class DetailedRouteInformation extends RouteDataViewerController {
         mainAppEvent = event;
     }
 
+    /**
+     * Called upon successful opening on the stage. This fills the text fields with the currently stored values of each.
+     *
+     * @param location Location of the fxml
+     * @param resources Locale-specific data required for the method to run automatically
+     */
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
         currentRoute = RouteDataViewerController.getRoute();
@@ -112,7 +121,13 @@ public class DetailedRouteInformation extends RouteDataViewerController {
         bikeID.setText(currentRoute.getBikeID());
     }
 
-
+    /**
+     * Checks each textfield and update the values in the database. If any fail, the user is informed and expected to
+     * correct them.
+     *
+     * @param event Created when the method is called
+     * @throws IOException Handles errors caused by an fxml not loading correctly
+     */
     @FXML
     void updateValues(ActionEvent event) throws IOException{
         try {

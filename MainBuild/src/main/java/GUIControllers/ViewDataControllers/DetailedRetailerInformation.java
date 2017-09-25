@@ -14,7 +14,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Controller for the detailed retailer info fxml.
+ * Controller for the detailed retailer information fxml.
  */
 
 public class DetailedRetailerInformation extends DataViewerController{
@@ -58,8 +58,8 @@ public class DetailedRetailerInformation extends DataViewerController{
     /**
      * Called on start up and initialises the values in each of the editable and non-editable fields.
      *
-     * @param location Location of the fxml.
-     * @param resources
+     * @param location Location of the fxml
+     * @param resources Locale-specific data required for the method to run automatically
      */
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
@@ -75,6 +75,13 @@ public class DetailedRetailerInformation extends DataViewerController{
         secondaryType.setText(currentRetailer.getSecondaryType());
     }
 
+    /**
+     * Called when the Update button is pressed. It gets the current value from all text fields and updates them in
+     * the database. If any fail to update, an error message prompts the user to check the input.
+     *
+     * @param event Created when the method is called
+     * @throws IOException Handles errors caused by an fxml not loading correctly
+     */
     @FXML
     void updateValues(ActionEvent event) throws IOException{
         try {
@@ -93,10 +100,6 @@ public class DetailedRetailerInformation extends DataViewerController{
         } catch (Exception exception) {
             makeErrorDialogueBox("Cannot update data.", "One (or more) field(s) is of an incorrect type.");
         }
-    }
-
-    void shutDown(ActionEvent event) {
-
     }
 
 }

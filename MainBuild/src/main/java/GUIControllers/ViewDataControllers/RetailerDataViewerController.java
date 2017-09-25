@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
- * Created by bal65 on 19/09/17.
+ * Controller class for retailer data viewer.
  */
 public class RetailerDataViewerController extends DataViewerController {
 
@@ -64,10 +64,24 @@ public class RetailerDataViewerController extends DataViewerController {
     @FXML
     private TableColumn<RetailLocation, String> PrimaryType;
 
-
     private ObservableList<RetailLocation> retailList = FXCollections.observableArrayList();
+
     private ArrayList<RetailLocation> retailLocations = new ArrayList<RetailLocation>();
 
+    static private RetailLocation retailer = null;
+
+    static public RetailLocation getRetailer() {
+        return retailer;
+    }
+
+
+    /**
+     * Runs on successfully loading up and fills the table with data currently stored in the database.
+     * It then calls displayData() to visually display these.
+     *
+     * @param location Location of the fxml
+     * @param resources Locale-specific data required for the method to run automatically
+     */
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
         Name.setCellValueFactory(new PropertyValueFactory<>("Name"));
@@ -81,12 +95,26 @@ public class RetailerDataViewerController extends DataViewerController {
         displayData(event);
     }
 
+    /**
+     * Called when the display all on map button is pressed. It changes the scene to the plan route one so that all data
+     * can be seen on the map.
+     *
+     * @param event Created when the method is called
+     * @throws IOException Handles errors caused by an fxml not loading correctly
+     */
     @FXML
     void displayDataOnMap(ActionEvent event) throws IOException {
         //Called when GUI button View on map is pressed.
         changeToPlanRouteScene(event, null, retailLocations, null);
     }
 
+    /**
+     * Called when the display selected on map button is pressed. If nothing is selected, it will prompt the user,
+     * otherwise it will get the selected item, place it on the map, and change the scene so it is visible.
+     *
+     * @param event Created when the method is called
+     * @throws IOException Handles errors caused by an fxml not loading correctly
+     */
     @FXML
     void displaySelectedDataOnMap(ActionEvent event) throws IOException {
         if (tableView.getSelectionModel().getSelectedItem() == null) {
@@ -99,9 +127,14 @@ public class RetailerDataViewerController extends DataViewerController {
         }
     }
 
+    /**
+     * Called when the filter button is pressed. It gets what the user has inputted into the filter text fields,
+     * filters the data, and calls for a refresh of the scene so it can be seen.
+     *
+     * @param event Created when the method is called
+     **/
     @FXML
     void displayData(ActionEvent event) {
-        System.out.println("Display button pressed");
 
         String name = nameInput.getText();
         if (name.equals("")) {
@@ -167,11 +200,16 @@ public class RetailerDataViewerController extends DataViewerController {
         }
     }
 
-    static private RetailLocation retailer = null;
 
+    /**
+     * Called when view/edit retailer is pressed. If nothing is selected, it will prompt the user. Otherwise,
+     * it will open open the detailed view stage.
+     *
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void editData(ActionEvent event) throws IOException{
-        //Called when view/edit retailer is pressed.
 
         if (tableView.getSelectionModel().getSelectedItem() == null) {
             makeErrorDialogueBox("No retailer selected.", "Please select a retailer from the table.");
@@ -188,8 +226,5 @@ public class RetailerDataViewerController extends DataViewerController {
         }
     }
 
-    static public RetailLocation getRetailer() {
-        return retailer;
-    }
 
 }

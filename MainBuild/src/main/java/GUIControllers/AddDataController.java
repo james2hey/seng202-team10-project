@@ -24,6 +24,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Controller class for the add data scene.
+ */
 
 public class AddDataController extends Controller implements Initializable {
 
@@ -64,6 +67,28 @@ public class AddDataController extends Controller implements Initializable {
     public static String startAddress = "";
     public static String endAddress = "";
 
+    /**
+     * Runs on successfully loading the fxml. This initialises the data handlers so that CSV's can be imported in
+     * the future.
+     *
+     * @param location Location of the fxml
+     * @param resources Locale-specific data required for the method to run automatically
+     */
+    public void initialize(URL location, ResourceBundle resources) {
+        if (location.equals(getClass().getClassLoader().getResource("FXML/routeManualEntry.fxml"))) {
+            System.out.println(rSAddress.getText());
+            System.out.println(startAddress);
+            rSAddress.setText(startAddress);
+            rEAddress.setText(endAddress);
+        }
+
+        System.out.println(location);
+        db = Main.getDB();
+        retailerDataHandler = new RetailerDataHandler(db);
+        wifiDataHandler = new WifiDataHandler(db);
+        routeDataHandler = new RouteDataHandler(db);
+    }
+
 
     public static void setRouteVals(String newStartAddress, String newEndAddress) {
         startAddress = newStartAddress;
@@ -91,6 +116,11 @@ public class AddDataController extends Controller implements Initializable {
         return dateInts;
     }
 
+    /**
+     * Checks the validity of user time input.
+     * @param time time to check
+     * @return a boolean true if the time is valid, false otherwise
+     */
     public static Boolean checkTime(String time){
         if (time == null || time.length() != 8 || time.charAt(2) != ':'  || time.charAt(5) != ':') {
             return false;
@@ -271,8 +301,6 @@ public class AddDataController extends Controller implements Initializable {
         }
     }
 
-
-
     /**
      * Opens system file viewer and accepts only *.csv type files,
      * will print the file string to system and send it to the
@@ -339,6 +367,7 @@ public class AddDataController extends Controller implements Initializable {
             }
         }
     }
+
     /**
      * Opens system file viewer and accepts only *.csv type files,
      * will print the file string to system and send it to the
@@ -371,6 +400,12 @@ public class AddDataController extends Controller implements Initializable {
         }
     }
 
+    /**
+     * Changes the current scene to the Route entry scene.
+     *
+     * @param event Created when the method is called
+     * @throws IOException Handles errors caused by an fxml not loading correctly
+     */
     @FXML
     void changeToRouteEntryScene(ActionEvent event) throws IOException {
         Parent manualEntryParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/routeManualEntry.fxml"));
@@ -378,31 +413,13 @@ public class AddDataController extends Controller implements Initializable {
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.setScene(manualEntryScene);
     }
-    @FXML
-    void changeToRouteEntryScene(ActionEvent event, Stage stage) throws IOException {
-        Parent manualEntryParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/routeManualEntry.fxml"));
-        Scene manualEntryScene = new Scene(manualEntryParent);
-        stage.setScene(manualEntryScene);
-    }
-//
-//    @FXML
-//    void changeToRouteEntryScene(ActionEvent event, String startAddress, String endAddress, Stage stage) throws IOException {
-////        Parent manualEntryParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/routeManualEntry.fxml"));
-////        Scene manualEntryScene = new Scene(manualEntryParent);
-////        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-////        currentStage.setScene(manualEntryScene);
-//
-//        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/routeManualEntry.fxml"));
-//        Scene manualEntryScene = new Scene(loader.load());
-//
-//        AddDataController controller = loader.<AddDataController>getController();
-//        controller.setRouteVals(startAddress, endAddress);
-//        controller.rSAddress.setText(startAddress);
-//        stage.setScene(manualEntryScene);
-//        //controller.changeToRouteEntryScene(event, startAddress, endAddress);
-//
-//    }
 
+    /**
+     * Changes the current scene to the wifi entry scene.
+     *
+     * @param event Created when the method is called
+     * @throws IOException Handles errors caused by an fxml not loading correctly
+     */
     @FXML
     void changeToWifiEntryScene(ActionEvent event) throws IOException {
         Parent manualEntryParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/wifiManualEntry.fxml"));
@@ -411,27 +428,17 @@ public class AddDataController extends Controller implements Initializable {
         currentStage.setScene(manualEntryScene);
     }
 
+    /**
+     * Changes the current scene to the Retailer entry scene
+     *
+     * @param event Created when the method is called
+     * @throws IOException Handles errors caused by an fxml not loading correctly
+     */
     @FXML
     void changeToRetailerEntryScene(ActionEvent event) throws IOException {
         Parent manualEntryParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/retailerManualEntry.fxml"));
         Scene manualEntryScene = new Scene(manualEntryParent);
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.setScene(manualEntryScene);
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        if (location.equals(getClass().getClassLoader().getResource("FXML/routeManualEntry.fxml"))) {
-            System.out.println(rSAddress.getText());
-            System.out.println(startAddress);
-            rSAddress.setText(startAddress);
-            rEAddress.setText(endAddress);
-        }
-
-        System.out.println(location);
-        db = Main.getDB();
-        retailerDataHandler = new RetailerDataHandler(db);
-        wifiDataHandler = new WifiDataHandler(db);
-        routeDataHandler = new RouteDataHandler(db);
     }
 }

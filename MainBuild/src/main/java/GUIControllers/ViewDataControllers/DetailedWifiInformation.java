@@ -12,7 +12,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-
+/**
+ * Controller class for detailed wifi information.
+ */
 public class DetailedWifiInformation extends DataViewerController {
 
     @FXML
@@ -56,6 +58,12 @@ public class DetailedWifiInformation extends DataViewerController {
         mainAppEvent = event;
     }
 
+    /**
+     * Fills each textfield to what is currently stored in the database.
+     *
+     * @param location Location of the fxml
+     * @param resources Locale-specific data required for the method to run automatically
+     */
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
         currentWifi = WifiDataViewerController.getWifi();
@@ -73,6 +81,13 @@ public class DetailedWifiInformation extends DataViewerController {
     }
 
 
+    /**
+     * Checks each text field and updates the database to what the user has inputted. If any update fails, the user
+     * is informed and expected to update their input.
+     *
+     * @param event Created when the method is called
+     * @throws IOException Handles errors caused by an fxml not loading correctly
+     */
     @FXML
     void updateValues(ActionEvent event) throws IOException{
         try {
