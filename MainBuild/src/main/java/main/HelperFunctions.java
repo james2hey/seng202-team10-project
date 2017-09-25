@@ -31,7 +31,7 @@ public class HelperFunctions {
     }
 
     /**
-     * Converts a simple int to a formatted string that's clear and concise
+     * Converts a simple int of seconds to a formatted string that contains the number of days, hours, minutes and seconds.
      * @param seconds
      * @return A String of the format "wd, xh, ym, zs", that only includes values that are significant (drops leading zeros)
      */
@@ -41,19 +41,15 @@ public class HelperFunctions {
         int mins;
         int secs;
         String out = "";
-
         days = seconds / 86400;
         out += ((days != 0) ? days + "d, " : "");
         hours = (seconds % 86400) / 3600 ;
         out += ((hours != 0 || days != 0) ? hours + "h, " : "");
         mins = ((seconds % 86400) % 3600 ) / 60;
-        out += ((mins != 0 || days != 0 || hours != 0) ? mins + "m, " : mins);
+        out += ((mins != 0 || days != 0 || hours != 0) ? mins + "m, " : "");
         secs = (seconds % 86400  % 3600 ) % 60;
         out += secs + "s";
-        System.out.println(days);
-        System.out.println(hours);
-        System.out.println(mins);
-        System.out.println(secs);
+        //System.out.println(out);
         return out;
     }
 
@@ -93,6 +89,42 @@ public class HelperFunctions {
         DateTime end = new DateTime(end_year_int, end_month_int, end_day_int, end_hour, end_min, end_sec, DateTimeZone.UTC);
         Duration duration = new Duration(start, end);
         return duration.toStandardSeconds().getSeconds();
+    }
+
+    /**
+     * Turns the date input into a three part String array where
+     * the values are year, month, day respectively.
+     *
+     * @param date String of the form yyyy-MM-dd
+     */
+    public static String[] convertDates(String date) {
+        String dateInts[] = new String[3];
+        if (date == null || date.length() != 10 || date.charAt(4) != '-' || date.charAt(7) != '-') {
+            return null;
+        }
+        dateInts[0] = date.substring(0, 4);
+        dateInts[1] = date.substring(5, 7);
+        dateInts[2] = date.substring(8);
+        if (Integer.parseInt(dateInts[1]) > 12 || Integer.parseInt(dateInts[2]) > 31) {
+            return null;
+        }
+        return dateInts;
+    }
+
+    /**
+     * Checks the validity of user time input.
+     * @param time time to check
+     * @return a boolean true if the time is valid, false otherwise
+     */
+    public static Boolean checkTime(String time) {
+        if (time == null || time.length() != 8 || time.charAt(2) != ':' || time.charAt(5) != ':') {
+            return false;
+        }
+        if (Integer.parseInt(time.substring(0, 2)) > 23 || Integer.parseInt(time.substring(3, 5)) > 59 || Integer.parseInt(time.substring(6, 8)) > 59
+                || Integer.parseInt(time.substring(0, 2)) < 0 || Integer.parseInt(time.substring(3, 5)) < 0 || Integer.parseInt(time.substring(6, 8)) < 0) {
+            return false;
+        }
+        return true;
     }
 
 }

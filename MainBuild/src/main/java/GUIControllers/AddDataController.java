@@ -91,47 +91,15 @@ public class AddDataController extends Controller implements Initializable {
         routeDataHandler = new RouteDataHandler(db);
     }
 
-
+    /**
+     * Sets values of address from the PlanRoute scene.
+     *
+     * @param newStartAddress Starting address for route.
+     * @param newEndAddress Starting address for route.
+     */
     public static void setRouteVals(String newStartAddress, String newEndAddress) {
         startAddress = newStartAddress;
         endAddress = newEndAddress;
-    }
-
-    /**
-     * Turns the date input into a three part String array where
-     * the values are year, month, day respectively.
-     *
-     * @param date String of the form yyyy-MM-dd
-     */
-    public static String[] convertDates(String date) {
-        String dateInts[] = new String[3];
-        if (date == null || date.length() != 10 || date.charAt(4) != '-' || date.charAt(7) != '-') {
-            return null;
-        }
-        dateInts[0] = date.substring(0, 4);
-        dateInts[1] = date.substring(5, 7);
-        dateInts[2] = date.substring(8);
-        if (Integer.parseInt(dateInts[1]) > 12 || Integer.parseInt(dateInts[2]) > 31) {
-            return null;
-        }
-
-        return dateInts;
-    }
-
-    /**
-     * Checks the validity of user time input.
-     * @param time time to check
-     * @return a boolean true if the time is valid, false otherwise
-     */
-    public static Boolean checkTime(String time) {
-        if (time == null || time.length() != 8 || time.charAt(2) != ':' || time.charAt(5) != ':') {
-            return false;
-        }
-        if (Integer.parseInt(time.substring(0, 2)) > 23 || Integer.parseInt(time.substring(3, 5)) > 59 || Integer.parseInt(time.substring(6, 8)) > 59
-                || Integer.parseInt(time.substring(0, 2)) < 0 || Integer.parseInt(time.substring(3, 5)) < 0 || Integer.parseInt(time.substring(6, 8)) < 0) {
-            return false;
-        }
-        return true;
     }
 
     /**
@@ -188,7 +156,7 @@ public class AddDataController extends Controller implements Initializable {
 
         try { //Start Date
             sDateError.setVisible(false);
-            sDate = convertDates(rSDate.getValue().toString());
+            sDate = HelperFunctions.convertDates(rSDate.getValue().toString());
             if (sDate == null) {
                 errorOccurred = true;
                 sDateError.setVisible(true);
@@ -200,7 +168,7 @@ public class AddDataController extends Controller implements Initializable {
 
         try { // End Date
             eDateError.setVisible(false);
-            eDate = convertDates(rEDate.getValue().toString());
+            eDate = HelperFunctions.convertDates(rEDate.getValue().toString());
             if (eDate == null) {
                 errorOccurred = true;
                 //eDateError.setVisible(true);
@@ -210,14 +178,14 @@ public class AddDataController extends Controller implements Initializable {
             errorOccurred = true;
         }
 
-        if (checkTime(rSTime.getText())) {
+        if (HelperFunctions.checkTime(rSTime.getText())) {
             sTimeError.setVisible(false);
         } else {
             errorOccurred = true;
             sTimeError.setVisible(true);
         }
 
-        if (checkTime(rETime.getText())) {
+        if (HelperFunctions.checkTime(rETime.getText())) {
             eTimeError.setVisible(false);
         } else {
             eTimeError.setVisible(true);
