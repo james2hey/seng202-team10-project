@@ -1,5 +1,6 @@
 package dataManipulation;
 
+import GUIControllers.PlanRouteController;
 import dataAnalysis.RetailLocation;
 import dataAnalysis.WifiLocation;
 import dataHandler.SQLiteDB;
@@ -57,7 +58,8 @@ public class FindNearbyLocations {
     /**
      * Creates a Result Set of wifi data entries from the table wifi_location in the database. Uses the four parameters,
      * an upper and lower latitude and upper and lower longitude to query the database and find all wifi data entries
-     * that fall between these values. Returns the result set.
+     * that fall between these values. Returns the result set. A null pointer exception may occur if no data has
+     * been added to the database. In this case, an error message is created to inform the user.
      *
      * @param lowerLat of type Double. A number describing a latitude value
      * @param upperLat of type Double. A number describing a latitude value
@@ -67,17 +69,21 @@ public class FindNearbyLocations {
      */
     private ResultSet generateWifiResultSet(double lowerLat, double upperLat, double lowerLong, double upperLong) {
         PreparedStatement pstmt;
-        ResultSet rs;
+        ResultSet rs = null;
         try {
-            String queryString = "SELECT * FROM wifi_location WHERE LAT BETWEEN ? AND ? AND LON BETWEEN ? AND ?;";
-            pstmt = db.getPreparedStatement(queryString);
-            pstmt.setDouble(1, lowerLat);
-            pstmt.setDouble(2, upperLat);
-            pstmt.setDouble(3, lowerLong);
-            pstmt.setDouble(4, upperLong);
-            System.out.println("SELECT * FROM wifi_location WHERE LAT BETWEEN " + lowerLat + " AND " + upperLat +
-                    " AND LON BETWEEN " + lowerLong + " AND " + upperLong);
-            rs = pstmt.executeQuery();
+            try {
+                String queryString = "SELECT * FROM wifi_location WHERE LAT BETWEEN ? AND ? AND LON BETWEEN ? AND ?;";
+                pstmt = db.getPreparedStatement(queryString);
+                pstmt.setDouble(1, lowerLat);
+                pstmt.setDouble(2, upperLat);
+                pstmt.setDouble(3, lowerLong);
+                pstmt.setDouble(4, upperLong);
+                System.out.println("SELECT * FROM wifi_location WHERE LAT BETWEEN " + lowerLat + " AND " + upperLat +
+                        " AND LON BETWEEN " + lowerLong + " AND " + upperLong);
+                rs = pstmt.executeQuery();
+            } catch (NullPointerException e) {
+                PlanRouteController.makeErrorDialogueBox("Nothing Nearby", "We couldn't find any locations nearby\nHave you imported any data?");
+            }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return null;
@@ -111,7 +117,8 @@ public class FindNearbyLocations {
     /**
      * Creates a Result Set of retail data entries from the table retailer in the database. Uses the four parameters,
      * an upper and lower latitude and upper and lower longitude to query the database and find all retail data entries
-     * that fall between these values. Returns the result set.
+     * that fall between these values. Returns the result set. A null pointer exception may occur if no data has been
+     * put into the database yet, so a try and catch bracket is used to inform the user of this.
      *
      * @param lowerLat of type Double. A number describing a latitude value
      * @param upperLat of type Double. A number describing a latitude value
@@ -121,17 +128,21 @@ public class FindNearbyLocations {
      */
     private ResultSet generateRetailerResultSet(double lowerLat, double upperLat, double lowerLong, double upperLong) {
         PreparedStatement pstmt;
-        ResultSet rs;
+        ResultSet rs = null;
         try {
-            String queryString = "SELECT * FROM retailer WHERE lat BETWEEN ? AND ? AND long BETWEEN ? AND ?;";
-            pstmt = db.getPreparedStatement(queryString);
-            pstmt.setDouble(1, lowerLat);
-            pstmt.setDouble(2, upperLat);
-            pstmt.setDouble(3, lowerLong);
-            pstmt.setDouble(4, upperLong);
-            System.out.println("SELECT * FROM retailer WHERE LAT BETWEEN " + lowerLat + " AND " + upperLat +
-                    " AND LON BETWEEN " + lowerLong + " AND " + upperLong);
-            rs = pstmt.executeQuery();
+            try {
+                String queryString = "SELECT * FROM retailer WHERE lat BETWEEN ? AND ? AND long BETWEEN ? AND ?;";
+                pstmt = db.getPreparedStatement(queryString);
+                pstmt.setDouble(1, lowerLat);
+                pstmt.setDouble(2, upperLat);
+                pstmt.setDouble(3, lowerLong);
+                pstmt.setDouble(4, upperLong);
+                System.out.println("SELECT * FROM retailer WHERE LAT BETWEEN " + lowerLat + " AND " + upperLat +
+                        " AND LON BETWEEN " + lowerLong + " AND " + upperLong);
+                rs = pstmt.executeQuery();
+            } catch (NullPointerException e) {
+                PlanRouteController.makeErrorDialogueBox("Nothing Nearby", "We couldn't find any locations nearby\nHave you imported any data?");
+            }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return null;

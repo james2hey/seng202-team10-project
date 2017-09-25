@@ -143,7 +143,6 @@ public class AddDataController extends Controller implements Initializable {
      */
     @FXML
     void routeCSVLine(ActionEvent event) throws IOException {
-        makeErrorDialogueBox("File importing has begun.", "This may take a few seconds...");
         double SLatitude, SLongitude, ELatitude, ELongitude;
         boolean errorOccurred = false;
         String[] sDate = new String[3];
@@ -151,9 +150,15 @@ public class AddDataController extends Controller implements Initializable {
 
         double[] sLatLon;
         double[] eLatLon;
+
         try {
-            sLatLon = Geocoder.addressToLatLon(rSAddress.getText());
-            eLatLon = Geocoder.addressToLatLon(rEAddress.getText());
+            if (rSAddress.getText().length() != 0 || rEAddress.getText().length() != 0) {
+                sLatLon = Geocoder.addressToLatLon(rSAddress.getText());
+                eLatLon = Geocoder.addressToLatLon(rEAddress.getText());
+            } else {
+                makeErrorDialogueBox("Something wrong with input", "Fill all required fields\nCheck entry is not already in database");
+                return;
+            }
         } catch (ApiException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("API Error");
@@ -219,6 +224,7 @@ public class AddDataController extends Controller implements Initializable {
             errorOccurred = true;
         }
         if (errorOccurred == true) {
+            makeErrorDialogueBox("Something wrong with input", "Fill all required fields\nCheck entry is not already in database");
             return;
         }
         System.out.println(rSTime.getText());
@@ -231,7 +237,7 @@ public class AddDataController extends Controller implements Initializable {
                 rSAddress.getText(), SLatitude, SLongitude, "2", rEAddress.getText(), ELatitude, ELongitude,
                 "1", username, 2017, 3);
         if (fromHandler == false) {
-            makeErrorDialogueBox("Something wrong with input", "Check for nulls and already existing entrys");
+            makeErrorDialogueBox("Something wrong with input", "Fill all required fields\nCheck entry is not already in database");
         } else {
             makeSuccessDialogueBox("Successfully added route to Database", "You may add more entries");
         }
@@ -250,7 +256,12 @@ public class AddDataController extends Controller implements Initializable {
         Boolean errorOccured = false;
         double[] latLon;
         try {
-            latLon = Geocoder.addressToLatLon(retailerAddress.getText());
+            if (retailerAddress.getText().length() != 0) {
+                latLon = Geocoder.addressToLatLon(retailerAddress.getText());
+            } else {
+                makeErrorDialogueBox("Something wrong with input", "Fill all required fields\nCheck entry is not already in database");
+                return;
+            }
         } catch (ApiException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("API Error");
@@ -267,16 +278,30 @@ public class AddDataController extends Controller implements Initializable {
             return;
         }
 
-        if (errorOccured == true) {
-            return;
+        if (retailerAddress.getText().toString() == null) {
+            errorOccured = true;
         }
-        RetailerDataHandler newRetailer = new RetailerDataHandler(Main.getDB());
-        Boolean fromHandler = newRetailer.addSingleEntry(retailerName.getText(), retailerAddress.getText(), latLon[0], latLon[1], null,
-                null, null, retailerPrim.getValue().toString(), retailerSec.getText());
-        if (fromHandler == false) {
-            makeErrorDialogueBox("Something wrong with input", "Check for nulls and already existing entries");
+        if (retailerName.getText().toString() == null) {
+            errorOccured = true;
+        }
+        if (retailerPrim.getSelectionModel().isEmpty()) {
+            errorOccured = true;
+        }
+        if (retailerSec.getText().toString() == null) {
+            errorOccured = true;
+        }
+        if (!errorOccured) {
+            RetailerDataHandler newRetailer = new RetailerDataHandler(Main.getDB());
+            Boolean fromHandler = newRetailer.addSingleEntry(retailerName.getText(), retailerAddress.getText(), latLon[0], latLon[1], null,
+                    null, null, retailerPrim.getValue().toString(), retailerSec.getText());
+            if (fromHandler == false) {
+                makeErrorDialogueBox("Something wrong with input", "Fill all required fields\nCheck entry is not already in database");
+            } else {
+                makeSuccessDialogueBox("Successfully added to retailer to Database", "You may add more entries");
+            }
         } else {
-            makeSuccessDialogueBox("Successfully added to retailer to Database", "You may add more entries");
+            makeErrorDialogueBox("Something wrong with input", "Fill all required fields\nCheck entry is not already in database");
+            return;
         }
     }
 
@@ -294,34 +319,46 @@ public class AddDataController extends Controller implements Initializable {
         double[] latLon;
 
         try {
-            latLon = Geocoder.addressToLatLon(wifiAddress.getText());
+            if (wifiAddress.getText().toString().length() != 0) {
+                latLon = Geocoder.addressToLatLon(wifiAddress.getText());
+            } else {
+                makeErrorDialogueBox("Something wrong with input", "Fill all required fields\nCheck entry is not already in database");
+                return;
+            }
         } catch (ApiException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("API Error");
-            alert.setHeaderText("Google API Error");
-            alert.setContentText("The application could not get the lat and lon because there was an issue with the API");
-            alert.showAndWait();
+            makeErrorDialogueBox("Google API Error", "The application could not get the lat and lon\nThere was an issue with the API");
             return;
         } catch (IOException | InterruptedException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("IO Error");
-            alert.setHeaderText("Input Error");
-            alert.setContentText("The application could not convert the address as it could not connect to the internet");
-            alert.showAndWait();
+            makeErrorDialogueBox("Input Error", "The application could not convert the address \nIt could not connect to the internet");
+            return;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            makeErrorDialogueBox("Input Error", "Invalid address.");
+            return;
+
+        }
+
+        if (wifiName.getText().toString() == null) {
+            errorOccured = true;
+        }
+        if (wifiAddress.getText().toString() == null) {
+            errorOccured = true;
+        }
+
+        if (!errorOccured) {
+
+            WifiDataHandler newWifi = new WifiDataHandler(Main.getDB());
+            Boolean fromHandler = newWifi.addSingleEntry(wifiName.getText(), "", "", wifiAddress.getText(), latLon[0], latLon[1],
+                    wifiComments.getText(), "", wifiName.getText(), "", wifiPostcode.getText());
+            if (fromHandler == false) {
+                makeErrorDialogueBox("Something wrong with input", "Fill all required fields\nCheck entry is not already in database");
+            } else {
+                makeSuccessDialogueBox("Successfully added Wifi to Database", "You may add more entries");
+            }
+        } else {
+            makeErrorDialogueBox("Something wrong with input", "Fill all required fields\nCheck entry is not already in database");
             return;
         }
 
-        if (errorOccured == true) {
-            return;
-        }
-        WifiDataHandler newWifi = new WifiDataHandler(Main.getDB());
-        Boolean fromHandler = newWifi.addSingleEntry(wifiName.getText(), "", "", wifiAddress.getText(), latLon[0], latLon[1],
-                wifiComments.getText(), "", wifiName.getText(), "", wifiPostcode.getText());
-        if (fromHandler == false) {
-            makeErrorDialogueBox("Something wrong with input", "Check for nulls and already existing entries");
-        } else {
-            makeSuccessDialogueBox("Successfully added Wifi to Database", "You may add more entries");
-        }
     }
 
 

@@ -72,8 +72,8 @@
             <Text layoutX="308.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Postcode:" />
             <JFXTextField fx:id="wifiAddress" layoutX="393.0" layoutY="107.0" prefHeight="23.0" prefWidth="173.0" />
             <JFXTextField fx:id="wifiName" layoutX="393.0" layoutY="69.0" prefHeight="23.0" prefWidth="173.0" />
-            <Text layoutX="312.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address:" />
-            <Text layoutX="319.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" />
+            <Text layoutX="236.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address (Required):" />
+            <Text layoutX="254.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name (Required):" />
          </children>
       </AnchorPane>
    </children>
