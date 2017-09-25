@@ -3,12 +3,10 @@ package dataManipulation;
 import dataAnalysis.RetailLocation;
 import dataAnalysis.Route;
 import dataAnalysis.WifiLocation;
-import dataHandler.RetailerDataHandler;
 import dataHandler.RouteDataHandler;
 import dataHandler.SQLiteDB;
 import dataHandler.WifiDataHandler;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 
