@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.assertTrue;
 
-public class FindNearbyLocationsTest_Retailers {
+public class FindNearbyLocations_Retailers_Test {
 
     private ArrayList<RetailLocation> retailers;
     private SQLiteDB db;

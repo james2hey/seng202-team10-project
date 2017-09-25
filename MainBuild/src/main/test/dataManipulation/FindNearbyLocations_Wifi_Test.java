@@ -18,7 +18,7 @@ import static org.junit.Assert.assertTrue;
 
 
 
-public class FindNearbyLocationsTest_Wifi {
+public class FindNearbyLocations_Wifi_Test {
 
     private ArrayList<WifiLocation> wifi;
     private SQLiteDB db;

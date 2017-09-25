@@ -14,7 +14,7 @@ import java.sql.ResultSet;
 import static org.junit.Assert.*;
 
 
-public class UpdateDataTest_Routes_Wifi {
+public class UpdateData_Routes_Wifi_Test {
 
     private SQLiteDB db;
 
