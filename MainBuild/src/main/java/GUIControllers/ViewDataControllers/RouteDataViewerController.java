@@ -26,6 +26,9 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * Controller class for the route data viewer.
+ */
 
 public class RouteDataViewerController extends DataViewerController {
 
@@ -75,9 +78,22 @@ public class RouteDataViewerController extends DataViewerController {
     private Label favouritesError;
 
     private ObservableList<Route> routeList = FXCollections.observableArrayList();
+
     private ArrayList<Route> routes = new ArrayList<Route>();
 
+    private int getRank() {
+        return 0;
+    }
 
+    static public Route getRoute() {
+        return route;
+    }
+
+    /**
+     * Runs on successfully loading fxml. Loads routes from database and displays them in the table.
+     * @param location Location of the fxml
+     * @param resources Locale-specific data required for the method to run automatically
+     */
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
         StartLocation.setCellValueFactory(new PropertyValueFactory<>("StartAddress"));
@@ -96,10 +112,15 @@ public class RouteDataViewerController extends DataViewerController {
         }
     }
 
-
+    /**
+     * Called when filter button is pressed. Gets all input from text fields, checks it is valid, and let's user
+     * know if it isn't. If all input is valid, it will filter the data and proceed to update the table with the new set
+     * of data.
+     * @param event Created when the method is called
+     * @throws IOException Handles errors caused by an fxml not loading correctly
+     */
     @FXML
     void displayData(ActionEvent event) throws IOException {
-        System.out.println("Display button pressed");
 
         int gender;
         System.out.println(genderGroup.getSelectedToggle());
@@ -229,12 +250,24 @@ public class RouteDataViewerController extends DataViewerController {
         }
     }
 
+    /**
+     * Called when view all on map button is pressed. Changes the scene to the plan route with the given list of data
+     * ready to be loaded in.
+     * @param event Created when the method is called
+     * @throws IOException Handles errors caused by an fxml not loading correctly
+     */
     @FXML
     public void viewOnMap(ActionEvent event) throws IOException {
         //called when GUI button view on map button is pressed.
         changeToPlanRouteScene(event, null, null, routes);
     }
 
+    /**
+     * Called when view selected on map button is pressed. Checks that a route has been selected and if not, informs
+     * the user. If so, the scene is changed to plan route and the chosen route is loaded in for view.
+     * @param event Created when the method is called
+     * @throws IOException Handles errors caused by an fxml not loading correctly
+     */
     @FXML
     public void viewSelectedOnMap(ActionEvent event) throws IOException {
         if (tableView.getSelectionModel().getSelectedItem() == null) {
@@ -247,6 +280,13 @@ public class RouteDataViewerController extends DataViewerController {
         }
     }
 
+    /**
+     * Called when the edit/view all details button is pressed. Checks if a route is selected and informs the user if
+     * it is not. If a route is selected, the detailed route viewer is opened, ready to load in the selected routes
+     * information.
+     * @param event Created when the method is called
+     * @throws IOException Handles errors caused by an fxml not loading correctly
+     */
     @FXML
     public void editData(ActionEvent event) throws IOException {
         //called by GUI button View/edit route.
@@ -264,13 +304,5 @@ public class RouteDataViewerController extends DataViewerController {
             popup.show();
             DetailedRouteInformation.setMainAppEvent(event);
         }
-    }
-
-    private int getRank() {
-        return 0;
-    }
-
-    static public Route getRoute() {
-        return route;
     }
 }
