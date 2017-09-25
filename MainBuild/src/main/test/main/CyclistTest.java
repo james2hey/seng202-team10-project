@@ -3,10 +3,7 @@ package main;
 import dataAnalysis.RetailLocation;
 import dataAnalysis.Route;
 import dataAnalysis.WifiLocation;
-import dataHandler.FavouriteRetailData;
-import dataHandler.FavouriteRouteData;
-import dataHandler.FavouriteWifiData;
-import dataHandler.SQLiteDB;
+import dataHandler.*;
 import org.junit.*;
 
 import java.nio.file.Files;
@@ -15,15 +12,19 @@ import java.sql.ResultSet;
 import static org.junit.Assert.*;
 
 /**
- * Created by jto59 on 25/09/17.
+ * Tests for the Cyclist class.
  */
 public class CyclistTest {
     private static SQLiteDB db;
     private Cyclist testCyclist;
+    private HandleUsers hu;
 
     @Before
     public void setUp() throws Exception {
         testCyclist = new Cyclist("Tester");
+        hu = new HandleUsers();
+        hu.init(db);
+        hu.currentCyclist = testCyclist;
     }
 
     @BeforeClass
@@ -51,30 +52,44 @@ public class CyclistTest {
         Files.delete(path);
     }
 
-    @Test
-    public void updateUserRouteFavourites() throws Exception {
-
-    }
 
     @Test
     public void addRoute() throws Exception {
-//        FavouriteRouteData frd = new FavouriteRouteData(db);
-//        Route testRoute = new Route(10, "00:00:00", "00:00:00", "01", "01", "2016",
-//                "01", "01", "2016", 0.0, 0.0,
-//                0.0, 0.0, 1, 2, "Test Street",
-//                "Test2 Street", "10000", 1, "Subscriber", 20);
-//
-//        testCyclist.addRoute(testRoute, testCyclist.getName(), 1, db);
-//        ResultSet rs;
-//
-//        rs = db.executeQuerySQL("SELECT * FROM favourite_routes WHERE name = '" + testCyclist.getName() + "' AND  start_year = '2016'" +
-//                " AND start_month = '01' AND start_day = '01' AND start_time = '00:00:00' AND bikeid = '10000' AND rank = '1'");
-//        assertFalse(rs.isClosed());
+        RouteDataHandler rdh = new RouteDataHandler(db);
+        FavouriteRouteData frd = new FavouriteRouteData(db);
+        Route testRoute = new Route(10, "00:00:00", "00:00:00", "01", "01", "2016",
+                "01", "01", "2016", 0.0, 0.0,
+                0.0, 0.0, 1, 2, "Test Street",
+                "Test2 Street", "10000", 1, "Subscriber", 20);
+        //hu.currentCyclist = testCyclist;
+        testCyclist.addRoute(testRoute, testCyclist.getName(), 1, db, hu);
+        ResultSet rs;
+
+        rs = db.executeQuerySQL("SELECT * FROM favourite_routes WHERE name = '" + testCyclist.getName() + "' AND  start_year = '2016'" +
+                " AND start_month = '01' AND start_day = '01' AND start_time = '00:00:00' AND bikeid = '10000' AND rank = '1'");
+        assertFalse(rs.isClosed());
     }
 
     @Test
-    public void routeAlreadyInList() throws Exception {
+    public void routeAlreadyInListFalse() throws Exception {
+        Route testRoute = new Route(10, "00:00:00", "00:00:00", "01", "01", "2016",
+                "01", "01", "2016", 0.0, 0.0,
+                0.0, 0.0, 1, 2, "Test Street",
+                "Test2 Street", "10000", 1, "Subscriber", 20);
+        boolean result = testCyclist.routeAlreadyInList(testRoute);
+        assertFalse(result);
+    }
 
+
+    @Test
+    public void routeAlreadyInListTrue() throws Exception {
+        Route testRoute = new Route(10, "00:00:00", "00:00:00", "01", "01", "2016",
+                "01", "01", "2016", 0.0, 0.0,
+                0.0, 0.0, 1, 2, "Test Street",
+                "Test2 Street", "10000", 1, "Subscriber", 20);
+        testCyclist.addRouteInstance(testRoute);
+        boolean result = testCyclist.routeAlreadyInList(testRoute);
+        assertTrue(result);
     }
 
     @Test

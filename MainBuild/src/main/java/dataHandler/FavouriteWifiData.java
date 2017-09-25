@@ -17,6 +17,7 @@ public class FavouriteWifiData {
     private PreparedStatement addWifi;
     private String addWifiStatement = "insert or fail into favourite_wifi values(?,?)";
 
+
     /**
      * Initializes the database when creating an instance of the FavouriteWifiData.
      * @param db database the wifi data is added to

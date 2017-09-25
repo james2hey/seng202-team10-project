@@ -15,7 +15,7 @@ import static org.junit.Assert.assertEquals;
 
 
 /**
- * Created by jto59 on 24/09/17.
+ * Tests for the HandleUser class.
  */
 public class HandleUsersTest {
 

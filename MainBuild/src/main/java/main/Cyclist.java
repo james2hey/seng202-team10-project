@@ -92,11 +92,11 @@ public class Cyclist {
      * @param rank the rank score which the user gives. If none is given it is set to 0
      * @param db the database's favourite_route table that is to have the row added.
      */
-    public void addRoute(Route route, String name, int rank, SQLiteDB db) {
+    public void addRoute(Route route, String name, int rank, SQLiteDB db, HandleUsers hu) {
         favouriteRouteList.add(route);
         FavouriteRouteData f = new FavouriteRouteData(db);
         f.addFavouriteRoute(name, route.getStartYear(), route.getStartMonth(), route.getStartDay(),
-                route.getStartTime(), route.getBikeID(), rank, Main.hu);
+                route.getStartTime(), route.getBikeID(), rank, hu);
     }
 
 
