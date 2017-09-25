@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.collections.*?>
 <?import com.jfoenix.controls.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
+<?import javafx.collections.FXCollections?>
 
 <GridPane alignment="center" hgap="10" prefHeight="650.0" prefWidth="1100.0" style="-fx-background-color: grey;" vgap="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIControllers.AddDataController">
    <children>
@@ -36,7 +38,6 @@
             </Button>
          </children>
       </AnchorPane>
-      <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" style="-fx-background-color: grey;" GridPane.rowSpan="5" />
       <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="3">
          <children>
             <Button fx:id="back" layoutX="326.0" layoutY="44.0" mnemonicParsing="false" onAction="#changeToAddDataScene" prefHeight="32.0" prefWidth="210.0" style="-fx-background-color: #ffffff;" text="Back" textFill="#000000">
@@ -44,7 +45,7 @@
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button fx:id="addRouteButton" layoutX="326.0" layoutY="-2.0" mnemonicParsing="false" onAction="#routeCSVLine" prefHeight="32.0" prefWidth="210.0" text="Add Route">
+            <Button fx:id="addRouteButton" layoutX="326.0" layoutY="-2.0" mnemonicParsing="false" onAction="#retailerCSVLine" prefHeight="32.0" prefWidth="210.0" text="Add Retailer">
                <font>
                   <Font size="15.0" />
                </font>
@@ -65,9 +66,23 @@
             <Text layoutX="314.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Primary:" AnchorPane.leftAnchor="314.0" AnchorPane.topAnchor="144.0" />
             <Text layoutX="314.0" layoutY="204.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Secondary:" AnchorPane.leftAnchor="314.0" AnchorPane.topAnchor="192.0" />
             <JFXTextField fx:id="retailerSec" layoutX="394.0" layoutY="188.0" prefHeight="23.0" prefWidth="180.0" promptText="e.g. Mexican Food" />
-            <ComboBox fx:id="retailerPrim" layoutX="394.0" layoutY="139.0" prefHeight="25.0" prefWidth="180.0" />
+            <ComboBox fx:id="retailerPrim" layoutX="394.0" layoutY="139.0" prefHeight="25.0" prefWidth="180.0">
+               <items>
+                  <FXCollections fx:factory="observableArrayList">
+                     <String fx:value="Casual Eating &amp; Takeout" />
+                     <String fx:value="Shopping" />
+                     <String fx:value="Full Service Dining" />
+                     <String fx:value="Personal and Professional Services" />
+                     <String fx:value="Nightlife" />
+                     <String fx:value="Visitor Services" />
+                     <String fx:value="Community Resources" />
+                     <String fx:value="No Selection" />
+                  </FXCollections>
+               </items>
+            </ComboBox>
          </children>
       </AnchorPane>
+      <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" style="-fx-background-color: grey;" GridPane.rowSpan="5" />
    </children>
    <columnConstraints>
       <ColumnConstraints maxWidth="800.0" minWidth="10.0" prefWidth="84.0" />

@@ -10,10 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.DatePicker;
+import javafx.scene.control.*;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -41,7 +38,10 @@ public class AddDataController extends Controller implements Initializable {
     private JFXTextField rSAddress, rEAddress, rSLongitude, rELongitude, rSLatitude, rELatitude, rSTime, rETime;
 
     @FXML // Retailer Fields
-    private JFXTextField retailerName, retailerAddress, retailerLong, retailerLat, retailerPrim, retailerSec;
+    private JFXTextField retailerName, retailerAddress, retailerLong, retailerLat, retailerSec;
+
+    @FXML
+    private ComboBox retailerPrim;
 
     @FXML
     private DatePicker rSDate, rEDate;
@@ -205,9 +205,9 @@ public class AddDataController extends Controller implements Initializable {
         }
         RetailerDataHandler newRetailer = new RetailerDataHandler(Main.getDB());
         Boolean fromHandler = newRetailer.addSingleEntry(retailerName.getText(), retailerAddress.getText(), retLat, retLon, null,
-                null, null, retailerPrim.getText(), retailerSec.getText());
+                null, null, retailerPrim.getValue().toString(), retailerSec.getText());
         if(fromHandler == false) {
-            makeErrorDialogueBox("Something wrong with input", "Check for nulls and already existing entrys");
+            makeErrorDialogueBox("Something wrong with input", "Check for nulls and already existing entries");
         } else {
             makeSuccessDialogueBox("Successfully added to retailer to Database", "You may add more entries");
         }
@@ -239,7 +239,7 @@ public class AddDataController extends Controller implements Initializable {
         Boolean fromHandler = newWifi.addSingleEntry(wifiName.getText(), "", "", wifiAddress.getText(), wLat, wLong,
         wifiComments.getText(), "", wifiName.getText(), "", wifiPostcode.getText());
         if(fromHandler == false) {
-            makeErrorDialogueBox("Something wrong with input", "Check for nulls and already existing entrys");
+            makeErrorDialogueBox("Something wrong with input", "Check for nulls and already existing entries");
         } else {
             makeSuccessDialogueBox("Successfully added Wifi to Database", "You may add more entries");
         }

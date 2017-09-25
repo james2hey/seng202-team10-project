@@ -1,16 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
+
 <GridPane alignment="center" hgap="10" prefHeight="650.0" prefWidth="1100.0" style="-fx-background-color: grey;" vgap="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIControllers.AddDataController">
+   <children>
+      <Pane prefHeight="500.0" prefWidth="800.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+      <Text fx:id="buttonPressedText" strokeType="OUTSIDE" strokeWidth="0.0" text="Button Pressed" textAlignment="CENTER" visible="false" wrappingWidth="269.6552734375" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+      <JFXHamburger fx:id="hamburger" onMouseClicked="#openDrawer" GridPane.columnIndex="4" />
+      <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Route Data Entry" textAlignment="CENTER" wrappingWidth="861.193359375" GridPane.columnIndex="1" GridPane.columnSpan="2">
+         <font>
+            <Font size="60.0" />
+         </font>
+      </Text>
+      <AnchorPane prefHeight="112.0" prefWidth="287.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1">
+         <children>
+            <Button fx:id="wifiPageButton" disable="true" layoutX="331.0" layoutY="28.0" mnemonicParsing="false" onAction="#changeToWifiEntryScene" prefHeight="25.0" prefWidth="200.0" text="Wifi">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+            <Button fx:id="retailerPageButton" layoutX="611.0" layoutY="28.0" mnemonicParsing="false" onAction="#changeToRetailerEntryScene" prefHeight="25.0" prefWidth="186.0" text="Retailer">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+            <Button fx:id="routePageButton" layoutX="57.0" layoutY="28.0" mnemonicParsing="false" onAction="#changeToRouteEntryScene" prefHeight="38.0" prefWidth="200.0" text="Route">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
+         <children>
+            <Text fx:id="eLongError" fill="#ffffff" layoutX="82.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ERROR: Type Error" visible="false" AnchorPane.topAnchor="65.0" />
+            <Text fx:id="eLatError" fill="#ffffff" layoutX="82.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ERROR: Type Error" visible="false" AnchorPane.topAnchor="90.0" />
+            <Text fx:id="eTimeError" fill="#ffffff" layoutX="82.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ERROR: Type Error" visible="false" AnchorPane.topAnchor="115.0" />
+            <Text fx:id="eDateError" fill="#ffffff" layoutX="82.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ERROR: Type Error" visible="false" AnchorPane.topAnchor="140.0" />
+         </children>
+      </AnchorPane>
+      <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" style="-fx-background-color: grey;" GridPane.rowSpan="5" />
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="3">
+         <children>
+            <Button fx:id="back" layoutX="326.0" layoutY="44.0" mnemonicParsing="false" onAction="#changeToAddDataScene" prefHeight="32.0" prefWidth="210.0" style="-fx-background-color: #ffffff;" text="Back" textFill="#000000">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+            <Button fx:id="addRouteButton" layoutX="326.0" layoutY="-2.0" mnemonicParsing="false" onAction="#wifiCSVLine" prefHeight="32.0" prefWidth="210.0" text="Add Wifi Location">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="2">
+         <children>
+            <Text layoutX="366.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wifi Location">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            <JFXTextField fx:id="wifiComments" layoutX="393.0" layoutY="189.0" prefHeight="23.0" prefWidth="173.0" promptText="e.g. Data Cap" />
+            <Text layoutX="296.0" layoutY="204.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Comments:" />
+            <JFXTextField fx:id="wifiPostcode" layoutX="393.0" layoutY="143.0" prefHeight="23.0" prefWidth="173.0" />
+            <Text layoutX="308.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Postcode:" />
+            <JFXTextField fx:id="wifiAddress" layoutX="393.0" layoutY="107.0" prefHeight="23.0" prefWidth="173.0" />
+            <JFXTextField fx:id="wifiName" layoutX="393.0" layoutY="69.0" prefHeight="23.0" prefWidth="173.0" />
+            <Text layoutX="312.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address:" />
+            <Text layoutX="319.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" />
+         </children>
+      </AnchorPane>
+   </children>
    <columnConstraints>
-      <ColumnConstraints maxWidth="800.0" minWidth="10.0" prefWidth="250.0" />
-      <ColumnConstraints maxWidth="800.0" minWidth="10.0" prefWidth="198.0" />
-      <ColumnConstraints maxWidth="991.0" minWidth="10.0" prefWidth="217.0" />
-      <ColumnConstraints maxWidth="891.0" minWidth="114.0" prefWidth="190.0" />
-      <ColumnConstraints maxWidth="891.0" minWidth="114.0" prefWidth="226.0" />
+      <ColumnConstraints maxWidth="800.0" minWidth="10.0" prefWidth="83.0" />
+      <ColumnConstraints maxWidth="800.0" minWidth="10.0" prefWidth="422.0" />
+      <ColumnConstraints maxWidth="991.0" minWidth="10.0" prefWidth="55.0" />
+      <ColumnConstraints maxWidth="891.0" minWidth="114.0" prefWidth="391.0" />
+      <ColumnConstraints maxWidth="891.0" minWidth="109.0" prefWidth="109.0" />
    </columnConstraints>
    <rowConstraints>
       <RowConstraints maxHeight="251.0" minHeight="10.0" prefHeight="120.0" />
@@ -19,72 +91,4 @@
       <RowConstraints maxHeight="510.0" minHeight="64.0" prefHeight="117.0" />
       <RowConstraints maxHeight="510.0" minHeight="15.0" prefHeight="30.0" />
    </rowConstraints>
-   <children>
-      <Pane prefHeight="500.0" prefWidth="800.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-      <Text fx:id="buttonPressedText" strokeType="OUTSIDE" strokeWidth="0.0" text="Button Pressed" textAlignment="CENTER" visible="false" wrappingWidth="269.6552734375" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-      <JFXHamburger fx:id="hamburger" onMouseClicked="#openDrawer" GridPane.columnIndex="4" />
-      <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" style="-fx-background-color: grey;" GridPane.rowSpan="4" />
-      <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Wifi Data Entry" textAlignment="CENTER" wrappingWidth="671.193359375" GridPane.columnIndex="1" GridPane.columnSpan="2">
-         <font>
-            <Font size="60.0" />
-         </font>
-      </Text>
-      <Button fx:id="back" mnemonicParsing="false" onAction="#changeToAddDataScene" prefHeight="85.0" prefWidth="210.0" style="-fx-background-color: #ff2b0a;" text="Back" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="3">
-         <font>
-            <Font name="System Bold" size="26.0" />
-         </font>
-      </Button>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
-         <children>
-            <AnchorPane layoutX="2.0" prefHeight="101.0" prefWidth="210.0">
-               <children>
-                  <Button fx:id="wifiPageButton" layoutX="57.0" layoutY="38.0" mnemonicParsing="false" onAction="#changeToWifiEntryScene" prefHeight="25.0" prefWidth="96.0" text="Wifi" />
-               </children>
-            </AnchorPane>
-         </children>
-      </AnchorPane>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
-         <children>
-            <Button fx:id="addDataButton" layoutX="41.0" layoutY="129.0" mnemonicParsing="false" onAction="#wifiCSVLine" prefHeight="25.0" prefWidth="134.0" text="Add to Database" />
-         </children>
-      </AnchorPane>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Username: " wrappingWidth="220.01025390625" GridPane.columnIndex="4" GridPane.rowIndex="4" />
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-         <children>
-            <Button fx:id="routePageButton" layoutX="49.0" layoutY="38.0" mnemonicParsing="false" onAction="#changeToRouteEntryScene" prefHeight="25.0" prefWidth="96.0" text="Route" />
-         </children>
-      </AnchorPane>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
-         <children>
-            <Button fx:id="retailerPageButton" layoutX="45.0" layoutY="38.0" mnemonicParsing="false" onAction="#changeToRetailerEntryScene" prefHeight="25.0" prefWidth="96.0" text="Retailer" />
-         </children>
-      </AnchorPane>
-      <AnchorPane prefHeight="264.0" prefWidth="147.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
-         <children>
-            <Text layoutX="21.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" AnchorPane.topAnchor="35.0" />
-            <Text layoutX="21.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Longitude:" AnchorPane.topAnchor="60.0" />
-            <Text layoutX="21.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Latitude:" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="85.0" />
-            <Text layoutX="21.0" layoutY="122.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address:" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="110.0" />
-            <Text layoutX="20.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wifi Provider">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Text>
-            <JFXTextField fx:id="wifiName" layoutX="101.0" layoutY="31.0" prefHeight="23.0" prefWidth="127.0" AnchorPane.topAnchor="31.0" />
-            <JFXTextField fx:id="wifiLong" layoutX="101.0" layoutY="56.0" prefHeight="23.0" prefWidth="112.0" AnchorPane.topAnchor="56.0" />
-            <JFXTextField fx:id="wifiLat" layoutX="101.0" layoutY="81.0" prefHeight="23.0" prefWidth="112.0" />
-            <JFXTextField fx:id="wifiAddress" layoutX="101.0" layoutY="106.0" prefHeight="23.0" prefWidth="112.0" />
-            <Text layoutX="22.0" layoutY="143.93310546875" strokeType="OUTSIDE" strokeWidth="0.0" text="Postcode:" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="135.0" />
-            <JFXTextField fx:id="wifiPostcode" layoutX="101.0" layoutY="128.0" prefHeight="23.0" prefWidth="112.0"/>
-            <Text layoutX="23.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Comments:" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="160.0" />
-            <JFXTextField fx:id="wifiComments" layoutX="101.0" layoutY="156.0" prefHeight="23.0" prefWidth="112.0" promptText="e.g. Data Cap" />
-         </children>
-      </AnchorPane>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
-         <children>
-            <Text fx:id="wifiLongError" fill="#ae0000" layoutX="25.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ERROR: Type Error" visible="false" AnchorPane.topAnchor="60.0" />
-            <Text fx:id="wifiLatError" fill="#ae0000" layoutX="25.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ERROR: Type Error" visible="false" AnchorPane.topAnchor="80.0" />
-         </children>
-      </AnchorPane>
-   </children>
 </GridPane>
