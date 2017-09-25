@@ -13,6 +13,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Controller for the detailed retailer info fxml.
+ */
 
 public class DetailedRetailerInformation extends DataViewerController{
 
@@ -51,6 +54,13 @@ public class DetailedRetailerInformation extends DataViewerController{
         mainAppEvent = event;
     }
 
+
+    /**
+     * Called on start up and initialises the values in each of the editable and non-editable fields.
+     *
+     * @param location Location of the fxml.
+     * @param resources
+     */
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
         currentRetailer = RetailerDataViewerController.getRetailer();
@@ -63,7 +73,6 @@ public class DetailedRetailerInformation extends DataViewerController{
         zip.setText(Integer.toString(currentRetailer.getZip()));
         mainType.getSelectionModel().select(currentRetailer.getMainType());
         secondaryType.setText(currentRetailer.getSecondaryType());
-
     }
 
     @FXML

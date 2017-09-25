@@ -124,7 +124,9 @@ public class PlanRouteController extends Controller implements Initializable, Ma
 
     @FXML
     public void addressTextFieldAction(ActionEvent event) {
-        DirectionsRequest request = new DirectionsRequest(startAddress.get(), endAddress.get(), TravelModes.BICYCLING);
+        String start = startAddress.get().replace("'", "\'");
+        String end = endAddress.get().replace("'", "\'");
+        DirectionsRequest request = new DirectionsRequest(start, end, TravelModes.BICYCLING);
         directionsService.getRoute(request, this, directionsRenderer);
         currentStart = startAddress.get();
         currentEnd = endAddress.get();
