@@ -105,4 +105,20 @@ public class WifiDataHandlerTest {
         ResultSet rs = db.executeQuerySQL("SELECT COUNT(*) FROM wifi_location");
         assertEquals(50, rs.getInt(1));
     }
+
+
+    @Test
+    public void testImportSpeed() throws Exception {
+        Geocoder.init();
+        long startTime = System.currentTimeMillis();
+        wifiDataHandler.processCSV(getClass().getClassLoader().getResource("CSV/NYC_Free_Public_WiFi_03292017.csv").getFile());
+        long endTime = System.currentTimeMillis();
+        long timeTaken = endTime - startTime;
+        long average = 2566/timeTaken;
+        long expectedAverage = 10000/500;
+        System.out.println(timeTaken);
+        System.out.println(average);
+        System.out.println(expectedAverage);
+        assertTrue(average > expectedAverage);
+    }
 }

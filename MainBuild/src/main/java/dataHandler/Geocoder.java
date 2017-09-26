@@ -55,9 +55,18 @@ public class Geocoder {
      */
     public static boolean testConnection() {
         try {
-            return (Geocoder.addressToLatLon("123 Fake St") != null);
+            return (addressToLatLon("123 Fake St") != null);
         } catch (ApiException | IOException | InterruptedException e) {
             return false;
         }
+    }
+
+    /**
+     * A simple async request
+     * @param address A String address to geocode
+     * @param outcome The GeocoderOutcome object to callback on
+     */
+    public static void addressToLatLonAsync(String address,GeocodeOutcome outcome) {
+        GeocodingApi.geocode(context, address).setCallback(outcome);
     }
 }

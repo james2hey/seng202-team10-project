@@ -177,7 +177,6 @@ public class RouteDataHandler {
         int[] successFailCounts = {0, 0};
         db.setAutoCommit(false);
         CSVReader reader = new CSVReader(new FileReader(url), ',');
-
         String[] record;
         record = reader.readNext(); // Skip first line as it's the desc
         if (record.length != 15) {
@@ -186,10 +185,8 @@ public class RouteDataHandler {
         while ((record = reader.readNext()) != null) {
             if (processLine(record)) {
                 successFailCounts[0] += 1;
-                System.out.println("Suc");
             } else {
                 successFailCounts[1] += 1;
-                System.out.println("F");
             }
         }
         db.setAutoCommit(true);

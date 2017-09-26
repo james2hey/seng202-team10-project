@@ -118,4 +118,20 @@ public class RouteDataHandlerTest {
         assertEquals(50, rs.getInt(1));
     }
 
+
+    @Test
+    public void testImportSpeed() throws Exception {
+        Geocoder.init();
+        long startTime = System.currentTimeMillis();
+        routeDataHandler.processCSV(getClass().getClassLoader().getResource("CSV/201601-citibike-tripdata.csv").getFile());
+        long endTime = System.currentTimeMillis();
+        long timeTaken = endTime - startTime;
+        long average = 500000/timeTaken;
+        long expectedAverage = 10000/500;
+        System.out.println(timeTaken);
+        System.out.println(average);
+        System.out.println(expectedAverage);
+        assertTrue(average > expectedAverage);
+    }
+
 }
