@@ -14,5 +14,26 @@ MainBuild directory. Enter the command:
 
 mvn package
 
-This will have created a jar file called 'MainBuild-1.0-SNAPSHOT.jar' and will
-be located in 'MainBuild/target'
+This will have created a jar file called 
+'Pedals-1.0-SNAPSHOT-jar-with-dependencies.jar' and will be located in 
+'MainBuild/target'
+
+
+-HOW TO RUN PEDALS-
+
+Make sure you have successfully built the program using the instructions above.
+
+-Using the terminal-
+
+Using the commond terminal, navigate to the directory 'MainBuild/target'. Enter
+the command:
+java -jar Pedals-1.0-SNAPSHOT-jar-with-dependencies.jar
+
+
+
+-Using the file brower-
+
+open the file browser and navigate to the directory 'ManiBuild/target'. This
+directory should contain the jar file 
+'Pedals-1.0-SNAPSHOT-jar-with-dependencies.jar'. Right click on the jar file
+and select 'open with Oracle Java 8 Runtime'
