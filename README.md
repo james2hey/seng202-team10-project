@@ -23,12 +23,12 @@ This will have created a jar file called
 
 Make sure you have successfully built the program using the instructions above.
 
+
 -Using the terminal-
 
 Using the commond terminal, navigate to the directory 'MainBuild/target'. Enter
 the command:
 java -jar Pedals-1.0-SNAPSHOT-jar-with-dependencies.jar
-
 
 
 -Using the file brower-
