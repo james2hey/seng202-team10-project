@@ -5,6 +5,7 @@ import org.junit.rules.ExpectedException;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.SyncFailedException;
 import java.net.ConnectException;
 import java.nio.file.Files;
 import java.sql.ResultSet;
@@ -104,5 +105,24 @@ public class RetailerDataHandlerTest {
         retailerDataHandler.processCSV(getClass().getClassLoader().getResource("CSV/Lower_Manhattan_Retailers-test-2.csv").getFile());
         ResultSet rs = db.executeQuerySQL("SELECT COUNT(*) FROM retailer");
         assertEquals(2, rs.getInt(1));
+    }
+
+    @Ignore
+    @Test
+    public void testImportSpeed() throws Exception {
+        Geocoder.init();
+        long startTime = System.currentTimeMillis();
+        int[] results = retailerDataHandler.processCSV(getClass().getClassLoader().getResource("CSV/Lower_Manhattan_Retailers-test.csv").getFile());
+
+        long endTime = System.currentTimeMillis();
+        long timeTaken = endTime - startTime;
+        double average = 50/timeTaken;
+        long expectedAverage = 10000/500;
+        System.out.println(timeTaken);
+        System.out.println(average);
+        System.out.println(expectedAverage);
+        System.out.println(results[0]);
+        System.out.println(results[1]);
+        assertTrue(average > expectedAverage);
     }
 }

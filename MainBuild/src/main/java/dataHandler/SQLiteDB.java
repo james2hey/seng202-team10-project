@@ -99,7 +99,7 @@ public class SQLiteDB {
     /**
      * Generate a PreparedStatement object to use. Returns null on invalid data.
      * @param statement A valid SQL prepared statement.
-     * @return Returns a PreparedStatement object, or null of statement failed. The calling class is now responsible for SQLExecptions, although the code will compile even if they are not handled.
+     * @return Re01601-citibike-tripdata.csvturns a PreparedStatement object, or null of statement failed. The calling class is now responsible for SQLExecptions, although the code will compile even if they are not handled.
      */
 
     public PreparedStatement getPreparedStatement(String statement) {

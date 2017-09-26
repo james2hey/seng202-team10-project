@@ -1,5 +1,8 @@
 package dataHandler;
 
+import com.google.maps.DirectionsApiRequest;
+import com.google.maps.GeocodingApiRequest;
+import com.google.maps.PendingResult;
 import com.google.maps.errors.ApiException;
 import com.opencsv.CSVReader;
 
@@ -8,13 +11,23 @@ import java.io.IOException;
 import java.net.ConnectException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import GUIControllers.Controller;
 
 /**
  * Created by jes143 on 18/09/17.
  */
 
-public class RetailerDataHandler {
+/**
+ * A simple callback interface used to receive a Lat and Lon from the asynchronous request
+ */
+interface Callback {
+    void response(String[] record, double[] latLon);
+}
+
+public class RetailerDataHandler implements Callback {
 
     SQLiteDB db;
 
@@ -34,6 +47,9 @@ public class RetailerDataHandler {
 
     PreparedStatement addData;
     String addDataStatement = "insert or fail into retailer values(?,?,?,?,?,?,?,?,?)";
+    ArrayList<GeocodeOutcome> outcomes;
+    int[] successFailCounts = {0, 0};
+    int awaiting = 0;
 
     /**
      * Initializes an object, linked to the given database. Can process CSVs and add single entries
@@ -46,25 +62,28 @@ public class RetailerDataHandler {
 
     }
 
+
     /**
-     * Processes a CSV line and adds to the database if valid.
-     *
-     * @param record A string array of object corresponding to the CSV
-     * @return A bool stating the success state of the process.
+     * Processes a line and creates a GeocodeOutcome object from the address, with a callback to itself
+     * @param record A string list of values in expected order as defined in the CSV
+     * @return GeocodeOutcome object or null if error
      */
-    private Boolean processLine(String[] record) {
+    private GeocodeOutcome processLine(String[] record) {
         try {
             System.out.println(record[1]);
+            GeocodeOutcome outcome = new GeocodeOutcome(record, this);
+            Geocoder.addressToLatLonAsync(record[1] + ", " + record[3] + ", " + record[4] + ", " + record[5] + ", ", outcome);
+            System.out.println(outcome);
+            return outcome;
 
-            double[] latlon = Geocoder.addressToLatLon(record[1] + ", " + record[3] + ", " + record[4] + ", " + record[5] + ", ");
-            System.out.println(latlon[0]);
-            System.out.println(latlon[1]);
-
-            return addSingleEntry(record[0], record[1], latlon[0], latlon[1], record[3], record[4], record[5], record[7], record[8]);
-
-        } catch (IndexOutOfBoundsException | ApiException | IOException | InterruptedException e) {
-            return false;
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println(e.getMessage());
+            awaiting -= 1;
+            successFailCounts[1] += 1;
+            return null;
         }
+
+
     }
 
     /**
@@ -111,7 +130,8 @@ public class RetailerDataHandler {
      * @throws IOException Thrown if there are errors reading the file
      */
     public int[] processCSV(String url) throws IOException, NoSuchFieldException {
-        int[] successFailCounts = {0, 0};
+
+
         db.setAutoCommit(false);
         CSVReader reader = new CSVReader(new FileReader(url), ',');
 
@@ -123,16 +143,40 @@ public class RetailerDataHandler {
         if (!Geocoder.testConnection())
             throw new ConnectException("Geocoder could not connect");
         while ((record = reader.readNext()) != null) {
-            if (processLine(record)) {
-                successFailCounts[0] += 1;
-                System.out.println("Suc");
-            } else {
-                successFailCounts[1] += 1;
-                System.out.println("F");
+            awaiting += 1;
+            processLine(record);
+        }
+
+        while (awaiting > 0) {
+            try {
+                Thread.sleep(100);
+                System.out.println(awaiting);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
+
         db.setAutoCommit(true);
         db.commit();
         return successFailCounts;
+    }
+
+    /**
+     * Takes a callback of a string list of the standard CSV values and a converted latLon from the Geocoder
+     * @param record A string list of values in expected order as defined in the CSV
+     * @param latLon A double list in order lat, lon as calculated by the calling function
+     */
+    @Override
+    public void response(String[] record, double[] latLon) {
+        awaiting -= 1;
+        if (record == null) {
+            successFailCounts[1] += 1;
+            return;
+        }
+        if(addSingleEntry(record[0], record[1], latLon[0], latLon[1], record[3], record[4], record[5], record[7], record[8])) {
+            successFailCounts[0] += 1;
+        } else {
+            successFailCounts[1] += 1;
+        }
     }
 }
