@@ -57,7 +57,7 @@ public class DataFilterer_Routes_Wifi_Test {
         bikeID.add("19256");
         routes = dataFilterer.filterRoutes(0, null, null, null, null,
                 null, null, null);
-        int size = routes.size();
+        int size = bikeID.size();
         for (int i = 0; i < size; i++){
             assertTrue(bikeID.get(i).equals(routes.get(i).getBikeID()));
         }
@@ -81,7 +81,7 @@ public class DataFilterer_Routes_Wifi_Test {
         bikeID.add("21585");
         routes = dataFilterer.filterRoutes(2, null, null, null, null,
                 null, null, null);
-        int size = routes.size();
+        int size = bikeID.size();
         for (int i = 0; i < size; i++){
             assertTrue(bikeID.get(i).equals(routes.get(i).getBikeID()));
         }
@@ -136,7 +136,7 @@ public class DataFilterer_Routes_Wifi_Test {
 
         routes = dataFilterer.filterRoutes(3, null, null, null, null,
                 null, null, null);
-        int size = routes.size();
+        int size = bikeID.size();
         for (int i = 0; i < size; i++){
             assertTrue(bikeID.get(i).equals(routes.get(i).getBikeID()));
         }
@@ -157,7 +157,7 @@ public class DataFilterer_Routes_Wifi_Test {
         bikeID.add("23453");
         routes = dataFilterer.filterRoutes(-1, "10/01/2016", "20/01/2016", null,
                 null, null, null, null);
-        int size = routes.size();
+        int size = bikeID.size();
         for (int i = 0; i < size; i++){
             assertTrue(bikeID.get(i).equals(routes.get(i).getBikeID()));
         }
@@ -172,7 +172,7 @@ public class DataFilterer_Routes_Wifi_Test {
         bikeID.add("22211");
         routes = dataFilterer.filterRoutes(-1, "30/01/2016", "31/01/2016", null,
                 null, null, null, null);
-        int size = routes.size();
+        int size = bikeID.size();
         for (int i = 0; i < size; i++){
             assertTrue(bikeID.get(i).equals(routes.get(i).getBikeID()));
         }
@@ -186,7 +186,7 @@ public class DataFilterer_Routes_Wifi_Test {
         bikeID.add("16498");
         routes = dataFilterer.filterRoutes(-1, "01/01/2016", "01/01/2016", null,
                 null, null, null, null);
-        int size = routes.size();
+        int size = bikeID.size();
         for (int i = 0; i < size; i++){
             assertTrue(bikeID.get(i).equals(routes.get(i).getBikeID()));
         }
@@ -202,7 +202,7 @@ public class DataFilterer_Routes_Wifi_Test {
         bikeID.add("20759");
         routes = dataFilterer.filterRoutes(-1, null, null, "15:36:10",
                 "16:17:39", null, null, null);
-        int size = routes.size();
+        int size = bikeID.size();
         for (int i = 0; i < size; i++) {
             assertTrue(bikeID.get(i).equals(routes.get(i).getBikeID()));
         }
@@ -215,7 +215,7 @@ public class DataFilterer_Routes_Wifi_Test {
         bikeID.add("22285");
         routes = dataFilterer.filterRoutes(-1, null, null, "00:00:00",
                 "00:01:00", null, null, null);
-        int size = routes.size();
+        int size = bikeID.size();
         for (int i = 0; i < size; i++) {
             assertTrue(bikeID.get(i).equals(routes.get(i).getBikeID()));
         }
@@ -228,7 +228,7 @@ public class DataFilterer_Routes_Wifi_Test {
         bikeID.add("22211");
         routes = dataFilterer.filterRoutes(-1, null, null, "23:00:00",
                 "24:59:59", null, null, null);
-        int size = routes.size();
+        int size = bikeID.size();
         for (int i = 0; i < size; i++) {
             assertTrue(bikeID.get(i).equals(routes.get(i).getBikeID()));
         }
@@ -238,10 +238,9 @@ public class DataFilterer_Routes_Wifi_Test {
     @Test
     public void filterRoutesTestTime000000_000000() throws Exception {
         ArrayList<String> bikeID = new ArrayList<>();
-        bikeID.add("21624");
         routes = dataFilterer.filterRoutes(-1, null, null, "00:00:00",
                 "00:00:00", null, null, null);
-        int size = routes.size();
+        int size = bikeID.size();
         for (int i = 0; i < size; i++) {
             assertTrue(bikeID.get(i).equals(routes.get(i).getBikeID()));
         }
@@ -261,7 +260,7 @@ public class DataFilterer_Routes_Wifi_Test {
         bikeID.add("23095");
         routes = dataFilterer.filterRoutes(-1, null, null, null, null,
                 "broad", null, null);
-        int size = routes.size();
+        int size = bikeID.size();
         for (int i = 0; i < size; i++){
             assertTrue(bikeID.get(i).equals(routes.get(i).getBikeID()));
         }
@@ -274,7 +273,7 @@ public class DataFilterer_Routes_Wifi_Test {
         bikeID.add("23130");
         routes = dataFilterer.filterRoutes(-1, null, null, null, null,
                 "pershing square", null, null);
-        int size = routes.size();
+        int size = bikeID.size();
         for (int i = 0; i < size; i++){
             assertTrue(bikeID.get(i).equals(routes.get(i).getBikeID()));
         }
@@ -287,7 +286,7 @@ public class DataFilterer_Routes_Wifi_Test {
         bikeID.add("23130");
         routes = dataFilterer.filterRoutes(-1, null, null, null, null,
                 "q", null, null);
-        int size = routes.size();
+        int size = bikeID.size();
         for (int i = 0; i < size; i++){
             assertTrue(bikeID.get(i).equals(routes.get(i).getBikeID()));
         }
@@ -332,7 +331,7 @@ public class DataFilterer_Routes_Wifi_Test {
         bikeID.add("23557");
         routes = dataFilterer.filterRoutes(-1, null, null, null, null,
                 null, "broad", null);
-        int size = routes.size();
+        int size = bikeID.size();
         for (int i = 0; i < size; i++){
             assertTrue(bikeID.get(i).equals(routes.get(i).getBikeID()));
         }
@@ -346,7 +345,7 @@ public class DataFilterer_Routes_Wifi_Test {
         bikeID.add("23114");
         routes = dataFilterer.filterRoutes(-1, null, null, null, null,
                 null, "pershing square", null);
-        int size = routes.size();
+        int size = bikeID.size();
         for (int i = 0; i < size; i++){
             assertTrue(bikeID.get(i).equals(routes.get(i).getBikeID()));
         }
@@ -361,7 +360,7 @@ public class DataFilterer_Routes_Wifi_Test {
         bikeID.add("23114");
         routes = dataFilterer.filterRoutes(-1, null, null, null, null,
                 null, "q", null);
-        int size = routes.size();
+        int size = bikeID.size();
         for (int i = 0; i < size; i++){
             assertTrue(bikeID.get(i).equals(routes.get(i).getBikeID()));
         }
@@ -401,7 +400,7 @@ public class DataFilterer_Routes_Wifi_Test {
         bikeID.add("24042");
         routes = dataFilterer.filterRoutes(-1, null, null, null, null,
                 null, null, "24042");
-        int size = routes.size();
+        int size = bikeID.size();
         for (int i = 0; i < size; i++){
             assertTrue(bikeID.get(i).equals(routes.get(i).getBikeID()));
         }
@@ -409,12 +408,164 @@ public class DataFilterer_Routes_Wifi_Test {
 
 
     @Test
-    public void filterRoutesTestBikeID__() throws Exception {
+    public void filterRoutesTestBikeID_0_() throws Exception {
         routes = dataFilterer.filterRoutes(-1, null, null, null, null,
                 null, null, "");
         int size = routes.size();
         assertTrue(size == 0);
 
+    }
+
+
+    @Test
+    public void filterRoutesTestGender_1_Date_20160101_20160120_() throws Exception {
+        ArrayList<String> bikeID = new ArrayList<>();
+        bikeID.add("23114");
+        bikeID.add("22270");
+        bikeID.add("23160");
+        bikeID.add("23095");
+        bikeID.add("23453");
+        routes = dataFilterer.filterRoutes(1, "10/01/2016", "20/01/2016", null,
+                null, null, null, null);
+        int size = bikeID.size();
+        for (int i = 0; i < size; i++){
+            assertTrue(bikeID.get(i).equals(routes.get(i).getBikeID()));
+        }
+    }
+
+
+    @Test
+    public void filterRoutesTestGender_2_Time_100000_150000_() throws Exception {
+        ArrayList<String> bikeID = new ArrayList<>();
+        bikeID.add("21585");
+        routes = dataFilterer.filterRoutes(2, null, null, "10:00:00",
+                "15:00:00", null, null, null);
+        int size = bikeID.size();
+        for (int i = 0; i < size; i++){
+            assertTrue(bikeID.get(i).equals(routes.get(i).getBikeID()));
+        }
+    }
+
+
+    @Test
+    public void filterRoutesTestGender_2_StartName_broad_() throws Exception {
+        ArrayList<String> bikeID = new ArrayList<>();
+        bikeID.add("16278");
+        bikeID.add("19240");
+        routes = dataFilterer.filterRoutes(2, null, null, null,
+                null, "broad", null, null);
+        int size = bikeID.size();
+        for (int i = 0; i < size; i++){
+            assertTrue(bikeID.get(i).equals(routes.get(i).getBikeID()));
+        }
+    }
+
+
+    @Test
+    public void filterRoutesTestGender_3_EndName_pershing_square_south_() throws Exception {
+        ArrayList<String> bikeID = new ArrayList<>();
+        bikeID.add("24256");
+        routes = dataFilterer.filterRoutes(3, null, null, null,
+                null, null, "Pershing Square South", null);
+        int size = bikeID.size();
+        for (int i = 0; i < size; i++){
+            assertTrue(bikeID.get(i).equals(routes.get(i).getBikeID()));
+        }
+    }
+
+
+    @Test
+    public void filterRoutesTestDate_20160101_20160120_Time_100000_150000_() throws Exception {
+        ArrayList<String> bikeID = new ArrayList<>();
+        bikeID.add("23453");
+        routes = dataFilterer.filterRoutes(-1, "10/01/2016", "20/01/2016",
+                "10:00:00", "15:00:00", null, null, null);
+        int size = bikeID.size();
+        for (int i = 0; i < size; i++){
+            assertTrue(bikeID.get(i).equals(routes.get(i).getBikeID()));
+        }
+    }
+
+
+    @Test
+    public void filterRoutesTestDate_20160101_20160120_StartAddress_broad_() throws Exception {
+        ArrayList<String> bikeID = new ArrayList<>();
+        bikeID.add("16278");
+        bikeID.add("19240");
+        bikeID.add("23114");
+        bikeID.add("23160");
+        bikeID.add("23095");
+        routes = dataFilterer.filterRoutes(-1, "10/01/2016", "20/01/2016",
+                null, null, "broad", null, null);
+        int size = bikeID.size();
+        for (int i = 0; i < size; i++){
+            assertTrue(bikeID.get(i).equals(routes.get(i).getBikeID()));
+        }
+    }
+
+
+    @Test
+    public void filterRoutesTestDate_20160101_20160120_EndAddress_broad_() throws Exception {
+        ArrayList<String> bikeID = new ArrayList<>();
+        bikeID.add("19240");
+        routes = dataFilterer.filterRoutes(-1, "10/01/2016", "20/01/2016",
+                null, null, null, "broad", null);
+        int size = bikeID.size();
+        for (int i = 0; i < size; i++){
+            assertTrue(bikeID.get(i).equals(routes.get(i).getBikeID()));
+        }
+    }
+
+
+    @Test
+    public void filterRoutesTestDate_20160101_201601200_BikeID_18503_() throws Exception {
+        ArrayList<String> bikeID = new ArrayList<>();
+        bikeID.add("18503");
+        routes = dataFilterer.filterRoutes(-1, "10/01/2016", "20/01/2016",
+                null, null, null, null, "18503");
+        int size = bikeID.size();
+        for (int i = 0; i < size; i++){
+            assertTrue(bikeID.get(i).equals(routes.get(i).getBikeID()));
+        }
+    }
+
+
+    @Test
+    public void filterRoutesTestTime_100000_150000_StartAddress_st_() throws Exception {
+        ArrayList<String> bikeID = new ArrayList<>();
+        bikeID.add("15971");
+        bikeID.add("23453");
+        bikeID.add("21410");
+        routes = dataFilterer.filterRoutes(-1, null, null,
+                "10:00:00", "15:00:00", "st", null, null);
+        int size = bikeID.size();
+        for (int i = 0; i < size; i++){
+            assertTrue(bikeID.get(i).equals(routes.get(i).getBikeID()));
+        }
+    }
+
+
+    @Test
+    public void filterRoutesTestTime_100000_150000_EndAddress_ave_() throws Exception {
+        ArrayList<String> bikeID = new ArrayList<>();
+        bikeID.add("15971");
+        bikeID.add("23453");
+        bikeID.add("21585");
+        routes = dataFilterer.filterRoutes(-1, null, null,
+                "10:00:00", "15:00:00", null, "ave", null);
+        int size = bikeID.size();
+        for (int i = 0; i < size; i++){
+            assertTrue(bikeID.get(i).equals(routes.get(i).getBikeID()));
+        }
+    }
+
+
+    @Test
+    public void filterRoutesTestStartAddress_st_EndAddress_ave_() throws Exception {
+        routes = dataFilterer.filterRoutes(-1, null, null,
+                null, null, "st", "ave", null);
+        int size = routes.size();
+        assertTrue(size == 27);
     }
 
 
@@ -433,7 +584,7 @@ public class DataFilterer_Routes_Wifi_Test {
         wifiID.add("858");
         wifiID.add("894");
         wifiLocations = dataFilterer.filterWifi("guest", null, null, null);
-        for (int i = 0; i < wifiLocations.size(); i++) {
+        for (int i = 0; i < wifiID.size(); i++) {
             assertTrue(wifiID.get(i).equals(wifiLocations.get(i).getWifiID()));
         }
     }
@@ -443,7 +594,7 @@ public class DataFilterer_Routes_Wifi_Test {
     public void filterWifiTestName_foo_() throws Exception {
         ArrayList<String> wifiID = new ArrayList<>();
         wifiLocations = dataFilterer.filterWifi("foo", null, null, null);
-        for (int i = 0; i < wifiLocations.size(); i++) {
+        for (int i = 0; i < wifiID.size(); i++) {
             assertTrue(wifiID.get(i).equals(wifiLocations.get(i).getWifiID()));
         }
     }
@@ -473,7 +624,7 @@ public class DataFilterer_Routes_Wifi_Test {
         wifiID.add("243");
         wifiID.add("458");
         wifiLocations = dataFilterer.filterWifi(null, "Staten Island", null, null);
-        for (int i = 0; i < wifiLocations.size(); i++) {
+        for (int i = 0; i < wifiID.size(); i++) {
             assertTrue(wifiID.get(i).equals(wifiLocations.get(i).getWifiID()));
         }
     }
@@ -483,7 +634,7 @@ public class DataFilterer_Routes_Wifi_Test {
     public void filterWifiTestSuburb__() throws Exception {
         ArrayList<String> wifiID = new ArrayList<>();
         wifiLocations = dataFilterer.filterWifi(null, "", null, null);
-        for (int i = 0; i < wifiLocations.size(); i++) {
+        for (int i = 0; i < wifiID.size(); i++) {
             assertTrue(wifiID.get(i).equals(wifiLocations.get(i).getWifiID()));
         }
     }
@@ -501,7 +652,7 @@ public class DataFilterer_Routes_Wifi_Test {
     public void filterWifiTestType__() throws Exception {
         ArrayList<String> wifiID = new ArrayList<>();
         wifiLocations = dataFilterer.filterWifi(null, null, "", null);
-        for (int i = 0; i < wifiLocations.size(); i++) {
+        for (int i = 0; i < wifiID.size(); i++) {
             assertTrue(wifiID.get(i).equals(wifiLocations.get(i).getWifiID()));
         }
     }
@@ -513,7 +664,7 @@ public class DataFilterer_Routes_Wifi_Test {
         wifiID.add("75");
         wifiID.add("551");
         wifiLocations = dataFilterer.filterWifi(null, null, null, "nycha");
-        for (int i = 0; i < wifiLocations.size(); i++) {
+        for (int i = 0; i < wifiID.size(); i++) {
             assertTrue(wifiID.get(i).equals(wifiLocations.get(i).getWifiID()));
         }
     }
@@ -523,7 +674,7 @@ public class DataFilterer_Routes_Wifi_Test {
     public void filterWifiTestProvider_foo_() throws Exception {
         ArrayList<String> wifiID = new ArrayList<>();
         wifiLocations = dataFilterer.filterWifi(null, null, null, "foo");
-        for (int i = 0; i < wifiLocations.size(); i++) {
+        for (int i = 0; i < wifiID.size(); i++) {
             assertTrue(wifiID.get(i).equals(wifiLocations.get(i).getWifiID()));
         }
     }
@@ -535,5 +686,92 @@ public class DataFilterer_Routes_Wifi_Test {
         int size = wifiLocations.size();
         assertTrue(size == 44);
     }
+
+
+    @Test
+    public void filterWifiTestName_nypl_Suburb_manhattan() throws Exception {
+        ArrayList<String> wifiID = new ArrayList<>();
+        wifiID.add("247");
+        wifiID.add("331");
+        wifiID.add("359");
+        wifiLocations = dataFilterer.filterWifi("nypl", "Manhattan", null, null);
+        for (int i = 0; i < wifiID.size(); i++) {
+            assertTrue(wifiID.get(i).equals(wifiLocations.get(i).getWifiID()));
+        }
+    }
+
+
+    @Test
+    public void filterWifiTestName_nypl_Type_free_() throws Exception {
+        ArrayList<String> wifiID = new ArrayList<>();
+        wifiID.add("247");
+        wifiID.add("295");
+        wifiID.add("331");
+        wifiID.add("359");
+        wifiLocations = dataFilterer.filterWifi("nypl", null, "Free", null);
+        for (int i = 0; i < wifiID.size(); i++) {
+            assertTrue(wifiID.get(i).equals(wifiLocations.get(i).getWifiID()));
+        }
+    }
+
+
+    @Test
+    public void filterWifiTestName_guest_Provider_spec_() throws Exception {
+        ArrayList<String> wifiID = new ArrayList<>();
+        wifiID.add("458");
+        wifiID.add("578");
+        wifiID.add("805");
+        wifiID.add("894");
+        wifiLocations = dataFilterer.filterWifi("guest", null, null, "spec");
+        for (int i = 0; i < wifiID.size(); i++) {
+            assertTrue(wifiID.get(i).equals(wifiLocations.get(i).getWifiID()));
+        }
+    }
+
+
+
+    @Test
+    public void filterWifiTestSuburb_brooklyn_Type_limited_free_() throws Exception {
+        ArrayList<String> wifiID = new ArrayList<>();
+        wifiID.add("3");
+        wifiID.add("27");
+        wifiID.add("49");
+        wifiID.add("805");
+        wifiID.add("894");
+        wifiLocations = dataFilterer.filterWifi(null, "Brooklyn", "Limited Free", null);
+        for (int i = 0; i < wifiID.size(); i++) {
+            assertTrue(wifiID.get(i).equals(wifiLocations.get(i).getWifiID()));
+        }
+    }
+
+
+    @Test
+    public void filterWifiTestSuburb_brooklyn_Provider_alticeusa_() throws Exception {
+        ArrayList<String> wifiID = new ArrayList<>();
+        wifiID.add("3");
+        wifiID.add("27");
+        wifiID.add("49");
+        wifiLocations = dataFilterer.filterWifi(null, "Brooklyn", null, "alticeusa");
+        for (int i = 0; i < wifiID.size(); i++) {
+            assertTrue(wifiID.get(i).equals(wifiLocations.get(i).getWifiID()));
+        }
+    }
+
+
+    @Test
+    public void filterWifiTestType_() throws Exception {
+        ArrayList<String> wifiID = new ArrayList<>();
+        wifiID.add("3");
+        wifiID.add("27");
+        wifiID.add("49");
+        wifiID.add("858");
+        wifiLocations = dataFilterer.filterWifi(null, null, "Limited Free", "alticeusa");
+        for (int i = 0; i < wifiID.size(); i++) {
+            assertTrue(wifiID.get(i).equals(wifiLocations.get(i).getWifiID()));
+        }
+    }
+
+
+
 
 }
