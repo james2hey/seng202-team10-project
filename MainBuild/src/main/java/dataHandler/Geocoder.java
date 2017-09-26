@@ -61,12 +61,12 @@ public class Geocoder {
         }
     }
 
-    /**
-     * A simple async request
-     * @param address A String address to geocode
-     * @param outcome The GeocoderOutcome object to callback on
-     */
-    public static void addressToLatLonAsync(String address,GeocodeOutcome outcome) {
-        GeocodingApi.geocode(context, address).setCallback(outcome);
-    }
+//    /**
+//     * A simple async request
+//     * @param address A String address to geocode
+//     * @param outcome The GeocoderOutcome object to callback on
+//     */
+//    public static void addressToLatLonAsync(String address,GeocodeOutcome outcome) {
+//        GeocodingApi.geocode(context, address).setCallback(outcome);
+//    }
 }
