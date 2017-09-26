@@ -107,6 +107,7 @@ public class WifiDataHandlerTest {
     }
 
 
+    @Ignore
     @Test
     public void testImportSpeed() throws Exception {
         Geocoder.init();
