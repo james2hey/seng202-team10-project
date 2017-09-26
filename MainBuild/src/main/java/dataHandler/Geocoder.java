@@ -24,10 +24,9 @@ public class Geocoder {
      */
     public static void init() {
         context = new GeoApiContext.Builder()
-                .apiKey("AIzaSyAZaugbSVStPn9AsAvYaA-JiE9YJ89NYHo")
+                .apiKey("AIzaSyBNnZYAQ3tQIZiC9m_fAv1UDqh8VWmq-LU")
                 .connectTimeout((long) 300, TimeUnit.MILLISECONDS)
                 .maxRetries(0)
-                .queryRateLimit(40)
                 .build();
     }
 
@@ -56,9 +55,18 @@ public class Geocoder {
      */
     public static boolean testConnection() {
         try {
-            return (Geocoder.addressToLatLon("123 Fake St") != null);
+            return (addressToLatLon("123 Fake St") != null);
         } catch (ApiException | IOException | InterruptedException e) {
             return false;
         }
+    }
+
+    /**
+     * A simple async request
+     * @param address A String address to geocode
+     * @param outcome The GeocoderOutcome object to callback on
+     */
+    public static void addressToLatLonAsync(String address,GeocodeOutcome outcome) {
+        GeocodingApi.geocode(context, address).setCallback(outcome);
     }
 }
