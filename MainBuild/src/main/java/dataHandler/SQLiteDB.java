@@ -14,12 +14,12 @@ public class SQLiteDB {
 
 
     /**
-     * Creates a database object in the users default directory called "database.db"
+     * Creates a database object in the users default directory called "pedals.db"
      */
     public SQLiteDB() {
 
         String home = System.getProperty("user.home");
-        java.nio.file.Path path = java.nio.file.Paths.get(home, "database.db");
+        java.nio.file.Path path = java.nio.file.Paths.get(home, "pedals.db");
         String url = "jdbc:sqlite:" + path;
         init(url);
     }
