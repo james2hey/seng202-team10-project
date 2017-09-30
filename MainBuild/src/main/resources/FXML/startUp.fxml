@@ -1,93 +1,98 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
+<?import javafx.collections.FXCollections?>
 <GridPane alignment="CENTER" hgap="10.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="650.0" prefWidth="1100.0" style="-fx-background-color: grey;" vgap="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIControllers.LoginController">
-  <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="172.0" minWidth="10.0" prefWidth="106.0" />
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="176.0" minWidth="0.0" prefWidth="133.0" />
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="255.0" minWidth="10.0" prefWidth="170.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="185.0" minWidth="10.0" prefWidth="96.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="459.0" minWidth="10.0" prefWidth="61.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="493.0" minWidth="10.0" prefWidth="493.0" />
-  </columnConstraints>
-  <rowConstraints>
-      <RowConstraints maxHeight="267.0" minHeight="6.0" prefHeight="43.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="267.0" minHeight="0.0" prefHeight="113.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="267.0" minHeight="1.0" prefHeight="64.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="310.0" minHeight="10.0" prefHeight="93.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="323.0" minHeight="10.0" prefHeight="83.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="313.0" minHeight="10.0" prefHeight="98.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="313.0" minHeight="10.0" prefHeight="115.0" vgrow="SOMETIMES" />
-  </rowConstraints>
+   <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="538.0" minWidth="10.0" prefWidth="111.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="723.0" minWidth="10.0" prefWidth="406.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="723.0" minWidth="10.0" prefWidth="34.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="723.0" minWidth="10.0" prefWidth="387.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="493.0" minWidth="10.0" prefWidth="129.0" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints maxHeight="267.0" minHeight="0.0" prefHeight="117.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="267.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="500.0" minHeight="10.0" prefHeight="241.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="335.0" minHeight="10.0" prefHeight="166.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="335.0" minHeight="10.0" prefHeight="86.0" vgrow="SOMETIMES" />
+   </rowConstraints>
    <children>
-       <ComboBox fx:id="comboBox" prefHeight="25.0" prefWidth="250.0" promptText="Select User" style="-fx-background-color: white;" GridPane.columnIndex="5" GridPane.rowIndex="3" />
-      <AnchorPane prefHeight="156.0" prefWidth="238.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
-         <children>
-            <TextField fx:id="username" layoutX="14.0" layoutY="33.0" promptText="New User Name" />
-         </children>
-      </AnchorPane>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
-         <children>
-            <Text layoutX="38.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Age:" textAlignment="RIGHT" wrappingWidth="92.732421875">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Text>
-         </children>
-      </AnchorPane>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="4" />
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
-         <children>
-            <TextField fx:id="usergender" layoutX="14.0" layoutY="36.0" promptText="m/f/o" />
-         </children>
-      </AnchorPane>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Pedals!" textAlignment="CENTER" wrappingWidth="448.6357421875" GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Pedals!" textAlignment="CENTER" wrappingWidth="823.6357421875" GridPane.columnIndex="1" GridPane.columnSpan="3">
          <font>
             <Font size="44.0" />
          </font>
       </Text>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Please Sign Up or Sign In below." textAlignment="CENTER" wrappingWidth="449.4091796875" GridPane.columnIndex="5" GridPane.rowIndex="1">
-         <font>
-            <Font size="26.0" />
-         </font>
-      </Text>
-      <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign Up:" textAlignment="CENTER" wrappingWidth="202.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-         <font>
-            <Font size="46.0" />
-         </font>
-      </Text>
-      <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign In:" textAlignment="CENTER" wrappingWidth="202.0" GridPane.columnIndex="5" GridPane.rowIndex="2">
-         <font>
-            <Font size="46.0" />
-         </font>
-      </Text>
-      <Button fx:id="SignIn" mnemonicParsing="false" onAction="#logIn" prefHeight="25.0" prefWidth="109.0" text="Sign in" GridPane.columnIndex="5" GridPane.rowIndex="4" />
-      <Button mnemonicParsing="false" onAction="#openHelpStage" prefHeight="42.0" prefWidth="251.0" text="Help" textAlignment="CENTER" GridPane.columnIndex="5" GridPane.rowIndex="5">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Button>
-      <AnchorPane prefHeight="161.0" prefWidth="282.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
+      <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: lightGrey;" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.rowSpan="2">
+         <center>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Text fill="WHITE" layoutX="46.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign Up:" textAlignment="CENTER" wrappingWidth="310.0">
+                     <font>
+                        <Font size="46.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="username" layoutX="136.0" layoutY="108.0" prefHeight="25.0" prefWidth="209.0" promptText="New User Name" />
+                  <Text layoutX="51.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" textAlignment="RIGHT" wrappingWidth="68.732421875">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="13.0" layoutY="204.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Birth Date:" textAlignment="RIGHT" wrappingWidth="102.732421875">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="useryear" layoutX="276.0" layoutY="186.0" prefHeight="25.0" prefWidth="65.0" promptText="Year" />
+                  <TextField fx:id="usermonth" layoutX="205.0" layoutY="186.0" prefHeight="25.0" prefWidth="65.0" promptText="Month" />
+                  <TextField fx:id="userday" layoutX="133.0" layoutY="186.0" prefHeight="25.0" prefWidth="65.0" promptText="Day" />
+                  <Text layoutX="33.0" layoutY="276.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gender:" textAlignment="RIGHT" wrappingWidth="83.732421875">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <Button layoutX="114.0" layoutY="333.0" mnemonicParsing="false" onAction="#createCyclist" prefHeight="25.0" prefWidth="168.0" text="Sign up" />
+                  <ComboBox fx:id="usergender" layoutX="132.0" layoutY="257.0" prefHeight="25.0" prefWidth="212.0">
+                      <items>
+                          <FXCollections fx:factory="observableArrayList">
+                              <String fx:value="Male" />
+                              <String fx:value="Female" />
+                              <String fx:value="Other" />
+                          </FXCollections>
+                      </items>
+                  </ComboBox>
+               </children>
+            </AnchorPane>
+         </center>
+      </BorderPane>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: lightGrey;" GridPane.columnIndex="3" GridPane.rowIndex="2">
+         <center>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Text fill="WHITE" layoutX="68.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign In:" textAlignment="CENTER" wrappingWidth="249.0">
+                     <font>
+                        <Font size="46.0" />
+                     </font>
+                  </Text>
+                  <ComboBox fx:id="comboBox" layoutX="67.0" layoutY="107.0" prefHeight="25.0" prefWidth="250.0" promptText="Select User" style="-fx-background-color: white;" />
+                  <Button fx:id="SignIn" layoutX="108.0" layoutY="177.0" mnemonicParsing="false" onAction="#logIn" prefHeight="25.0" prefWidth="168.0" text="Sign in" />
+               </children>
+            </AnchorPane>
+         </center>
+      </BorderPane>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="3">
          <children>
-            <TextField fx:id="userday" layoutX="14.0" layoutY="25.0" prefHeight="25.0" prefWidth="46.0" promptText="Day" />
-            <TextField fx:id="usermonth" layoutX="61.0" layoutY="25.0" prefHeight="25.0" prefWidth="60.0" promptText="Month" />
-            <TextField fx:id="useryear" layoutX="124.0" layoutY="25.0" prefHeight="25.0" prefWidth="60.0" promptText="Year" />
+            <Button layoutX="76.0" layoutY="54.0" mnemonicParsing="false" onAction="#openHelpStage" prefHeight="58.0" prefWidth="235.0" text="Help" textAlignment="CENTER">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" textAlignment="RIGHT" wrappingWidth="130.732421875" GridPane.columnIndex="1" GridPane.rowIndex="3">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Text>
-    <Button mnemonicParsing="false" onAction="#createCyclist" prefHeight="25.0" prefWidth="168.0" text="Sign up" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Gender:" textAlignment="RIGHT" wrappingWidth="127.732421875" GridPane.columnIndex="1" GridPane.rowIndex="5">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Text>
    </children>
 </GridPane>
