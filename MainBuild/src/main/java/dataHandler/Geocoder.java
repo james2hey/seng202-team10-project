@@ -24,7 +24,7 @@ public class Geocoder {
      */
     public static void init() {
         context = new GeoApiContext.Builder()
-                .apiKey("AIzaSyAcP03Gg5alK22PhetAVcsiqKvwHSRmZk0")
+                .apiKey("AIzaSyDZc5T_AtkmoqsEK81uA11OA-5c9lUXfpE")
                 .connectTimeout((long) 300, TimeUnit.MILLISECONDS)
                 .maxRetries(0)
                 .build();

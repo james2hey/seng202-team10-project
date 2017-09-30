@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.*?>
+<?import com.jfoenix.controls.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
@@ -24,11 +26,45 @@
       </VBox>
       <VBox prefHeight="603.0" prefWidth="1001.0" style="-fx-background-color: white;">
          <children>
-            <Text fx:id="helpText" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="945.7294921875">
-               <VBox.margin>
-                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-               </VBox.margin>
-            </Text>
+            <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab text="Users">
+                     <content>
+                        <Text fx:id="userSection" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="945.7294921875" />
+                     </content>
+                  </Tab>
+                  <Tab text="Navigation">
+                     <content>
+                        <Text fx:id="navSection" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="945.7294921875" />
+                     </content>
+                  </Tab>
+                  <Tab text="Home Screen">
+                     <content>
+                        <Text fx:id="homeSection" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="945.7294921875" />
+                     </content>
+                  </Tab>
+                  <Tab text="Plan Route">
+                     <content>
+                        <Text fx:id="planSection" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="945.7294921875" />
+                     </content>
+                  </Tab>
+                  <Tab text="Add Data">
+                     <content>
+                        <Text fx:id="addDataSection" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="945.7294921875" />
+                     </content>
+                  </Tab>
+                  <Tab text="View Data">
+                     <content>
+                        <Text fx:id="viewSection" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="945.7294921875" />
+                     </content>
+                  </Tab>
+                  <Tab text="About">
+                     <content>
+                        <Text fx:id="aboutSection" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="945.7294921875" />
+                     </content>
+                  </Tab>
+              </tabs>
+            </TabPane>
          </children>
       </VBox>
    </children>
