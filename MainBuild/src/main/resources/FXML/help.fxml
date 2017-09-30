@@ -35,32 +35,32 @@
                   </Tab>
                   <Tab text="Navigation">
                      <content>
-                        <Text fx:id="navSection" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="738.7294921875" />
+                        <Text fx:id="navSection" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="569.7294921875" />
                      </content>
                   </Tab>
                   <Tab text="Home Screen">
                      <content>
-                        <Text fx:id="homeSection" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="737.7294921875" />
+                        <Text fx:id="homeSection" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="570.7294921875" />
                      </content>
                   </Tab>
                   <Tab text="Plan Route">
                      <content>
-                        <Text fx:id="planSection" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="739.7294921875" />
+                        <Text fx:id="planSection" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="569.7294921875" />
                      </content>
                   </Tab>
                   <Tab text="Add Data">
                      <content>
-                        <Text fx:id="addDataSection" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="739.7294921875" />
+                        <Text fx:id="addDataSection" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="569.7294921875" />
                      </content>
                   </Tab>
                   <Tab text="View Data">
                      <content>
-                        <Text fx:id="viewSection" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="739.7294921875" />
+                        <Text fx:id="viewSection" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="570.7294921875" />
                      </content>
                   </Tab>
                   <Tab text="About">
                      <content>
-                        <Text fx:id="aboutSection" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="738.7294921875" />
+                        <Text fx:id="aboutSection" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="569.7294921875" />
                      </content>
                   </Tab>
               </tabs>
