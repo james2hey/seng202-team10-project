@@ -72,11 +72,13 @@
                      <columns>
                         <TableColumn fx:id="RetailerName" prefWidth="152.0" text="Name" />
                         <TableColumn fx:id="RetailerAddress" prefWidth="151.0" text="Address" />
-                     </columns></TableColumn>
+                     </columns>
+                </TableColumn>
               </columns>
             </TableView>
          </children>
       </GridPane>
+       <Button mnemonicParsing="false" prefHeight="25.0" onAction="#showFavourites" prefWidth="342.0" text="View Favourites on Map" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="3" />
       <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" style="-fx-background-color: grey;" GridPane.rowSpan="4">
          <effect>
             <Blend />

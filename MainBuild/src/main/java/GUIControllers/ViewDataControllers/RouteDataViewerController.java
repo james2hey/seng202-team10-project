@@ -225,7 +225,6 @@ public class RouteDataViewerController extends DataViewerController {
                 System.out.println("ADDED " + routeToAdd.getBikeID() + " to cyclist favourites."); // Put this on GUI
                 int rank = openRouteRankStage();
                 Main.hu.currentCyclist.addRoute(routeToAdd, name, rank, Main.getDB(), Main.hu);
-                makeSuccessDialogueBox("Route successfully added.", "");
             } else {
                 makeErrorDialogueBox("Route already in favourites", "This route has already been " +
                         "added\nto this users favourites list.");

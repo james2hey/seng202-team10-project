@@ -6,6 +6,7 @@ import dataAnalysis.Route;
 import dataAnalysis.WifiLocation;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
@@ -14,7 +15,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import main.Main;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
@@ -62,11 +65,17 @@ public class HomeController extends Controller implements Initializable{
     @FXML
     private Text welcomeText;
 
-    private ObservableList<Route> routeList = FXCollections.observableArrayList();
+    private ArrayList<Route> routeList = new ArrayList<>();
 
-    private ObservableList<WifiLocation> wifiList = FXCollections.observableArrayList();
+    private ArrayList<WifiLocation> wifiList = new ArrayList<>();
 
-    private ObservableList<RetailLocation> retailerList = FXCollections.observableArrayList();
+    private ArrayList<RetailLocation> retailerList = new ArrayList<>();
+
+    private ObservableList<Route> routeListObservable = FXCollections.observableArrayList();
+
+    private ObservableList<WifiLocation> wifiListObservable = FXCollections.observableArrayList();
+
+    private ObservableList<RetailLocation> retailerListObservable = FXCollections.observableArrayList();
 
     /**
      * Runs on successfully loading the fxml. Fills the favourites tables.
@@ -78,22 +87,38 @@ public class HomeController extends Controller implements Initializable{
         welcomeText.setText("Welcome: " + username);
 
         routeList.addAll(Main.hu.currentCyclist.getFavouriteRouteList());
+        routeListObservable.addAll(routeList);
         wifiList.addAll(Main.hu.currentCyclist.getFavouriteWifiLocations());
+        wifiListObservable.addAll(wifiList);
         retailerList.addAll(Main.hu.currentCyclist.getFavouriteRetailLocations());
+        retailerListObservable.addAll(retailerList);
 
         StartAddress.setCellValueFactory(new PropertyValueFactory<>("StartAddress"));
         Rating.setCellValueFactory(new PropertyValueFactory<>("Rank"));
-        tableViewRoutes.setItems(routeList);
+        tableViewRoutes.setItems(routeListObservable);
         tableViewRoutes.getColumns().setAll(FavRoutes);
 
         SSID.setCellValueFactory(new PropertyValueFactory<>("SSID"));
         WifiAddress.setCellValueFactory(new PropertyValueFactory<>("Address"));
-        tableViewWifi.setItems(wifiList);
+        tableViewWifi.setItems(wifiListObservable);
         tableViewWifi.getColumns().setAll(FavWifi);
 
         RetailerName.setCellValueFactory(new PropertyValueFactory<>("Name"));
         RetailerAddress.setCellValueFactory(new PropertyValueFactory<>("Address"));
-        tableViewRetailers.setItems(retailerList);
+        tableViewRetailers.setItems(retailerListObservable);
         tableViewRetailers.getColumns().setAll(FavRetailers);
+    }
+
+
+    /**
+     * Called when View Favourites on Map on map button is pressed. Changes the scene to the plan route with all of the
+     * favourites data ready to be loaded in.
+     * @param event Created when the method is called
+     * @throws IOException Handles errors caused by an fxml not loading correctly
+     */
+    @FXML
+    void showFavourites(ActionEvent event) throws IOException {
+        //called when GUI button view on map button is pressed.
+        changeToPlanRouteScene(event, wifiList, retailerList, routeList);
     }
 }
