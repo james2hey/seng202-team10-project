@@ -37,9 +37,26 @@ public class HandleUsers {
      */
     public void logIn(String username) {
         currentCyclist = new Cyclist(username);
+        getUserDetails();
         getUserRouteFavourites();
         getUserWifiFavourites();
         getUserRetailFavourites();
+    }
+
+    /**
+     * Finds all of the users birth details and gender information then sets these to the current cyclists properties.
+     */
+    public void getUserDetails() {
+        ResultSet rs;
+        String name = currentCyclist.getName();
+        rs = db.executeQuerySQL("SELECT birth_day, birth_month, birth_year, gender FROM users");
+        try {
+            currentCyclist.setBirthday(rs.getInt("birth_day"), rs.getInt("birth_month"),
+                    rs.getInt("birth_year"));
+            currentCyclist.setGender(rs.getInt("gender"));
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
 

@@ -79,11 +79,34 @@ public class HandleUsersTest {
         FavouriteRouteData frd = new FavouriteRouteData(db);
         FavouriteWifiData fwd = new FavouriteWifiData(db);
         FavouriteRetailData fRd = new FavouriteRetailData(db);
+        DatabaseUser d = new DatabaseUser(db);
+
 
         String testName = "Another Tester";
         hu.logIn(testName); // Logging into a new user called "Another Tester".
 
         assertEquals(testName, hu.currentCyclist.getName());
+    }
+
+    @Test
+    public void getUserDetailsBirthDetails() throws Exception {
+        DatabaseUser d = new DatabaseUser(db);
+        Cyclist testCyclist = new Cyclist();
+        testCyclist.setBirthday(0, 0, 0);
+        testCyclist.setGender(0);
+        hu.getUserDetails();
+        assertEquals("0/0/0", currentCyclist.getBirthDay());
+    }
+
+
+    @Test
+    public void getUserDetailsGender() throws Exception {
+        DatabaseUser d = new DatabaseUser(db);
+        Cyclist testCyclist = new Cyclist();
+        testCyclist.setBirthday(0, 0, 0);
+        testCyclist.setGender(0);
+        hu.getUserDetails();
+        assertEquals(0, currentCyclist.getGender());
     }
 
 
@@ -182,6 +205,7 @@ public class HandleUsersTest {
         FavouriteRouteData frd = new FavouriteRouteData(db);
         FavouriteWifiData fwd = new FavouriteWifiData(db);
         FavouriteRetailData fRd = new FavouriteRetailData(db);
+        DatabaseUser u = new DatabaseUser(db);
 
         String testName = "Another Tester";
         hu.logIn(testName); // Logging into a new user called "Another Tester".
@@ -236,14 +260,8 @@ public class HandleUsersTest {
 
     @Test
     public void convertGender1() throws Exception {
-        int output = hu.convertGender("m");
-        assertEquals(1, output);
-    }
+        hu.convertGender("m");
 
-    @Test
-    public void convertGender2() throws Exception {
-        int output = hu.convertGender("other");
-        assertEquals(0, output);
     }
 
 }

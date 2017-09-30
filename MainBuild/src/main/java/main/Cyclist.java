@@ -46,6 +46,10 @@ public class Cyclist {
         return favouriteRouteList;
     }
 
+    public String getBirthDay() {return bday + "/" + bmonth + "/" + byear;}
+
+    public int getGender() {return gender;}
+
     public String getName() {
         return name;
     }
@@ -55,6 +59,8 @@ public class Cyclist {
         bmonth = month;
         byear = year;
     }
+
+    public void setGender(int inputGender) {gender = inputGender;}
 
 
     /**
