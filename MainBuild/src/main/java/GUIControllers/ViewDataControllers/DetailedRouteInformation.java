@@ -5,12 +5,15 @@ import dataAnalysis.Route;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import static javafx.scene.paint.Color.*;
 
 /**
  * Controller class for the detailed route information.
@@ -81,6 +84,9 @@ public class DetailedRouteInformation extends RouteDataViewerController {
     @FXML
     private JFXTextField endAddress;
 
+    @FXML
+    private Button update;
+
     private Route currentRoute = null;
 
     static private ActionEvent mainAppEvent = null;
@@ -119,7 +125,15 @@ public class DetailedRouteInformation extends RouteDataViewerController {
         gender.getSelectionModel().select(currentRoute.getGender());
         userType.setText(currentRoute.getUserType());
         bikeID.setText(currentRoute.getBikeID());
+        startLatListener();
+        startLongListener();
+        endLatListener();
+        endLongListener();
+        endDayListener();
+        endMonthListener();
+        endYearListener();
     }
+
 
     /**
      * Checks each textfield and update the values in the database. If any fail, the user is informed and expected to
@@ -153,8 +167,149 @@ public class DetailedRouteInformation extends RouteDataViewerController {
             currentStage.close();
             showRoutes(mainAppEvent);
         } catch (Exception exception) {
-            makeErrorDialogueBox("Cannot update data.", "One (or more) field(s) is of an incorrect type.");
+            makeErrorDialogueBox("Cannot update data.", "One (or more) field(s) is of an " +
+                    "incorrect type.");
         }
     }
 
+
+    /**
+     * Error handler for startLatitude field. Uses a listener to see state of text. Sets color and makes confirm button
+     * un-selectable if text field incorrect.
+     */
+    private void startLatListener() {
+        startLatitude.textProperty().addListener((observable, oldValue, newValue) -> {
+            System.out.println("TextField Text Changed (newValue: " + newValue + ")");
+            if (!startLatitude.getText().matches("-?[0-9]?[0-9].[0-9]+")) {
+                startLatitude.setFocusColor(RED);
+                startLatitude.setUnFocusColor(RED);
+                update.setDisable(true);
+            } else {
+                startLatitude.setFocusColor(DARKSLATEBLUE);
+                startLatitude.setUnFocusColor(GREEN);
+                update.setDisable(false);
+            }
+        });
+    }
+
+
+    /**
+     * Error handler for startLongitude field. Uses a listener to see state of text. Sets color and makes confirm button
+     * un-selectable if text field incorrect.
+     */
+    private void startLongListener() {
+        startLongitude.textProperty().addListener((observable, oldValue, newValue) -> {
+            System.out.println("TextField Text Changed (newValue: " + newValue + ")");
+            if (!startLongitude.getText().matches("-?[0-9]?[0-9].[0-9]+")) {
+                startLongitude.setFocusColor(RED);
+                startLongitude.setUnFocusColor(RED);
+                update.setDisable(true);
+            } else {
+                startLongitude.setFocusColor(DARKSLATEBLUE);
+                startLongitude.setUnFocusColor(GREEN);
+                update.setDisable(false);
+            }
+        });
+    }
+
+
+    /**
+     * Error handler for endLatitude field. Uses a listener to see state of text. Sets color and makes confirm button
+     * un-selectable if text field incorrect.
+     */
+    private void endLatListener() {
+        endLatitude.textProperty().addListener((observable, oldValue, newValue) -> {
+            System.out.println("TextField Text Changed (newValue: " + newValue + ")");
+            if (!endLatitude.getText().matches("-?[0-9]?[0-9].[0-9]+")) {
+                endLatitude.setFocusColor(RED);
+                endLatitude.setUnFocusColor(RED);
+                update.setDisable(true);
+            } else {
+                endLatitude.setFocusColor(DARKSLATEBLUE);
+                endLatitude.setUnFocusColor(GREEN);
+                update.setDisable(false);
+            }
+        });
+    }
+
+
+    /**
+     * Error handler for endLongitude field. Uses a listener to see state of text. Sets color and makes confirm button
+     * un-selectable if text field incorrect.
+     */
+    private void endLongListener() {
+        endLongitude.textProperty().addListener((observable, oldValue, newValue) -> {
+            System.out.println("TextField Text Changed (newValue: " + newValue + ")");
+            if (!endLongitude.getText().matches("-?[0-9]?[0-9].[0-9]+")) {
+                endLongitude.setFocusColor(RED);
+                endLongitude.setUnFocusColor(RED);
+                update.setDisable(true);
+            } else {
+                endLongitude.setFocusColor(DARKSLATEBLUE);
+                endLongitude.setUnFocusColor(GREEN);
+                update.setDisable(false);
+            }
+        });
+    }
+
+
+    /**
+     * Error handler for endDay field. Uses a listener to see state of text. Sets color and makes confirm button
+     * un-selectable if text field incorrect.
+     */
+    private void endDayListener() {
+        endDay.textProperty().addListener((observable, oldValue, newValue) -> {
+            System.out.println("TextField Text Changed (newValue: " + newValue + ")");
+            if (endDay.getText().matches("[a-zA-Z]+") || endDay.getText().length() > 2) {
+                endDay.setFocusColor(RED);
+                endDay.setUnFocusColor(RED);
+                update.setDisable(true);
+            } else {
+                endDay.setFocusColor(DARKSLATEBLUE);
+                endDay.setUnFocusColor(GREEN);
+                update.setDisable(false);
+            }
+        });
+    }
+
+
+    /**
+     * Error handler for endMonth field. Uses a listener to see state of text. Sets color and makes confirm button
+     * un-selectable if text field incorrect.
+     */
+    private void endMonthListener() {
+        endMonth.textProperty().addListener((observable, oldValue, newValue) -> {
+            System.out.println("TextField Text Changed (newValue: " + newValue + ")");
+            if (endMonth.getText().matches("[a-zA-Z]+") || endMonth.getText().length() > 2) {
+                endMonth.setFocusColor(RED);
+                endMonth.setUnFocusColor(RED);
+                update.setDisable(true);
+            } else {
+                endMonth.setFocusColor(DARKSLATEBLUE);
+                endMonth.setUnFocusColor(GREEN);
+                update.setDisable(false);
+            }
+        });
+    }
+
+
+    /**
+     * Error handler for endYear field. Uses a listener to see state of text. Sets color and makes confirm button
+     * un-selectable if text field incorrect.
+     */
+    private void endYearListener() {
+        endYear.textProperty().addListener((observable, oldValue, newValue) -> {
+            System.out.println("TextField Text Changed (newValue: " + newValue + ")");
+            if (endYear.getText().matches("[a-zA-Z]+") || endYear.getText().length() < 4 ||
+                    endYear.getText().length() > 4) {
+                endYear.setFocusColor(RED);
+                endYear.setUnFocusColor(RED);
+                update.setDisable(true);
+            } else {
+                endYear.setFocusColor(DARKSLATEBLUE);
+                endYear.setUnFocusColor(GREEN);
+                update.setDisable(false);
+            }
+        });
+    }
 }

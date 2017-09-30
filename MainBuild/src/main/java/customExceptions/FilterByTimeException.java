@@ -12,6 +12,6 @@ public class FilterByTimeException extends Exception {
      */
     public FilterByTimeException(String message) {
         super(message);
-        System.out.println("FBTExeption thrown");
+        System.out.println("FBTException thrown");
     }
 }
