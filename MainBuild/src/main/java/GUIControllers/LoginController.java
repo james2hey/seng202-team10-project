@@ -51,6 +51,8 @@ public class LoginController extends Controller implements Initializable {
         }
     }
 
+    @FXML
+    private TextField userday, usermonth, useryear, usergender;
 
     /**
      * Creates new Cyclist instance with the given user name if it doesn't already exist in the database. Otherwise
@@ -61,11 +63,16 @@ public class LoginController extends Controller implements Initializable {
     @FXML
     public void createCyclist(ActionEvent event) throws IOException {
         String name = username.getText();
+        String gender = usergender.getText();
+        int day =  Integer.parseInt(userday.getText());
+        int month =  Integer.parseInt(usermonth.getText());
+        int year =  Integer.parseInt(useryear.getText());
+
         if (name.equals("") || !isLetter(name.charAt(0))) {
             makeErrorDialogueBox("Enter a valid name", "Valid names must have at least one " +
                     "character\nand start with a letter.");
         } else {
-            boolean created = Main.hu.createNewUser(name);
+            boolean created = Main.hu.createNewUser(name, day, month, year, gender);
             if (created) {
                 navigateHome(event);
             } else {

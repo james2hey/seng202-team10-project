@@ -148,7 +148,7 @@ public class HandleUsers {
      * Checks if the username already exists, if not it creates a new user and adds them to the users list.
      * @param username the user who is getting an instance created for them
      */
-    public boolean createNewUser(String username) {
+    public boolean createNewUser(String username, int day, int month, int year, String gender) {
         ResultSet rs;
         boolean created = false;
         try {
@@ -160,9 +160,21 @@ public class HandleUsers {
             String name = capitalizeFully(username);
             currentCyclist = new Cyclist(name);
             DatabaseUser d = new DatabaseUser(db);
-            d.addUser(name);
+            int genderInt = convertGender(gender);
+            d.addUser(name, day, month, year, genderInt);
             created = true;
         }
         return created;
+    }
+
+    /**
+     * Converts a gender to a string so that it can correctly be entered into the database.
+     * @param gender string to be converted into an integer
+     * @return 0 for other, 1 for male, 2 for female.
+     */
+    public int convertGender(String gender) {
+        if (gender.equals("m")) {return 1;}
+        else if (gender.equals("f")) {return 2;}
+        else {return 0;}
     }
 }

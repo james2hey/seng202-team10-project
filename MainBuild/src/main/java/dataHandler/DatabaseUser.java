@@ -9,10 +9,14 @@ import java.sql.SQLException;
 public class DatabaseUser {
 
     private String tableName = "users";
-    private String[] fields = {"name VARCHAR(12)"};
-    private String primaryKey = "name";
+    private String[] fields = {"name VARCHAR(12)",
+                            "birth_day               INTEGER",
+                            "birth_month             INTEGER",
+                            "birth_year              INTEGER",
+                            "gender                  INTEGER"};
 
-    private String addUserString = "insert or fail into users values(?)";
+    private String primaryKey = "name";
+    private String addUserString = "insert or fail into users values(?,?,?,?,?)";
     private PreparedStatement addUser = null;
     private SQLiteDB db;
 
@@ -32,9 +36,13 @@ public class DatabaseUser {
      * Adds Name to the database.
      * @param name name of the user to add
      */
-    public void addUser(String name) {
+    public void addUser(String name, int day, int month, int year, int gender) {
         try {
             addUser.setString(1, name);
+            addUser.setInt(2, day);
+            addUser.setInt(3,month);
+            addUser.setInt(4, year);
+            addUser.setInt(5, gender);
             addUser.executeUpdate();
             db.commit();
 

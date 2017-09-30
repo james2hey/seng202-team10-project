@@ -205,7 +205,7 @@ public class HandleUsersTest {
         DatabaseUser u = new DatabaseUser(db);
 
         String testName = "New Tester";
-        hu.createNewUser(testName); // Logging into a new user called "New Tester".
+        hu.createNewUser(testName, 0, 0, 0, "m"); // Logging into a new user called "New Tester".
 
         assertEquals(testName, hu.currentCyclist.getName());
     }
@@ -226,12 +226,24 @@ public class HandleUsersTest {
         DatabaseUser u = new DatabaseUser(db);
 
         String testName = "New Tester";
-        hu.createNewUser(testName); // Logging into a new user called "New Tester".
+        hu.createNewUser(testName, 0, 0, 0, "m"); // Logging into a new user called "New Tester".
 
         ResultSet rs;
         rs = db.executeQuerySQL("SELECT * FROM users WHERE name = '" + testName + "';");
 
         assertEquals(testName, rs.getString(1));
+    }
+
+    @Test
+    public void convertGender1() throws Exception {
+        int output = hu.convertGender("m");
+        assertEquals(1, output);
+    }
+
+    @Test
+    public void convertGender2() throws Exception {
+        int output = hu.convertGender("other");
+        assertEquals(0, output);
     }
 
 }

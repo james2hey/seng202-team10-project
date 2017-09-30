@@ -22,6 +22,8 @@ public class Cyclist {
     private ArrayList<WifiLocation> favouriteWifiLocations = new ArrayList<WifiLocation>();
 
     public String name;
+    private int bday, bmonth, byear;
+    private int gender;   // 0 other, 1 male, 2 female
 
     public Cyclist() {
     }
@@ -46,6 +48,12 @@ public class Cyclist {
 
     public String getName() {
         return name;
+    }
+
+    public void setBirthday(int day, int month, int year) {
+        bday = day;
+        bmonth = month;
+        byear = year;
     }
 
 

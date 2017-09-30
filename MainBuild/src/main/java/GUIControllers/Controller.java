@@ -227,6 +227,4 @@ public abstract class Controller {
         popup.setScene(popupScene);
         popup.show();
     }
-
-
 }
