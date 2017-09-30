@@ -78,7 +78,7 @@
                </children>
             </VBox>
          </children></VBox>
-      <TableView fx:id="tableView" prefHeight="456.0" prefWidth="570.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="2" GridPane.rowSpan="2">
+      <TableView fx:id="tableView" prefHeight="456.0" prefWidth="570.0" tableMenuButtonVisible="true" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="2" GridPane.rowSpan="2">
          <columns>
             <TableColumn fx:id="StartLocation" prefWidth="156.0" text="Start Location" />
             <TableColumn fx:id="EndLocation" prefWidth="156.0" text="End Location" />

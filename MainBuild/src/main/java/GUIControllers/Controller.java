@@ -220,6 +220,7 @@ public abstract class Controller {
     @FXML
     public void getHelp(ActionEvent event) throws IOException{
         Stage popup = new Stage();
+        popup.setResizable(false);
         popup.initModality(Modality.WINDOW_MODAL);
         popup.initOwner(((Node) event.getSource()).getScene().getWindow());
         Parent popupParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/help.fxml"));

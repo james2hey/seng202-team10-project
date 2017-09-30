@@ -39,18 +39,18 @@
       </AnchorPane>
       <AnchorPane prefHeight="270.0" prefWidth="389.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <children>
-            <Text layoutX="89.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address (Required):" AnchorPane.topAnchor="71.0" />
-            <Text layoutX="73.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Time (Required):" AnchorPane.leftAnchor="73.0" AnchorPane.topAnchor="115.93310546875" />
-            <Text layoutX="199.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start of Route">
+            <Text layoutX="147.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address (Required):" AnchorPane.topAnchor="70.0" />
+            <Text layoutX="131.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Time (Required):" AnchorPane.leftAnchor="131.0" AnchorPane.topAnchor="115.0" />
+            <Text layoutX="257.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start of Route">
                <font>
                   <Font size="20.0" />
                </font>
             </Text>
-            <Text layoutX="74.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Date (Required):" AnchorPane.leftAnchor="74.0" AnchorPane.topAnchor="167.0" />
-            <JFXTextField fx:id="rSAddress" layoutX="225.0" layoutY="67.0" prefHeight="23.0" prefWidth="170.0" AnchorPane.topAnchor="67.0" />
-            <JFXTextField fx:id="rSTime" layoutX="225.0" layoutY="115.0" prefHeight="23.0" prefWidth="170.0" promptText="e.g. hh:mm:ss" />
-            <DatePicker fx:id="rSDate" layoutX="229.0" layoutY="162.0" prefHeight="25.0" prefWidth="170.0" />
-            <Text fx:id="sTimeError" fill="RED" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ERROR: Type Error" visible="false" AnchorPane.topAnchor="116.93310546875" />
+            <Text layoutX="132.0" layoutY="178.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Date (Required):" AnchorPane.leftAnchor="132.0" AnchorPane.topAnchor="166.0" />
+            <JFXTextField fx:id="rSAddress" layoutX="283.0" layoutY="67.0" prefHeight="23.0" prefWidth="170.0" AnchorPane.topAnchor="67.0" />
+            <JFXTextField fx:id="rSTime" layoutX="283.0" layoutY="115.0" prefHeight="23.0" prefWidth="170.0" promptText="e.g. hh:mm:ss" />
+            <DatePicker fx:id="rSDate" layoutX="287.0" layoutY="162.0" prefHeight="25.0" prefWidth="170.0" />
+            <Text fx:id="sTimeError" fill="RED" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ERROR: Type Error" visible="false" AnchorPane.topAnchor="113.93310546875" />
             <Text fx:id="sDateError" fill="RED" layoutY="178.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ERROR: Type Error" visible="false" AnchorPane.topAnchor="165.93310546875" />
          </children>
          <GridPane.margin>
@@ -92,10 +92,10 @@
    </children>
    <columnConstraints>
       <ColumnConstraints maxWidth="800.0" minWidth="10.0" prefWidth="84.0" />
-      <ColumnConstraints maxWidth="800.0" minWidth="10.0" prefWidth="421.0" />
-      <ColumnConstraints maxWidth="991.0" minWidth="10.0" prefWidth="55.0" />
-      <ColumnConstraints maxWidth="891.0" minWidth="114.0" prefWidth="391.0" />
-      <ColumnConstraints maxWidth="891.0" minWidth="109.0" prefWidth="109.0" />
+      <ColumnConstraints maxWidth="800.0" minWidth="10.0" prefWidth="467.0" />
+      <ColumnConstraints maxWidth="991.0" minWidth="10.0" prefWidth="72.0" />
+      <ColumnConstraints maxWidth="891.0" minWidth="114.0" prefWidth="356.0" />
+      <ColumnConstraints maxWidth="891.0" minWidth="81.0" prefWidth="81.0" />
    </columnConstraints>
    <rowConstraints>
       <RowConstraints maxHeight="251.0" minHeight="10.0" prefHeight="120.0" />

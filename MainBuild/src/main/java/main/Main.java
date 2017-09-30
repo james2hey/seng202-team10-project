@@ -1,5 +1,6 @@
 package main;
 
+import GUIControllers.HomeController;
 import dataHandler.*;
 import dataManipulation.FindNearbyLocations;
 import dataManipulation.UpdateData;
@@ -32,10 +33,10 @@ public class Main extends Application {
         FavouriteWifiData favWifiData = new FavouriteWifiData(db);
         FavouriteRetailData favRetailData = new FavouriteRetailData(db);
 
-        String url = getClass().getClassLoader().getResource("Images/bicycleIcon.png").toString();
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/startUp.fxml"));
 
-        primaryStage.getIcons().add(new Image(url));
+        //String url = getClass().getClassLoader().getResource("Images/bicycle.png").toString();
+        //primaryStage.getIcons().add(new Image(url));
 
         primaryStage.setTitle("Pedals");
         primaryStage.setScene(new Scene(root, 1100, 650));

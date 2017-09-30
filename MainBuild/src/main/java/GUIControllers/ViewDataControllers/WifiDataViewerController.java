@@ -94,8 +94,13 @@ public class WifiDataViewerController extends DataViewerController {
         Cost.setCellValueFactory(new PropertyValueFactory<>("Cost"));
         tableView.setItems(wifiList);
         tableView.getColumns().setAll(Name, Provider, Address, Suburb, Cost);
+
         ActionEvent event = new ActionEvent();
-        displayData(event);
+        try {
+            displayData(event);
+        } catch (Exception e) {
+            System.out.println("Initialising data has failed.");
+        }
     }
 
     /**
