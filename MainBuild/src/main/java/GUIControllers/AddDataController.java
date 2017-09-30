@@ -4,6 +4,7 @@ import com.google.maps.errors.ApiException;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXTextField;
 import dataHandler.*;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,6 +18,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import main.HelperFunctions;
 import main.Main;
+import main.ProgressForm;
+
 import java.io.InterruptedIOException;
 
 import java.io.File;
@@ -368,17 +371,25 @@ public class AddDataController extends Controller implements Initializable {
         if (file == null) {
             return;
         }
-        try {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "This may take a few seconds. Press OK to begin.", ButtonType.OK);
-            alert.setHeaderText("The programme may become unresponsive during the import.");
-            alert.showAndWait();
-            int[] successFailCounts = routeDataHandler.processCSV(file.toString());
-            Controller.makeSuccessDialogueBox("Import results", String.format("Successfully imported %d records.\nFailed to import %d records.", successFailCounts[0], successFailCounts[1]));
-        } catch (NoSuchFieldException e) {
-            Controller.makeErrorDialogueBox("Incorrect File", e.getMessage());
-        } catch (IOException e) {
-            Controller.makeErrorDialogueBox("Incorrect File", "Could not read the file, please ensure it is correct");
-        }
+//        try {
+
+            ProgressForm form = new ProgressForm();
+            Task<Void> task = new ProcessRouteCSV(db, file.toString());
+
+            form.activateProgressBar(task);
+
+            form.getDialogStage().show();
+
+            Thread thread = new Thread(task);
+            thread.start();
+
+            //int[] successFailCounts = routeDataHandler.processCSV(file.toString());
+            //Controller.makeSuccessDialogueBox("Import results", String.format("Successfully imported %d records.\nFailed to import %d records.", successFailCounts[0], successFailCounts[1]));
+//        } catch (NoSuchFieldException e) {
+//            Controller.makeErrorDialogueBox("Incorrect File", e.getMessage());
+//        } catch (IOException e) {
+//            Controller.makeErrorDialogueBox("Incorrect File", "Could not read the file, please ensure it is correct");
+//        }
     }
 
     /**
@@ -439,6 +450,9 @@ public class AddDataController extends Controller implements Initializable {
             Alert alert = new Alert(Alert.AlertType.ERROR, "This may take a few seconds. Press OK to begin.", ButtonType.OK);
             alert.setHeaderText("The programme may become unresponsive during the import.");
             alert.showAndWait();
+
+
+
             int[] successFailCounts = wifiDataHandler.processCSV(file.toString());
             Controller.makeSuccessDialogueBox("Import results", String.format("Successfully imported %d records.\nFailed to import %d records.", successFailCounts[0], successFailCounts[1]));
         } catch (NoSuchFieldException e) {
