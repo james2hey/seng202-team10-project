@@ -269,6 +269,9 @@ public class Route {
     }
 
     public void setStopTime(String time) {
+        if (time.length() < 8) {
+            time = time + ":00";
+        }
         if (!time.equals(stopTime)) {
             stopTime = time;
             UpdateData.updateRouteField("end_time", stopTime, bikeid, startYear, startMonth, stopDay, startTime);
