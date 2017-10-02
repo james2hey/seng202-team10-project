@@ -66,7 +66,7 @@
                           </FXCollections>
                       </items>
                   </ComboBox>
-                  <Button layoutX="114.0" layoutY="333.0" mnemonicParsing="false" onAction="#createCyclist" onMouseMoved="#openHelpStage" prefHeight="25.0" prefWidth="168.0" text="Sign up" />
+                  <Button layoutX="114.0" layoutY="333.0" mnemonicParsing="false" onAction="#createCyclist" prefHeight="25.0" prefWidth="168.0" text="Sign up" />
                </children>
             </AnchorPane>
          </center>
