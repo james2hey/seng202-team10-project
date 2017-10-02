@@ -222,9 +222,7 @@ public class RouteDataViewerController extends DataViewerController {
             Route routeToAdd = tableView.getSelectionModel().getSelectedItem();
             boolean alreadyInList = Main.hu.currentCyclist.routeAlreadyInList(routeToAdd);
             if (!alreadyInList) {
-                System.out.println("ADDED " + routeToAdd.getBikeID() + " to cyclist favourites."); // Put this on GUI
-                int rank = openRouteRankStage();
-                Main.hu.currentCyclist.addRoute(routeToAdd, name, rank, Main.getDB(), Main.hu);
+                openRouteRankStage(routeToAdd, name);
             } else {
                 makeErrorDialogueBox("Route already in favourites", "This route has already been " +
                         "added\nto this users favourites list.");
@@ -238,7 +236,7 @@ public class RouteDataViewerController extends DataViewerController {
      * @return the users ranking, 0 if exited
      */
     @FXML
-    private int openRouteRankStage() {
+    private void openRouteRankStage(Route routeToAdd, String name) {
         ArrayList<Integer> a = new ArrayList<>();
         a.add(1);
         a.add(2);
@@ -251,9 +249,7 @@ public class RouteDataViewerController extends DataViewerController {
         c.setContentText("Rating");
         Optional<Integer> result = c.showAndWait();
         if (result.isPresent()) {
-            return result.get();
-        } else {
-            return 0;
+            Main.hu.currentCyclist.addRoute(routeToAdd, name, result.get(), Main.getDB(), Main.hu);
         }
     }
 
