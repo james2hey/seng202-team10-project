@@ -18,7 +18,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -43,6 +42,41 @@ public abstract class Controller {
     private JFXHamburger hamburger;
 
     private Stage currentStage;
+
+    /**
+     * Creates a dialogue box over current scene with two strings that explain to the user why the dialogue box has popped up.
+     *
+     * @param errorMessage String providing message for top of dialogue box eg. "Error: 404"
+     * @param errorDetails String providing message for bottom of dialogue box eg. "Please refresh the page"
+     */
+    @FXML
+    public static void makeErrorDialogueBox(String errorMessage, String errorDetails) {
+        Alert alert = new Alert(Alert.AlertType.ERROR, errorDetails, ButtonType.OK);
+        alert.setHeaderText(errorMessage);
+        alert.showAndWait();
+
+        if (alert.getResult() == ButtonType.OK) {
+            System.out.println("Ok pressed");
+        }
+    }
+
+    /**
+     * Makes a confirmation dialogue box and returns yes as true, no as false.
+     * Assumes that if dialogue is exited, result is no.
+     *
+     * @param message String that provides the message for the dialogue box.
+     * @param details String that provides the details for the dialogue box.
+     */
+    @FXML
+    public static void makeSuccessDialogueBox(String message, String details) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, details, ButtonType.OK);
+        alert.setHeaderText(message);
+        alert.showAndWait();
+
+        if (alert.getResult() == ButtonType.OK) {
+            System.out.println("");
+        }
+    }
 
     public Stage getCurrentStage() {
         return currentStage;
@@ -85,10 +119,10 @@ public abstract class Controller {
      * Changes the current scene to the plan route scene. This method is used when preselected data is to be loaded into the map
      * when it loads.
      *
-     * @param event Event created on method call
-     * @param wifiLocations Array list of Wifi Locations that are to be loaded into map (can be null)
+     * @param event           Event created on method call
+     * @param wifiLocations   Array list of Wifi Locations that are to be loaded into map (can be null)
      * @param retailLocations Array list of Retailers that are to be loaded into map (can be null)
-     * @param routes Array list of Routes that are to be loaded into map (can be null)
+     * @param routes          Array list of Routes that are to be loaded into map (can be null)
      * @throws IOException Catches error if fxml does not load correctly
      */
     @FXML
@@ -105,6 +139,7 @@ public abstract class Controller {
 
     /**
      * Changes scene to the home scene.
+     *
      * @param event Created when the method is called
      * @throws IOException Handles errors caused by an fxml not loading correctly
      */
@@ -118,6 +153,7 @@ public abstract class Controller {
 
     /**
      * Changes scene to the add data scene.
+     *
      * @param event Created when the method is called
      * @throws IOException Handles errors caused by an fxml not loading correctly
      */
@@ -131,9 +167,10 @@ public abstract class Controller {
 
     /**
      * Changes scene to the add data scene taking parameters to preallocate some of the fields.
-     * @param event Created when the method is called
+     *
+     * @param event        Created when the method is called
      * @param startAddress Preallocated string as the start of the route to add.
-     * @param endAddress Preallocated string as the end of the route to add.
+     * @param endAddress   Preallocated string as the end of the route to add.
      * @throws IOException Handles errors caused by an fxml not loading correctly
      */
     @FXML
@@ -150,6 +187,7 @@ public abstract class Controller {
 
     /**
      * Changes the scene to view data.
+     *
      * @param event Created when the method is called
      * @throws IOException Handles errors caused by an fxml not loading correctly
      */
@@ -163,6 +201,7 @@ public abstract class Controller {
 
     /**
      * Changes the scene to the user information scene.
+     *
      * @param event Created when the method is called
      * @throws IOException Handles errors caused by an fxml not loading correctly
      */
@@ -172,23 +211,6 @@ public abstract class Controller {
         Scene userInfoScene = new Scene(userInfoParent);
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.setScene(userInfoScene);
-    }
-
-    /**
-     * Creates a dialogue box over current scene with two strings that explain to the user why the dialogue box has popped up.
-     *
-     * @param errorMessage String providing message for top of dialogue box eg. "Error: 404"
-     * @param errorDetails String providing message for bottom of dialogue box eg. "Please refresh the page"
-     */
-    @FXML
-    public static void makeErrorDialogueBox(String errorMessage, String errorDetails) {
-        Alert alert = new Alert(Alert.AlertType.ERROR, errorDetails, ButtonType.OK);
-        alert.setHeaderText(errorMessage);
-        alert.showAndWait();
-
-        if (alert.getResult() == ButtonType.OK) {
-            System.out.println("Ok pressed");
-        }
     }
 
     /**
@@ -213,24 +235,6 @@ public abstract class Controller {
     }
 
     /**
-     * Makes a confirmation dialogue box and returns yes as true, no as false.
-     * Assumes that if dialogue is exited, result is no.
-     *
-     * @param message String that provides the message for the dialogue box.
-     * @param details String that provides the details for the dialogue box.
-     */
-    @FXML
-    public static void makeSuccessDialogueBox(String message, String details) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION, details, ButtonType.OK);
-        alert.setHeaderText(message);
-        alert.showAndWait();
-
-        if (alert.getResult() == ButtonType.OK) {
-            System.out.println("");
-        }
-    }
-
-    /**
      * Launches the help screen.
      *
      * @param event Event created on method call
@@ -238,7 +242,7 @@ public abstract class Controller {
      */
 
     @FXML
-    public void getHelp(ActionEvent event) throws IOException{
+    public void getHelp(ActionEvent event) throws IOException {
         Stage popup = new Stage();
         popup.setResizable(false);
         popup.initModality(Modality.WINDOW_MODAL);

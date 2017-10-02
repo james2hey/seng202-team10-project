@@ -1,12 +1,5 @@
 package dataHandler;
 
-import com.google.maps.errors.ApiException;
-import com.opencsv.CSVReader;
-import jdk.nashorn.internal.codegen.CompilerConstants;
-
-import java.io.FileReader;
-import java.io.IOException;
-import java.net.ConnectException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
@@ -16,10 +9,10 @@ import java.sql.SQLException;
 
 public class RetailerDataHandler implements DataHandler, GeoCallback {
 
-    SQLiteDB db;
+    private SQLiteDB db;
 
-    String[] fields =
-            { "RETAILER_NAME      VARCHAR(50) NOT NULL",
+    private String[] fields =
+            {"RETAILER_NAME      VARCHAR(50) NOT NULL",
                     "ADDRESS            VARCHAR(50) NOT NULL",
                     "LAT                NUMERIC(9,6) NOT NULL",
                     "LONG               NUMERIC(9,6) NOT NULL",
@@ -29,15 +22,16 @@ public class RetailerDataHandler implements DataHandler, GeoCallback {
                     "Main_Type          VARCHAR(50)",
                     "Secondary_Type     VARCHAR(50)"};
 
-    String primaryKey = "RETAILER_NAME, ADDRESS";
-    String tableName = "retailer";
+    private String primaryKey = "RETAILER_NAME, ADDRESS";
+    private String tableName = "retailer";
 
-    PreparedStatement addData;
-    String addDataStatement = "insert or fail into retailer values(?,?,?,?,?,?,?,?,?)";
+    private PreparedStatement addData;
+    private String addDataStatement = "insert or fail into retailer values(?,?,?,?,?,?,?,?,?)";
     private int fieldCount = 9;
 
     /**
      * Initializes an object, linked to the given database. Can process CSVs and add single entries
+     *
      * @param db
      */
     public RetailerDataHandler(SQLiteDB db) {
@@ -74,6 +68,7 @@ public class RetailerDataHandler implements DataHandler, GeoCallback {
 
     /**
      * Takes a full list of parameters for an element in the table and adds that to the database using a PreparedStatement
+     *
      * @param RETAILER_NAME
      * @param ADDRESS
      * @param LAT
@@ -85,7 +80,7 @@ public class RetailerDataHandler implements DataHandler, GeoCallback {
      * @param SECONDARY_TYPE
      * @return A value representing the success of the addition. Fails on such things as PrimaryKey collisions.
      */
-    public Boolean addSingleEntry (
+    public Boolean addSingleEntry(
             String RETAILER_NAME, String ADDRESS, double LAT, double LONG, String CITY,
             String STATE, String ZIP, String MAIN_TYPE, String SECONDARY_TYPE) {
         try {
@@ -100,7 +95,7 @@ public class RetailerDataHandler implements DataHandler, GeoCallback {
             addData.setObject(9, SECONDARY_TYPE);
             addData.executeUpdate();
             return true;
-        } catch (SQLException e ) {
+        } catch (SQLException e) {
             addData = db.getPreparedStatement(addDataStatement);
             System.out.println(e.getMessage());
             return false;

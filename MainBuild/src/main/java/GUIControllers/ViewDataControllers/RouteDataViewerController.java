@@ -84,17 +84,18 @@ public class RouteDataViewerController extends DataViewerController {
 
     private ArrayList<Route> routes = new ArrayList<Route>();
 
-    private int getRank() {
-        return 0;
-    }
-
     static public Route getRoute() {
         return route;
     }
 
+    private int getRank() {
+        return 0;
+    }
+
     /**
      * Runs on successfully loading fxml. Loads routes from database and displays them in the table.
-     * @param location Location of the fxml
+     *
+     * @param location  Location of the fxml
      * @param resources Locale-specific data required for the method to run automatically
      */
     @FXML
@@ -118,6 +119,7 @@ public class RouteDataViewerController extends DataViewerController {
      * Called when filter button is pressed. Gets all input from text fields, checks it is valid, and let's user
      * know if it isn't. If all input is valid, it will filter the data and proceed to update the table with the new set
      * of data.
+     *
      * @param event Created when the method is called
      * @throws IOException Handles errors caused by an fxml not loading correctly
      */
@@ -126,7 +128,7 @@ public class RouteDataViewerController extends DataViewerController {
 
         int gender;
         System.out.println(genderGroup.getSelectedToggle());
-        if(genderGroup.getSelectedToggle() == null) {
+        if (genderGroup.getSelectedToggle() == null) {
             gender = -1;
         } else {
             gender = Integer.parseInt(genderGroup.getSelectedToggle().getUserData().toString());
@@ -156,18 +158,18 @@ public class RouteDataViewerController extends DataViewerController {
             if (":00".equals(timeLower)) {
                 timeLower = null;
             } else {
-                if (timeLower.matches("([0-1][0-9]|2[0-4]):[0-5][0-9]:00") == false) {
+                if (!timeLower.matches("([0-1][0-9]|2[0-4]):[0-5][0-9]:00")) {
                     throw new FilterByTimeException("Incorrect time format on start time");
                 }
             }
             if (":00".equals(timeUpper)) {
                 timeUpper = null;
             } else {
-                if (timeUpper.matches("([0-1][0-9]|2[0-4]):[0-5][0-9]:00") == false) {
+                if (!timeUpper.matches("([0-1][0-9]|2[0-4]):[0-5][0-9]:00")) {
                     throw new FilterByTimeException("Incorrect time format on end time");
                 }
             }
-            if ((timeLower == null && timeUpper == null) != true && (timeLower == null || timeUpper == null)) {
+            if (!(timeLower == null && timeUpper == null) && (timeLower == null || timeUpper == null)) {
                 throw new FilterByTimeException("Missing time field");
             }
         } catch (FilterByTimeException e) {
@@ -232,6 +234,7 @@ public class RouteDataViewerController extends DataViewerController {
 
     /**
      * Creates a ChoiceDialog which prompts the user the input their ranking of the route.
+     *
      * @return the users ranking, 0 if exited
      */
     @FXML
@@ -255,6 +258,7 @@ public class RouteDataViewerController extends DataViewerController {
     /**
      * Called when view all on map button is pressed. Changes the scene to the plan route with the given list of data
      * ready to be loaded in.
+     *
      * @param event Created when the method is called
      * @throws IOException Handles errors caused by an fxml not loading correctly
      */
@@ -267,6 +271,7 @@ public class RouteDataViewerController extends DataViewerController {
     /**
      * Called when view selected on map button is pressed. Checks that a route has been selected and if not, informs
      * the user. If so, the scene is changed to plan route and the chosen route is loaded in for view.
+     *
      * @param event Created when the method is called
      * @throws IOException Handles errors caused by an fxml not loading correctly
      */
@@ -286,6 +291,7 @@ public class RouteDataViewerController extends DataViewerController {
      * Called when the edit/view all details button is pressed. Checks if a route is selected and informs the user if
      * it is not. If a route is selected, the detailed route viewer is opened, ready to load in the selected routes
      * information.
+     *
      * @param event Created when the method is called
      * @throws IOException Handles errors caused by an fxml not loading correctly
      */

@@ -6,7 +6,6 @@ import com.google.maps.GeoApiContext;
 import com.google.maps.GeocodingApi;
 import com.google.maps.errors.ApiException;
 import com.google.maps.model.GeocodingResult;
-import javafx.scene.control.Alert;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -33,6 +32,7 @@ public class Geocoder {
 
     /**
      * Takes an address and uses Google Geocoding API to get a latitude and longitude.
+     *
      * @param address A string specifying the address to search
      * @return The first result from the geocode search
      * @throws ApiException
@@ -52,6 +52,7 @@ public class Geocoder {
 
     /**
      * Checks the database by testing a random address. If the test fails, the error popup will show.
+     *
      * @return If a value was successfully returned
      */
     public static boolean testConnection() {
@@ -64,10 +65,11 @@ public class Geocoder {
 
     /**
      * A simple async request
+     *
      * @param address A String address to geocode
      * @param outcome The GeocoderOutcome object to callback on
      */
-    public static void addressToLatLonAsync(String address,GeocodeOutcome outcome) {
+    public static void addressToLatLonAsync(String address, GeocodeOutcome outcome) {
         GeocodingApi.geocode(context, address).setCallback(outcome);
     }
 }

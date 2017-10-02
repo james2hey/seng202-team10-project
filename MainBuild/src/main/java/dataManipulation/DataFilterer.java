@@ -62,6 +62,7 @@ public class DataFilterer {
 
     /**
      * Constructor for DataFilterer class.
+     *
      * @param db
      */
     public DataFilterer(SQLiteDB db) {
@@ -153,7 +154,7 @@ public class DataFilterer {
      * convertDates takes an upper and lower bound of dates and converts them into a single number. The date format
      * must be DD/MM/YYYY. The date will be converted into the format: YYYYMMDD. This allows the easy querying of dates
      * in the database.
-     *
+     * <p>
      * Ex. date: 21/01/2016 will be converted into 20160121
      *
      * @param dateLower of type String
@@ -366,9 +367,9 @@ public class DataFilterer {
      * filterWifi takes all the possible filter values for wifi points and returns a ArrayList of WifiLocations that
      * meet the filter requirements.
      *
-     * @param name of type String. This is a sub string that the user wants to filter wifi SSIDs by
-     * @param suburb of type String. This is a string that the user wants to filter wifi suburbs by
-     * @param type of type String. This is a string that the user wants to filter wifi types by
+     * @param name     of type String. This is a sub string that the user wants to filter wifi SSIDs by
+     * @param suburb   of type String. This is a string that the user wants to filter wifi suburbs by
+     * @param type     of type String. This is a string that the user wants to filter wifi types by
      * @param provider of type String. This is a sub string that the user wants to filter providers by
      * @return ArrayList<WifiLocation>, an ArrayList that contains WifiLocation objects
      */
@@ -468,13 +469,13 @@ public class DataFilterer {
      * filterRetailers takes all the possible filter values for retailers and returns a ArrayList of retailLocations
      * that meet the filter requirements.
      *
-     * @param name of type String. This is a sub string that the user wants to filter retail names by
+     * @param name    of type String. This is a sub string that the user wants to filter retail names by
      * @param address of type String. This is a sub string that the user wants to filter retail addresses by
      * @param primary of type String. This is a string that the user wants to filter retail primary types by
-     * @param zip of type int. This is a integer that the user wants to filter retailer zip codes by
+     * @param zip     of type int. This is a integer that the user wants to filter retailer zip codes by
      * @return ArrayList<RetailLocation>, this is an ArrayList of RetailLocations objects
      */
-    public ArrayList<RetailLocation> filterRetailers(String name, String address, String primary,int zip) {
+    public ArrayList<RetailLocation> filterRetailers(String name, String address, String primary, int zip) {
         int queryLen = 0;
         String queryString = retailerCommand;
 
@@ -517,8 +518,8 @@ public class DataFilterer {
             for (i = 0; i < filterVariableStrings.size(); i++) {
                 pstmt.setString(i + 1, filterVariableStrings.get(i));
             }
-            for (int j = 0; j < filterVariables.size(); j++) {
-                pstmt.setInt(i + 1, filterVariables.get(j));
+            for (Integer filterVariable : filterVariables) {
+                pstmt.setInt(i + 1, filterVariable);
                 i++;
             }
 

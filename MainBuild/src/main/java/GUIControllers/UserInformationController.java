@@ -1,6 +1,5 @@
 package GUIControllers;
 
-import GUIControllers.Controller;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
@@ -14,17 +13,14 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import main.Cyclist;
 import main.Main;
 
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 import static main.Cyclist.*;
-import static main.Cyclist.getBirthYear;
 
 
 /**
@@ -57,11 +53,11 @@ public class UserInformationController extends Controller implements Initializab
     private JFXHamburger hamburger;
 
 
-
     /**
      * Runs on start up. Sets the values of the user profile to what is currently saved in the database.
      * Also, calculates the User statistics and displays them for the user.
-     * @param location Location of the fxml
+     *
+     * @param location  Location of the fxml
      * @param resources Locale-specific data required for the method to run automatically
      */
     @FXML
@@ -75,6 +71,7 @@ public class UserInformationController extends Controller implements Initializab
     /**
      * Called when the update profile button is pressed. Gets the information currently in the GUI fields and sets the
      * current users information to them. Alerts user of success/failure with dialogue boxes.
+     *
      * @param event Created on pressing the button. Not used.
      */
     @FXML
@@ -105,6 +102,7 @@ public class UserInformationController extends Controller implements Initializab
 
     /**
      * Runs when the log out button is pressed. Changes the scene to the log in scene and signs out the current user.
+     *
      * @param event Created when the method is called
      * @throws IOException Handles errors caused by an fxml not loading correctly
      */

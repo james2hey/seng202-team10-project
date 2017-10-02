@@ -11,7 +11,7 @@ import java.sql.SQLException;
  */
 public class FavouriteRetailData {
 
-    private static SQLiteDB db;
+    private SQLiteDB db;
     private String[] fields =
             {"name         VARCHAR(12)",
                     "RETAILER_NAME    VARCHAR(50) NOT NULL",
@@ -24,6 +24,7 @@ public class FavouriteRetailData {
 
     /**
      * Initializes the database when creating an instance of the FavouriteRetailData.
+     *
      * @param db database the retail data is added to
      */
     public FavouriteRetailData(SQLiteDB db) {
@@ -35,9 +36,10 @@ public class FavouriteRetailData {
 
     /**
      * Adds the given name, retail name and address to the table.
-     * @param name name of the user
+     *
+     * @param name        name of the user
      * @param retail_name name of the retail store
-     * @param address address of the retail store
+     * @param address     address of the retail store
      */
     public void addFavouriteRetail(String name, String retail_name, String address) {
         try {
@@ -55,6 +57,7 @@ public class FavouriteRetailData {
 
     /**
      * Deletes the given store from the database.
+     *
      * @param store retail store to be deleted
      */
     public void deleteFavouriteRetail(RetailLocation store) {

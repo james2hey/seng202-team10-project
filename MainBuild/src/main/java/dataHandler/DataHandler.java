@@ -6,6 +6,7 @@ package dataHandler;
 public interface DataHandler {
 
     void processLine(String[] record, Callback callback);
+
     int fieldCount();
 
 }

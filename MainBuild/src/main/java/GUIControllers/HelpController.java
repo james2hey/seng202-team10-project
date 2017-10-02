@@ -11,7 +11,7 @@ import java.util.ResourceBundle;
  * Controller class for the help screen.
  */
 
-public class HelpController implements Initializable{
+public class HelpController implements Initializable {
 
     @FXML
     private Text userSection, navSection, homeSection, planSection, addDataSection, viewSection, aboutSection;
@@ -19,7 +19,7 @@ public class HelpController implements Initializable{
     /**
      * Runs on start up and sets the text to helpMessage string.
      *
-     * @param location Location of the fxml
+     * @param location  Location of the fxml
      * @param resources Locale-specific data required for the method to run automatically
      */
     @FXML
@@ -31,7 +31,7 @@ public class HelpController implements Initializable{
                 "account from the drop down box and click sign in to do this.\n\n";
         userSection.setText(userMessage);
         String navMessage = "\nNavigation\n\n\n" +
-        "In order to navigate through different features, click on the three black bars in the " +
+                "In order to navigate through different features, click on the three black bars in the " +
                 "top right of the screen to open the navigation panel.\n\n";
         navSection.setText(navMessage);
         String homeMessage = "\nHome Screen\n\n\n" +

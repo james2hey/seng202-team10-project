@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.maps.PendingResult;
 import com.google.maps.model.GeocodingResult;
-import jdk.nashorn.internal.codegen.CompilerConstants;
 
 
 /**
@@ -20,7 +19,8 @@ public class GeocodeOutcome implements PendingResult.Callback<GeocodingResult[]>
 
     /**
      * Creates a new object that awaits a result, then calls back to it's callers callback to let them know the given result
-     * @param record A list of strings returned back to the callback for use.
+     *
+     * @param record   A list of strings returned back to the callback for use.
      * @param callback The object to call back with the latlong and record on success or fail.
      */
     public GeocodeOutcome(String[] record, Callback callback, GeoCallback geoCallback) {
@@ -33,6 +33,7 @@ public class GeocodeOutcome implements PendingResult.Callback<GeocodingResult[]>
     /**
      * On a successful result, processes the result to get the first valid entrys lat and long and returns them along with the string record
      * Calls back null if invalid.
+     *
      * @param results The GeocodingResult
      */
     @Override
@@ -54,6 +55,7 @@ public class GeocodeOutcome implements PendingResult.Callback<GeocodingResult[]>
 
     /**
      * If an error is thrown instead of success, returns null to the callback
+     *
      * @param throwable
      */
     @Override

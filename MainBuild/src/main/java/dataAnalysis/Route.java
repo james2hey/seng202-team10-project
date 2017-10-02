@@ -14,7 +14,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 //to find out what this search criteria is and find a Trip.
 
 public class Route {
-    private int duration, timesTaken=1, rank, age;
+    private int duration, timesTaken = 1, rank, age;
     private String name, startTime, stopTime, startDate, stopDate, startDay, startMonth, startYear, stopDay, stopMonth,
             stopYear, bikeid, gender, userType;
     private Location startLocation, endLocation, viaLocation;
@@ -108,15 +108,25 @@ public class Route {
     }
 
     //Getters for primary key info
-    public String getBikeID() { return bikeid;}
+    public String getBikeID() {
+        return bikeid;
+    }
 
-    public String getStartTime() { return startTime;}
+    public String getStartTime() {
+        return startTime;
+    }
 
-    public String getStartDay() {return startDay;}
+    public String getStartDay() {
+        return startDay;
+    }
 
-    public String getStartMonth() {return startMonth;}
+    public String getStartMonth() {
+        return startMonth;
+    }
 
-    public String getStartYear() {return startYear;}
+    public String getStartYear() {
+        return startYear;
+    }
 
 
     // Getters
@@ -124,55 +134,113 @@ public class Route {
         return duration;
     }
 
-    public int getRank() {return rank;}
-
-    public int getStartStationID() {return startLocation.getNumber();}
-
-    public int getEndStationID() {return endLocation.getNumber();}
-
-    public int getAge() {return age;}
-
-    public String getName() {return  name;}
-
-    public String getStopTime() {return stopTime;}
-
-    public String getStartDate() {return startDate;}
-
-    public String getStopDate() {return stopDate;}
-
-    public String getStopDay() {return stopDay;}
-
-    public String getStopMonth() {return stopMonth;}
-
-    public String getStopYear() {return stopYear;}
-
-    public String getStartAddress() {return startLocation.getAddress();}
-
-    public String getEndAddress() {return endLocation.getAddress();}
-
-    public String getViaLocation() {return viaLocation.getAddress();}
-
-    public String getGender() {return gender;}
-
-    public String getUserType() {return userType;}
-
-    public double getStartLatitude() {return startLocation.getLatitude();}
-
-    public double getStartLongitude() {return startLocation.getLongitude();}
-
-    public double getEndLatitude() {return endLocation.getLatitude();}
-
-    public double getEndLongitude() {return endLocation.getLongitude();}
-
-    public double getAverageTime() {return averageTime;}
-
-    public double getDistance() {
-        return HelperFunctions.getDistance(getStartLatitude(), getStartLongitude(), getEndLatitude(), getEndLongitude());
+    public void setDuration(int newDuration) {
+        if (newDuration != duration) {
+            duration = newDuration;
+            UpdateData.updateRouteField("tripduration", Integer.toString(duration), bikeid, startYear, startMonth,
+                    stopDay, startTime);
+        }
     }
 
+    public int getRank() {
+        return rank;
+    }
 
-    // Setters
-    public void setStopDate() {stopDate = getDateString(stopDay, stopMonth, stopYear);}
+    public int getStartStationID() {
+        return startLocation.getNumber();
+    }
+
+    public int getEndStationID() {
+        return endLocation.getNumber();
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int newAge) {
+        if (newAge != age) {
+            age = newAge;
+            UpdateData.updateRouteField("birth_year", Integer.toString(age), bikeid, startYear, startMonth,
+                    stopDay, startTime);
+        }
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String input) {
+        name = input;
+    }
+
+    public String getStopTime() {
+        return stopTime;
+    }
+
+    public void setStopTime(String time) {
+        if (time.length() < 8) {
+            time = time + ":00";
+        }
+        if (!time.equals(stopTime)) {
+            stopTime = time;
+            UpdateData.updateRouteField("end_time", stopTime, bikeid, startYear, startMonth, stopDay, startTime);
+        }
+    }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public String getStopDate() {
+        return stopDate;
+    }
+
+    public String getStopDay() {
+        return stopDay;
+    }
+
+    public void setStopDay(String day) {
+        if (day.length() < 2) {
+            day = "0" + day;
+        }
+        if (!day.equals(stopDay)) {
+            stopDay = day;
+            UpdateData.updateRouteField("end_day", stopDay, bikeid, startYear, startMonth, startDay, startTime);
+            setStopDate();
+        }
+    }
+
+    public String getStopMonth() {
+        return stopMonth;
+    }
+
+    public void setStopMonth(String month) {
+        if (month.length() < 2) {
+            month = "0" + month;
+        }
+        if (!month.equals(stopMonth)) {
+            stopMonth = month;
+            UpdateData.updateRouteField("end_month", stopMonth, bikeid, startYear, startMonth, startDay, startTime);
+            setStopDate();
+        }
+    }
+
+    public String getStopYear() {
+        return stopYear;
+    }
+
+    public void setStopYear(String year) {
+        if (!year.equals(stopYear)) {
+            stopYear = year;
+            UpdateData.updateRouteField("end_year", stopYear, bikeid, startYear, startMonth, startDay, startTime);
+            setStopDate();
+        }
+    }
+
+    public String getStartAddress() {
+        return startLocation.getAddress();
+    }
 
     public void setStartAddress(String newAddress) {
         if (!newAddress.equals(startLocation.getAddress())) {
@@ -180,6 +248,79 @@ public class Route {
             UpdateData.updateRouteField("start_station_name", startLocation.getAddress(), bikeid, startYear,
                     startMonth, stopDay, startTime);
         }
+    }
+
+    public String getEndAddress() {
+        return endLocation.getAddress();
+    }
+
+    public void setEndAddress(String newAddress) {
+        if (!newAddress.equals(endLocation.getAddress())) {
+            endLocation.setAddress(newAddress);
+            UpdateData.updateRouteField("end_station_name", endLocation.getAddress(), bikeid, startYear,
+                    startMonth, stopDay, startTime);
+        }
+    }
+
+    public String getViaLocation() {
+        return viaLocation.getAddress();
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    //Used when creating Route objects from the database.
+    public void setGender(int riderGender) {
+        if (riderGender == 1) {
+            gender = "Male";
+        } else if (riderGender == 2) {
+            gender = "Female";
+        } else if (riderGender == 3) {
+            gender = "Other";
+        } else {
+            gender = "Not Specified";
+        }
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String newType) {
+        if (!newType.equals(userType)) {
+            userType = newType;
+            UpdateData.updateRouteField("usertype", userType, bikeid, startYear, startMonth, stopDay, startTime);
+        }
+    }
+
+    public double getStartLatitude() {
+        return startLocation.getLatitude();
+    }
+
+    public double getStartLongitude() {
+        return startLocation.getLongitude();
+    }
+
+    public double getEndLatitude() {
+        return endLocation.getLatitude();
+    }
+
+    public double getEndLongitude() {
+        return endLocation.getLongitude();
+    }
+
+    public double getAverageTime() {
+        return averageTime;
+    }
+
+    public double getDistance() {
+        return HelperFunctions.getDistance(getStartLatitude(), getStartLongitude(), getEndLatitude(), getEndLongitude());
+    }
+
+    // Setters
+    public void setStopDate() {
+        stopDate = getDateString(stopDay, stopMonth, stopYear);
     }
 
     public void setStartID(int newID) {
@@ -203,14 +344,6 @@ public class Route {
             startLocation.setLongitude(newLong);
             UpdateData.updateRouteField("start_longitude", Double.toString(startLocation.getLongitude()), bikeid,
                     startYear, startMonth, stopDay, startTime);
-        }
-    }
-
-    public void setEndAddress(String newAddress) {
-        if (!newAddress.equals(endLocation.getAddress())) {
-            endLocation.setAddress(newAddress);
-            UpdateData.updateRouteField("end_station_name", endLocation.getAddress(), bikeid, startYear,
-                    startMonth, stopDay, startTime);
         }
     }
 
@@ -238,71 +371,6 @@ public class Route {
         }
     }
 
-    public void setStopYear(String year) {
-        if (!year.equals(stopYear)) {
-            stopYear = year;
-            UpdateData.updateRouteField("end_year", stopYear, bikeid, startYear, startMonth, startDay, startTime);
-            setStopDate();
-        }
-    }
-
-    public void setStopMonth(String month) {
-        if (month.length() < 2) {
-            month = "0" + month;
-        }
-        if (!month.equals(stopMonth)) {
-            stopMonth = month;
-            UpdateData.updateRouteField("end_month", stopMonth, bikeid, startYear, startMonth, startDay, startTime);
-            setStopDate();
-        }
-    }
-
-    public void setStopDay(String day) {
-        if (day.length() < 2) {
-            day = "0" + day;
-        }
-        if (!day.equals(stopDay)) {
-            stopDay = day;
-            UpdateData.updateRouteField("end_day", stopDay, bikeid, startYear, startMonth, startDay, startTime);
-            setStopDate();
-        }
-    }
-
-    public void setStopTime(String time) {
-        if (time.length() < 8) {
-            time = time + ":00";
-        }
-        if (!time.equals(stopTime)) {
-            stopTime = time;
-            UpdateData.updateRouteField("end_time", stopTime, bikeid, startYear, startMonth, stopDay, startTime);
-        }
-    }
-
-    public void setAge(int newAge) {
-        if (newAge != age) {
-            age = newAge;
-            UpdateData.updateRouteField("birth_year", Integer.toString(age), bikeid, startYear, startMonth,
-                    stopDay, startTime);
-        }
-    }
-
-    public void setUserType(String newType) {
-        if (!newType.equals(userType)) {
-            userType = newType;
-            UpdateData.updateRouteField("usertype", userType, bikeid, startYear, startMonth, stopDay, startTime);
-        }
-    }
-
-    public void setDuration(int newDuration) {
-        if (newDuration != duration) {
-            duration = newDuration;
-            UpdateData.updateRouteField("tripduration", Integer.toString(duration), bikeid, startYear, startMonth,
-                    stopDay, startTime);
-        }
-    }
-
-    public void setName(String input) {name = input;}
-
     public void setGender(String newGender) {
         if (!newGender.equals(gender)) {
             if ("Male".equals(newGender)) {
@@ -321,40 +389,26 @@ public class Route {
         }
     }
 
-    //Used when creating Route objects from the database.
-    public void setGender(int riderGender) {
-        if (riderGender == 1) {
-            gender = "Male";
-        } else if (riderGender == 2) {
-            gender = "Female";
-        } else if (riderGender == 3){
-            gender = "Other";
-        } else {
-            gender = "Not Specified";
-        }
-    }
-
 ////////////////////////////END OF GETTERS AND SETTERS\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
 
     /**
      * getDateString takes the day, month and year and separate integers and returns a more recognisable date format as
      * a string.
      *
-     * @param day day is of type int. This is the day a route was started/finished on.
+     * @param day   day is of type int. This is the day a route was started/finished on.
      * @param month month is of type int. This is the month a route was started/finished on.
-     * @param year year is of type int. This is the year a route was started/finished on.
+     * @param year  year is of type int. This is the year a route was started/finished on.
      * @return dateString, of type String. This a recognisable date format as a string.
      */
     private String getDateString(String day, String month, String year) {
-        String dateString = day + "/" + month + "/" + year;
-        return dateString;
+        return day + "/" + month + "/" + year;
     }
 
     /**
      * Defines the hashCode function.
      * Allows for hashsets that don't collide on the same points
      * Collides if the other route has same bikeid, and start date/time
+     *
      * @return A hash value
      */
     public int hashCode() {
@@ -370,11 +424,12 @@ public class Route {
     /**
      * Defines the equals functions, allowing for easy equality testing
      * Fails if the other location has same bikeid, and start date/time
+     *
      * @param obj The object to compare
      * @return Equality boolean
      */
     public boolean equals(Object obj) {
-        if (!( obj instanceof Route))
+        if (!(obj instanceof Route))
             return false;
         if (obj == this)
             return true;

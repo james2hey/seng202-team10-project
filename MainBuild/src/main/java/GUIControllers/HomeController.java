@@ -34,7 +34,7 @@ import java.util.ResourceBundle;
  * Controller class for home.
  */
 
-public class HomeController extends Controller implements Initializable{
+public class HomeController extends Controller implements Initializable {
 
     @FXML
     private GridPane gridPane;
@@ -92,7 +92,8 @@ public class HomeController extends Controller implements Initializable{
 
     /**
      * Runs on successfully loading the fxml. Fills the favourites tables.
-     * @param location Location of the fxml
+     *
+     * @param location  Location of the fxml
      * @param resources Locale-specific data required for the method to run automatically
      */
     public void initialize(URL location, ResourceBundle resources) {
@@ -130,6 +131,7 @@ public class HomeController extends Controller implements Initializable{
     /**
      * Called when View Favourites on Map on map button is pressed. Changes the scene to the plan route with all of the
      * favourites data ready to be loaded in.
+     *
      * @param event Created when the method is called
      * @throws IOException Handles errors caused by an fxml not loading correctly
      */
@@ -142,6 +144,7 @@ public class HomeController extends Controller implements Initializable{
 
     /**
      * Deletes the favourite selected from the chosen table.
+     *
      * @param event Created when the method is called
      * @throws IOException
      */
@@ -153,7 +156,7 @@ public class HomeController extends Controller implements Initializable{
             routeList.remove(tableViewRoutes.getSelectionModel().getSelectedItem());
             routeListObservable.remove(tableViewRoutes.getSelectionModel().getSelectedItem());
 
-        } else if (tableViewWifi.getSelectionModel().getSelectedItem() != null){
+        } else if (tableViewWifi.getSelectionModel().getSelectedItem() != null) {
             FavouriteWifiData fwd = new FavouriteWifiData(Main.getDB());
             fwd.deleteFavouriteWifi(tableViewWifi.getSelectionModel().getSelectedItem());
             wifiList.remove(tableViewWifi.getSelectionModel().getSelectedItem());
@@ -197,7 +200,7 @@ public class HomeController extends Controller implements Initializable{
             public void handle(MouseEvent event) {
                 if (lastSelectedRow.get() != null) {
                     Bounds boundsOfSelectedRow = lastSelectedRow.get().localToScene(lastSelectedRow.get().getLayoutBounds());
-                    if (boundsOfSelectedRow.contains(event.getSceneX(), event.getSceneY()) == false) {
+                    if (!boundsOfSelectedRow.contains(event.getSceneX(), event.getSceneY())) {
                         tableViewRoutes.getSelectionModel().clearSelection();
                     }
                 }
@@ -230,7 +233,7 @@ public class HomeController extends Controller implements Initializable{
             public void handle(MouseEvent event) {
                 if (lastSelectedRow.get() != null) {
                     Bounds boundsOfSelectedRow = lastSelectedRow.get().localToScene(lastSelectedRow.get().getLayoutBounds());
-                    if (boundsOfSelectedRow.contains(event.getSceneX(), event.getSceneY()) == false) {
+                    if (!boundsOfSelectedRow.contains(event.getSceneX(), event.getSceneY())) {
                         tableViewWifi.getSelectionModel().clearSelection();
                     }
                 }
@@ -263,7 +266,7 @@ public class HomeController extends Controller implements Initializable{
             public void handle(MouseEvent event) {
                 if (lastSelectedRow.get() != null) {
                     Bounds boundsOfSelectedRow = lastSelectedRow.get().localToScene(lastSelectedRow.get().getLayoutBounds());
-                    if (boundsOfSelectedRow.contains(event.getSceneX(), event.getSceneY()) == false) {
+                    if (!boundsOfSelectedRow.contains(event.getSceneX(), event.getSceneY())) {
                         tableViewRetailers.getSelectionModel().clearSelection();
                     }
                 }
@@ -271,4 +274,4 @@ public class HomeController extends Controller implements Initializable{
         });
     }
 
- }
+}

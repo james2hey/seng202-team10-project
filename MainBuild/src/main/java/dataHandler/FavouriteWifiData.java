@@ -23,6 +23,7 @@ public class FavouriteWifiData {
 
     /**
      * Initializes the database when creating an instance of the FavouriteWifiData.
+     *
      * @param db database the wifi data is added to
      */
     public FavouriteWifiData(SQLiteDB db) {
@@ -34,7 +35,8 @@ public class FavouriteWifiData {
 
     /**
      * Adds the given name and wifi id to the table.
-     * @param name name of the user
+     *
+     * @param name    name of the user
      * @param WIFI_ID identification number of the wifi service
      */
     public void addFavouriteWifi(String name, String WIFI_ID) {
@@ -52,6 +54,7 @@ public class FavouriteWifiData {
 
     /**
      * Deletes the given wifi hotspot from the database.
+     *
      * @param hotspot the wifi hotspot to be deleted
      */
     public void deleteFavouriteWifi(WifiLocation hotspot) {

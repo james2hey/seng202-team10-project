@@ -2,28 +2,26 @@ package dataHandler;
 
 import com.opencsv.CSVReader;
 import javafx.concurrent.Task;
+
 import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by jes143 on 18/09/17.
  */
 
-public class CSVImporter extends Task<Void> implements Callback{
-
-    SQLiteDB db;
+public class CSVImporter extends Task<Void> implements Callback {
 
     private final String url;
-
+    private SQLiteDB db;
     private DataHandler handler;
-    int[] successFailCounts = {0, 0};
-    int resulted = 0;
-    int totalCount;
+    private int[] successFailCounts = {0, 0};
+    private int resulted = 0;
+    private int totalCount;
 
     /**
      * Initializes an object, linked to the given database. Can process CSVs and add single entries
+     *
      * @param db
      * @param url
      */
@@ -45,7 +43,7 @@ public class CSVImporter extends Task<Void> implements Callback{
             System.out.println("1");
             throw new NoSuchFieldException(String.format("Incorrect number of fields, expected %d but got %d", handler.fieldCount(), records.get(0).length));
         }
-        totalCount = records.size() -1;
+        totalCount = records.size() - 1;
 
         for (int i = 1; i <= totalCount; i++) {
             if (isCancelled()) {
@@ -65,7 +63,7 @@ public class CSVImporter extends Task<Void> implements Callback{
 
     @Override
     public void result(boolean result) {
-        resulted ++;
+        resulted++;
         if (result) {
             successFailCounts[0] += 1;
         } else {

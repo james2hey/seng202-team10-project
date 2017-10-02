@@ -32,47 +32,33 @@ import java.util.ResourceBundle;
 
 public class WifiDataViewerController extends DataViewerController {
 
+    static private WifiLocation wifi = null;
     @FXML
     private JFXTextField nameInput;
-
     @FXML
     private JFXTextField providerInput;
-
     @FXML
     private TableView<WifiLocation> tableView;
-
     @FXML
     private JFXDrawer drawer;
-
     @FXML
     private ComboBox<String> boroughInput;
-
     @FXML
     private ComboBox<String> typeInput;
-
     @FXML
     private JFXHamburger hamburger;
-
     @FXML
     private TableColumn<WifiLocation, String> Name;
-
     @FXML
     private TableColumn<WifiLocation, String> Provider;
-
     @FXML
     private TableColumn<WifiLocation, String> Address;
-
     @FXML
     private TableColumn<WifiLocation, String> Suburb;
-
     @FXML
     private TableColumn<WifiLocation, String> Cost;
-
     private ObservableList<WifiLocation> wifiList = FXCollections.observableArrayList();
-
     private ArrayList<WifiLocation> wifiLocations = new ArrayList<>();
-
-    static private WifiLocation wifi = null;
 
     static public WifiLocation getWifi() {
         return wifi;
@@ -82,7 +68,7 @@ public class WifiDataViewerController extends DataViewerController {
      * Runs on startup of the fxml. It gets the wifi information from the database and display it in the table.
      * A call of displayData is used to refresh the GUI.
      *
-     * @param location Location of the fxml
+     * @param location  Location of the fxml
      * @param resources Locale-specific data required for the method to run automatically
      */
     @FXML
@@ -165,8 +151,8 @@ public class WifiDataViewerController extends DataViewerController {
         DataFilterer filterer = new DataFilterer(Main.getDB());
         wifiLocations = filterer.filterWifi(name, suburb, cost, provider);
         System.out.println("Got data");
-        for (int i = 0; i < wifiLocations.size(); i++) {
-            System.out.println(wifiLocations.get(i).getSSID());
+        for (WifiLocation wifiLocation : wifiLocations) {
+            System.out.println(wifiLocation.getSSID());
         }
 
         tableView.getItems().clear();
@@ -184,7 +170,7 @@ public class WifiDataViewerController extends DataViewerController {
         } else {
             String name = Main.hu.currentCyclist.getName();
             WifiLocation wifiToAdd = tableView.getSelectionModel().getSelectedItem();
-                    boolean alreadyInList= Main.hu.currentCyclist.addFavouriteWifi(wifiToAdd, name, Main.getDB());
+            boolean alreadyInList = Main.hu.currentCyclist.addFavouriteWifi(wifiToAdd, name, Main.getDB());
             if (!alreadyInList) {
                 makeSuccessDialogueBox(wifiToAdd.getProvider() + " successfully added.", "");
             } else {

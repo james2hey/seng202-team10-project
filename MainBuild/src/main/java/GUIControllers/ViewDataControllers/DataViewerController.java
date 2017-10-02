@@ -19,7 +19,7 @@ import java.io.IOException;
  */
 
 
-public abstract class DataViewerController extends Controller implements Initializable{
+public abstract class DataViewerController extends Controller implements Initializable {
 
 
     @FXML
@@ -32,7 +32,7 @@ public abstract class DataViewerController extends Controller implements Initial
      * @throws IOException Handles errors caused by an fxml not loading correctly.
      */
     @FXML
-    void showRoutes(ActionEvent event) throws IOException{
+    void showRoutes(ActionEvent event) throws IOException {
         Parent routeViewerParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/DataViewerFXMLs/routeViewData.fxml"));
         Scene routeViewerScene = new Scene(routeViewerParent);
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -47,7 +47,7 @@ public abstract class DataViewerController extends Controller implements Initial
      * @throws IOException Handles errors caused by an fxml not loading correctly
      */
     @FXML
-    void showWifiLocations(ActionEvent event) throws IOException{
+    void showWifiLocations(ActionEvent event) throws IOException {
         Parent wifiViewerParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/DataViewerFXMLs/wifiViewData.fxml"));
         Scene wifiViewerScene = new Scene(wifiViewerParent);
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -61,7 +61,7 @@ public abstract class DataViewerController extends Controller implements Initial
      * @throws IOException Handles errors caused by an fxml not loading correctly.
      */
     @FXML
-    void showRetailers(ActionEvent event) throws IOException{
+    void showRetailers(ActionEvent event) throws IOException {
         Parent retailerViewerParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/DataViewerFXMLs/retailerViewData.fxml"));
         Scene retailerViewerScene = new Scene(retailerViewerParent);
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();

@@ -13,54 +13,39 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static javafx.scene.paint.Color.DARKSLATEBLUE;
-import static javafx.scene.paint.Color.GREEN;
-import static javafx.scene.paint.Color.RED;
+import static javafx.scene.paint.Color.*;
 
 /**
  * Controller class for detailed wifi information.
  */
 public class DetailedWifiInformation extends DataViewerController {
 
+    static private ActionEvent mainAppEvent = null;
     @FXML
     private JFXTextField Zip;
-
     @FXML
     private JFXTextField address;
-
     @FXML
     private ComboBox<String> cost;
-
     @FXML
     private JFXTextField provider;
-
     @FXML
     private JFXTextField city;
-
     @FXML
     private JFXTextField wifiID;
-
     @FXML
     private JFXTextField longitude;
-
     @FXML
     private ComboBox<String> suburb;
-
     @FXML
     private JFXTextField latitude;
-
     @FXML
     private JFXTextField SSID;
-
     @FXML
     private JFXTextField remarks;
-
     @FXML
     private Button update;
-
     private WifiLocation currentWifi = null;
-
-    static private ActionEvent mainAppEvent = null;
 
     static public void setMainAppEvent(ActionEvent event) {
         mainAppEvent = event;
@@ -69,7 +54,7 @@ public class DetailedWifiInformation extends DataViewerController {
     /**
      * Fills each textfield to what is currently stored in the database.
      *
-     * @param location Location of the fxml
+     * @param location  Location of the fxml
      * @param resources Locale-specific data required for the method to run automatically
      */
     @FXML
@@ -105,7 +90,7 @@ public class DetailedWifiInformation extends DataViewerController {
      * @throws IOException Handles errors caused by an fxml not loading correctly
      */
     @FXML
-    void updateValues(ActionEvent event) throws IOException{
+    void updateValues(ActionEvent event) throws IOException {
         try {
             currentWifi.setAddress(address.getText());
             currentWifi.setProvider(provider.getText());

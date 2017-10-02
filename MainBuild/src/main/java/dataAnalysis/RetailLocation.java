@@ -26,28 +26,9 @@ public class RetailLocation extends Location {
 
 
     // Getters
-    public int getZip() {return zip;}
-
-    public String getName() {
-        return name;
+    public int getZip() {
+        return zip;
     }
-
-    public String getAddress() {return address;}
-
-    public String getCity() {
-        return city;
-    }
-
-    public String getState() {return state;}
-
-    public String getMainType() {return mainType;}
-
-    public String getSecondaryType() {return secondaryType;}
-
-    public double getLatitude() {return latitude;}
-
-    public double getLongitude() {return longitude;}
-
 
     // Setters
     public void setZip(int newZip) {
@@ -57,11 +38,27 @@ public class RetailLocation extends Location {
         }
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
     public void setCity(String newCity) {
         if (!newCity.equals(city)) {
             city = newCity;
             UpdateData.updateRetailerField("city", city, name, address);
         }
+    }
+
+    public String getState() {
+        return state;
     }
 
     public void setState(String newState) {
@@ -71,11 +68,19 @@ public class RetailLocation extends Location {
         }
     }
 
+    public String getMainType() {
+        return mainType;
+    }
+
     public void setMainType(String newMainType) {
         if (!newMainType.equals(mainType)) {
             mainType = newMainType;
             UpdateData.updateRetailerField("main_type", mainType, name, address);
         }
+    }
+
+    public String getSecondaryType() {
+        return secondaryType;
     }
 
     public void setSecondaryType(String newSecondaryType) {
@@ -85,11 +90,19 @@ public class RetailLocation extends Location {
         }
     }
 
+    public double getLatitude() {
+        return latitude;
+    }
+
     public void setLatitude(double newLat) {
         if (newLat != latitude) {
             latitude = newLat;
             UpdateData.updateRetailerField("lat", Double.toString(latitude), name, address);
         }
+    }
+
+    public double getLongitude() {
+        return longitude;
     }
 
     public void setLongitude(double newLong) {

@@ -9,7 +9,6 @@ import dataHandler.SQLiteDB;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import static org.apache.commons.text.WordUtils.capitalizeFully;
 
@@ -25,6 +24,7 @@ public class HandleUsers {
 
     /**
      * Initializes the database.
+     *
      * @param sqLiteDB database to be initialized.
      */
     public void init(SQLiteDB sqLiteDB) {
@@ -33,6 +33,7 @@ public class HandleUsers {
 
     /**
      * Logs into the user whose parameter is handed into the function.
+     *
      * @param username user to be logged in
      */
     public void logIn(String username) {
@@ -142,7 +143,7 @@ public class HandleUsers {
                 tempRetail = new RetailLocation(rsRetail.getString("retailer_name"),
                         rsRetail.getString("address"), rsRetail.getString("city"),
                         rsRetail.getString("main_type"), rsRetail.getString("secondary_type"),
-                        rsRetail.getString("state") , rsRetail.getInt("zip"),
+                        rsRetail.getString("state"), rsRetail.getInt("zip"),
                         rsRetail.getDouble("lat"), rsRetail.getDouble("long"));
                 currentCyclist.addRetailInstance(tempRetail);
             }
@@ -163,6 +164,7 @@ public class HandleUsers {
 
     /**
      * Checks if the username already exists, if not it creates a new user and adds them to the users list.
+     *
      * @param username the user who is getting an instance created for them
      */
     public boolean createNewUser(String username, int day, int month, int year, String gender) {
@@ -186,12 +188,17 @@ public class HandleUsers {
 
     /**
      * Converts a gender to a string so that it can correctly be entered into the database.
+     *
      * @param gender string to be converted into an integer
      * @return 0 for other, 1 for male, 2 for female.
      */
     public int convertGender(String gender) {
-        if (gender.equals("Male")) {return 1;}
-        else if (gender.equals("Female")) {return 2;}
-        else {return 0;}
+        if (gender.equals("Male")) {
+            return 1;
+        } else if (gender.equals("Female")) {
+            return 2;
+        } else {
+            return 0;
+        }
     }
 }

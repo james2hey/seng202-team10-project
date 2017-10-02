@@ -44,6 +44,7 @@ public class RouteDataHandler implements DataHandler {
 
     /**
      * Initializes an object, linked to the given database. Can process CSVs and add single entries
+     *
      * @param db
      */
     public RouteDataHandler(SQLiteDB db) {
@@ -102,6 +103,7 @@ public class RouteDataHandler implements DataHandler {
 
     /**
      * Takes a full list of parameters for an element in the table and adds that to the database using a PreparedStatement
+     *
      * @param tripduration
      * @param start_year
      * @param start_month

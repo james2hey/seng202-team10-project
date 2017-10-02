@@ -1,7 +1,6 @@
 package dataManipulation;
 
 import dataHandler.SQLiteDB;
-import main.Main;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -23,13 +22,13 @@ public class UpdateData {
      * the bikeID, year, month, day and time parameters as these are the primary keys for the route_information table
      * in the database.
      *
-     * @param field of type String, this is the field in that database to be updated
-     * @param value of type String, this is the new value that will replace the current value in the stated field
+     * @param field  of type String, this is the field in that database to be updated
+     * @param value  of type String, this is the new value that will replace the current value in the stated field
      * @param bikeID of type String, this is the bikeID value for the route to be updated
-     * @param year of type String, this is the startYear value for the route to be updated
-     * @param month of type String, this is the startMonth value for the route to be updated
-     * @param day of type String, this is the startDay value for the route to be updated
-     * @param time of type String, this is the startTime value for the route to be updated
+     * @param year   of type String, this is the startYear value for the route to be updated
+     * @param month  of type String, this is the startMonth value for the route to be updated
+     * @param day    of type String, this is the startDay value for the route to be updated
+     * @param time   of type String, this is the startTime value for the route to be updated
      */
     public static void updateRouteField(String field, String value, String bikeID, String year, String month, String day, String time) {
         String sqlCommand = "UPDATE route_information SET " + field + " = ? WHERE " +
@@ -58,8 +57,8 @@ public class UpdateData {
      * the wifiID parameter as this is the primary key for the wifi_location table
      * in the database.
      *
-     * @param field of type String, this is the field in that database to be updated
-     * @param value of type String, this is the new value that will replace the current value in the stated field
+     * @param field  of type String, this is the field in that database to be updated
+     * @param value  of type String, this is the new value that will replace the current value in the stated field
      * @param wifiID of type String, this is the wifiID field for the wifi location to be updated
      */
     public static void updateWifiField(String field, String value, String wifiID) {
@@ -84,9 +83,9 @@ public class UpdateData {
      * identified using the name and address parameters as these are the primary keys for the retailer table in the
      * database.
      *
-     * @param field of type String, this is the field in that database to be updated
-     * @param value of type String, this is the new value that will replace the current value in the stated field
-     * @param name of type String, this is the name value of the retail location to be updated
+     * @param field   of type String, this is the field in that database to be updated
+     * @param value   of type String, this is the new value that will replace the current value in the stated field
+     * @param name    of type String, this is the name value of the retail location to be updated
      * @param address of type String, this is the address value of the retail location to be updated
      */
     public static void updateRetailerField(String field, String value, String name, String address) {

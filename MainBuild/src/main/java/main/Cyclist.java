@@ -10,20 +10,17 @@ import dataHandler.SQLiteDB;
 
 import java.util.ArrayList;
 
-import static org.apache.commons.text.WordUtils.capitalizeFully;
-
 /**
  * The user of the program gets an instance of this is created for each user. It contains all the users
  * favourite routes, stations, retail stores and wifi locations.
  */
 public class Cyclist {
-    public ArrayList<Route> favouriteRouteList = new ArrayList<Route>();
-    private ArrayList<RetailLocation> favouriteRetailLocations = new ArrayList<RetailLocation>();
-    private ArrayList<WifiLocation> favouriteWifiLocations = new ArrayList<WifiLocation>();
-
     static public String name;
     static private int bday, bmonth, byear;
     static private int gender, distanceCycled;   // 0 other, 1 male, 2 female
+    private ArrayList<Route> favouriteRouteList = new ArrayList<Route>();
+    private ArrayList<RetailLocation> favouriteRetailLocations = new ArrayList<RetailLocation>();
+    private ArrayList<WifiLocation> favouriteWifiLocations = new ArrayList<WifiLocation>();
 
     public Cyclist() {
     }
@@ -33,6 +30,44 @@ public class Cyclist {
     }
 
     //Getters
+
+    static public int getBirthYear() {
+        return byear;
+    }
+
+    static public int getBmonth() {
+        return bmonth;
+    }
+
+    static public int getBDay() {
+        return bday;
+    }
+
+    static public String getBirthDay() {
+        return bday + "/" + bmonth + "/" + byear;
+    }
+
+    static public int getGender() {
+        return gender;
+    }
+
+    static public void setGender(int inputGender) {
+        gender = inputGender;
+    }
+
+    static public String getName() {
+        return name;
+    }
+
+    static public void setName(String newName) {
+        name = newName;
+    }
+
+    static public void setBirthday(int day, int month, int year) {
+        bday = day;
+        bmonth = month;
+        byear = year;
+    }
 
     public ArrayList<WifiLocation> getFavouriteWifiLocations() {
         return favouriteWifiLocations;
@@ -46,43 +81,27 @@ public class Cyclist {
         return favouriteRouteList;
     }
 
-    static public int getBirthYear() {return byear;}
-
-    static public int getBmonth() {return bmonth;}
-
-    static public int getBDay() {return bday;}
-
-    static public String getBirthDay() {return bday + "/" + bmonth + "/" + byear;}
-
-    static public int getGender() {return gender;}
-
-    static public String getName() {
-        return name;
+    public int getDistanceCycled() {
+        return distanceCycled;
     }
 
-    public int getDistanceCycled() {return distanceCycled;}
-
-    static public void setBirthday(int day, int month, int year) {
-        bday = day;
-        bmonth = month;
-        byear = year;
+    public void setDistanceCycled(int distance) {
+        distanceCycled = distance;
     }
-
-    static public void setGender(int inputGender) {gender = inputGender;}
-
-    static public void setName(String newName) {name = newName;}
-
-    public void setDistanceCycled(int distance) {distanceCycled = distance;}
 
     /**
      * Adds distance to the cyclists total distance count.
+     *
      * @param extraDistance the distance to be added to the total distance
      */
-    public void addDistanceCycled(int extraDistance) {distanceCycled += extraDistance;}
+    public void addDistanceCycled(int extraDistance) {
+        distanceCycled += extraDistance;
+    }
 
 
     /**
      * Adds a route to the cyclists favouriteRoute list.
+     *
      * @param route the route to be added
      */
     public void addRouteInstance(Route route) {
@@ -92,6 +111,7 @@ public class Cyclist {
 
     /**
      * Adds a wifi location to the cyclists favouriteWifiLocation list.
+     *
      * @param wifi the wifi location to be added
      */
     public void addWifiInstance(WifiLocation wifi) {
@@ -101,6 +121,7 @@ public class Cyclist {
 
     /**
      * Adds a retail store to the cyclists favouriteRetailLocation list.
+     *
      * @param retail
      */
     public void addRetailInstance(RetailLocation retail) {
@@ -119,10 +140,11 @@ public class Cyclist {
 
     /**
      * Adds a Route to the Users routeList if it is not already in it.
+     *
      * @param route the route to be added
-     * @param name the username of whose favourite route this is
-     * @param rank the rank score which the user gives. If none is given it is set to 0
-     * @param db the database's favourite_route table that is to have the row added.
+     * @param name  the username of whose favourite route this is
+     * @param rank  the rank score which the user gives. If none is given it is set to 0
+     * @param db    the database's favourite_route table that is to have the row added.
      */
     public void addRoute(Route route, String name, int rank, SQLiteDB db, HandleUsers hu) {
         favouriteRouteList.add(route);
@@ -134,13 +156,13 @@ public class Cyclist {
 
     /**
      * Checks to see if a route is already in the cyclists favouriteRoute list.
+     *
      * @param route the route to be checked if it is already in the list
      * @return true if it is already in the list, otherwise false
      */
     public boolean routeAlreadyInList(Route route) {
         boolean alreadyInList = false;
-        for (int i = 0; i < favouriteRouteList.size(); i++) {
-            Route tempRoute = favouriteRouteList.get(i);
+        for (Route tempRoute : favouriteRouteList) {
             if (route.getStartYear().equals(tempRoute.getStartYear()) && route.getStartMonth().equals(tempRoute.getStartMonth()) &&
                     route.getStartDay().equals(tempRoute.getStartDay()) && route.getStartTime().equals(tempRoute.getStartTime()) &&
                     route.getBikeID().equals(tempRoute.getBikeID())) {
@@ -161,8 +183,7 @@ public class Cyclist {
      */
     public boolean addFavouriteRetail(RetailLocation retail, String name, SQLiteDB db) {
         boolean alreadyInList = false;
-        for (int i = 0; i < favouriteRetailLocations.size(); i++) {
-            RetailLocation tempRetail = favouriteRetailLocations.get(i);
+        for (RetailLocation tempRetail : favouriteRetailLocations) {
             if (retail.getName().equals(tempRetail.getName()) && retail.getAddress().equals(tempRetail.getAddress())) {
                 alreadyInList = true;
                 break;
@@ -186,9 +207,8 @@ public class Cyclist {
      */
     public boolean addFavouriteWifi(WifiLocation wifi, String name, SQLiteDB db) {
         boolean alreadyInList = false;
-        for (int i = 0; i < favouriteWifiLocations.size(); i++) {
-            WifiLocation tempWifi = favouriteWifiLocations.get(i);
-            if (wifi.getWifiID() == tempWifi.getWifiID()) {
+        for (WifiLocation tempWifi : favouriteWifiLocations) {
+            if (wifi.getWifiID().equals(tempWifi.getWifiID())) {
                 alreadyInList = true;
                 break;
             }

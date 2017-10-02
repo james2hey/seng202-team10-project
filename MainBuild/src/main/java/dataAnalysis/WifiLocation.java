@@ -3,7 +3,7 @@ package dataAnalysis;
 import dataManipulation.UpdateData;
 
 /**
- *  Stores the data about a wifi hotspot.
+ * Stores the data about a wifi hotspot.
  */
 
 
@@ -30,28 +30,9 @@ public class WifiLocation extends Location {
     }
 
     // Getters
-    public int getZip() {return zip;}
-
-    public String getAddress() {return address;}
-
-    public String getProvider() {return provider;}
-
-    public String getSuburb() {return suburb;}
-
-    public String getCost() {return cost;}
-
-    public String getSSID() {return SSID;}
-
-    public String getRemarks() {return remarks;}
-
-    public String getCity() {return city;}
-
-    public String  getWifiID() {return  wifiID;}
-
-    public double getLatitude() {return latitude;}
-
-    public double getLongitude() {return longitude;}
-
+    public int getZip() {
+        return zip;
+    }
 
     // Setters
     public void setZip(int newZip) {
@@ -61,11 +42,19 @@ public class WifiLocation extends Location {
         }
     }
 
+    public String getAddress() {
+        return address;
+    }
+
     public void setAddress(String newAddress) {
         if (!newAddress.equals(address)) {
             address = newAddress;
             UpdateData.updateWifiField("address", address, wifiID);
         }
+    }
+
+    public String getProvider() {
+        return provider;
     }
 
     public void setProvider(String newProvider) {
@@ -75,11 +64,19 @@ public class WifiLocation extends Location {
         }
     }
 
+    public String getSuburb() {
+        return suburb;
+    }
+
     public void setSuburb(String newSuburb) {
         if (!newSuburb.equals(suburb)) {
             suburb = newSuburb;
             UpdateData.updateWifiField("suburb", suburb, wifiID);
         }
+    }
+
+    public String getCost() {
+        return cost;
     }
 
     public void setCost(String newCost) {
@@ -89,11 +86,19 @@ public class WifiLocation extends Location {
         }
     }
 
+    public String getSSID() {
+        return SSID;
+    }
+
     public void setSSID(String newSSID) {
         if (!newSSID.equals(SSID)) {
             SSID = newSSID;
             UpdateData.updateWifiField("ssid", SSID, wifiID);
         }
+    }
+
+    public String getRemarks() {
+        return remarks;
     }
 
     public void setRemarks(String newRemark) {
@@ -103,6 +108,10 @@ public class WifiLocation extends Location {
         }
     }
 
+    public String getCity() {
+        return city;
+    }
+
     public void setCity(String newCity) {
         if (!newCity.equals(city)) {
             city = newCity;
@@ -110,11 +119,23 @@ public class WifiLocation extends Location {
         }
     }
 
+    public String getWifiID() {
+        return wifiID;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
     public void setLatitude(double newLat) {
         if (newLat != latitude) {
             latitude = newLat;
             UpdateData.updateWifiField("lat", Double.toString(latitude), wifiID);
         }
+    }
+
+    public double getLongitude() {
+        return longitude;
     }
 
     public void setLongitude(double newLong) {

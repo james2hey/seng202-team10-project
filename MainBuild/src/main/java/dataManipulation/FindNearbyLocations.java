@@ -61,8 +61,8 @@ public class FindNearbyLocations {
      * that fall between these values. Returns the result set. A null pointer exception may occur if no data has
      * been added to the database. In this case, an error message is created to inform the user.
      *
-     * @param lowerLat of type Double. A number describing a latitude value
-     * @param upperLat of type Double. A number describing a latitude value
+     * @param lowerLat  of type Double. A number describing a latitude value
+     * @param upperLat  of type Double. A number describing a latitude value
      * @param lowerLong of type Double. A number describing a latitude value
      * @param upperLong of type Double. A number describing a latitude value
      * @return result set of wifi data entries from the query to the database
@@ -120,8 +120,8 @@ public class FindNearbyLocations {
      * that fall between these values. Returns the result set. A null pointer exception may occur if no data has been
      * put into the database yet, so a try and catch bracket is used to inform the user of this.
      *
-     * @param lowerLat of type Double. A number describing a latitude value
-     * @param upperLat of type Double. A number describing a latitude value
+     * @param lowerLat  of type Double. A number describing a latitude value
+     * @param upperLat  of type Double. A number describing a latitude value
      * @param lowerLong of type Double. A number describing a latitude value
      * @param upperLong of type Double. A number describing a latitude value
      * @return result set of retail data entries from the query to the database

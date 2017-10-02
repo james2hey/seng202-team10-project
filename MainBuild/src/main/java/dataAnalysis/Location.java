@@ -12,7 +12,8 @@ public abstract class Location {
     public double latitude, longitude;
     public String name, address;
 
-    public Location(){}
+    public Location() {
+    }
 
     public Location(double latitude, double longitude, String name, String address, int number) {
         this.latitude = latitude;
@@ -46,13 +47,21 @@ public abstract class Location {
         this.name = name;
     }
 
-    public String getAddress() { return address;}
+    public String getAddress() {
+        return address;
+    }
 
-    public void setAddress(String address) {this.address = address;}
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
-    public int getNumber() {return number;}
+    public int getNumber() {
+        return number;
+    }
 
-    public void setNumber(int number) {this.number = number;}
+    public void setNumber(int number) {
+        this.number = number;
+    }
 
     public String getString() {
         String la = Double.toString(latitude);
@@ -64,6 +73,7 @@ public abstract class Location {
      * Defines the hashCode function.
      * Allows for hashsets that don't collide on the same points
      * Collides if the other location has same lat, lon, and name
+     *
      * @return A hash value
      */
     public int hashCode() {
@@ -77,11 +87,12 @@ public abstract class Location {
     /**
      * Defines the equals functions, allowing for easy equality testing
      * Fails if the other location has same lat, lon, and name
+     *
      * @param obj The object to compare
      * @return Equality boolean
      */
     public boolean equals(Object obj) {
-        if (!( obj instanceof Location)) {
+        if (!(obj instanceof Location)) {
             return false;
         }
         if (obj == this) {

@@ -36,31 +36,21 @@ import java.util.ResourceBundle;
 
 public class PlanRouteController extends Controller implements Initializable, MapComponentInitializedListener, DirectionsServiceCallback {
 
-    private double STARTLAT = 40.745968;
-    private double STARTLON = -73.994039;
-
-
     @FXML
     protected TextField startAddressField;
-
     @FXML
     protected TextField endAddressField;
-
     @FXML
     protected GoogleMapView mapView;
-
+    protected DirectionsService directionsService;
+    protected DirectionsPane directionsPane;
+    protected DirectionsRenderer directionsRenderer;
+    private double STARTLAT = 40.745968;
+    private double STARTLON = -73.994039;
     @FXML
     private Button nearbyWifiButton;
-
     @FXML
     private Button nearbyRetailerButton;
-
-    protected DirectionsService directionsService;
-
-    protected DirectionsPane directionsPane;
-
-    protected DirectionsRenderer directionsRenderer;
-
     private GeocodingService geocodingService;
 
     private GoogleMap map;
@@ -118,7 +108,8 @@ public class PlanRouteController extends Controller implements Initializable, Ma
     /**
      * Called when the fxml is loaded. Initialises the start and end address text fields so they cna be used to
      * create routes.
-     * @param location Location of the fxml
+     *
+     * @param location  Location of the fxml
      * @param resources Locale-specific data required for the method to run automatically
      */
     @Override
@@ -132,6 +123,7 @@ public class PlanRouteController extends Controller implements Initializable, Ma
 
     /**
      * Called when enter key is pressed from inside the address textfields. Requests a route and loads it on the map.
+     *
      * @param event Created when the method is called
      */
     @FXML
@@ -147,8 +139,9 @@ public class PlanRouteController extends Controller implements Initializable, Ma
     /**
      * Called when a route is created. It gets the start and end location latitude and longitude to find the mid point
      * of the route. This can then be used to find nearby retailers and wifi locations.
+     *
      * @param results The directions the route takes
-     * @param status default constructor when collecting route directions
+     * @param status  default constructor when collecting route directions
      */
     @Override
     public void directionsReceived(DirectionsResult results, DirectionStatus status) {
@@ -275,8 +268,7 @@ public class PlanRouteController extends Controller implements Initializable, Ma
             currentEnd = route.getEndAddress();
             DirectionsRequest request = new DirectionsRequest(route.getStartAddress(), route.getEndAddress(), TravelModes.BICYCLING);
             directionsService.getRoute(request, this, directionsRenderer);
-        }
-        else {
+        } else {
 
             for (Route route : routes) {
                 MarkerOptions options = new MarkerOptions();
@@ -349,6 +341,7 @@ public class PlanRouteController extends Controller implements Initializable, Ma
 
     /**
      * Adds a list of wifi locations to the map.
+     *
      * @param wifiLocations A list of wifi locations
      */
     public void addWifiLocations(ArrayList<WifiLocation> wifiLocations) {
@@ -369,6 +362,7 @@ public class PlanRouteController extends Controller implements Initializable, Ma
 
     /**
      * Adds a list of retailers to the map.
+     *
      * @param retailLocations List of retailers to be added to the map
      */
     public void addRetailLocations(ArrayList<RetailLocation> retailLocations) {
@@ -389,6 +383,7 @@ public class PlanRouteController extends Controller implements Initializable, Ma
 
     /**
      * Adds a list of routes to the map.
+     *
      * @param routes List of routes to be added to the map.
      */
     public void addRoutes(ArrayList<Route> routes) {
@@ -459,6 +454,7 @@ public class PlanRouteController extends Controller implements Initializable, Ma
     /**
      * Changes the scene to the add data scene while pre-loading the start and end address that was being viewed
      * on the map.
+     *
      * @param event Created when the method is called
      * @throws IOException Handles errors caused by an fxml not loading correctly
      */

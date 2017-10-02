@@ -21,75 +21,52 @@ import static javafx.scene.paint.Color.*;
 
 public class DetailedRouteInformation extends RouteDataViewerController {
 
+    static private ActionEvent mainAppEvent = null;
     @FXML
     private ComboBox<String> gender;
-
     @FXML
     private JFXTextField startMonth;
-
     @FXML
     private JFXTextField startAddress;
-
     @FXML
     private JFXTextField startDay;
-
     @FXML
     private JFXTextField startYear;
-
     @FXML
     private JFXTextField bikeID;
-
     @FXML
     private JFXTextField endLatitude;
-
     @FXML
     private JFXTextField endYear;
-
     @FXML
     private JFXTextField startLatitude;
-
     @FXML
     private JFXTextField cyclistBirthYear;
-
     @FXML
     private JFXTextField endDay;
-
     @FXML
     private JFXTextField endLongitude;
-
     @FXML
     private JFXTextField endStationID;
-
     @FXML
     private JFXTextField startTime;
-
     @FXML
     private JFXTextField userType;
-
     @FXML
     private JFXTextField endTime;
-
     @FXML
     private JFXTextField startLongitude;
-
     @FXML
     private JFXTextField startStationID;
-
     @FXML
     private JFXTextField tripDuration;
-
     @FXML
     private JFXTextField endMonth;
-
     @FXML
     private JFXTextField endAddress;
-
     @FXML
     private Button update;
-
     private Route currentRoute = null;
-
-    static private ActionEvent mainAppEvent = null;
 
     static public void setMainAppEvent(ActionEvent event) {
         mainAppEvent = event;
@@ -98,7 +75,7 @@ public class DetailedRouteInformation extends RouteDataViewerController {
     /**
      * Called upon successful opening on the stage. This fills the text fields with the currently stored values of each.
      *
-     * @param location Location of the fxml
+     * @param location  Location of the fxml
      * @param resources Locale-specific data required for the method to run automatically
      */
     @FXML
@@ -151,7 +128,7 @@ public class DetailedRouteInformation extends RouteDataViewerController {
      * @throws IOException Handles errors caused by an fxml not loading correctly
      */
     @FXML
-    void updateValues(ActionEvent event) throws IOException{
+    void updateValues(ActionEvent event) throws IOException {
         try {
             System.out.println("Update button clicked");
             currentRoute.setStartAddress(startAddress.getText());
@@ -389,9 +366,9 @@ public class DetailedRouteInformation extends RouteDataViewerController {
         startStationID.textProperty().addListener(((observable, oldValue, newValue) -> {
             System.out.println("TextField Text Changed (newValue: " + newValue + ")");
             if (!startStationID.getText().matches("[0-9]*") || startStationID.getText().length() > 6) {
-                    startStationID.setFocusColor(RED);
-                    startStationID.setUnFocusColor(RED);
-                    update.setDisable(true);
+                startStationID.setFocusColor(RED);
+                startStationID.setUnFocusColor(RED);
+                update.setDisable(true);
             } else {
                 startStationID.setFocusColor(DARKSLATEBLUE);
                 startStationID.setUnFocusColor(GREEN);

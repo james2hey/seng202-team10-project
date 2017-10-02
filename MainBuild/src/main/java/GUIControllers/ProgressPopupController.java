@@ -1,6 +1,5 @@
 package GUIControllers;
 
-import javafx.beans.property.StringProperty;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -36,7 +35,7 @@ public class ProgressPopupController extends Controller implements Initializable
     public void initialize(URL location, ResourceBundle resources) {
     }
 
-    public void activateProgressBar(final Task<?> task)  {
+    public void activateProgressBar(final Task<?> task) {
         progressBar.progressProperty().bind(task.progressProperty());
         text.textProperty().bind(task.messageProperty());
         ok.disableProperty().bind(task.runningProperty());

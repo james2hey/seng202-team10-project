@@ -32,10 +32,12 @@ public class StartUpController extends Controller implements Initializable {
 
     @FXML
     private ComboBox<String> comboBox;
-
+    @FXML
+    private TextField userday, usermonth, useryear;
+    @FXML
+    private ComboBox<String> usergender;
 
     /**
-     *
      * @param location;
      * @param resources;
      */
@@ -52,17 +54,11 @@ public class StartUpController extends Controller implements Initializable {
         }
     }
 
-    @FXML
-    private TextField userday, usermonth, useryear;
-
-    @FXML
-    private ComboBox<String> usergender;
-
-
     /**
      * Creates new Cyclist instance with the given user name if it doesn't already exist in the database. Otherwise
      * it creates an error dialog box informing the use this name is already taken. Also throws error dialog boxes
      * for having no entries for a log in field or any incorrectly formatted dates.
+     *
      * @param event clicking the sign up button
      * @throws IOException
      */
@@ -108,6 +104,7 @@ public class StartUpController extends Controller implements Initializable {
 
     /**
      * Logs user from the existingUser text field in, and takes them to the home screen.
+     *
      * @param event clicking the sign in button
      * @throws IOException
      */
@@ -126,6 +123,7 @@ public class StartUpController extends Controller implements Initializable {
 
     /**
      * Navigates the user to the home screen.
+     *
      * @param event clicking the home button
      * @throws IOException
      */
@@ -138,6 +136,7 @@ public class StartUpController extends Controller implements Initializable {
 
     /**
      * Displays the help screen.
+     *
      * @param event clicking the help button
      * @throws IOException
      */

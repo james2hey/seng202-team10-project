@@ -14,49 +14,36 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static javafx.scene.paint.Color.DARKSLATEBLUE;
-import static javafx.scene.paint.Color.GREEN;
-import static javafx.scene.paint.Color.RED;
+import static javafx.scene.paint.Color.*;
 
 /**
  * Controller for the detailed retailer information fxml.
  */
 
-public class DetailedRetailerInformation extends DataViewerController{
-
-    @FXML
-    private JFXTextField zip;
-
-    @FXML
-    private JFXTextField secondaryType;
-
-    @FXML
-    private JFXTextField address;
-
-    @FXML
-    private JFXTextField retailerName;
-
-    @FXML
-    private JFXTextField latitude;
-
-    @FXML
-    private JFXTextField city;
-
-    @FXML
-    private JFXTextField state;
-
-    @FXML
-    private ComboBox<String> mainType;
-
-    @FXML
-    private JFXTextField longitude;
-
-    @FXML
-    private Button update;
-
-    private RetailLocation currentRetailer = null;
+public class DetailedRetailerInformation extends DataViewerController {
 
     static private ActionEvent mainAppEvent = null;
+    @FXML
+    private JFXTextField zip;
+    @FXML
+    private JFXTextField secondaryType;
+    @FXML
+    private JFXTextField address;
+    @FXML
+    private JFXTextField retailerName;
+    @FXML
+    private JFXTextField latitude;
+    @FXML
+    private JFXTextField city;
+    @FXML
+    private JFXTextField state;
+    @FXML
+    private ComboBox<String> mainType;
+    @FXML
+    private JFXTextField longitude;
+    @FXML
+    private Button update;
+    private RetailLocation currentRetailer = null;
 
     static public void setMainAppEvent(ActionEvent event) {
         mainAppEvent = event;
@@ -66,7 +53,7 @@ public class DetailedRetailerInformation extends DataViewerController{
     /**
      * Called on start up and initialises the values in each of the editable and non-editable fields.
      *
-     * @param location Location of the fxml
+     * @param location  Location of the fxml
      * @param resources Locale-specific data required for the method to run automatically
      */
     @FXML
@@ -98,7 +85,7 @@ public class DetailedRetailerInformation extends DataViewerController{
      * @throws IOException Handles errors caused by an fxml not loading correctly
      */
     @FXML
-    void updateValues(ActionEvent event) throws IOException{
+    void updateValues(ActionEvent event) throws IOException {
         try {
             currentRetailer.setAddress(address.getText());
             currentRetailer.setLatitude(Double.parseDouble(latitude.getText()));

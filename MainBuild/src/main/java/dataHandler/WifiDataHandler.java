@@ -7,34 +7,35 @@ import java.sql.SQLException;
  * Created by jes143 on 17/09/17.
  */
 public class WifiDataHandler implements DataHandler {
-    SQLiteDB db;
+    private SQLiteDB db;
 
-    String[] fields =
-          { "WIFI_ID    VARCHAR(20) NOT NULL" ,
-            "COST       VARCHAR(12)" ,
-            "PROVIDER   VARCHAR(20)" ,
-            "ADDRESS    VARCHAR(50)" ,
-            "LAT        NUMERIC(9,6) NOT NULL" ,
-            "LON        NUMERIC(9,6) NOT NULL" ,
-            "REMARKS    VARCHAR(50)" ,
-            "CITY       VARCHAR(8)" ,
-            "SSID       VARCHAR(50) NOT NULL" ,
-            "SUBURB     VARCHAR(20)" ,
-            "ZIP        VARCHAR(8)"};
+    private String[] fields =
+            {"WIFI_ID    VARCHAR(20) NOT NULL",
+                    "COST       VARCHAR(12)",
+                    "PROVIDER   VARCHAR(20)",
+                    "ADDRESS    VARCHAR(50)",
+                    "LAT        NUMERIC(9,6) NOT NULL",
+                    "LON        NUMERIC(9,6) NOT NULL",
+                    "REMARKS    VARCHAR(50)",
+                    "CITY       VARCHAR(8)",
+                    "SSID       VARCHAR(50) NOT NULL",
+                    "SUBURB     VARCHAR(20)",
+                    "ZIP        VARCHAR(8)"};
 
-    String primaryKey = "WIFI_ID";
-    String tableName = "wifi_location";
+    private String primaryKey = "WIFI_ID";
+    private String tableName = "wifi_location";
 
-    PreparedStatement addData;
-    String addDataStatement = "insert or fail into wifi_location values(?,?,?,?,?,?,?,?,?,?,?)";
+    private PreparedStatement addData;
+    private String addDataStatement = "insert or fail into wifi_location values(?,?,?,?,?,?,?,?,?,?,?)";
 
     private int fieldCount = 29;
 
     /**
      * Initializes an object, linked to the given database. Can process CSVs and add single entries
+     *
      * @param db
      */
-    public WifiDataHandler (SQLiteDB db) {
+    public WifiDataHandler(SQLiteDB db) {
         this.db = db;
         db.addTable(tableName, fields, primaryKey);
         addData = db.getPreparedStatement(addDataStatement);
@@ -42,6 +43,7 @@ public class WifiDataHandler implements DataHandler {
 
     /**
      * Processes a CSV line and adds to the database if valid.
+     *
      * @param record A string array of object corresponding to the CSV
      * @return A bool stating the success state of the process.
      */
@@ -65,6 +67,7 @@ public class WifiDataHandler implements DataHandler {
 
     /**
      * Takes a full list of parameters for an element in the table and adds that to the database using a PreparedStatement
+     *
      * @param ID
      * @param COST
      * @param PROVIDER
@@ -80,7 +83,7 @@ public class WifiDataHandler implements DataHandler {
      */
     public Boolean addSingleEntry(
             String ID, String COST, String PROVIDER, String ADDRESS, double LAT, double LONG,
-            String REMARKS,String CITY, String SSID, String SUBURB, String ZIP) {
+            String REMARKS, String CITY, String SSID, String SUBURB, String ZIP) {
         try {
             addData.setObject(1, ID);
             addData.setObject(2, COST);
@@ -95,7 +98,7 @@ public class WifiDataHandler implements DataHandler {
             addData.setObject(11, ZIP);
             addData.executeUpdate();
             return true;
-        } catch (SQLException e ) {
+        } catch (SQLException e) {
             addData = db.getPreparedStatement(addDataStatement);
             System.out.println(e.getMessage());
             return false;

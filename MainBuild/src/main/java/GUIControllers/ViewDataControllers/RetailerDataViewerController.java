@@ -31,44 +31,31 @@ import java.util.ResourceBundle;
  */
 public class RetailerDataViewerController extends DataViewerController {
 
+    static private RetailLocation retailer = null;
     @FXML
     private JFXTextField streetInput;
-
     @FXML
     private ComboBox<String> primaryInput;
-
     @FXML
     private TableView<RetailLocation> tableView;
-
     @FXML
     private JFXTextField nameInput;
-
     @FXML
     private JFXDrawer drawer;
-
     @FXML
     private JFXTextField zipInput;
-
     @FXML
     private JFXHamburger hamburger;
-
     @FXML
     private TableColumn<RetailLocation, String> Name;
-
     @FXML
     private TableColumn<RetailLocation, String> Address;
-
     @FXML
     private TableColumn<RetailLocation, Integer> Zip;
-
     @FXML
     private TableColumn<RetailLocation, String> PrimaryType;
-
     private ObservableList<RetailLocation> retailList = FXCollections.observableArrayList();
-
     private ArrayList<RetailLocation> retailLocations = new ArrayList<RetailLocation>();
-
-    static private RetailLocation retailer = null;
 
     static public RetailLocation getRetailer() {
         return retailer;
@@ -79,7 +66,7 @@ public class RetailerDataViewerController extends DataViewerController {
      * Runs on successfully loading up and fills the table with data currently stored in the database.
      * It then calls displayData() to visually display these.
      *
-     * @param location Location of the fxml
+     * @param location  Location of the fxml
      * @param resources Locale-specific data required for the method to run automatically
      */
     @FXML
@@ -175,8 +162,8 @@ public class RetailerDataViewerController extends DataViewerController {
         DataFilterer filterer = new DataFilterer(Main.getDB());
         retailLocations = filterer.filterRetailers(name, address, primaryType, zip);
         System.out.println("Got data");
-        for (int i = 0; i < retailLocations.size(); i++) {
-            System.out.println(retailLocations.get(i).getName());
+        for (RetailLocation retailLocation : retailLocations) {
+            System.out.println(retailLocation.getName());
         }
         tableView.getItems().clear();
         retailList.addAll(retailLocations);
@@ -200,7 +187,7 @@ public class RetailerDataViewerController extends DataViewerController {
             } else {
                 makeErrorDialogueBox(retailToAdd.getName() + " already in favourites", "This retail store has already been " +
                         "added\nto this users favourites list.");
-                }
+            }
         }
     }
 
@@ -213,7 +200,7 @@ public class RetailerDataViewerController extends DataViewerController {
      * @throws IOException
      */
     @FXML
-    void editData(ActionEvent event) throws IOException{
+    void editData(ActionEvent event) throws IOException {
 
         if (tableView.getSelectionModel().getSelectedItem() == null) {
             makeErrorDialogueBox("No retailer selected.", "Please select a retailer from the table.");

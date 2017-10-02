@@ -1,6 +1,5 @@
 package main;
 
-import GUIControllers.HomeController;
 import dataHandler.*;
 import dataManipulation.FindNearbyLocations;
 import dataManipulation.UpdateData;
@@ -11,12 +10,13 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.net.URL;
-
 public class Main extends Application {
-    static SQLiteDB db;
     public static HandleUsers hu;
+    static SQLiteDB db;
+
+    public static SQLiteDB getDB() {
+        return db;
+    }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -43,10 +43,6 @@ public class Main extends Application {
 
         primaryStage.setScene(new Scene(root, 1100, 650));
         primaryStage.show();
-    }
-
-    public static SQLiteDB getDB() {
-        return db;
     }
 
 }

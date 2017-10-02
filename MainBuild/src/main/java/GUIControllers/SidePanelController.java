@@ -2,15 +2,9 @@ package GUIControllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.stage.Stage;
-import main.Cyclist;
-import main.Main;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import main.Main;
 
 import java.io.IOException;
 import java.net.URL;
@@ -20,7 +14,7 @@ import java.util.ResourceBundle;
  * Controller class for the side panel.
  */
 
-public class SidePanelController extends Controller implements Initializable{
+public class SidePanelController extends Controller implements Initializable {
 
     @FXML
     private Button addDataButton;
@@ -42,7 +36,8 @@ public class SidePanelController extends Controller implements Initializable{
 
     /**
      * Runs on loading the side panel. Sets the username for the logout button.
-     * @param location Location of the fxml
+     *
+     * @param location  Location of the fxml
      * @param resources Locale-specific data required for the method to run automatically
      */
     @Override
@@ -54,11 +49,12 @@ public class SidePanelController extends Controller implements Initializable{
 
     /**
      * Opens the help menu.
+     *
      * @param event Created when the method is called
      * @throws IOException Handles errors caused by an fxml not loading correctly
      */
     @FXML
-    void openHelpStage(ActionEvent event) throws IOException{
+    void openHelpStage(ActionEvent event) throws IOException {
         getHelp(event);
     }
 

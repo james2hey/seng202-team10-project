@@ -12,9 +12,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.text.Text;
-import javafx.stage.*;
+import javafx.stage.FileChooser;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import main.HelperFunctions;
 import main.Main;
 
@@ -29,42 +35,44 @@ import java.util.ResourceBundle;
  */
 public class AddDataController extends Controller implements Initializable {
 
-    @FXML //This importButton reveals other buttons
-    private Button importRoute, importRetailer, importWifi;
-
-    @FXML // Route Errors
-    private Text sTimeError, sDateError, eTimeError, eDateError;
-
-    @FXML //Route Fields
-    private JFXTextField rSAddress, rEAddress, rSTime, rETime;
-
-    @FXML // Retailer Fields
-    private JFXTextField retailerName, retailerAddress, retailerSec;
-
-    @FXML
-    private ComboBox retailerPrim;
-
-    @FXML
-    private DatePicker rSDate, rEDate;
-
-    @FXML // Wifi Fields
-    private JFXTextField wifiName, wifiAddress, wifiPostcode, wifiComments;
-
-    @FXML
-    private JFXDrawer drawer;
-
-    @FXML
-    private Text selectMessage;
-
-    private SQLiteDB db;
     public static String startAddress = "";
     public static String endAddress = "";
+    @FXML //This importButton reveals other buttons
+    private Button importRoute, importRetailer, importWifi;
+    @FXML // Route Errors
+    private Text sTimeError, sDateError, eTimeError, eDateError;
+    @FXML //Route Fields
+    private JFXTextField rSAddress, rEAddress, rSTime, rETime;
+    @FXML // Retailer Fields
+    private JFXTextField retailerName, retailerAddress, retailerSec;
+    @FXML
+    private ComboBox retailerPrim;
+    @FXML
+    private DatePicker rSDate, rEDate;
+    @FXML // Wifi Fields
+    private JFXTextField wifiName, wifiAddress, wifiPostcode, wifiComments;
+    @FXML
+    private JFXDrawer drawer;
+    @FXML
+    private Text selectMessage;
+    private SQLiteDB db;
+
+    /**
+     * Sets values of address from the PlanRoute scene.
+     *
+     * @param newStartAddress Starting address for route.
+     * @param newEndAddress   Starting address for route.
+     */
+    public static void setRouteVals(String newStartAddress, String newEndAddress) {
+        startAddress = newStartAddress;
+        endAddress = newEndAddress;
+    }
 
     /**
      * Runs on successfully loading the fxml. This initialises the data handlers so that CSV's can be imported in
      * the future.
      *
-     * @param location Location of the fxml
+     * @param location  Location of the fxml
      * @param resources Locale-specific data required for the method to run automatically
      */
     public void initialize(URL location, ResourceBundle resources) {
@@ -80,20 +88,10 @@ public class AddDataController extends Controller implements Initializable {
     }
 
     /**
-     * Sets values of address from the PlanRoute scene.
-     *
-     * @param newStartAddress Starting address for route.
-     * @param newEndAddress Starting address for route.
-     */
-    public static void setRouteVals(String newStartAddress, String newEndAddress) {
-        startAddress = newStartAddress;
-        endAddress = newEndAddress;
-    }
-
-    /**
      * Collects, formats and checks for valid data input by user
      * to create a valid entry into the route section of the local database.
      * Contains calls to convertDates and routeDataHandler.
+     *
      * @param event Clicking the Add to Database button on the manual entry page.
      * @throws IOException
      */
@@ -384,7 +382,8 @@ public class AddDataController extends Controller implements Initializable {
      * @param event Clicking the Retailers button after Import File.
      * @throws IOException
      */
-    @FXML //Specifies file types.
+    @FXML
+    //Specifies file types.
     void chooseRetailer(ActionEvent event) throws IOException {
         boolean result = makeConfirmationDialogueBox("Warning! Depending on file size, this may take a few minutes.", "Are you sure you want to continue?");
         if (result) {
@@ -471,6 +470,7 @@ public class AddDataController extends Controller implements Initializable {
 
     /**
      * Changes the current scene to the wifi entry scene.
+     *
      * @param event Created when the method is called
      * @throws IOException Handles errors caused by an fxml not loading correctly
      */

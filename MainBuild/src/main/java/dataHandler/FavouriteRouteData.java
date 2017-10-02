@@ -23,12 +23,13 @@ public class FavouriteRouteData {
                     "rank         INTEGER"};
     private String primaryKey = "name, start_year, start_month, start_day, start_time, bikeid";
     private String tableName = "favourite_routes";
-    private  PreparedStatement addRoute;
-    private  String addRouteStatement = "insert or fail into favourite_routes values(?,?,?,?,?,?,?)";
+    private PreparedStatement addRoute;
+    private String addRouteStatement = "insert or fail into favourite_routes values(?,?,?,?,?,?,?)";
 
 
     /**
      * Initializes the database when creating an instance of the FavouriteRouteData.
+     *
      * @param db database the retail data is added to
      */
     public FavouriteRouteData(SQLiteDB db) {
@@ -40,13 +41,14 @@ public class FavouriteRouteData {
 
     /**
      * Adds the given name, start year, start month, start day, start time, bike ID and rank to the table.
-     * @param name name of the user
-     * @param start_year year the route started
+     *
+     * @param name        name of the user
+     * @param start_year  year the route started
      * @param start_month month the route started
-     * @param start_day day the route started
-     * @param start_time time the route started
-     * @param bike_id identification number of the bike
-     * @param rank rating of the route that the user has chosen
+     * @param start_day   day the route started
+     * @param start_time  time the route started
+     * @param bike_id     identification number of the bike
+     * @param rank        rating of the route that the user has chosen
      */
     public void addFavouriteRoute(String name, String start_year, String start_month, String start_day,
                                   String start_time, String bike_id, int rank, HandleUsers hu) {
@@ -71,6 +73,7 @@ public class FavouriteRouteData {
 
     /**
      * Deletes the given route from the database.
+     *
      * @param route the route to be deleted
      */
     public void deleteFavouriteRoute(Route route) {

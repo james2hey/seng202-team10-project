@@ -4,9 +4,6 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.Duration;
 
-import static GUIControllers.Controller.makeErrorDialogueBox;
-import static java.lang.Character.isLetter;
-
 /**
  * Created by jes143 on 22/09/17.
  * Includes some useful static helper functions that may be applicable to multiple classes and that don't fit anywhere
@@ -15,6 +12,7 @@ public class HelperFunctions {
 
     /**
      * Takes four doubles as two points and returns the distance between them. Uses the haversine formula as lat long coords are circle based.
+     *
      * @param lat1 Point 1 Lat
      * @param lng1 Point 1 Long
      * @param lat2 Point 2 Lat
@@ -35,6 +33,7 @@ public class HelperFunctions {
 
     /**
      * Converts a simple int of seconds to a formatted string that contains the number of days, hours, minutes and seconds.
+     *
      * @param seconds
      * @return A String of the format "wd, xh, ym, zs", that only includes values that are significant (drops leading zeros)
      */
@@ -46,11 +45,11 @@ public class HelperFunctions {
         String out = "";
         days = seconds / 86400;
         out += ((days != 0) ? days + "d, " : "");
-        hours = (seconds % 86400) / 3600 ;
+        hours = (seconds % 86400) / 3600;
         out += ((hours != 0 || days != 0) ? hours + "h, " : "");
-        mins = ((seconds % 86400) % 3600 ) / 60;
+        mins = ((seconds % 86400) % 3600) / 60;
         out += ((mins != 0 || days != 0 || hours != 0) ? mins + "m, " : "");
-        secs = (seconds % 86400  % 3600 ) % 60;
+        secs = (seconds % 86400 % 3600) % 60;
         out += secs + "s";
         //System.out.println(out);
         return out;
@@ -58,6 +57,7 @@ public class HelperFunctions {
 
     /**
      * Takes a series of strings and calculates the difference in times between the two. Ignore daylight savings time currently
+     *
      * @param start_year
      * @param start_month
      * @param start_day
@@ -69,7 +69,7 @@ public class HelperFunctions {
      * @return Difference in seconds
      */
     public static int getDuration(String start_year, String start_month, String start_day, String start_time,
-                           String end_year, String end_month, String end_day, String end_time) {
+                                  String end_year, String end_month, String end_day, String end_time) {
         String[] start_time_seperated = start_time.split(":");
         int start_hour = Integer.parseInt(start_time_seperated[0]);
         int start_min = Integer.parseInt(start_time_seperated[1]);
@@ -116,6 +116,7 @@ public class HelperFunctions {
 
     /**
      * Checks the validity of user time input.
+     *
      * @param time time to check
      * @return a boolean true if the time is valid, false otherwise
      */
@@ -132,9 +133,10 @@ public class HelperFunctions {
 
     /**
      * Checks that the date entered has a year between 1900-2017, month between 1-12 and day between 1-31.
-     * @param day the dates day
+     *
+     * @param day   the dates day
      * @param month the dates month_________________________________________________test this man
-     * @param year the dates year
+     * @param year  the dates year
      * @return
      */
     public static boolean checkDateDetails(int day, int month, int year) {
