@@ -72,28 +72,36 @@ public class UserInformationController extends Controller implements Initializab
     }
 
 
-
-    //holder so compilation is happy
+    /**
+     * Called when the update profile button is pressed. Gets the information currently in the GUI fields and sets the
+     * current users information to them. Alerts user of success/failure with dialogue boxes.
+     * @param event Created on pressing the button. Not used.
+     */
     @FXML
     void updateProfile(ActionEvent event) {
-        LocalDate newDOB = dob.getValue();
-        String newDOBString = newDOB.toString();
-        int newYear = Integer.parseInt(newDOBString.split("-")[0]);
-        int newMonth = Integer.parseInt(newDOBString.split("-")[1]);
-        int newDay = Integer.parseInt(newDOBString.split("-")[2]);
-        setBirthday(newDay, newMonth, newYear);
-        if (gender.getSelectionModel().getSelectedItem() == "Male") {
-            setGender(1);
-        } else if (gender.getSelectionModel().getSelectedItem() == "Female") {
-            setGender(2);
-        } else if (gender.getSelectionModel().getSelectedItem() == "Other") {
-            setGender(3);
-        } else {
-            setGender(0);
+        try {
+            LocalDate newDOB = dob.getValue();
+            String newDOBString = newDOB.toString();
+            int newYear = Integer.parseInt(newDOBString.split("-")[0]);
+            int newMonth = Integer.parseInt(newDOBString.split("-")[1]);
+            int newDay = Integer.parseInt(newDOBString.split("-")[2]);
+            setBirthday(newDay, newMonth, newYear);
+            if (gender.getSelectionModel().getSelectedItem() == "Male") {
+                setGender(1);
+            } else if (gender.getSelectionModel().getSelectedItem() == "Female") {
+                setGender(2);
+            } else if (gender.getSelectionModel().getSelectedItem() == "Other") {
+                setGender(3);
+            } else {
+                setGender(0);
+            }
+            setName(name.getText());
+            makeSuccessDialogueBox("Success!", "Your profile has been successfully updated.");
+        } catch (Exception e) {
+            makeErrorDialogueBox("Failed", "An error occurred while updating your profile.");
         }
-        setName(name.getText());
-        makeSuccessDialogueBox("Success!", "Your profile has been successfully updated.");
     }
+
 
     /**
      * Runs when the log out button is pressed. Changes the scene to the log in scene and signs out the current user.
