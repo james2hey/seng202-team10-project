@@ -8,9 +8,10 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane alignment="center" hgap="10" prefHeight="650.0" prefWidth="1100.0" style="-fx-background-color: grey;" vgap="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIControllers.AddDataController">
+<GridPane alignment="center" hgap="10" prefHeight="650.0" prefWidth="1100.0" style="-fx-background-color: grey; -fx-background-image: url(Images/sky.jpg);" vgap="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIControllers.AddDataController">
    <columnConstraints>
-      <ColumnConstraints maxWidth="800.0" minWidth="10.0" prefWidth="86.0" />
+      <ColumnConstraints maxWidth="800.0" minWidth="0.0" prefWidth="0.0" />
+      <ColumnConstraints maxWidth="800.0" minWidth="10.0" prefWidth="142.0" />
       <ColumnConstraints maxWidth="800.0" minWidth="10.0" prefWidth="267.0" />
       <ColumnConstraints maxWidth="891.0" minWidth="114.0" prefWidth="374.0" />
       <ColumnConstraints maxWidth="891.0" minWidth="59.0" prefWidth="198.0" />
@@ -24,23 +25,23 @@
       <RowConstraints />
    </rowConstraints>
    <children>
-      <JFXHamburger fx:id="hamburger" onMouseClicked="#openDrawer" GridPane.columnIndex="4" />
-      <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Data Adder" textAlignment="CENTER" wrappingWidth="392.193359375" GridPane.columnIndex="2" GridPane.columnSpan="2">
+      <JFXHamburger fx:id="hamburger" onMouseClicked="#openDrawer" GridPane.columnIndex="5" />
+      <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Data Adder" textAlignment="CENTER" wrappingWidth="392.193359375" GridPane.columnIndex="3" GridPane.columnSpan="2">
          <font>
             <Font size="60.0" />
          </font>
       </Text>
-      <Button fx:id="manualEntryButton" mnemonicParsing="false" onAction="#changeToRouteEntryScene" prefHeight="93.0" prefWidth="579.0" style="-: #ff2b0a;" text="Manual Entry" GridPane.columnIndex="2" GridPane.rowIndex="1">
+      <Button fx:id="manualEntryButton" mnemonicParsing="false" onAction="#changeToRouteEntryScene" prefHeight="93.0" prefWidth="579.0" style="-: #ff2b0a;" text="Manual Entry" GridPane.columnIndex="3" GridPane.rowIndex="1">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>
       </Button>
-      <Button fx:id="importButton" mnemonicParsing="false" onAction="#chooseFile" prefHeight="93.0" prefWidth="476.0" text="Import CSV File" GridPane.columnIndex="2" GridPane.rowIndex="2">
+      <Button fx:id="importButton" mnemonicParsing="false" onAction="#chooseFile" prefHeight="93.0" prefWidth="476.0" text="Import CSV File" GridPane.columnIndex="3" GridPane.rowIndex="2">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>
       </Button>
-      <AnchorPane prefHeight="144.0" prefWidth="385.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
+      <AnchorPane prefHeight="144.0" prefWidth="385.0" GridPane.columnIndex="3" GridPane.rowIndex="4">
          <children>
             <Button fx:id="importRetailer" layoutX="136.0" layoutY="44.0" mnemonicParsing="false" onAction="#chooseRetailer" prefHeight="25.0" prefWidth="114.0" text="Retailers" visible="false" />
             <Button fx:id="importRoute" layoutY="44.0" mnemonicParsing="false" onAction="#chooseRoute" prefHeight="25.0" prefWidth="114.0" text="Routes" visible="false" />
