@@ -4,6 +4,9 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.Duration;
 
+import static GUIControllers.Controller.makeErrorDialogueBox;
+import static java.lang.Character.isLetter;
+
 /**
  * Created by jes143 on 22/09/17.
  * Includes some useful static helper functions that may be applicable to multiple classes and that don't fit anywhere
@@ -125,6 +128,16 @@ public class HelperFunctions {
             return false;
         }
         return true;
+    }
+
+    public static boolean checkDateDetails(int day, int month, int year) {
+        if (year < 1900 || year > 2017) { // People born out of these bounds are assumed not to use this program.
+            return true;
+        } else if (month < 1 || month > 12 || day < 1 || day > 31) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }
