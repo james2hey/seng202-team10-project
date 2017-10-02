@@ -66,6 +66,8 @@ public class Cyclist {
 
     public void setGender(int inputGender) {gender = inputGender;}
 
+    public void setName(String newName) {name = newName;}
+
     public void setDistanceCycled(int distance) {distanceCycled = distance;}
 
     /**

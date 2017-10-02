@@ -142,16 +142,20 @@ public class HomeController extends Controller implements Initializable{
 
 
     @FXML
-    public void deleteFav(ActionEvent event) throws IOException {
+    public void deleteFavourite(ActionEvent event) throws IOException {
         if (tableViewRoutes.getSelectionModel().getSelectedItem() != null) {
-
+            System.out.println(tableViewRoutes.getSelectionModel().getSelectedItem());
+            System.out.println("ROUTES");
 
         } else if (tableViewWifi.getSelectionModel().getSelectedItem() != null){
-
+            System.out.println("WIFI");
 
         } else if (tableViewRetailers.getSelectionModel().getSelectedItem() != null) {
+            System.out.println("RETAIL");
 
-
+        } else {
+            makeErrorDialogueBox("No favourite selected", "No route was selected to delete." +
+                    " You must\nchoose which favourite you want to delete.");
         }
     }
 

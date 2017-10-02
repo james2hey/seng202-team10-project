@@ -48,4 +48,5 @@ public class FavouriteRetailData {
             System.out.println(e.getMessage());
         }
     }
+
 }

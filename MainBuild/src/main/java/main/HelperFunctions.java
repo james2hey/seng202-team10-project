@@ -130,6 +130,13 @@ public class HelperFunctions {
         return true;
     }
 
+    /**
+     * Checks that the date entered has a year between 1900-2017, month between 1-12 and day between 1-31.
+     * @param day the dates day
+     * @param month the dates month_________________________________________________test this man
+     * @param year the dates year
+     * @return
+     */
     public static boolean checkDateDetails(int day, int month, int year) {
         if (year < 1900 || year > 2017) { // People born out of these bounds are assumed not to use this program.
             return true;
