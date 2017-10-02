@@ -33,16 +33,16 @@ import java.util.concurrent.TimeUnit;
 public class AddDataController extends Controller implements Initializable {
 
     @FXML //This importButton reveals other buttons
-    private Button importButton, importRoute, importRetailer, importWifi, addDataButton;
+    private Button importRoute, importRetailer, importWifi;
 
     @FXML // Route Errors
-    private Text sLongError, sLatError, sTimeError, sDateError, eLongError, eLatError, eTimeError, eDateError;
+    private Text sTimeError, sDateError, eTimeError, eDateError;
 
     @FXML //Route Fields
-    private JFXTextField rSAddress, rEAddress, rSLongitude, rELongitude, rSLatitude, rELatitude, rSTime, rETime;
+    private JFXTextField rSAddress, rEAddress, rSTime, rETime;
 
     @FXML // Retailer Fields
-    private JFXTextField retailerName, retailerAddress, retailerLong, retailerLat, retailerSec;
+    private JFXTextField retailerName, retailerAddress, retailerSec;
 
     @FXML
     private ComboBox retailerPrim;
@@ -51,13 +51,7 @@ public class AddDataController extends Controller implements Initializable {
     private DatePicker rSDate, rEDate;
 
     @FXML // Wifi Fields
-    private JFXTextField wifiName, wifiLong, wifiLat, wifiAddress, wifiPostcode, wifiComments;
-
-    @FXML // Wifi & Retailer Errors
-    private Text wifiLatError, wifiLongError, retailerLatError, retailerLongError;
-
-    @FXML
-    private JFXDrawer drawer;
+    private JFXTextField wifiName, wifiAddress, wifiPostcode, wifiComments;
 
     @FXML
     private Text selectMessage;

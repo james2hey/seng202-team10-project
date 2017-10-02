@@ -8,7 +8,7 @@
 <?import javafx.scene.text.*?>
 <?import javafx.collections.FXCollections?>
 
-<GridPane alignment="CENTER" hgap="10.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="650.0" prefWidth="1100.0" style="-fx-background-color: grey;" vgap="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIControllers.LoginController">
+<GridPane alignment="CENTER" hgap="10.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="650.0" prefWidth="1100.0" style="-fx-background-color: grey; -fx-background-image: url(Images/skyline.jpg);" vgap="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIControllers.LoginController">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="538.0" minWidth="10.0" prefWidth="111.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="723.0" minWidth="10.0" prefWidth="406.0" />
@@ -33,12 +33,13 @@
          <center>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
+                  <Pane prefHeight="417.0" prefWidth="404.0" style="-fx-background-color: LIGHTGREY; -fx-opacity: 0.75; -fx-border-color: BLACK;" />
                   <Text fill="WHITE" layoutX="46.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign Up:" textAlignment="CENTER" wrappingWidth="310.0">
                      <font>
                         <Font size="46.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="username" layoutX="136.0" layoutY="108.0" onAction="#createCyclist" prefHeight="25.0" prefWidth="209.0" promptText="New User Name" />
+                  <TextField fx:id="username" layoutX="136.0" layoutY="108.0" prefHeight="25.0" prefWidth="209.0" promptText="New User Name" />
                   <Text layoutX="51.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" textAlignment="RIGHT" wrappingWidth="68.732421875">
                      <font>
                         <Font size="18.0" />
@@ -49,14 +50,15 @@
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="userday" layoutX="133.0" layoutY="186.0" onAction="#createCyclist" prefHeight="25.0" prefWidth="65.0" promptText="Day" />
-                  <TextField fx:id="usermonth" layoutX="205.0" layoutY="186.0" onAction="#createCyclist" prefHeight="25.0" prefWidth="65.0" promptText="Month" />
-                  <TextField fx:id="useryear" layoutX="276.0" layoutY="186.0" onAction="#createCyclist" prefHeight="25.0" prefWidth="65.0" promptText="Year" />
+                  <TextField fx:id="useryear" layoutX="276.0" layoutY="186.0" prefHeight="25.0" prefWidth="65.0" promptText="Year" />
+                  <TextField fx:id="usermonth" layoutX="205.0" layoutY="186.0" prefHeight="25.0" prefWidth="65.0" promptText="Month" />
+                  <TextField fx:id="userday" layoutX="133.0" layoutY="186.0" prefHeight="25.0" prefWidth="65.0" promptText="Day" />
                   <Text layoutX="33.0" layoutY="276.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gender:" textAlignment="RIGHT" wrappingWidth="83.732421875">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Text>
+                  <Button layoutX="114.0" layoutY="333.0" mnemonicParsing="false" onAction="#createCyclist" prefHeight="25.0" prefWidth="168.0" text="Sign up" />
                   <ComboBox fx:id="usergender" layoutX="132.0" layoutY="257.0" prefHeight="25.0" prefWidth="212.0">
                       <items>
                           <FXCollections fx:factory="observableArrayList">
@@ -66,7 +68,6 @@
                           </FXCollections>
                       </items>
                   </ComboBox>
-                  <Button layoutX="114.0" layoutY="333.0" mnemonicParsing="false" onAction="#createCyclist" prefHeight="25.0" prefWidth="168.0" text="Sign up" />
                </children>
             </AnchorPane>
          </center>
@@ -75,6 +76,7 @@
          <center>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
+                  <Pane prefHeight="241.0" prefWidth="386.0" style="-fx-background-color: LIGHTGREY; -fx-border-color: BLACK; -fx-opacity: 0.75;" />
                   <Text fill="WHITE" layoutX="68.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign In:" textAlignment="CENTER" wrappingWidth="249.0">
                      <font>
                         <Font size="46.0" />
