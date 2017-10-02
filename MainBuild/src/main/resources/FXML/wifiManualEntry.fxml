@@ -36,23 +36,15 @@
             </Button>
          </children>
       </AnchorPane>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
-         <children>
-            <Text fx:id="eLongError" fill="#ffffff" layoutX="82.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ERROR: Type Error" visible="false" AnchorPane.topAnchor="65.0" />
-            <Text fx:id="eLatError" fill="#ffffff" layoutX="82.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ERROR: Type Error" visible="false" AnchorPane.topAnchor="90.0" />
-            <Text fx:id="eTimeError" fill="#ffffff" layoutX="82.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ERROR: Type Error" visible="false" AnchorPane.topAnchor="115.0" />
-            <Text fx:id="eDateError" fill="#ffffff" layoutX="82.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ERROR: Type Error" visible="false" AnchorPane.topAnchor="140.0" />
-         </children>
-      </AnchorPane>
       <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" style="-fx-background-color: grey;" GridPane.rowSpan="5" />
       <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="3">
          <children>
-            <Button fx:id="back" layoutX="326.0" layoutY="44.0" mnemonicParsing="false" onAction="#changeToAddDataScene" prefHeight="32.0" prefWidth="210.0" style="-fx-background-color: #ffffff;" text="Back" textFill="#000000">
+            <Button fx:id="addRouteButton" layoutX="326.0" layoutY="-2.0" mnemonicParsing="false" onAction="#wifiCSVLine" prefHeight="32.0" prefWidth="210.0" text="Add Wifi Location">
                <font>
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button fx:id="addRouteButton" layoutX="326.0" layoutY="-2.0" mnemonicParsing="false" onAction="#wifiCSVLine" prefHeight="32.0" prefWidth="210.0" text="Add Wifi Location">
+            <Button fx:id="back" layoutX="326.0" layoutY="44.0" mnemonicParsing="false" onAction="#changeToAddDataScene" prefHeight="32.0" prefWidth="210.0" style="-fx-background-color: #ffffff;" text="Back" textFill="#000000">
                <font>
                   <Font size="15.0" />
                </font>
@@ -61,19 +53,20 @@
       </AnchorPane>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="2">
          <children>
+            <JFXTextField fx:id="wifiName" layoutX="393.0" layoutY="68.0" prefHeight="23.0" prefWidth="173.0" />
             <Text layoutX="366.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wifi Location">
                <font>
                   <Font size="20.0" />
                </font>
             </Text>
-            <JFXTextField fx:id="wifiComments" layoutX="393.0" layoutY="189.0" prefHeight="23.0" prefWidth="173.0" promptText="e.g. Data Cap" />
             <Text layoutX="296.0" layoutY="204.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Comments:" />
+            <JFXTextField fx:id="wifiAddress" layoutX="393.0" layoutY="107.0" prefHeight="23.0" prefWidth="173.0" />
             <JFXTextField fx:id="wifiPostcode" layoutX="393.0" layoutY="143.0" prefHeight="23.0" prefWidth="173.0" />
             <Text layoutX="308.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Postcode:" />
-            <JFXTextField fx:id="wifiAddress" layoutX="393.0" layoutY="107.0" prefHeight="23.0" prefWidth="173.0" />
-            <JFXTextField fx:id="wifiName" layoutX="393.0" layoutY="69.0" prefHeight="23.0" prefWidth="173.0" />
+            <JFXTextField fx:id="wifiComments" layoutX="393.0" layoutY="189.0" prefHeight="23.0" prefWidth="173.0" promptText="e.g. Data Cap" />
             <Text layoutX="236.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address (Required):" />
             <Text layoutX="254.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name (Required):" />
+            <AnchorPane layoutX="583.0" layoutY="37.0" prefHeight="200.0" prefWidth="200.0" />
          </children>
       </AnchorPane>
    </children>

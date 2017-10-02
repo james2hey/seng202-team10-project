@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.collections.*?>
 <?import com.jfoenix.controls.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-
 <?import javafx.collections.FXCollections?>
+
 <GridPane alignment="CENTER" hgap="10.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="650.0" prefWidth="1100.0" style="-fx-background-color: grey;" vgap="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIControllers.LoginController">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="538.0" minWidth="10.0" prefWidth="111.0" />
@@ -37,7 +38,7 @@
                         <Font size="46.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="username" layoutX="136.0" layoutY="108.0" prefHeight="25.0" prefWidth="209.0" promptText="New User Name" />
+                  <TextField fx:id="username" layoutX="136.0" layoutY="108.0" onAction="#createCyclist" prefHeight="25.0" prefWidth="209.0" promptText="New User Name" />
                   <Text layoutX="51.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" textAlignment="RIGHT" wrappingWidth="68.732421875">
                      <font>
                         <Font size="18.0" />
@@ -48,15 +49,14 @@
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="useryear" layoutX="276.0" layoutY="186.0" prefHeight="25.0" prefWidth="65.0" promptText="Year" />
-                  <TextField fx:id="usermonth" layoutX="205.0" layoutY="186.0" prefHeight="25.0" prefWidth="65.0" promptText="Month" />
-                  <TextField fx:id="userday" layoutX="133.0" layoutY="186.0" prefHeight="25.0" prefWidth="65.0" promptText="Day" />
+                  <TextField fx:id="userday" layoutX="133.0" layoutY="186.0" onAction="#createCyclist" prefHeight="25.0" prefWidth="65.0" promptText="Day" />
+                  <TextField fx:id="usermonth" layoutX="205.0" layoutY="186.0" onAction="#createCyclist" prefHeight="25.0" prefWidth="65.0" promptText="Month" />
+                  <TextField fx:id="useryear" layoutX="276.0" layoutY="186.0" onAction="#createCyclist" prefHeight="25.0" prefWidth="65.0" promptText="Year" />
                   <Text layoutX="33.0" layoutY="276.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gender:" textAlignment="RIGHT" wrappingWidth="83.732421875">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <Button layoutX="114.0" layoutY="333.0" mnemonicParsing="false" onAction="#createCyclist" prefHeight="25.0" prefWidth="168.0" text="Sign up" />
                   <ComboBox fx:id="usergender" layoutX="132.0" layoutY="257.0" prefHeight="25.0" prefWidth="212.0">
                       <items>
                           <FXCollections fx:factory="observableArrayList">
@@ -66,6 +66,7 @@
                           </FXCollections>
                       </items>
                   </ComboBox>
+                  <Button layoutX="114.0" layoutY="333.0" mnemonicParsing="false" onAction="#createCyclist" onMouseMoved="#openHelpStage" prefHeight="25.0" prefWidth="168.0" text="Sign up" />
                </children>
             </AnchorPane>
          </center>
