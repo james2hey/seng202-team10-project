@@ -49,6 +49,11 @@ public class FavouriteWifiData {
         }
     }
 
+
+    /**
+     * Deletes the given wifi hotspot from the database.
+     * @param hotspot the wifi hotspot to be deleted
+     */
     public void deleteFavouriteWifi(WifiLocation hotspot) {
         db.executeQuerySQL("DELETE FROM favourite_wifi WHERE name = '" + Main.hu.currentCyclist.name + "' " +
                 "AND wifi_id = '" + hotspot.getWifiID() + "';");

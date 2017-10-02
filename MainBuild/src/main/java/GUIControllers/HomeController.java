@@ -144,6 +144,11 @@ public class HomeController extends Controller implements Initializable{
     }
 
 
+    /**
+     * Deletes the favourite selected from the chosen table.
+     * @param event Created when the method is called
+     * @throws IOException
+     */
     @FXML
     public void deleteFavourite(ActionEvent event) throws IOException {
         if (tableViewRoutes.getSelectionModel().getSelectedItem() != null) {

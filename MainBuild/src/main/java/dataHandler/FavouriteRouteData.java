@@ -68,6 +68,11 @@ public class FavouriteRouteData {
         }
     }
 
+
+    /**
+     * Deletes the given route from the database.
+     * @param route the route to be deleted
+     */
     public void deleteFavouriteRoute(Route route) {
         db.executeQuerySQL("DELETE FROM favourite_routes WHERE name = '" + Main.hu.currentCyclist.name + "' " +
                 "AND start_year = '" + route.getStartYear() + "' AND start_month = '" + route.getStartMonth() + "' " +

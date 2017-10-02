@@ -52,6 +52,11 @@ public class FavouriteRetailData {
         }
     }
 
+
+    /**
+     * Deletes the given store from the database.
+     * @param store retail store to be deleted
+     */
     public void deleteFavouriteRetail(RetailLocation store) {
         db.executeQuerySQL("DELETE FROM favourite_retail WHERE name = '" + Main.hu.currentCyclist.name + "' AND RETAILER_NAME = '" + store.getName() + "' " +
                 "AND ADDRESS = '" + store.getAddress() + "';");
