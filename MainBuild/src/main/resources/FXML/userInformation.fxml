@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.*?>
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.collections.FXCollections?>
+
+<GridPane alignment="center" hgap="30.0" prefHeight="650.0" prefWidth="1100.0" style="-fx-background-color: Grey;" vgap="20.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIControllers.UserInformationController">
+   <children>
+      <Text fx:id="buttonPressedText" strokeType="OUTSIDE" strokeWidth="0.0" text="Button Pressed" textAlignment="CENTER" visible="false" wrappingWidth="269.6552734375" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <JFXHamburger fx:id="hamburger" onMouseClicked="#openDrawer" prefHeight="73.0" prefWidth="87.0" GridPane.columnIndex="4" />
+      <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="User Information" textAlignment="CENTER" wrappingWidth="822.7294921875" GridPane.columnIndex="1" GridPane.columnSpan="2">
+         <font>
+            <Font size="60.0" />
+         </font>
+      </Text>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2">
+         <center>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Text layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile" textAlignment="CENTER" wrappingWidth="414.7294921875">
+                     <font>
+                        <Font size="38.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="62.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Text>
+                  <JFXTextField fx:id="name" layoutX="132.0" layoutY="87.0" prefHeight="23.0" prefWidth="238.0" />
+                  <Text layoutX="12.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date of birth:">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="51.0" layoutY="252.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gender:">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Text>
+                  <DatePicker fx:id="dob" layoutX="129.0" layoutY="158.0" prefHeight="25.0" prefWidth="235.0" />
+                  <ComboBox fx:id="gender" layoutX="126.0" layoutY="234.0" prefHeight="25.0" prefWidth="238.0">
+                     <items>
+                        <FXCollections fx:factory="observableArrayList">
+                           <String fx:value="Male" />
+                           <String fx:value="Female" />
+                           <String fx:value="Other" />
+                        </FXCollections>
+                     </items>
+                  </ComboBox>
+                  <Button layoutX="152.0" layoutY="323.0" mnemonicParsing="false" onAction="#updateProfile" text="Update Profile" />
+               </children>
+            </AnchorPane>
+         </center>
+      </BorderPane>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: white;" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.rowSpan="2">
+         <center>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Text layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Statistics" textAlignment="CENTER" wrappingWidth="414.7294921875">
+                     <font>
+                        <Font size="38.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="56.0" layoutY="360.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Note: These statistics are based on the Route list &quot;My Routes&quot; " textAlignment="CENTER" wrappingWidth="302.5478515625">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="28.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Longest Route: " wrappingWidth="200.5478515625">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="28.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Distance Traveled: " wrappingWidth="207.5478515625">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="28.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Shortest Route: " wrappingWidth="207.5478515625">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="28.0" layoutY="255.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Most Visited Retailer: " wrappingWidth="207.5478515625">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="longestRoute" layoutX="254.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="116.0">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="totalDistance" layoutX="254.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="116.0">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="shortestRoute" layoutX="243.0" layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="116.0">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="mostVisitedRetailer" layoutX="254.0" layoutY="254.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="116.0">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Text>
+               </children>
+            </AnchorPane>
+         </center>
+      </BorderPane>
+      <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" style="-fx-background-color: grey;" GridPane.rowSpan="4">
+         <effect>
+            <Blend />
+         </effect>
+      </JFXDrawer>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="3">
+         <children>
+            <Button layoutX="332.0" layoutY="8.0" mnemonicParsing="false" onAction="#logout" prefHeight="45.0" prefWidth="202.0" text="Logout">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+   </children>
+   <columnConstraints>
+      <ColumnConstraints maxWidth="800.0" minWidth="10.0" prefWidth="102.0" />
+      <ColumnConstraints maxWidth="991.0" minWidth="10.0" prefWidth="388.0" />
+      <ColumnConstraints maxWidth="991.0" minWidth="0.0" prefWidth="0.0" />
+      <ColumnConstraints maxWidth="991.0" minWidth="10.0" prefWidth="374.0" />
+      <ColumnConstraints maxWidth="891.0" minWidth="0.0" prefWidth="116.0" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints maxHeight="251.0" minHeight="10.0" prefHeight="111.0" />
+      <RowConstraints maxHeight="272.0" minHeight="10.0" prefHeight="65.0" />
+      <RowConstraints maxHeight="393.0" minHeight="6.0" prefHeight="323.0" />
+      <RowConstraints maxHeight="510.0" minHeight="22.0" prefHeight="93.0" />
+   </rowConstraints>
+</GridPane>
