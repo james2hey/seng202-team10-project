@@ -67,6 +67,7 @@ public class LoginController extends Controller implements Initializable {
     public void createCyclist(ActionEvent event) throws IOException {
         String name = username.getText();
         String gender = usergender.getSelectionModel().getSelectedItem();
+        System.out.println(gender);
         int day =  Integer.parseInt(userday.getText());
         int month =  Integer.parseInt(usermonth.getText());
         int year =  Integer.parseInt(useryear.getText());

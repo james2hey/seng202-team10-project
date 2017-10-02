@@ -13,10 +13,11 @@ public class DatabaseUser {
                             "birth_day               INTEGER",
                             "birth_month             INTEGER",
                             "birth_year              INTEGER",
-                            "gender                  INTEGER"};
+                            "gender                  INTEGER",
+                            "distance_cycled         INTEGER"};
 
     private String primaryKey = "name";
-    private String addUserString = "insert or fail into users values(?,?,?,?,?)";
+    private String addUserString = "insert or fail into users values(?,?,?,?,?,?)";
     private PreparedStatement addUser = null;
     private SQLiteDB db;
 
@@ -36,13 +37,14 @@ public class DatabaseUser {
      * Adds Name to the database.
      * @param name name of the user to add
      */
-    public void addUser(String name, int day, int month, int year, int gender) {
+    public void addUser(String name, int day, int month, int year, int gender, int distance) {
         try {
             addUser.setString(1, name);
             addUser.setInt(2, day);
             addUser.setInt(3,month);
             addUser.setInt(4, year);
             addUser.setInt(5, gender);
+            addUser.setInt(6, distance);
             addUser.executeUpdate();
             db.commit();
 

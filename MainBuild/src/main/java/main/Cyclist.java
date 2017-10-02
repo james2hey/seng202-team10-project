@@ -23,7 +23,7 @@ public class Cyclist {
 
     public String name;
     private int bday, bmonth, byear;
-    private int gender;   // 0 other, 1 male, 2 female
+    private int gender, distanceCycled;   // 0 other, 1 male, 2 female
 
     public Cyclist() {
     }
@@ -54,6 +54,8 @@ public class Cyclist {
         return name;
     }
 
+    public int getDistanceCycled() {return distanceCycled;}
+
     public void setBirthday(int day, int month, int year) {
         bday = day;
         bmonth = month;
@@ -61,6 +63,14 @@ public class Cyclist {
     }
 
     public void setGender(int inputGender) {gender = inputGender;}
+
+    public void setDistanceCycled(int distance) {distanceCycled = distance;}
+
+    /**
+     * Adds distance to the cyclists total distance count.
+     * @param extraDistance the distance to be added to the total distance
+     */
+    public void addDistanceCycled(int extraDistance) {distanceCycled += extraDistance;}
 
 
     /**
