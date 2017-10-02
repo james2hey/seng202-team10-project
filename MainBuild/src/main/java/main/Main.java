@@ -35,8 +35,11 @@ public class Main extends Application {
 
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/startUp.fxml"));
 
+
+
         String url = getClass().getClassLoader().getResource("Images/bicycleIcon.png").toString();
         primaryStage.getIcons().add(new Image(url));
+
 
         primaryStage.setTitle("Pedals");
         primaryStage.setScene(new Scene(root, 1100, 650));
