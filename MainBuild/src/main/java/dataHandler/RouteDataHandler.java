@@ -1,21 +1,14 @@
 package dataHandler;
 
-import GUIControllers.Controller;
-import com.opencsv.CSVReader;
 import org.apache.commons.lang3.StringUtils;
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
-import org.joda.time.Duration;
 
-import java.io.FileReader;
-import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /**
  * Created by jes143 on 17/09/17.
  */
-public class RouteDataHandler {
+public class RouteDataHandler implements DataHandler {
     private SQLiteDB db;
 
     private String[] fields =
@@ -47,6 +40,8 @@ public class RouteDataHandler {
     private PreparedStatement addData;
     private String addDataStatement = "insert or fail into route_information values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
+    private int fieldCount = 15;
+
     /**
      * Initializes an object, linked to the given database. Can process CSVs and add single entries
      * @param db
@@ -63,7 +58,7 @@ public class RouteDataHandler {
      * @param record A string array of object corresponding to the CSV
      * @return A bool stating the success state of the process.
      */
-    private Boolean processLine(String[] record) {
+    public void processLine(String[] record, Callback callback) {
         try {
             int duration = Integer.parseInt(record[0]);
 
@@ -95,13 +90,13 @@ public class RouteDataHandler {
                 birth_year = Integer.parseInt(record[13]);
             }
 
-            return addSingleEntry(
+            callback.result(addSingleEntry(
                     duration, start_year, start_month, start_day, start_time, end_year,
                     end_month, end_day, end_time, record[3], record[4], start_lat, start_lon, record[7],
-                    record[8], end_lat, end_lon, record[11], record[12], birth_year, gender);
+                    record[8], end_lat, end_lon, record[11], record[12], birth_year, gender));
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Incorrect string array size");
-            return false;
+            callback.result(false);
         }
     }
 
@@ -166,32 +161,8 @@ public class RouteDataHandler {
         }
     }
 
-    /**
-     * Takes a CSV file and repeatedly calls processLine on the records
-     * @param url A string directing to a valid filepath
-     * @return An integer list with the count of successful additions and failed additions.
-     * @throws IOException Thrown if there are errors reading the file
-     * @throws NoSuchFieldException Thrown if there are an incorrect number of fields in the CSV
-     */
-    public int[] processCSV(String url) throws IOException, NoSuchFieldException {
-        int[] successFailCounts = {0, 0};
-        db.setAutoCommit(false);
-        CSVReader reader = new CSVReader(new FileReader(url), ',');
-        String[] record;
-        record = reader.readNext(); // Skip first line as it's the desc
-        if (record.length != 15) {
-            throw new NoSuchFieldException("Incorrect number of fields, expected 15 but got " + record.length);
-        }
-        while ((record = reader.readNext()) != null) {
-            if (processLine(record)) {
-                successFailCounts[0] += 1;
-            } else {
-                successFailCounts[1] += 1;
-            }
-        }
-        db.setAutoCommit(true);
-        db.commit();
-        return successFailCounts;
+    public int fieldCount() {
+        return fieldCount;
     }
 }
 

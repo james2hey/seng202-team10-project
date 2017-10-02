@@ -133,4 +133,15 @@ public class SQLiteDB {
             System.out.println(e.getMessage());
         }
     }
+
+    /**
+     * Simple commit execution on the database to aid with batching
+     */
+    public void rollback() {
+        try {
+            conn.rollback();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }

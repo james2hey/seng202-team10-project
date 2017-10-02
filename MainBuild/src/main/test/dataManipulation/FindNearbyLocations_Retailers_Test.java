@@ -36,7 +36,7 @@ public class FindNearbyLocations_Retailers_Test {
 
         Geocoder.init();
         RetailerDataHandler retailerDataHandler = new RetailerDataHandler(db);
-        retailerDataHandler.processCSV(getClass().getClassLoader().getResource("CSV/Lower_Manhattan_Retailers-test4.csv").getFile());
+        //retailerDataHandler.processCSV(getClass().getClassLoader().getResource("CSV/Lower_Manhattan_Retailers-test4.csv").getFile());
     }
 
 

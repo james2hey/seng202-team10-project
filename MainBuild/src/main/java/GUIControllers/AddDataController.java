@@ -4,6 +4,7 @@ import com.google.maps.errors.ApiException;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXTextField;
 import dataHandler.*;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,18 +14,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
+import javafx.stage.*;
 import main.HelperFunctions;
 import main.Main;
-import java.io.InterruptedIOException;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.ConnectException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -36,13 +33,13 @@ public class AddDataController extends Controller implements Initializable {
     private Button importButton, importRoute, importRetailer, importWifi, addDataButton;
 
     @FXML // Route Errors
-    private Text sLongError, sLatError, sTimeError, sDateError, eLongError, eLatError, eTimeError, eDateError;
+    private Text sTimeError, sDateError, eTimeError, eDateError;
 
     @FXML //Route Fields
-    private JFXTextField rSAddress, rEAddress, rSLongitude, rELongitude, rSLatitude, rELatitude, rSTime, rETime;
+    private JFXTextField rSAddress, rEAddress, rSTime, rETime;
 
     @FXML // Retailer Fields
-    private JFXTextField retailerName, retailerAddress, retailerLong, retailerLat, retailerSec;
+    private JFXTextField retailerName, retailerAddress, retailerSec;
 
     @FXML
     private ComboBox retailerPrim;
@@ -51,10 +48,7 @@ public class AddDataController extends Controller implements Initializable {
     private DatePicker rSDate, rEDate;
 
     @FXML // Wifi Fields
-    private JFXTextField wifiName, wifiLong, wifiLat, wifiAddress, wifiPostcode, wifiComments;
-
-    @FXML // Wifi & Retailer Errors
-    private Text wifiLatError, wifiLongError, retailerLatError, retailerLongError;
+    private JFXTextField wifiName, wifiAddress, wifiPostcode, wifiComments;
 
     @FXML
     private JFXDrawer drawer;
@@ -63,9 +57,6 @@ public class AddDataController extends Controller implements Initializable {
     private Text selectMessage;
 
     private SQLiteDB db;
-    private RetailerDataHandler retailerDataHandler;
-    private WifiDataHandler wifiDataHandler;
-    private RouteDataHandler routeDataHandler;
     public static String startAddress = "";
     public static String endAddress = "";
 
@@ -86,9 +77,6 @@ public class AddDataController extends Controller implements Initializable {
 
         System.out.println(location);
         db = Main.getDB();
-        retailerDataHandler = new RetailerDataHandler(db);
-        wifiDataHandler = new WifiDataHandler(db);
-        routeDataHandler = new RouteDataHandler(db);
     }
 
     /**
@@ -191,7 +179,7 @@ public class AddDataController extends Controller implements Initializable {
             eTimeError.setVisible(true);
             errorOccurred = true;
         }
-        if (errorOccurred == true) {
+        if (errorOccurred) {
             makeErrorDialogueBox("Something wrong with input", "Fill all required fields\nCheck entry is not already in database");
             return;
         }
@@ -204,7 +192,7 @@ public class AddDataController extends Controller implements Initializable {
                 eDate[0], eDate[1], eDate[2], rETime.getText(), "1",
                 rSAddress.getText(), SLatitude, SLongitude, "2", rEAddress.getText(), ELatitude, ELongitude,
                 "1", username, 2017, 3);
-        if (fromHandler == false) {
+        if (!fromHandler) {
             makeErrorDialogueBox("Something wrong with input", "Fill all required fields\nCheck entry is not already in database");
         } else {
             makeSuccessDialogueBox("Successfully added route to Database", "You may add more entries");
@@ -246,30 +234,29 @@ public class AddDataController extends Controller implements Initializable {
             return;
         }
 
-        if (retailerAddress.getText().toString() == null) {
+        if (retailerAddress.getText() == null) {
             errorOccured = true;
         }
-        if (retailerName.getText().toString() == null) {
+        if (retailerName.getText() == null) {
             errorOccured = true;
         }
         if (retailerPrim.getSelectionModel().isEmpty()) {
             errorOccured = true;
         }
-        if (retailerSec.getText().toString() == null) {
+        if (retailerSec.getText() == null) {
             errorOccured = true;
         }
         if (!errorOccured) {
             RetailerDataHandler newRetailer = new RetailerDataHandler(Main.getDB());
             Boolean fromHandler = newRetailer.addSingleEntry(retailerName.getText(), retailerAddress.getText(), latLon[0], latLon[1], null,
                     null, null, retailerPrim.getValue().toString(), retailerSec.getText());
-            if (fromHandler == false) {
+            if (!fromHandler) {
                 makeErrorDialogueBox("Something wrong with input", "Fill all required fields\nCheck entry is not already in database");
             } else {
                 makeSuccessDialogueBox("Successfully added to retailer to Database", "You may add more entries");
             }
         } else {
             makeErrorDialogueBox("Something wrong with input", "Fill all required fields\nCheck entry is not already in database");
-            return;
         }
     }
 
@@ -287,7 +274,7 @@ public class AddDataController extends Controller implements Initializable {
         double[] latLon;
 
         try {
-            if (wifiAddress.getText().toString().length() != 0) {
+            if (wifiAddress.getText().length() != 0) {
                 latLon = Geocoder.addressToLatLon(wifiAddress.getText());
             } else {
                 makeErrorDialogueBox("Something wrong with input", "Fill all required fields\nCheck entry is not already in database");
@@ -305,10 +292,10 @@ public class AddDataController extends Controller implements Initializable {
 
         }
 
-        if (wifiName.getText().toString() == null) {
+        if (wifiName.getText() == null) {
             errorOccured = true;
         }
-        if (wifiAddress.getText().toString() == null) {
+        if (wifiAddress.getText() == null) {
             errorOccured = true;
         }
 
@@ -317,14 +304,13 @@ public class AddDataController extends Controller implements Initializable {
             WifiDataHandler newWifi = new WifiDataHandler(Main.getDB());
             Boolean fromHandler = newWifi.addSingleEntry(wifiName.getText(), "", "", wifiAddress.getText(), latLon[0], latLon[1],
                     wifiComments.getText(), "", wifiName.getText(), "", wifiPostcode.getText());
-            if (fromHandler == false) {
+            if (!fromHandler) {
                 makeErrorDialogueBox("Something wrong with input", "Fill all required fields\nCheck entry is not already in database");
             } else {
                 makeSuccessDialogueBox("Successfully added Wifi to Database", "You may add more entries");
             }
         } else {
             makeErrorDialogueBox("Something wrong with input", "Fill all required fields\nCheck entry is not already in database");
-            return;
         }
 
     }
@@ -368,17 +354,24 @@ public class AddDataController extends Controller implements Initializable {
         if (file == null) {
             return;
         }
-        try {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "This may take a few seconds. Press OK to begin.", ButtonType.OK);
-            alert.setHeaderText("The programme may become unresponsive during the import.");
-            alert.showAndWait();
-            int[] successFailCounts = routeDataHandler.processCSV(file.toString());
-            Controller.makeSuccessDialogueBox("Import results", String.format("Successfully imported %d records.\nFailed to import %d records.", successFailCounts[0], successFailCounts[1]));
-        } catch (NoSuchFieldException e) {
-            Controller.makeErrorDialogueBox("Incorrect File", e.getMessage());
-        } catch (IOException e) {
-            Controller.makeErrorDialogueBox("Incorrect File", "Could not read the file, please ensure it is correct");
-        }
+
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/progressPopup.fxml"));
+        Parent progressParent = loader.load();
+        ProgressPopupController controller = loader.getController();
+        Scene progressScene = new Scene(progressParent);
+        Stage dialogStage = new Stage();
+        dialogStage.initStyle(StageStyle.UTILITY);
+        dialogStage.setResizable(false);
+        dialogStage.initModality(Modality.APPLICATION_MODAL);
+        dialogStage.setScene(progressScene);
+        dialogStage.show();
+
+        RouteDataHandler handler = new RouteDataHandler(db);
+        Task<Void> task = new CSVImporter(db, file.toString(), handler);
+        controller.activateProgressBar(task);
+        Thread thread = new Thread(task);
+        thread.start();
+        dialogStage.setOnCloseRequest(e -> task.cancel());
     }
 
     /**
@@ -401,19 +394,24 @@ public class AddDataController extends Controller implements Initializable {
             if (file == null) {
                 return;
             }
-            try {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "This may take a few minutes. Press OK to begin.", ButtonType.OK);
-                alert.setHeaderText("The programme may become unresponsive during the import.");
-                alert.showAndWait();
-                int[] successFailCounts = retailerDataHandler.processCSV(file.toString());
-                Controller.makeSuccessDialogueBox("Import results", String.format("Successfully imported %d records.\nFailed to import %d records.", successFailCounts[0], successFailCounts[1]));
-            } catch (NoSuchFieldException e) {
-                Controller.makeErrorDialogueBox("Incorrect File", e.getMessage());
-            } catch (ConnectException e) {
-                Controller.makeErrorDialogueBox("Connection Error", e.getMessage());
-            } catch (IOException e) {
-                Controller.makeErrorDialogueBox("Incorrect File", "Could not read the file, please ensure it is correct");
-            }
+
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/progressPopup.fxml"));
+            Parent progressParent = loader.load();
+            ProgressPopupController controller = loader.getController();
+            Scene progressScene = new Scene(progressParent);
+            Stage dialogStage = new Stage();
+            dialogStage.initStyle(StageStyle.UTILITY);
+            dialogStage.setResizable(false);
+            dialogStage.initModality(Modality.APPLICATION_MODAL);
+            dialogStage.setScene(progressScene);
+            dialogStage.show();
+
+            RetailerDataHandler handler = new RetailerDataHandler(db);
+            Task<Void> task = new CSVImporter(db, file.toString(), handler);
+            controller.activateProgressBar(task);
+            Thread thread = new Thread(task);
+            thread.start();
+            dialogStage.setOnCloseRequest(e -> task.cancel());
         }
     }
 
@@ -435,17 +433,24 @@ public class AddDataController extends Controller implements Initializable {
         if (file == null) {
             return;
         }
-        try {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "This may take a few seconds. Press OK to begin.", ButtonType.OK);
-            alert.setHeaderText("The programme may become unresponsive during the import.");
-            alert.showAndWait();
-            int[] successFailCounts = wifiDataHandler.processCSV(file.toString());
-            Controller.makeSuccessDialogueBox("Import results", String.format("Successfully imported %d records.\nFailed to import %d records.", successFailCounts[0], successFailCounts[1]));
-        } catch (NoSuchFieldException e) {
-            Controller.makeErrorDialogueBox("Incorrect File", e.getMessage());
-        } catch (IOException e) {
-            Controller.makeErrorDialogueBox("Incorrect File", "Could not read the file, please ensure it is correct");
-        }
+
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/progressPopup.fxml"));
+        Parent progressParent = loader.load();
+        ProgressPopupController controller = loader.getController();
+        Scene progressScene = new Scene(progressParent);
+        Stage dialogStage = new Stage();
+        dialogStage.initStyle(StageStyle.UTILITY);
+        dialogStage.setResizable(false);
+        dialogStage.initModality(Modality.APPLICATION_MODAL);
+        dialogStage.setScene(progressScene);
+        dialogStage.show();
+
+        WifiDataHandler handler = new WifiDataHandler(db);
+        Task<Void> task = new CSVImporter(db, file.toString(), handler);
+        controller.activateProgressBar(task);
+        Thread thread = new Thread(task);
+        thread.start();
+        dialogStage.setOnCloseRequest(e -> task.cancel());
     }
 
     /**

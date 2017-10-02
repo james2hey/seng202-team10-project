@@ -33,7 +33,7 @@ public class DataFilterer_Retailers_Test {
         db = new SQLiteDB(path.toString());
         Geocoder.init();
         RetailerDataHandler retailerDataHandler = new RetailerDataHandler(db);
-        retailerDataHandler.processCSV(DataFilterer_Retailers_Test.class.getClassLoader().getResource("CSV/Lower_Manhattan_Retailers-test.csv").getFile());
+        //retailerDataHandler.processCSV(DataFilterer_Retailers_Test.class.getClassLoader().getResource("CSV/Lower_Manhattan_Retailers-test.csv").getFile());
     }
 
     @Test

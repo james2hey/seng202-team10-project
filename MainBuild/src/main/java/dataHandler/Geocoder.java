@@ -27,6 +27,7 @@ public class Geocoder {
                 .apiKey("AIzaSyDZc5T_AtkmoqsEK81uA11OA-5c9lUXfpE")
                 .connectTimeout((long) 300, TimeUnit.MILLISECONDS)
                 .maxRetries(0)
+                .queryRateLimit(40)
                 .build();
     }
 
@@ -61,12 +62,12 @@ public class Geocoder {
         }
     }
 
-//    /**
-//     * A simple async request
-//     * @param address A String address to geocode
-//     * @param outcome The GeocoderOutcome object to callback on
-//     */
-//    public static void addressToLatLonAsync(String address,GeocodeOutcome outcome) {
-//        GeocodingApi.geocode(context, address).setCallback(outcome);
-//    }
+    /**
+     * A simple async request
+     * @param address A String address to geocode
+     * @param outcome The GeocoderOutcome object to callback on
+     */
+    public static void addressToLatLonAsync(String address,GeocodeOutcome outcome) {
+        GeocodingApi.geocode(context, address).setCallback(outcome);
+    }
 }

@@ -2,19 +2,19 @@ package dataHandler;
 
 import com.google.maps.errors.ApiException;
 import com.opencsv.CSVReader;
+import jdk.nashorn.internal.codegen.CompilerConstants;
 
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import GUIControllers.Controller;
 
 /**
  * Created by jes143 on 18/09/17.
  */
 
-public class RetailerDataHandler {
+public class RetailerDataHandler implements DataHandler, GeoCallback {
 
     SQLiteDB db;
 
@@ -34,6 +34,7 @@ public class RetailerDataHandler {
 
     PreparedStatement addData;
     String addDataStatement = "insert or fail into retailer values(?,?,?,?,?,?,?,?,?)";
+    private int fieldCount = 9;
 
     /**
      * Initializes an object, linked to the given database. Can process CSVs and add single entries
@@ -52,19 +53,23 @@ public class RetailerDataHandler {
      * @param record A string array of object corresponding to the CSV
      * @return A bool stating the success state of the process.
      */
-    private Boolean processLine(String[] record) {
+    public void processLine(String[] record, Callback callback) {
+        System.out.println("1");
         try {
             System.out.println(record[1]);
-
-            double[] latlon = Geocoder.addressToLatLon(record[1] + ", " + record[3] + ", " + record[4] + ", " + record[5] + ", ");
-            System.out.println(latlon[0]);
-            System.out.println(latlon[1]);
-
-            return addSingleEntry(record[0], record[1], latlon[0], latlon[1], record[3], record[4], record[5], record[7], record[8]);
-
-        } catch (IndexOutOfBoundsException | ApiException | IOException | InterruptedException e) {
-            return false;
+            System.out.println("2");
+            GeocodeOutcome outcome = new GeocodeOutcome(record, callback, this);
+            System.out.println("3");
+            Geocoder.addressToLatLonAsync(record[1] + ", " + record[3] + ", " + record[4] + ", " + record[5] + ", ", outcome);
+            System.out.println("4");
+        } catch (IndexOutOfBoundsException e) {
+            callback.result(false);
         }
+    }
+
+    @Override
+    public int fieldCount() {
+        return fieldCount;
     }
 
     /**
@@ -102,35 +107,11 @@ public class RetailerDataHandler {
         }
     }
 
-    /**
-     * Takes a CSV file and repeatedly calls processLine on the records
-     * @param url A string directing to a valid filepath
-     * @return An integer list with the count of successful additions and failed additions.
-     * @throws NoSuchFieldException Thrown if there are an incorrect number of fields in the CSV
-     * @throws ConnectException Thrown if the geocoder could not establish a connection
-     * @throws IOException Thrown if there are errors reading the file
-     */
-    public int[] processCSV(String url) throws IOException, NoSuchFieldException {
-        int[] successFailCounts = {0, 0};
-        db.setAutoCommit(false);
-        CSVReader reader = new CSVReader(new FileReader(url), ',');
-
-        String[] record;
-        record = reader.readNext(); // Skip first line as it's the desc
-        if (record.length != 9) {
-            throw new NoSuchFieldException("Incorrect number of fields, expected 9 but got " + record.length);
-        }
-        if (!Geocoder.testConnection())
-            throw new ConnectException("Geocoder could not connect");
-        while ((record = reader.readNext()) != null) {
-            if (processLine(record)) {
-                successFailCounts[0] += 1;
-            } else {
-                successFailCounts[1] += 1;
-            }
-        }
-        db.setAutoCommit(true);
-        db.commit();
-        return successFailCounts;
+    @Override
+    public void result(String[] record, double[] latlon, Callback callback) {
+        System.out.println("5");
+        System.out.println(latlon[0]);
+        System.out.println(latlon[1]);
+        callback.result(addSingleEntry(record[0], record[1], latlon[0], latlon[1], record[3], record[4], record[5], record[7], record[8]));
     }
 }

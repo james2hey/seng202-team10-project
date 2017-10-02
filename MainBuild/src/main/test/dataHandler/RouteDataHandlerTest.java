@@ -90,48 +90,48 @@ public class RouteDataHandlerTest {
         assertFalse(success);
     }
 
-    @Test
-    public void processCSVIncorrectFormat() throws Exception {
-        exception.expect(NoSuchFieldException.class);
-        routeDataHandler.processCSV(getClass().getClassLoader().getResource("CSV/NYC_Free_Public_WiFi_03292017-test.csv").getFile());
-    }
-
-    @Test
-    public void processCSVInvalidFile() throws Exception {
-        exception.expect(FileNotFoundException.class);
-        routeDataHandler.processCSV("NotARealFile.csv");
-    }
-
-    @Test
-    public void processCSVValid() throws Exception {
-        routeDataHandler.processCSV(getClass().getClassLoader().getResource("CSV/201601-citibike-tripdata-test.csv").getFile());
-        ResultSet rs = db.executeQuerySQL("SELECT COUNT(*) FROM route_information");
-        assertEquals(50, rs.getInt(1));
-        //System.out.println(rs.getInt(1));
-    }
-
-    @Test
-    public void processCSVValidTwice() throws Exception {
-        routeDataHandler.processCSV(getClass().getClassLoader().getResource("CSV/201601-citibike-tripdata-test.csv").getFile());
-        routeDataHandler.processCSV(getClass().getClassLoader().getResource("CSV/201601-citibike-tripdata-test.csv").getFile());
-        ResultSet rs = db.executeQuerySQL("SELECT COUNT(*) FROM route_information");
-        assertEquals(50, rs.getInt(1));
-    }
-
-
-    @Test
-    public void testImportSpeed() throws Exception {
-        Geocoder.init();
-        long startTime = System.currentTimeMillis();
-        routeDataHandler.processCSV(getClass().getClassLoader().getResource("CSV/201601-citibike-tripdata.csv").getFile());
-        long endTime = System.currentTimeMillis();
-        long timeTaken = endTime - startTime;
-        long average = 500000/timeTaken;
-        long expectedAverage = 10000/500;
-        System.out.println(timeTaken);
-        System.out.println(average);
-        System.out.println(expectedAverage);
-        assertTrue(average > expectedAverage);
-    }
+//    @Test
+//    public void processCSVIncorrectFormat() throws Exception {
+//        exception.expect(NoSuchFieldException.class);
+//        routeDataHandler.processCSV(getClass().getClassLoader().getResource("CSV/NYC_Free_Public_WiFi_03292017-test.csv").getFile());
+//    }
+//
+//    @Test
+//    public void processCSVInvalidFile() throws Exception {
+//        exception.expect(FileNotFoundException.class);
+//        routeDataHandler.processCSV("NotARealFile.csv");
+//    }
+//
+//    @Test
+//    public void processCSVValid() throws Exception {
+//        routeDataHandler.processCSV(getClass().getClassLoader().getResource("CSV/201601-citibike-tripdata-test.csv").getFile());
+//        ResultSet rs = db.executeQuerySQL("SELECT COUNT(*) FROM route_information");
+//        assertEquals(50, rs.getInt(1));
+//        //System.out.println(rs.getInt(1));
+//    }
+//
+//    @Test
+//    public void processCSVValidTwice() throws Exception {
+//        routeDataHandler.processCSV(getClass().getClassLoader().getResource("CSV/201601-citibike-tripdata-test.csv").getFile());
+//        routeDataHandler.processCSV(getClass().getClassLoader().getResource("CSV/201601-citibike-tripdata-test.csv").getFile());
+//        ResultSet rs = db.executeQuerySQL("SELECT COUNT(*) FROM route_information");
+//        assertEquals(50, rs.getInt(1));
+//    }
+//
+//
+//    @Test
+//    public void testImportSpeed() throws Exception {
+//        Geocoder.init();
+//        long startTime = System.currentTimeMillis();
+//        routeDataHandler.processCSV(getClass().getClassLoader().getResource("CSV/201601-citibike-tripdata.csv").getFile());
+//        long endTime = System.currentTimeMillis();
+//        long timeTaken = endTime - startTime;
+//        long average = 500000/timeTaken;
+//        long expectedAverage = 10000/500;
+//        System.out.println(timeTaken);
+//        System.out.println(average);
+//        System.out.println(expectedAverage);
+//        assertTrue(average > expectedAverage);
+//    }
 
 }

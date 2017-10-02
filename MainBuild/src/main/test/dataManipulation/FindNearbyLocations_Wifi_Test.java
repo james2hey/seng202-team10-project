@@ -39,7 +39,7 @@ public class FindNearbyLocations_Wifi_Test {
         db = new SQLiteDB(path.toString());
 
         WifiDataHandler wdh = new WifiDataHandler(db);
-        wdh.processCSV(getClass().getClassLoader().getResource("CSV/NYC_Free_Public_WiFi_03292017-test.csv").getFile());
+        //wdh.processCSV(getClass().getClassLoader().getResource("CSV/NYC_Free_Public_WiFi_03292017-test.csv").getFile());
 
     }
 

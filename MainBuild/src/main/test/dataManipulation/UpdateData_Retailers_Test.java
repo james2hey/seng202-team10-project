@@ -34,7 +34,7 @@ public class UpdateData_Retailers_Test {
         UpdateData.init(db);
         Geocoder.init();
         RetailerDataHandler retailerDataHandler = new RetailerDataHandler(db);
-        retailerDataHandler.processCSV(getClass().getClassLoader().getResource("CSV/Lower_Manhattan_Retailers-test3.csv").getFile());
+        //retailerDataHandler.processCSV(getClass().getClassLoader().getResource("CSV/Lower_Manhattan_Retailers-test3.csv").getFile());
     }
 
 

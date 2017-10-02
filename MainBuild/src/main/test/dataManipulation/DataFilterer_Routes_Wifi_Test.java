@@ -41,10 +41,10 @@ public class DataFilterer_Routes_Wifi_Test {
 
 
         WifiDataHandler wdh = new WifiDataHandler(db);
-        wdh.processCSV(getClass().getClassLoader().getResource("CSV/NYC_Free_Public_WiFi_03292017-test.csv").getFile());
+        //wdh.processCSV(getClass().getClassLoader().getResource("CSV/NYC_Free_Public_WiFi_03292017-test.csv").getFile());
 
         RouteDataHandler rdh = new RouteDataHandler(db);
-        rdh.processCSV(getClass().getClassLoader().getResource("CSV/201601-citibike-tripdata-test.csv").getFile());
+        //rdh.processCSV(getClass().getClassLoader().getResource("CSV/201601-citibike-tripdata-test.csv").getFile());
     }
 
 

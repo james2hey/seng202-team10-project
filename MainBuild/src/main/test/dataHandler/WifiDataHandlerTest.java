@@ -1,16 +1,12 @@
 package dataHandler;
 
+import javafx.concurrent.Task;
 import org.junit.*;
 import org.junit.rules.ExpectedException;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.net.ConnectException;
 import java.nio.file.Files;
 import java.sql.ResultSet;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
 
 import static org.junit.Assert.*;
 
@@ -78,20 +74,26 @@ public class WifiDataHandlerTest {
     @Test
     public void processCSVIncorrectFormat() throws Exception {
         exception.expect(NoSuchFieldException.class);
-        wifiDataHandler.processCSV(getClass().getClassLoader().getResource("CSV/Lower_Manhattan_Retailers-test.csv").getFile());
+        Task<Void> task = new CSVImporter(db, getClass().getClassLoader().getResource("CSV/Lower_Manhattan_Retailers-test.csv").getFile(), wifiDataHandler);
+        Thread thread = new Thread(task);
+        thread.start();
     }
 
     @Test
     public void processCSVInvalidFile() throws Exception {
         exception.expect(FileNotFoundException.class);
-        wifiDataHandler.processCSV("NotARealFile.csv");
+        Task<Void> task = new CSVImporter(db, "NotARealFile.csv", wifiDataHandler);
+        Thread thread = new Thread(task);
+        thread.start();
     }
 
     @Test
     public void processCSVValid() throws Exception {
         Geocoder.init();
         //exception.expect(ConnectException.class);
-        wifiDataHandler.processCSV(getClass().getClassLoader().getResource("CSV/NYC_Free_Public_WiFi_03292017-test.csv").getFile());
+        Task<Void> task = new CSVImporter(db, getClass().getClassLoader().getResource("CSV/NYC_Free_Public_WiFi_03292017-test.csv").getFile(), wifiDataHandler);
+        Thread thread = new Thread(task);
+        thread.start();
         ResultSet rs = db.executeQuerySQL("SELECT COUNT(*) FROM wifi_location");
         assertEquals(50, rs.getInt(1));
         //System.out.println(rs.getInt(1));
@@ -100,8 +102,12 @@ public class WifiDataHandlerTest {
     @Test
     public void processCSVValidTwice() throws Exception {
         Geocoder.init();
-        wifiDataHandler.processCSV(getClass().getClassLoader().getResource("CSV/NYC_Free_Public_WiFi_03292017-test.csv").getFile());
-        wifiDataHandler.processCSV(getClass().getClassLoader().getResource("CSV/NYC_Free_Public_WiFi_03292017-test.csv").getFile());
+        Task<Void> task = new CSVImporter(db, getClass().getClassLoader().getResource("CSV/NYC_Free_Public_WiFi_03292017-test.csv").getFile(), wifiDataHandler);
+        Thread thread = new Thread(task);
+        thread.start();
+        Task<Void> task2 = new CSVImporter(db, getClass().getClassLoader().getResource("CSV/NYC_Free_Public_WiFi_03292017-test.csv").getFile(), wifiDataHandler);
+        Thread thread2 = new Thread(task2);
+        thread2.start();
         ResultSet rs = db.executeQuerySQL("SELECT COUNT(*) FROM wifi_location");
         assertEquals(50, rs.getInt(1));
     }
@@ -112,7 +118,7 @@ public class WifiDataHandlerTest {
     public void testImportSpeed() throws Exception {
         Geocoder.init();
         long startTime = System.currentTimeMillis();
-        wifiDataHandler.processCSV(getClass().getClassLoader().getResource("CSV/NYC_Free_Public_WiFi_03292017.csv").getFile());
+        //wifiDataHandler.processCSV(getClass().getClassLoader().getResource("CSV/NYC_Free_Public_WiFi_03292017.csv").getFile());
         long endTime = System.currentTimeMillis();
         long timeTaken = endTime - startTime;
         long average = 2566/timeTaken;
