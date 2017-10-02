@@ -16,8 +16,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
@@ -25,8 +23,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
-import javafx.util.Callback;
 import main.Main;
 
 import java.io.IOException;
@@ -154,16 +150,20 @@ public class HomeController extends Controller implements Initializable{
         if (tableViewRoutes.getSelectionModel().getSelectedItem() != null) {
             FavouriteRouteData frd = new FavouriteRouteData(Main.getDB());
             frd.deleteFavouriteRoute(tableViewRoutes.getSelectionModel().getSelectedItem());
+            routeList.remove(tableViewRoutes.getSelectionModel().getSelectedItem());
+            routeListObservable.remove(tableViewRoutes.getSelectionModel().getSelectedItem());
 
         } else if (tableViewWifi.getSelectionModel().getSelectedItem() != null){
             FavouriteWifiData fwd = new FavouriteWifiData(Main.getDB());
             fwd.deleteFavouriteWifi(tableViewWifi.getSelectionModel().getSelectedItem());
+            wifiList.remove(tableViewWifi.getSelectionModel().getSelectedItem());
+            wifiListObservable.remove(tableViewWifi.getSelectionModel().getSelectedItem());
 
         } else if (tableViewRetailers.getSelectionModel().getSelectedItem() != null) {
             FavouriteRetailData frd = new FavouriteRetailData(Main.getDB());
             frd.deleteFavouriteRetail(tableViewRetailers.getSelectionModel().getSelectedItem());
-
-//            Main.hu.currentCyclist.deleteFavouriteRetail(tableViewRetailers.getSelectionModel().getSelectedItem());
+            retailerList.remove(tableViewRetailers.getSelectionModel().getSelectedItem());
+            retailerListObservable.remove(tableViewRetailers.getSelectionModel().getSelectedItem());
 
 
         } else {
@@ -180,7 +180,7 @@ public class HomeController extends Controller implements Initializable{
     private void tableViewRoutesSelectionListener() {
         ObjectProperty<TableRow<Route>> lastSelectedRow = new SimpleObjectProperty<>();
         tableViewRoutes.setRowFactory(tableView -> {
-            TableRow<Route> row = new TableRow<Route>();
+            TableRow<Route> row = new TableRow<>();
 
             row.selectedProperty().addListener((obs, wasSelected, isNowSelected) -> {
                 if (isNowSelected) {
@@ -213,7 +213,7 @@ public class HomeController extends Controller implements Initializable{
     private void tableViewWifiSelectionListener() {
         ObjectProperty<TableRow<WifiLocation>> lastSelectedRow = new SimpleObjectProperty<>();
         tableViewWifi.setRowFactory(tableView -> {
-            TableRow<WifiLocation> row = new TableRow<WifiLocation>();
+            TableRow<WifiLocation> row = new TableRow<>();
 
             row.selectedProperty().addListener((obs, wasSelected, isNowSelected) -> {
                 if (isNowSelected) {
@@ -246,7 +246,7 @@ public class HomeController extends Controller implements Initializable{
     private void tableViewRetailerSelectionListener() {
         ObjectProperty<TableRow<RetailLocation>> lastSelectedRow = new SimpleObjectProperty<>();
         tableViewRetailers.setRowFactory(tableView -> {
-            TableRow<RetailLocation> row = new TableRow<RetailLocation>();
+            TableRow<RetailLocation> row = new TableRow<>();
 
             row.selectedProperty().addListener((obs, wasSelected, isNowSelected) -> {
                 if (isNowSelected) {
