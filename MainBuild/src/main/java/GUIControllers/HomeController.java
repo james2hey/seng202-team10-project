@@ -20,6 +20,7 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -35,6 +36,9 @@ import java.util.ResourceBundle;
  */
 
 public class HomeController extends Controller implements Initializable{
+
+    @FXML
+    private GridPane gridPane;
 
     @FXML
     private TableColumn<Route, String> FavRoutes;
@@ -107,39 +111,6 @@ public class HomeController extends Controller implements Initializable{
         Rating.setCellValueFactory(new PropertyValueFactory<>("Rank"));
         tableViewRoutes.setItems(routeListObservable);
         tableViewRoutes.getColumns().setAll(FavRoutes);
-        tableViewRoutesSelectionListener();
-        tableViewWifiSelectionListener();
-        tableViewRetailerSelectionListener();
-
-
-//        ObjectProperty<TableRow<Route>> lastSelectedRow = new SimpleObjectProperty<>();
-//
-//        tableViewRoutes.setRowFactory(tableView -> {
-//            TableRow<Route> row = new TableRow<Route>();
-//
-//            row.selectedProperty().addListener((obs, wasSelected, isNowSelected) -> {
-//                if (isNowSelected) {
-//                    lastSelectedRow.set(row);
-//                }
-//            });
-//            return row;
-//        });
-//
-//
-//        getCurrentStage().getScene().addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-//
-//            @Override
-//            public void handle(MouseEvent event) {
-//                if (lastSelectedRow.get() != null) {
-//                    Bounds boundsOfSelectedRow = lastSelectedRow.get().localToScene(lastSelectedRow.get().getLayoutBounds());
-//                    if (boundsOfSelectedRow.contains(event.getSceneX(), event.getSceneY()) == false) {
-//                        tableViewRoutes.getSelectionModel().clearSelection();
-//                    }
-//                }
-//            }
-//        });
-
-
 
         SSID.setCellValueFactory(new PropertyValueFactory<>("SSID"));
         WifiAddress.setCellValueFactory(new PropertyValueFactory<>("Address"));
@@ -151,6 +122,9 @@ public class HomeController extends Controller implements Initializable{
         tableViewRetailers.setItems(retailerListObservable);
         tableViewRetailers.getColumns().setAll(FavRetailers);
 
+        tableViewRoutesSelectionListener();
+        tableViewWifiSelectionListener();
+        tableViewRetailerSelectionListener();
     }
 
 
@@ -182,67 +156,100 @@ public class HomeController extends Controller implements Initializable{
     }
 
 
-
+    /**
+     * tableViewRoutesSelectionListener will deselect the selected cell in tableViewRoutes if the mouse is clicked
+     * anywhere else.
+     */
     private void tableViewRoutesSelectionListener() {
-        tableViewRoutes.setRowFactory(new Callback<TableView<Route>, TableRow<Route>>() {
+        ObjectProperty<TableRow<Route>> lastSelectedRow = new SimpleObjectProperty<>();
+        tableViewRoutes.setRowFactory(tableView -> {
+            TableRow<Route> row = new TableRow<Route>();
+
+            row.selectedProperty().addListener((obs, wasSelected, isNowSelected) -> {
+                if (isNowSelected) {
+                    lastSelectedRow.set(row);
+                }
+            });
+            return row;
+        });
+
+        GridPane stage = gridPane;
+        stage.addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+
             @Override
-            public TableRow<Route> call(TableView<Route> tableView2) {
-                final TableRow<Route> row = new TableRow<>();
-                row.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent event) {
-                        final int index = row.getIndex();
-                        if (index >= 0 && index < tableViewRoutes.getItems().size() && tableViewRoutes.getSelectionModel().isSelected(index)  ) {
-                            tableViewRoutes.getSelectionModel().clearSelection();
-                            event.consume();
-                        }
+            public void handle(MouseEvent event) {
+                if (lastSelectedRow.get() != null) {
+                    Bounds boundsOfSelectedRow = lastSelectedRow.get().localToScene(lastSelectedRow.get().getLayoutBounds());
+                    if (boundsOfSelectedRow.contains(event.getSceneX(), event.getSceneY()) == false) {
+                        tableViewRoutes.getSelectionModel().clearSelection();
                     }
-                });
-                return row;
+                }
             }
         });
     }
 
 
-
+    /**
+     * tableViewRoutesSelectionListener will deselect the selected cell in tableViewWifi if the mouse is clicked
+     * anywhere else.
+     */
     private void tableViewWifiSelectionListener() {
-        tableViewWifi.setRowFactory(new Callback<TableView<WifiLocation>, TableRow<WifiLocation>>() {
+        ObjectProperty<TableRow<WifiLocation>> lastSelectedRow = new SimpleObjectProperty<>();
+        tableViewWifi.setRowFactory(tableView -> {
+            TableRow<WifiLocation> row = new TableRow<WifiLocation>();
+
+            row.selectedProperty().addListener((obs, wasSelected, isNowSelected) -> {
+                if (isNowSelected) {
+                    lastSelectedRow.set(row);
+                }
+            });
+            return row;
+        });
+
+        GridPane stage = gridPane;
+        stage.addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+
             @Override
-            public TableRow<WifiLocation> call(TableView<WifiLocation> tableView2) {
-                final TableRow<WifiLocation> row = new TableRow<>();
-                row.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent event) {
-                        final int index = row.getIndex();
-                        if (index >= 0 && index < tableViewWifi.getItems().size() && tableViewWifi.getSelectionModel().isSelected(index)  ) {
-                            tableViewWifi.getSelectionModel().clearSelection();
-                            event.consume();
-                        }
+            public void handle(MouseEvent event) {
+                if (lastSelectedRow.get() != null) {
+                    Bounds boundsOfSelectedRow = lastSelectedRow.get().localToScene(lastSelectedRow.get().getLayoutBounds());
+                    if (boundsOfSelectedRow.contains(event.getSceneX(), event.getSceneY()) == false) {
+                        tableViewWifi.getSelectionModel().clearSelection();
                     }
-                });
-                return row;
+                }
             }
         });
     }
 
 
-
+    /**
+     * tableViewRoutesSelectionListener will deselect the selected cell in tableViewRetailers if the mouse is clicked
+     * anywhere else.
+     */
     private void tableViewRetailerSelectionListener() {
-        tableViewRetailers.setRowFactory(new Callback<TableView<RetailLocation>, TableRow<RetailLocation>>() {
+        ObjectProperty<TableRow<RetailLocation>> lastSelectedRow = new SimpleObjectProperty<>();
+        tableViewRetailers.setRowFactory(tableView -> {
+            TableRow<RetailLocation> row = new TableRow<RetailLocation>();
+
+            row.selectedProperty().addListener((obs, wasSelected, isNowSelected) -> {
+                if (isNowSelected) {
+                    lastSelectedRow.set(row);
+                }
+            });
+            return row;
+        });
+
+        GridPane stage = gridPane;
+        stage.addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+
             @Override
-            public TableRow<RetailLocation> call(TableView<RetailLocation> tableView2) {
-                final TableRow<RetailLocation> row = new TableRow<>();
-                row.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent event) {
-                        final int index = row.getIndex();
-                        if (index >= 0 && index < tableViewRetailers.getItems().size() && tableViewRetailers.getSelectionModel().isSelected(index)  ) {
-                            tableViewRetailers.getSelectionModel().clearSelection();
-                            event.consume();
-                        }
+            public void handle(MouseEvent event) {
+                if (lastSelectedRow.get() != null) {
+                    Bounds boundsOfSelectedRow = lastSelectedRow.get().localToScene(lastSelectedRow.get().getLayoutBounds());
+                    if (boundsOfSelectedRow.contains(event.getSceneX(), event.getSceneY()) == false) {
+                        tableViewRetailers.getSelectionModel().clearSelection();
                     }
-                });
-                return row;
+                }
             }
         });
     }
