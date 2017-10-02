@@ -106,7 +106,6 @@ public class RouteDataViewerController extends DataViewerController {
         EndTime.setCellValueFactory(new PropertyValueFactory<>("StopTime"));
         tableView.setItems(routeList);
         tableView.getColumns().setAll(StartLocation, EndLocation, Date, StartTime, EndTime);
-
         ActionEvent event = new ActionEvent();
         try {
             displayData(event);

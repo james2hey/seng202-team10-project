@@ -18,6 +18,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -158,6 +159,19 @@ public abstract class Controller {
         Scene viewDataScene = new Scene(viewDataParent);
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.setScene(viewDataScene);
+    }
+
+    /**
+     * Changes the scene to the user information scene.
+     * @param event Created when the method is called
+     * @throws IOException Handles errors caused by an fxml not loading correctly
+     */
+    @FXML
+    public void changeToUserInformationScene(ActionEvent event) throws IOException {
+        Parent userInfoParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/userInformation.fxml"));
+        Scene userInfoScene = new Scene(userInfoParent);
+        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        currentStage.setScene(userInfoScene);
     }
 
     /**
