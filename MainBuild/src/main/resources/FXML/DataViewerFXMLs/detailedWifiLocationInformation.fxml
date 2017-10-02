@@ -15,7 +15,7 @@
             <Font size="21.0" />
          </font>
       </Text>
-      <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#updateValues" prefHeight="25.0" prefWidth="319.0" text="Update Changes" textAlignment="CENTER" GridPane.columnSpan="2" GridPane.rowIndex="2">
+      <Button fx:id="update" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#updateValues" prefHeight="25.0" prefWidth="319.0" text="Update Changes" textAlignment="CENTER" GridPane.columnSpan="2" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets left="150.0" />
          </GridPane.margin>
@@ -54,12 +54,12 @@
                <children>
                   <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="131.0">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Lattitude: " />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Latitude: " />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <JFXTextField fx:id="lattitude" prefHeight="23.0" prefWidth="200.0" />
+                        <JFXTextField fx:id="latitude" prefHeight="23.0" prefWidth="200.0" />
                      </children>
                   </HBox>
                </children>
