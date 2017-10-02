@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane alignment="center" hgap="30.0" prefHeight="650.0" prefWidth="1100.0" style="-fx-background-color: GREY;" vgap="20.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIControllers.HomeController">
+<GridPane fx:id="gridPane" alignment="center" hgap="30.0" prefHeight="650.0" prefWidth="1100.0" style="-fx-background-color: Grey;" vgap="20.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIControllers.HomeController">
    <columnConstraints>
       <ColumnConstraints maxWidth="800.0" minWidth="10.0" prefWidth="61.0" />
       <ColumnConstraints maxWidth="800.0" minWidth="10.0" prefWidth="183.0" />
@@ -78,11 +78,10 @@
             </TableView>
          </children>
       </GridPane>
-       <Button mnemonicParsing="false" onAction="#showFavourites" prefHeight="25.0" prefWidth="342.0" text="View Favourites on Map" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+       <Button mnemonicParsing="false" prefHeight="25.0" onAction="#showFavourites" prefWidth="342.0" text="View Favourites on Map" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="3" />
       <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" style="-fx-background-color: grey;" GridPane.rowSpan="4">
          <effect>
             <Blend />
          </effect></JFXDrawer>
-      <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="280.0" text="User Statistics" GridPane.columnIndex="3" GridPane.rowIndex="3" />
    </children>
 </GridPane>
