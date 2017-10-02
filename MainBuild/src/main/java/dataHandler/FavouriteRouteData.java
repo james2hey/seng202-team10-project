@@ -1,5 +1,6 @@
 package dataHandler;
 
+import dataAnalysis.Route;
 import main.HandleUsers;
 import main.Main;
 
@@ -65,5 +66,12 @@ public class FavouriteRouteData {
             addRoute = db.getPreparedStatement(addRouteStatement);
             System.out.println(e.getMessage());
         }
+    }
+
+    public void deleteFavouriteRoute(Route route) {
+        db.executeQuerySQL("DELETE FROM favourite_routes WHERE name = '" + Main.hu.currentCyclist.name + "' " +
+                "AND start_year = '" + route.getStartYear() + "' AND start_month = '" + route.getStartMonth() + "' " +
+                "AND start_day = '" + route.getStartDay() + "' AND start_time = '" + route.getStartTime() + "' " +
+                "AND bikeid = '" + route.getBikeID() + "';");
     }
 }

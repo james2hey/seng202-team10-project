@@ -4,6 +4,9 @@ package GUIControllers;
 import dataAnalysis.RetailLocation;
 import dataAnalysis.Route;
 import dataAnalysis.WifiLocation;
+import dataHandler.FavouriteRetailData;
+import dataHandler.FavouriteRouteData;
+import dataHandler.FavouriteWifiData;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -144,14 +147,19 @@ public class HomeController extends Controller implements Initializable{
     @FXML
     public void deleteFavourite(ActionEvent event) throws IOException {
         if (tableViewRoutes.getSelectionModel().getSelectedItem() != null) {
-            System.out.println(tableViewRoutes.getSelectionModel().getSelectedItem());
-            System.out.println("ROUTES");
+            FavouriteRouteData frd = new FavouriteRouteData(Main.getDB());
+            frd.deleteFavouriteRoute(tableViewRoutes.getSelectionModel().getSelectedItem());
 
         } else if (tableViewWifi.getSelectionModel().getSelectedItem() != null){
-            System.out.println("WIFI");
+            FavouriteWifiData fwd = new FavouriteWifiData(Main.getDB());
+            fwd.deleteFavouriteWifi(tableViewWifi.getSelectionModel().getSelectedItem());
 
         } else if (tableViewRetailers.getSelectionModel().getSelectedItem() != null) {
-            System.out.println("RETAIL");
+            FavouriteRetailData frd = new FavouriteRetailData(Main.getDB());
+            frd.deleteFavouriteRetail(tableViewRetailers.getSelectionModel().getSelectedItem());
+
+//            Main.hu.currentCyclist.deleteFavouriteRetail(tableViewRetailers.getSelectionModel().getSelectedItem());
+
 
         } else {
             makeErrorDialogueBox("No favourite selected", "No route was selected to delete." +

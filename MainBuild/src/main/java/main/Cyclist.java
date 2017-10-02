@@ -196,4 +196,13 @@ public class Cyclist {
         }
         return alreadyInList;
     }
+
+    public void deleteFavouriteRetail(RetailLocation store) {
+        for (int i = 0; i < favouriteRetailLocations.size(); i++) {
+            if (favouriteRetailLocations.get(i) == store) {
+                favouriteRetailLocations.remove(i);
+                break;
+            }
+        }
+    }
 }
