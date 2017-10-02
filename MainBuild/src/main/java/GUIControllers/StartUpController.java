@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import main.HelperFunctions;
 import main.Main;
 
 import java.io.IOException;
@@ -24,7 +25,7 @@ import static java.lang.Character.isLetter;
 /**
  * Handles the logging in scene of the GUI.
  */
-public class LoginController extends Controller implements Initializable {
+public class StartUpController extends Controller implements Initializable {
 
     @FXML
     private TextField username;
@@ -57,30 +58,49 @@ public class LoginController extends Controller implements Initializable {
     @FXML
     private ComboBox<String> usergender;
 
+
     /**
      * Creates new Cyclist instance with the given user name if it doesn't already exist in the database. Otherwise
-     * it creates an error dialog box informing the use this name is already taken.
+     * it creates an error dialog box informing the use this name is already taken. Also throws error dialog boxes
+     * for having no entries for a log in field or any incorrectly formatted dates.
      * @param event clicking the sign up button
      * @throws IOException
      */
     @FXML
     public void createCyclist(ActionEvent event) throws IOException {
         String name = username.getText();
-        String gender = usergender.getSelectionModel().getSelectedItem();
-        System.out.println(gender);
-        int day =  Integer.parseInt(userday.getText());
-        int month =  Integer.parseInt(usermonth.getText());
-        int year =  Integer.parseInt(useryear.getText());
-
+        boolean noNullEntries = true;
         if (name.equals("") || !isLetter(name.charAt(0))) {
             makeErrorDialogueBox("Enter a valid name", "Valid names must have at least one " +
                     "character\nand start with a letter.");
-        } else {
-            boolean created = Main.hu.createNewUser(name, day, month, year, gender);
-            if (created) {
-                navigateHome(event);
+            noNullEntries = false;
+        }
+        if (usergender.getValue() == null) {
+            makeErrorDialogueBox("Select a gender", "No gender was selected. Please select " +
+                    "a gender\n from the drop down box or 'other' if you would rather not specify this.");
+            noNullEntries = false;
+        }
+        if (userday.getText().equals("") || usermonth.getText().equals("") || useryear.getText().equals("")) {
+            makeErrorDialogueBox("Enter a valid birth date", "Use the format DD/MM/YYYY");
+            noNullEntries = false;
+        }
+        if (noNullEntries) {
+            String gender = usergender.getSelectionModel().getSelectedItem();
+            int day = Integer.parseInt(userday.getText());
+            int month = Integer.parseInt(usermonth.getText());
+            int year = Integer.parseInt(useryear.getText());
+
+            boolean dateError = HelperFunctions.checkDateDetails(day, month, year);
+
+            if (dateError) {
+                makeErrorDialogueBox("Enter a valid birth date", "Use the format DD/MM/YYYY");
             } else {
-                makeErrorDialogueBox("Name already in use.", "");
+                boolean created = Main.hu.createNewUser(name, day, month, year, gender);
+                if (created) {
+                    navigateHome(event);
+                } else {
+                    makeErrorDialogueBox("Name already in use.", "");
+                }
             }
         }
     }
