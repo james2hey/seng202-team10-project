@@ -194,7 +194,7 @@ public class AddDataController extends Controller implements Initializable {
                 "1", username, Main.hu.currentCyclist.getBirthYear(), Main.hu.currentCyclist.getGender());
         //get distance
         //
-        if (fromHandler == false) {
+        if (!fromHandler) {
             makeErrorDialogueBox("Something wrong with input", "Fill all required fields\nCheck entry is not already in database");
         } else {
             makeSuccessDialogueBox("Successfully added route to Database", "You may add more entries");
