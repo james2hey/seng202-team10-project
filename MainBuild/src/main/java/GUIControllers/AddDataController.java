@@ -203,7 +203,7 @@ public class AddDataController extends Controller implements Initializable {
         Boolean fromHandler = newRoute.addSingleEntry(duration, sDate[0], sDate[1], sDate[2], rSTime.getText(),
                 eDate[0], eDate[1], eDate[2], rETime.getText(), "1",
                 rSAddress.getText(), SLatitude, SLongitude, "2", rEAddress.getText(), ELatitude, ELongitude,
-                "1", username, 2017, 3);
+                "1", username, 2017, Main.hu.currentCyclist.getGender());
         if (fromHandler == false) {
             makeErrorDialogueBox("Something wrong with input", "Fill all required fields\nCheck entry is not already in database");
         } else {
