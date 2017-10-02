@@ -41,6 +41,12 @@ public abstract class Controller {
     @FXML
     private JFXHamburger hamburger;
 
+    private Stage currentStage;
+
+    public Stage getCurrentStage() {
+        return currentStage;
+    }
+
     /**
      * Should be called every time the jfoenix hamburger is clicked. It will open the side panel if it
      * is currently closed, or close it if it is currently open.
@@ -105,7 +111,7 @@ public abstract class Controller {
     public void changeToHomeScene(ActionEvent event) throws IOException {
         Parent homeParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/home.fxml"));
         Scene homeScene = new Scene(homeParent);
-        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.setScene(homeScene);
     }
 
