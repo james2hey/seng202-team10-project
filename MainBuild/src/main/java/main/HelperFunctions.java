@@ -4,6 +4,9 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.Duration;
 
+import static GUIControllers.Controller.makeErrorDialogueBox;
+import static java.lang.Character.isLetter;
+
 /**
  * Created by jes143 on 22/09/17.
  * Includes some useful static helper functions that may be applicable to multiple classes and that don't fit anywhere
@@ -125,6 +128,23 @@ public class HelperFunctions {
             return false;
         }
         return true;
+    }
+
+    /**
+     * Checks that the date entered has a year between 1900-2017, month between 1-12 and day between 1-31.
+     * @param day the dates day
+     * @param month the dates month_________________________________________________test this man
+     * @param year the dates year
+     * @return
+     */
+    public static boolean checkDateDetails(int day, int month, int year) {
+        if (year < 1900 || year > 2017) { // People born out of these bounds are assumed not to use this program.
+            return true;
+        } else if (month < 1 || month > 12 || day < 1 || day > 31) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

@@ -1,5 +1,6 @@
 package dataHandler;
 
+import dataAnalysis.WifiLocation;
 import org.junit.*;
 
 import java.nio.file.Files;
@@ -45,5 +46,13 @@ public class FavouriteWifiDataTest {
         rs = db.executeQuerySQL("SELECT * FROM favourite_wifi WHERE name = 'Tester' AND WIFI_ID = '1';");
         assertFalse(rs.isClosed());
     }
+
+//    @Test
+//    public void deleteFavouriteWifi() throws Exception {
+//        favouriteWifiData.addFavouriteWifi("Tester", "1");
+//        WifiLocation w = new WifiLocation("1", 0.0, 0.0, "", "", "","",
+//                "", "", "", 1);
+//        favouriteWifiData.deleteFavouriteWifi(w);
+//    }
 
 }

@@ -94,7 +94,7 @@ public class HandleUsersTest {
         Cyclist testCyclist = new Cyclist();
         testCyclist.setBirthday(0, 0, 0);
         testCyclist.setGender(0);
-        hu.getUserDetails();
+        hu.getUserDetails(testCyclist.getName());
         assertEquals("0/0/0", currentCyclist.getBirthDay());
     }
 
@@ -105,7 +105,7 @@ public class HandleUsersTest {
         Cyclist testCyclist = new Cyclist();
         testCyclist.setBirthday(0, 0, 0);
         testCyclist.setGender(0);
-        hu.getUserDetails();
+        hu.getUserDetails(currentCyclist.getName());
         assertEquals(0, currentCyclist.getGender());
     }
 
@@ -260,8 +260,14 @@ public class HandleUsersTest {
 
     @Test
     public void convertGender1() throws Exception {
-        hu.convertGender("m");
+        int result = hu.convertGender("Male");
+        assertEquals(1, result);
+    }
 
+    @Test
+    public void convertGender2() throws Exception {
+        int result = hu.convertGender("Test");
+        assertEquals(0, result);
     }
 
 }

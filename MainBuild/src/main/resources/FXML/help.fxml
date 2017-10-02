@@ -10,11 +10,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="577.0" prefWidth="1001.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIControllers.HelpController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="447.0" prefWidth="570.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIControllers.HelpController">
    <children>
-      <VBox prefHeight="167.0" prefWidth="636.0">
+      <VBox prefHeight="89.0" prefWidth="900.0">
          <children>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Help" textAlignment="CENTER" wrappingWidth="955.7294921875">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Help" textAlignment="CENTER" wrappingWidth="528.7294921875">
                <font>
                   <Font size="39.0" />
                </font>
@@ -24,43 +24,43 @@
             </Text>
          </children>
       </VBox>
-      <VBox prefHeight="603.0" prefWidth="1001.0" style="-fx-background-color: white;">
+      <VBox prefHeight="566.0" prefWidth="1062.0" style="-fx-background-color: white;">
          <children>
-            <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+            <TabPane prefHeight="431.0" prefWidth="741.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
                 <Tab text="Users">
                      <content>
-                        <Text fx:id="userSection" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="945.7294921875" />
+                        <Text fx:id="userSection" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="570.7294921875" />
                      </content>
                   </Tab>
                   <Tab text="Navigation">
                      <content>
-                        <Text fx:id="navSection" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="945.7294921875" />
+                        <Text fx:id="navSection" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="569.7294921875" />
                      </content>
                   </Tab>
                   <Tab text="Home Screen">
                      <content>
-                        <Text fx:id="homeSection" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="945.7294921875" />
+                        <Text fx:id="homeSection" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="570.7294921875" />
                      </content>
                   </Tab>
                   <Tab text="Plan Route">
                      <content>
-                        <Text fx:id="planSection" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="945.7294921875" />
+                        <Text fx:id="planSection" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="569.7294921875" />
                      </content>
                   </Tab>
                   <Tab text="Add Data">
                      <content>
-                        <Text fx:id="addDataSection" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="945.7294921875" />
+                        <Text fx:id="addDataSection" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="569.7294921875" />
                      </content>
                   </Tab>
                   <Tab text="View Data">
                      <content>
-                        <Text fx:id="viewSection" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="945.7294921875" />
+                        <Text fx:id="viewSection" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="570.7294921875" />
                      </content>
                   </Tab>
                   <Tab text="About">
                      <content>
-                        <Text fx:id="aboutSection" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="945.7294921875" />
+                        <Text fx:id="aboutSection" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="569.7294921875" />
                      </content>
                   </Tab>
               </tabs>

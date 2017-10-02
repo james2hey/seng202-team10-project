@@ -1,5 +1,8 @@
 package dataHandler;
 
+import dataAnalysis.RetailLocation;
+import main.Main;
+
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
@@ -47,5 +50,15 @@ public class FavouriteRetailData {
             addRetail = db.getPreparedStatement(addRetailStatement);
             System.out.println(e.getMessage());
         }
+    }
+
+
+    /**
+     * Deletes the given store from the database.
+     * @param store retail store to be deleted
+     */
+    public void deleteFavouriteRetail(RetailLocation store) {
+        db.executeQuerySQL("DELETE FROM favourite_retail WHERE name = '" + Main.hu.currentCyclist.name + "' AND RETAILER_NAME = '" + store.getName() + "' " +
+                "AND ADDRESS = '" + store.getAddress() + "';");
     }
 }

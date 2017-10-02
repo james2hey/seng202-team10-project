@@ -247,6 +247,9 @@ public class Route {
     }
 
     public void setStopMonth(String month) {
+        if (month.length() < 2) {
+            month = "0" + month;
+        }
         if (!month.equals(stopMonth)) {
             stopMonth = month;
             UpdateData.updateRouteField("end_month", stopMonth, bikeid, startYear, startMonth, startDay, startTime);
@@ -255,6 +258,9 @@ public class Route {
     }
 
     public void setStopDay(String day) {
+        if (day.length() < 2) {
+            day = "0" + day;
+        }
         if (!day.equals(stopDay)) {
             stopDay = day;
             UpdateData.updateRouteField("end_day", stopDay, bikeid, startYear, startMonth, startDay, startTime);
@@ -263,6 +269,9 @@ public class Route {
     }
 
     public void setStopTime(String time) {
+        if (time.length() < 8) {
+            time = time + ":00";
+        }
         if (!time.equals(stopTime)) {
             stopTime = time;
             UpdateData.updateRouteField("end_time", stopTime, bikeid, startYear, startMonth, stopDay, startTime);

@@ -1,17 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.effect.*?>
 <?import com.jfoenix.controls.*?>
 <?import java.lang.*?>
-<?import com.jfoenix.controls.JFXDrawer?>
-<?import com.jfoenix.controls.JFXHamburger?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.JFXDrawer?>
+<?import com.jfoenix.controls.JFXHamburger?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<GridPane alignment="center" hgap="30.0" prefHeight="650.0" prefWidth="1100.0" style="-fx-background-color: Grey;" vgap="20.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIControllers.HomeController">
+<GridPane fx:id="gridPane" alignment="center" hgap="30.0" prefHeight="650.0" prefWidth="1100.0" style="-fx-background-color: Grey; -fx-background-image: url(Images/sky.jpg);" vgap="20.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIControllers.HomeController">
    <columnConstraints>
-      <ColumnConstraints maxWidth="800.0" minWidth="10.0" prefWidth="61.0" />
+      <ColumnConstraints maxWidth="800.0" minWidth="0.0" prefWidth="0.0" />
+      <ColumnConstraints maxWidth="800.0" minWidth="10.0" prefWidth="107.0" />
       <ColumnConstraints maxWidth="800.0" minWidth="10.0" prefWidth="183.0" />
       <ColumnConstraints maxWidth="800.0" minWidth="10.0" prefWidth="122.0" />
       <ColumnConstraints maxWidth="991.0" minWidth="10.0" prefWidth="281.0" />
@@ -25,18 +35,18 @@
       <RowConstraints maxHeight="510.0" minHeight="22.0" prefHeight="43.0" />
    </rowConstraints>
    <children>
-      <Text fx:id="welcomeText" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome: " wrappingWidth="822.01025390625" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1">
+      <Text fx:id="welcomeText" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome: " wrappingWidth="822.01025390625" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="1">
          <font>
             <Font size="39.0" />
          </font></Text>
-      <Text fx:id="buttonPressedText" strokeType="OUTSIDE" strokeWidth="0.0" text="Button Pressed" textAlignment="CENTER" visible="false" wrappingWidth="269.6552734375" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-      <JFXHamburger fx:id="hamburger" onMouseClicked="#openDrawer" GridPane.columnIndex="4" />
-      <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Home" textAlignment="CENTER" wrappingWidth="212.7294921875" GridPane.columnIndex="3" GridPane.columnSpan="2">
+      <Text fx:id="buttonPressedText" strokeType="OUTSIDE" strokeWidth="0.0" text="Button Pressed" textAlignment="CENTER" visible="false" wrappingWidth="269.6552734375" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+      <JFXHamburger fx:id="hamburger" onMouseClicked="#openDrawer" GridPane.columnIndex="5" />
+      <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Home" textAlignment="CENTER" wrappingWidth="212.7294921875" GridPane.columnIndex="4" GridPane.columnSpan="2">
          <font>
             <Font size="60.0" />
          </font>
       </Text>
-      <GridPane GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="2">
+      <GridPane GridPane.columnIndex="2" GridPane.columnSpan="4" GridPane.rowIndex="2">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="800.0" minWidth="10.0" prefWidth="305.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="800.0" minWidth="293.0" prefWidth="305.0" />
@@ -78,10 +88,11 @@
             </TableView>
          </children>
       </GridPane>
-       <Button mnemonicParsing="false" prefHeight="25.0" onAction="#showFavourites" prefWidth="342.0" text="View Favourites on Map" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+       <Button mnemonicParsing="false" onAction="#showFavourites" prefHeight="25.0" prefWidth="342.0" text="View Favourites on Map" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="3" />
       <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" style="-fx-background-color: grey;" GridPane.rowSpan="4">
          <effect>
             <Blend />
          </effect></JFXDrawer>
+      <Button mnemonicParsing="false" onAction="#deleteFavourite" prefHeight="26.0" prefWidth="291.0" text="Delete Favourite" GridPane.columnIndex="4" GridPane.rowIndex="3" />
    </children>
 </GridPane>

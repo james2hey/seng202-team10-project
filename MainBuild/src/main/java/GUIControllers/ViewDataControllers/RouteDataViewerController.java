@@ -106,7 +106,6 @@ public class RouteDataViewerController extends DataViewerController {
         EndTime.setCellValueFactory(new PropertyValueFactory<>("StopTime"));
         tableView.setItems(routeList);
         tableView.getColumns().setAll(StartLocation, EndLocation, Date, StartTime, EndTime);
-
         ActionEvent event = new ActionEvent();
         try {
             displayData(event);
@@ -157,14 +156,14 @@ public class RouteDataViewerController extends DataViewerController {
             if (":00".equals(timeLower)) {
                 timeLower = null;
             } else {
-                if (timeLower.matches("[0-2][0-9]:[0-5][0-9]:00") == false) {
+                if (timeLower.matches("([0-1][0-9]|2[0-4]):[0-5][0-9]:00") == false) {
                     throw new FilterByTimeException("Incorrect time format on start time");
                 }
             }
             if (":00".equals(timeUpper)) {
                 timeUpper = null;
             } else {
-                if (timeUpper.matches("[0-2][0-9]:[0-5][0-9]:00") == false) {
+                if (timeUpper.matches("([0-1][0-9]|2[0-4]):[0-5][0-9]:00") == false) {
                     throw new FilterByTimeException("Incorrect time format on end time");
                 }
             }
@@ -222,9 +221,7 @@ public class RouteDataViewerController extends DataViewerController {
             Route routeToAdd = tableView.getSelectionModel().getSelectedItem();
             boolean alreadyInList = Main.hu.currentCyclist.routeAlreadyInList(routeToAdd);
             if (!alreadyInList) {
-                System.out.println("ADDED " + routeToAdd.getBikeID() + " to cyclist favourites."); // Put this on GUI
-                int rank = openRouteRankStage();
-                Main.hu.currentCyclist.addRoute(routeToAdd, name, rank, Main.getDB(), Main.hu);
+                openRouteRankStage(routeToAdd, name);
             } else {
                 makeErrorDialogueBox("Route already in favourites", "This route has already been " +
                         "added\nto this users favourites list.");
@@ -238,7 +235,7 @@ public class RouteDataViewerController extends DataViewerController {
      * @return the users ranking, 0 if exited
      */
     @FXML
-    private int openRouteRankStage() {
+    private void openRouteRankStage(Route routeToAdd, String name) {
         ArrayList<Integer> a = new ArrayList<>();
         a.add(1);
         a.add(2);
@@ -251,9 +248,7 @@ public class RouteDataViewerController extends DataViewerController {
         c.setContentText("Rating");
         Optional<Integer> result = c.showAndWait();
         if (result.isPresent()) {
-            return result.get();
-        } else {
-            return 0;
+            Main.hu.currentCyclist.addRoute(routeToAdd, name, result.get(), Main.getDB(), Main.hu);
         }
     }
 

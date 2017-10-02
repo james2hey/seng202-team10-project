@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import static org.apache.commons.text.WordUtils.capitalizeFully;
 
 /**
- * The user of the program gets an instance of this is created for each user. it contains all the users
+ * The user of the program gets an instance of this is created for each user. It contains all the users
  * favourite routes, stations, retail stores and wifi locations.
  */
 public class Cyclist {
@@ -21,9 +21,9 @@ public class Cyclist {
     private ArrayList<RetailLocation> favouriteRetailLocations = new ArrayList<RetailLocation>();
     private ArrayList<WifiLocation> favouriteWifiLocations = new ArrayList<WifiLocation>();
 
-    public String name;
-    private int bday, bmonth, byear;
-    private int gender;   // 0 other, 1 male, 2 female
+    static public String name;
+    static private int bday, bmonth, byear;
+    static private int gender, distanceCycled;   // 0 other, 1 male, 2 female
 
     public Cyclist() {
     }
@@ -46,21 +46,39 @@ public class Cyclist {
         return favouriteRouteList;
     }
 
-    public String getBirthDay() {return bday + "/" + bmonth + "/" + byear;}
+    static public int getBirthYear() {return byear;}
 
-    public int getGender() {return gender;}
+    static public int getBmonth() {return bmonth;}
 
-    public String getName() {
+    static public int getBDay() {return bday;}
+
+    static public String getBirthDay() {return bday + "/" + bmonth + "/" + byear;}
+
+    static public int getGender() {return gender;}
+
+    static public String getName() {
         return name;
     }
 
-    public void setBirthday(int day, int month, int year) {
+    public int getDistanceCycled() {return distanceCycled;}
+
+    static public void setBirthday(int day, int month, int year) {
         bday = day;
         bmonth = month;
         byear = year;
     }
 
-    public void setGender(int inputGender) {gender = inputGender;}
+    static public void setGender(int inputGender) {gender = inputGender;}
+
+    static public void setName(String newName) {name = newName;}
+
+    public void setDistanceCycled(int distance) {distanceCycled = distance;}
+
+    /**
+     * Adds distance to the cyclists total distance count.
+     * @param extraDistance the distance to be added to the total distance
+     */
+    public void addDistanceCycled(int extraDistance) {distanceCycled += extraDistance;}
 
 
     /**
@@ -181,5 +199,14 @@ public class Cyclist {
             f.addFavouriteWifi(name, wifi.getWifiID());
         }
         return alreadyInList;
+    }
+
+    public void deleteFavouriteRetail(RetailLocation store) {
+        for (int i = 0; i < favouriteRetailLocations.size(); i++) {
+            if (favouriteRetailLocations.get(i) == store) {
+                favouriteRetailLocations.remove(i);
+                break;
+            }
+        }
     }
 }

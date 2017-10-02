@@ -1,5 +1,8 @@
 package dataHandler;
 
+import dataAnalysis.WifiLocation;
+import main.Main;
+
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
@@ -44,5 +47,15 @@ public class FavouriteWifiData {
             addWifi = db.getPreparedStatement(addWifiStatement);
             System.out.println(e.getMessage());
         }
+    }
+
+
+    /**
+     * Deletes the given wifi hotspot from the database.
+     * @param hotspot the wifi hotspot to be deleted
+     */
+    public void deleteFavouriteWifi(WifiLocation hotspot) {
+        db.executeQuerySQL("DELETE FROM favourite_wifi WHERE name = '" + Main.hu.currentCyclist.name + "' " +
+                "AND wifi_id = '" + hotspot.getWifiID() + "';");
     }
 }

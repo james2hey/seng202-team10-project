@@ -4,14 +4,24 @@ package GUIControllers;
 import dataAnalysis.RetailLocation;
 import dataAnalysis.Route;
 import dataAnalysis.WifiLocation;
+import dataHandler.FavouriteRetailData;
+import dataHandler.FavouriteRouteData;
+import dataHandler.FavouriteWifiData;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Bounds;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import main.Main;
 
@@ -25,6 +35,9 @@ import java.util.ResourceBundle;
  */
 
 public class HomeController extends Controller implements Initializable{
+
+    @FXML
+    private GridPane gridPane;
 
     @FXML
     private TableColumn<Route, String> FavRoutes;
@@ -107,6 +120,10 @@ public class HomeController extends Controller implements Initializable{
         RetailerAddress.setCellValueFactory(new PropertyValueFactory<>("Address"));
         tableViewRetailers.setItems(retailerListObservable);
         tableViewRetailers.getColumns().setAll(FavRetailers);
+
+        tableViewRoutesSelectionListener();
+        tableViewWifiSelectionListener();
+        tableViewRetailerSelectionListener();
     }
 
 
@@ -121,4 +138,137 @@ public class HomeController extends Controller implements Initializable{
         //called when GUI button view on map button is pressed.
         changeToPlanRouteScene(event, wifiList, retailerList, routeList);
     }
-}
+
+
+    /**
+     * Deletes the favourite selected from the chosen table.
+     * @param event Created when the method is called
+     * @throws IOException
+     */
+    @FXML
+    public void deleteFavourite(ActionEvent event) throws IOException {
+        if (tableViewRoutes.getSelectionModel().getSelectedItem() != null) {
+            FavouriteRouteData frd = new FavouriteRouteData(Main.getDB());
+            frd.deleteFavouriteRoute(tableViewRoutes.getSelectionModel().getSelectedItem());
+            routeList.remove(tableViewRoutes.getSelectionModel().getSelectedItem());
+            routeListObservable.remove(tableViewRoutes.getSelectionModel().getSelectedItem());
+
+        } else if (tableViewWifi.getSelectionModel().getSelectedItem() != null){
+            FavouriteWifiData fwd = new FavouriteWifiData(Main.getDB());
+            fwd.deleteFavouriteWifi(tableViewWifi.getSelectionModel().getSelectedItem());
+            wifiList.remove(tableViewWifi.getSelectionModel().getSelectedItem());
+            wifiListObservable.remove(tableViewWifi.getSelectionModel().getSelectedItem());
+
+        } else if (tableViewRetailers.getSelectionModel().getSelectedItem() != null) {
+            FavouriteRetailData frd = new FavouriteRetailData(Main.getDB());
+            frd.deleteFavouriteRetail(tableViewRetailers.getSelectionModel().getSelectedItem());
+            retailerList.remove(tableViewRetailers.getSelectionModel().getSelectedItem());
+            retailerListObservable.remove(tableViewRetailers.getSelectionModel().getSelectedItem());
+
+
+        } else {
+            makeErrorDialogueBox("No favourite selected", "No route was selected to delete." +
+                    " You must\nchoose which favourite you want to delete.");
+        }
+    }
+
+
+    /**
+     * tableViewRoutesSelectionListener will deselect the selected cell in tableViewRoutes if the mouse is clicked
+     * anywhere else.
+     */
+    private void tableViewRoutesSelectionListener() {
+        ObjectProperty<TableRow<Route>> lastSelectedRow = new SimpleObjectProperty<>();
+        tableViewRoutes.setRowFactory(tableView -> {
+            TableRow<Route> row = new TableRow<>();
+
+            row.selectedProperty().addListener((obs, wasSelected, isNowSelected) -> {
+                if (isNowSelected) {
+                    lastSelectedRow.set(row);
+                }
+            });
+            return row;
+        });
+
+        GridPane stage = gridPane;
+        stage.addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent event) {
+                if (lastSelectedRow.get() != null) {
+                    Bounds boundsOfSelectedRow = lastSelectedRow.get().localToScene(lastSelectedRow.get().getLayoutBounds());
+                    if (boundsOfSelectedRow.contains(event.getSceneX(), event.getSceneY()) == false) {
+                        tableViewRoutes.getSelectionModel().clearSelection();
+                    }
+                }
+            }
+        });
+    }
+
+
+    /**
+     * tableViewRoutesSelectionListener will deselect the selected cell in tableViewWifi if the mouse is clicked
+     * anywhere else.
+     */
+    private void tableViewWifiSelectionListener() {
+        ObjectProperty<TableRow<WifiLocation>> lastSelectedRow = new SimpleObjectProperty<>();
+        tableViewWifi.setRowFactory(tableView -> {
+            TableRow<WifiLocation> row = new TableRow<>();
+
+            row.selectedProperty().addListener((obs, wasSelected, isNowSelected) -> {
+                if (isNowSelected) {
+                    lastSelectedRow.set(row);
+                }
+            });
+            return row;
+        });
+
+        GridPane stage = gridPane;
+        stage.addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent event) {
+                if (lastSelectedRow.get() != null) {
+                    Bounds boundsOfSelectedRow = lastSelectedRow.get().localToScene(lastSelectedRow.get().getLayoutBounds());
+                    if (boundsOfSelectedRow.contains(event.getSceneX(), event.getSceneY()) == false) {
+                        tableViewWifi.getSelectionModel().clearSelection();
+                    }
+                }
+            }
+        });
+    }
+
+
+    /**
+     * tableViewRoutesSelectionListener will deselect the selected cell in tableViewRetailers if the mouse is clicked
+     * anywhere else.
+     */
+    private void tableViewRetailerSelectionListener() {
+        ObjectProperty<TableRow<RetailLocation>> lastSelectedRow = new SimpleObjectProperty<>();
+        tableViewRetailers.setRowFactory(tableView -> {
+            TableRow<RetailLocation> row = new TableRow<>();
+
+            row.selectedProperty().addListener((obs, wasSelected, isNowSelected) -> {
+                if (isNowSelected) {
+                    lastSelectedRow.set(row);
+                }
+            });
+            return row;
+        });
+
+        GridPane stage = gridPane;
+        stage.addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent event) {
+                if (lastSelectedRow.get() != null) {
+                    Bounds boundsOfSelectedRow = lastSelectedRow.get().localToScene(lastSelectedRow.get().getLayoutBounds());
+                    if (boundsOfSelectedRow.contains(event.getSceneX(), event.getSceneY()) == false) {
+                        tableViewRetailers.getSelectionModel().clearSelection();
+                    }
+                }
+            }
+        });
+    }
+
+ }

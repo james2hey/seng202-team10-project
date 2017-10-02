@@ -92,7 +92,11 @@ public class RetailerDataViewerController extends DataViewerController {
         tableView.getColumns().setAll(Name, Address, Zip, PrimaryType);
 
         ActionEvent event = new ActionEvent();
-        displayData(event);
+        try {
+            displayData(event);
+        } catch (Exception e) {
+            System.out.println("Initialising data has failed.");
+        }
     }
 
     /**

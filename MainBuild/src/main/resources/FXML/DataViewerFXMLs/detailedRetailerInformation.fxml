@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
 <?import com.jfoenix.controls.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
@@ -8,6 +12,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.collections.FXCollections?>
 <?import java.lang.String?>
+
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="555.0" prefWidth="600.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIControllers.ViewDataControllers.DetailedRetailerInformation">
    <children>
       <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Detailed Retailer Information" textAlignment="CENTER" wrappingWidth="597.7294921875">
@@ -15,7 +20,7 @@
             <Font size="21.0" />
          </font>
       </Text>
-      <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#updateValues" prefHeight="25.0" prefWidth="319.0" text="Update Changes" textAlignment="CENTER" GridPane.columnSpan="2" GridPane.rowIndex="2">
+      <Button fx:id="update" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#updateValues" prefHeight="25.0" prefWidth="319.0" text="Update Changes" textAlignment="CENTER" GridPane.columnSpan="2" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets left="150.0" />
          </GridPane.margin>

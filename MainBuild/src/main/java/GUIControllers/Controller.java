@@ -18,6 +18,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -40,6 +41,12 @@ public abstract class Controller {
 
     @FXML
     private JFXHamburger hamburger;
+
+    private Stage currentStage;
+
+    public Stage getCurrentStage() {
+        return currentStage;
+    }
 
     /**
      * Should be called every time the jfoenix hamburger is clicked. It will open the side panel if it
@@ -105,7 +112,7 @@ public abstract class Controller {
     public void changeToHomeScene(ActionEvent event) throws IOException {
         Parent homeParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/home.fxml"));
         Scene homeScene = new Scene(homeParent);
-        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.setScene(homeScene);
     }
 
@@ -152,6 +159,19 @@ public abstract class Controller {
         Scene viewDataScene = new Scene(viewDataParent);
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.setScene(viewDataScene);
+    }
+
+    /**
+     * Changes the scene to the user information scene.
+     * @param event Created when the method is called
+     * @throws IOException Handles errors caused by an fxml not loading correctly
+     */
+    @FXML
+    public void changeToUserInformationScene(ActionEvent event) throws IOException {
+        Parent userInfoParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/userInformation.fxml"));
+        Scene userInfoScene = new Scene(userInfoParent);
+        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        currentStage.setScene(userInfoScene);
     }
 
     /**
@@ -220,6 +240,7 @@ public abstract class Controller {
     @FXML
     public void getHelp(ActionEvent event) throws IOException{
         Stage popup = new Stage();
+        popup.setResizable(false);
         popup.initModality(Modality.WINDOW_MODAL);
         popup.initOwner(((Node) event.getSource()).getScene().getWindow());
         Parent popupParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/help.fxml"));

@@ -6,12 +6,17 @@ import dataAnalysis.RetailLocation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import static javafx.scene.paint.Color.DARKSLATEBLUE;
+import static javafx.scene.paint.Color.GREEN;
+import static javafx.scene.paint.Color.RED;
 
 /**
  * Controller for the detailed retailer information fxml.
@@ -46,6 +51,9 @@ public class DetailedRetailerInformation extends DataViewerController{
     @FXML
     private JFXTextField longitude;
 
+    @FXML
+    private Button update;
+
     private RetailLocation currentRetailer = null;
 
     static private ActionEvent mainAppEvent = null;
@@ -73,6 +81,13 @@ public class DetailedRetailerInformation extends DataViewerController{
         zip.setText(Integer.toString(currentRetailer.getZip()));
         mainType.getSelectionModel().select(currentRetailer.getMainType());
         secondaryType.setText(currentRetailer.getSecondaryType());
+        addressListener();
+        latitudeListener();
+        longitudeListener();
+        cityListener();
+        stateListener();
+        zipListener();
+        secondaryListener();
     }
 
     /**
@@ -100,6 +115,146 @@ public class DetailedRetailerInformation extends DataViewerController{
         } catch (Exception exception) {
             makeErrorDialogueBox("Cannot update data.", "One (or more) field(s) is of an incorrect type.");
         }
+    }
+
+
+    /**
+     * Error handler for address field. Uses a listener to see state of text. Sets color and makes confirm button
+     * un-selectable if text field incorrect.
+     */
+    private void addressListener() {
+        address.textProperty().addListener(((observable, oldValue, newValue) -> {
+            System.out.println("TextField Text Changed (newValue: " + newValue + ")");
+            if (address.getText().length() > 50) {
+                address.setFocusColor(RED);
+                address.setUnFocusColor(RED);
+                update.setDisable(true);
+            } else {
+                address.setFocusColor(DARKSLATEBLUE);
+                address.setUnFocusColor(GREEN);
+                update.setDisable(false);
+            }
+        }));
+    }
+
+
+    /**
+     * Error handler for latitude field. Uses a listener to see state of text. Sets color and makes confirm button
+     * un-selectable if text field incorrect.
+     */
+    private void latitudeListener() {
+        latitude.textProperty().addListener((observable, oldValue, newValue) -> {
+            System.out.println("TextField Text Changed (newValue: " + newValue + ")");
+            if (!latitude.getText().matches("-?[0-9]?[0-9]?[0-9].[0-9]+")) {
+                latitude.setFocusColor(RED);
+                latitude.setUnFocusColor(RED);
+                update.setDisable(true);
+            } else {
+                latitude.setFocusColor(DARKSLATEBLUE);
+                latitude.setUnFocusColor(GREEN);
+                update.setDisable(false);
+            }
+        });
+    }
+
+
+    /**
+     * Error handler for longitude field. Uses a listener to see state of text. Sets color and makes confirm button
+     * un-selectable if text field incorrect.
+     */
+    private void longitudeListener() {
+        longitude.textProperty().addListener((observable, oldValue, newValue) -> {
+            System.out.println("TextField Text Changed (newValue: " + newValue + ")");
+            if (!longitude.getText().matches("-?[0-9]?[0-9]?[0-9].[0-9]+")) {
+                longitude.setFocusColor(RED);
+                longitude.setUnFocusColor(RED);
+                update.setDisable(true);
+            } else {
+                longitude.setFocusColor(DARKSLATEBLUE);
+                longitude.setUnFocusColor(GREEN);
+                update.setDisable(false);
+            }
+        });
+    }
+
+
+    /**
+     * Error handler for city field. Uses a listener to see state of text. Sets color and makes confirm button
+     * un-selectable if text field incorrect.
+     */
+    private void cityListener() {
+        city.textProperty().addListener(((observable, oldValue, newValue) -> {
+            System.out.println("TextField Text Changed (newValue: " + newValue + ")");
+            if (city.getText().length() > 50) {
+                city.setFocusColor(RED);
+                city.setUnFocusColor(RED);
+                update.setDisable(true);
+            } else {
+                city.setFocusColor(DARKSLATEBLUE);
+                city.setUnFocusColor(GREEN);
+                update.setDisable(false);
+            }
+        }));
+    }
+
+
+    /**
+     * Error handler for state field. Uses a listener to see state of text. Sets color and makes confirm button
+     * un-selectable if text field incorrect.
+     */
+    private void stateListener() {
+        state.textProperty().addListener(((observable, oldValue, newValue) -> {
+            System.out.println("TextField Text Changed (newValue: " + newValue + ")");
+            if (state.getText().length() > 12) {
+                state.setFocusColor(RED);
+                state.setUnFocusColor(RED);
+                update.setDisable(true);
+            } else {
+                state.setFocusColor(DARKSLATEBLUE);
+                state.setUnFocusColor(GREEN);
+                update.setDisable(false);
+            }
+        }));
+    }
+
+
+    /**
+     * Error handler for zip field. Uses a listener to see state of text. Sets color and makes confirm button
+     * un-selectable if text field incorrect.
+     */
+    private void zipListener() {
+        zip.textProperty().addListener(((observable, oldValue, newValue) -> {
+            System.out.println("TextField Text Changed (newValue: " + newValue + ")");
+            if (!zip.getText().matches("[0-9]*") || zip.getText().length() > 8) {
+                zip.setFocusColor(RED);
+                zip.setUnFocusColor(RED);
+                update.setDisable(true);
+            } else {
+                zip.setFocusColor(DARKSLATEBLUE);
+                zip.setUnFocusColor(GREEN);
+                update.setDisable(false);
+            }
+        }));
+    }
+
+
+    /**
+     * Error handler for secondaryType field. Uses a listener to see state of text. Sets color and makes confirm button
+     * un-selectable if text field incorrect.
+     */
+    private void secondaryListener() {
+        secondaryType.textProperty().addListener(((observable, oldValue, newValue) -> {
+            System.out.println("TextField Text Changed (newValue: " + newValue + ")");
+            if (secondaryType.getText().length() > 50) {
+                secondaryType.setFocusColor(RED);
+                secondaryType.setUnFocusColor(RED);
+                update.setDisable(true);
+            } else {
+                secondaryType.setFocusColor(DARKSLATEBLUE);
+                secondaryType.setUnFocusColor(GREEN);
+                update.setDisable(false);
+            }
+        }));
     }
 
 }

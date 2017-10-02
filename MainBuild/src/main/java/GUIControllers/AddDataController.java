@@ -30,7 +30,7 @@ import java.util.ResourceBundle;
 public class AddDataController extends Controller implements Initializable {
 
     @FXML //This importButton reveals other buttons
-    private Button importButton, importRoute, importRetailer, importWifi, addDataButton;
+    private Button importRoute, importRetailer, importWifi;
 
     @FXML // Route Errors
     private Text sTimeError, sDateError, eTimeError, eDateError;
@@ -191,8 +191,10 @@ public class AddDataController extends Controller implements Initializable {
         Boolean fromHandler = newRoute.addSingleEntry(duration, sDate[0], sDate[1], sDate[2], rSTime.getText(),
                 eDate[0], eDate[1], eDate[2], rETime.getText(), "1",
                 rSAddress.getText(), SLatitude, SLongitude, "2", rEAddress.getText(), ELatitude, ELongitude,
-                "1", username, 2017, 3);
-        if (!fromHandler) {
+                "1", username, Main.hu.currentCyclist.getBirthYear(), Main.hu.currentCyclist.getGender());
+        //get distance
+        //
+        if (fromHandler == false) {
             makeErrorDialogueBox("Something wrong with input", "Fill all required fields\nCheck entry is not already in database");
         } else {
             makeSuccessDialogueBox("Successfully added route to Database", "You may add more entries");

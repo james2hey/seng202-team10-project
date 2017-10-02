@@ -37,7 +37,7 @@ public class HandleUsers {
      */
     public void logIn(String username) {
         currentCyclist = new Cyclist(username);
-        getUserDetails();
+        getUserDetails(username);
         getUserRouteFavourites();
         getUserWifiFavourites();
         getUserRetailFavourites();
@@ -46,14 +46,14 @@ public class HandleUsers {
     /**
      * Finds all of the users birth details and gender information then sets these to the current cyclists properties.
      */
-    public void getUserDetails() {
+    public void getUserDetails(String username) {
         ResultSet rs;
-        String name = currentCyclist.getName();
-        rs = db.executeQuerySQL("SELECT birth_day, birth_month, birth_year, gender FROM users");
+        rs = db.executeQuerySQL("SELECT birth_day, birth_month, birth_year, gender, distance_cycled FROM users WHERE name = '" + username + "';");
         try {
             currentCyclist.setBirthday(rs.getInt("birth_day"), rs.getInt("birth_month"),
                     rs.getInt("birth_year"));
             currentCyclist.setGender(rs.getInt("gender"));
+            currentCyclist.setDistanceCycled(rs.getInt("distance_cycled"));
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -178,7 +178,7 @@ public class HandleUsers {
             currentCyclist = new Cyclist(name);
             DatabaseUser d = new DatabaseUser(db);
             int genderInt = convertGender(gender);
-            d.addUser(name, day, month, year, genderInt);
+            d.addUser(name, day, month, year, genderInt, 0); // New user implies distance travelled = 0km.
             created = true;
         }
         return created;
@@ -190,8 +190,8 @@ public class HandleUsers {
      * @return 0 for other, 1 for male, 2 for female.
      */
     public int convertGender(String gender) {
-        if (gender.equals("m")) {return 1;}
-        else if (gender.equals("f")) {return 2;}
+        if (gender.equals("Male")) {return 1;}
+        else if (gender.equals("Female")) {return 2;}
         else {return 0;}
     }
 }

@@ -1,5 +1,6 @@
 package main;
 
+import GUIControllers.HomeController;
 import dataHandler.*;
 import dataManipulation.FindNearbyLocations;
 import dataManipulation.UpdateData;
@@ -7,7 +8,11 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
+
+import java.io.File;
+import java.net.URL;
 
 public class Main extends Application {
     static SQLiteDB db;
@@ -28,10 +33,14 @@ public class Main extends Application {
         FavouriteWifiData favWifiData = new FavouriteWifiData(db);
         FavouriteRetailData favRetailData = new FavouriteRetailData(db);
 
-
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/startUp.fxml"));
 
+        String url = getClass().getClassLoader().getResource("Images/bicycleIcon.png").toString();
+        primaryStage.getIcons().add(new Image(url));
+
+
         primaryStage.setTitle("Pedals");
+
         primaryStage.setScene(new Scene(root, 1100, 650));
         primaryStage.show();
     }
