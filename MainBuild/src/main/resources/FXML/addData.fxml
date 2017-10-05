@@ -25,7 +25,6 @@
       <RowConstraints />
    </rowConstraints>
    <children>
-      <JFXHamburger fx:id="hamburger" onMouseClicked="#openDrawer" GridPane.columnIndex="5" />
       <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Data Adder" textAlignment="CENTER" wrappingWidth="392.193359375" GridPane.columnIndex="3" GridPane.columnSpan="2">
          <font>
             <Font size="60.0" />
@@ -50,5 +49,10 @@
          </children>
       </AnchorPane>
       <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" prefHeight="664.0" prefWidth="145.0" style="-fx-background-color: grey;" GridPane.rowSpan="5" />
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5">
+         <children>
+            <JFXHamburger fx:id="hamburger" layoutX="26.0" layoutY="26.0" onMouseClicked="#openDrawer" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0" />
+         </children>
+      </AnchorPane>
    </children>
 </GridPane>

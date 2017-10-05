@@ -21,12 +21,12 @@
 <GridPane fx:id="gridPane" alignment="center" hgap="30.0" prefHeight="650.0" prefWidth="1100.0" style="-fx-background-color: Grey; -fx-background-image: url(Images/sky.jpg);" vgap="20.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIControllers.HomeController">
    <columnConstraints>
       <ColumnConstraints maxWidth="800.0" minWidth="0.0" prefWidth="0.0" />
-      <ColumnConstraints maxWidth="800.0" minWidth="10.0" prefWidth="107.0" />
-      <ColumnConstraints maxWidth="800.0" minWidth="10.0" prefWidth="183.0" />
+      <ColumnConstraints maxWidth="800.0" minWidth="0.0" prefWidth="22.0" />
+      <ColumnConstraints maxWidth="800.0" minWidth="10.0" prefWidth="225.0" />
       <ColumnConstraints maxWidth="800.0" minWidth="10.0" prefWidth="122.0" />
       <ColumnConstraints maxWidth="991.0" minWidth="10.0" prefWidth="281.0" />
-      <ColumnConstraints maxWidth="891.0" minWidth="114.0" prefWidth="241.0" />
-      <ColumnConstraints maxWidth="891.0" minWidth="0.0" prefWidth="61.0" />
+      <ColumnConstraints maxWidth="891.0" minWidth="114.0" prefWidth="182.0" />
+      <ColumnConstraints maxWidth="891.0" minWidth="0.0" prefWidth="100.0" />
    </columnConstraints>
    <rowConstraints>
       <RowConstraints maxHeight="251.0" minHeight="10.0" prefHeight="111.0" />
@@ -40,7 +40,6 @@
             <Font size="39.0" />
          </font></Text>
       <Text fx:id="buttonPressedText" strokeType="OUTSIDE" strokeWidth="0.0" text="Button Pressed" textAlignment="CENTER" visible="false" wrappingWidth="269.6552734375" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-      <JFXHamburger fx:id="hamburger" onMouseClicked="#openDrawer" GridPane.columnIndex="5" />
       <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Home" textAlignment="CENTER" wrappingWidth="212.7294921875" GridPane.columnIndex="4" GridPane.columnSpan="2">
          <font>
             <Font size="60.0" />
@@ -62,12 +61,12 @@
               <columns>
                 <TableColumn fx:id="FavRoutes" maxWidth="1.7976931348623157E308" prefWidth="198.0" text="Favourite Routes">
                      <columns>
-                        <TableColumn fx:id="StartAddress" prefWidth="243.0" text="Start Address" />
-                        <TableColumn fx:id="Rating" prefWidth="60.0" text="Rating" />
+                        <TableColumn fx:id="StartAddress" prefWidth="231.0" text="Start Address" />
+                        <TableColumn fx:id="Rating" prefWidth="72.0" text="Rating" />
                      </columns></TableColumn>
               </columns>
             </TableView>
-            <TableView fx:id="tableViewWifi" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowSpan="3">
+            <TableView fx:id="tableViewWifi" prefHeight="374.0" prefWidth="267.0" GridPane.columnIndex="1" GridPane.rowSpan="3">
               <columns>
                 <TableColumn fx:id="FavWifi" maxWidth="1.7976931348623157E308" prefWidth="303.0" text="Favourite Wifi Locations">
                      <columns>
@@ -94,5 +93,10 @@
             <Blend />
          </effect></JFXDrawer>
       <Button mnemonicParsing="false" onAction="#deleteFavourite" prefHeight="26.0" prefWidth="291.0" text="Delete Favourite" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6">
+         <children>
+            <JFXHamburger fx:id="hamburger" layoutX="33.0" layoutY="45.0" onMouseClicked="#openDrawer" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0" />
+         </children>
+      </AnchorPane>
    </children>
 </GridPane>

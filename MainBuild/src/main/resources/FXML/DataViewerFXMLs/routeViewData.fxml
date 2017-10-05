@@ -14,7 +14,7 @@
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="269.0" minWidth="5.0" prefWidth="151.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="616.0" minWidth="10.0" prefWidth="99.0" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="595.0" minWidth="10.0" prefWidth="229.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="455.0" minWidth="0.0" prefWidth="0.0" />
+      <ColumnConstraints />
   </columnConstraints>
   <rowConstraints>
     <RowConstraints maxHeight="201.0" minHeight="10.0" prefHeight="91.0" vgrow="SOMETIMES" />
@@ -31,7 +31,6 @@
             <Font size="60.0" />
          </font>
       </Text>
-      <JFXHamburger fx:id="hamburger" onMouseClicked="#openDrawer" GridPane.columnIndex="5" />
       <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
          <children>
             <VBox prefHeight="161.0" prefWidth="103.0">
@@ -150,5 +149,10 @@
       <Button alignment="TOP_CENTER" mnemonicParsing="false" onAction="#viewSelectedOnMap" prefHeight="25.0" prefWidth="188.0" text="View Selected On Map" GridPane.columnIndex="2" GridPane.rowIndex="4" />
       <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" GridPane.rowSpan="7" />
       <Button alignment="TOP_CENTER" mnemonicParsing="false" onAction="#viewOnMap" prefHeight="25.0" prefWidth="187.0" text="View All On Map" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5">
+         <children>
+            <JFXHamburger fx:id="hamburger" layoutX="82.0" layoutY="34.0" onMouseClicked="#openDrawer" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="50.0" />
+         </children>
+      </AnchorPane>
    </children>
 </GridPane>

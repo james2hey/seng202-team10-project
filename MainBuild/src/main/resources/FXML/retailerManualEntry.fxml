@@ -13,8 +13,7 @@
    <children>
       <Pane prefHeight="500.0" prefWidth="800.0" GridPane.columnIndex="4" GridPane.rowIndex="3" />
       <Text fx:id="buttonPressedText" strokeType="OUTSIDE" strokeWidth="0.0" text="Button Pressed" textAlignment="CENTER" visible="false" wrappingWidth="269.6552734375" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-      <JFXHamburger fx:id="hamburger" onMouseClicked="#openDrawer" GridPane.columnIndex="5" />
-      <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Route Data Entry" textAlignment="CENTER" wrappingWidth="861.193359375" GridPane.columnIndex="2" GridPane.columnSpan="2">
+      <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Data Entry" textAlignment="CENTER" wrappingWidth="861.193359375" GridPane.columnIndex="2" GridPane.columnSpan="2">
          <font>
             <Font size="60.0" />
          </font>
@@ -83,14 +82,19 @@
          </children>
       </AnchorPane>
       <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" prefHeight="650.0" prefWidth="8.0" style="-fx-background-color: grey;" GridPane.rowSpan="5" />
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5">
+         <children>
+            <JFXHamburger fx:id="hamburger" layoutX="42.0" layoutY="45.0" onMouseClicked="#openDrawer" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0" />
+         </children>
+      </AnchorPane>
    </children>
    <columnConstraints>
       <ColumnConstraints maxWidth="800.0" minWidth="0.0" prefWidth="0.0" />
       <ColumnConstraints maxWidth="800.0" minWidth="10.0" prefWidth="96.0" />
       <ColumnConstraints maxWidth="800.0" minWidth="10.0" prefWidth="450.0" />
       <ColumnConstraints maxWidth="991.0" minWidth="10.0" prefWidth="72.0" />
-      <ColumnConstraints maxWidth="891.0" minWidth="114.0" prefWidth="350.0" />
-      <ColumnConstraints maxWidth="800.0" minWidth="81.0" prefWidth="81.0" />
+      <ColumnConstraints maxWidth="891.0" minWidth="114.0" prefWidth="317.0" />
+      <ColumnConstraints maxWidth="800.0" minWidth="81.0" prefWidth="114.0" />
    </columnConstraints>
    <rowConstraints>
       <RowConstraints maxHeight="251.0" minHeight="10.0" prefHeight="120.0" />

@@ -37,7 +37,6 @@
             <Font size="60.0" />
          </font>
       </Text>
-      <JFXHamburger fx:id="hamburger" onMouseClicked="#openDrawer" GridPane.columnIndex="5" />
       <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
          <children>
             <VBox prefHeight="161.0" prefWidth="103.0">
@@ -145,5 +144,10 @@
       <Button mnemonicParsing="false" onAction="#editData" prefHeight="25.0" prefWidth="206.0" text="View/Edit Wifi Location" GridPane.columnIndex="1" GridPane.rowIndex="4" />
       <Button mnemonicParsing="false" onAction="#displaySelectedDataOnMap" prefHeight="25.0" prefWidth="190.0" text="View Selected On Map" GridPane.columnIndex="2" GridPane.rowIndex="4" />
       <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" GridPane.rowSpan="7" />
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5">
+         <children>
+            <JFXHamburger fx:id="hamburger" layoutX="50.0" layoutY="29.0" onMouseClicked="#openDrawer" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="50.0" />
+         </children>
+      </AnchorPane>
    </children>
 </GridPane>

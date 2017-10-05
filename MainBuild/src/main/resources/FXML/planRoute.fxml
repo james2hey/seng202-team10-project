@@ -110,7 +110,9 @@
          </children>
       </HBox>
       <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" GridPane.rowSpan="4" />
-        <JFXHamburger fx:id="hamburger" onMouseClicked="#openDrawer" GridPane.columnIndex="3" />
+        <AnchorPane prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="6">
+            <JFXHamburger fx:id="hamburger" onMouseClicked="#openDrawer" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0"/>
+        </AnchorPane>
 
     </children>
 </GridPane>
