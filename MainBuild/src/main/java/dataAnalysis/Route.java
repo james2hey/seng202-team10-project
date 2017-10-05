@@ -18,7 +18,7 @@ public class Route {
     private String name, startTime, stopTime, startDate, stopDate, startDay, startMonth, startYear, stopDay, stopMonth,
             stopYear, bikeid, gender, userType;
     private Location startLocation, endLocation, viaLocation;
-    private double averageTime;
+    private double averageTime, distance;
 
     //Two types of constructors as there is not always a viaLocation.
 
@@ -93,6 +93,30 @@ public class Route {
         startDate = getDateString(startDay, startMonth, startYear);
         stopDate = getDateString(stopDay, stopMonth, stopYear);
         rank = routeRank;
+    }
+
+    public Route(int tripDuration, String stTime, String spTime, String stDay, String stMonth, String stYear,
+                 String spDay, String spMonth, String spYear, double stStationLat, double stStationLong,
+                 double endStationLat, double endStationLong, int stStationID, int endStationID, String stStationAdr,
+                 String endStationAdr, String bId, int riderGender, String riderType, int riderAge, float rdistance) {
+        duration = tripDuration;
+        startTime = stTime;
+        startDay = stDay;
+        startMonth = stMonth;
+        startYear = stYear;
+        stopTime = spTime;
+        stopDay = spDay;
+        stopMonth = spMonth;
+        stopYear = spYear;
+        bikeid = bId;
+        userType = riderType;
+        age = riderAge;
+        setGender(riderGender);
+        startLocation = new StationLocation(stStationID, stStationLat, stStationLong, stStationAdr);
+        endLocation = new StationLocation(endStationID, endStationLat, endStationLong, endStationAdr);
+        startDate = getDateString(startDay, startMonth, startYear);
+        stopDate = getDateString(stopDay, stopMonth, stopYear);
+        distance = rdistance;
     }
 
 
@@ -187,6 +211,7 @@ public class Route {
             UpdateData.updateRouteField("end_time", stopTime, bikeid, startYear, startMonth, stopDay, startTime);
         }
     }
+
 
     public String getStartDate() {
         return startDate;
@@ -315,7 +340,8 @@ public class Route {
     }
 
     public double getDistance() {
-        return HelperFunctions.getDistance(getStartLatitude(), getStartLongitude(), getEndLatitude(), getEndLongitude());
+        distance = HelperFunctions.getDistance(getStartLatitude(), getStartLongitude(), getEndLatitude(), getEndLongitude());
+        return distance;
     }
 
     // Setters

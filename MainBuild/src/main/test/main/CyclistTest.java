@@ -80,17 +80,17 @@ public class CyclistTest {
         assertFalse(result);
     }
 
-
-    @Test
-    public void routeAlreadyInListTrue() throws Exception {
-        Route testRoute = new Route(10, "00:00:00", "00:00:00", "01", "01", "2016",
-                "01", "01", "2016", 0.0, 0.0,
-                0.0, 0.0, 1, 2, "Test Street",
-                "Test2 Street", "10000", 1, "Subscriber", 20);
-        testCyclist.addRouteInstance(testRoute);
-        boolean result = testCyclist.routeAlreadyInList(testRoute);
-        assertTrue(result);
-    }
+////
+////    @Test
+////    public void routeAlreadyInListTrue() throws Exception {
+////        Route testRoute = new Route(10, "00:00:00", "00:00:00", "01", "01", "2016",
+////                "01", "01", "2016", 0.0, 0.0,
+////                0.0, 0.0, 1, 2, "Test Street",
+////                "Test2 Street", "10000", 1, "Subscriber", 20);
+////        testCyclist.addRouteInstance(testRoute);
+////        boolean result = testCyclist.routeAlreadyInList(testRoute);
+////        assertTrue(result);
+//    }
 
     @Test
     public void addFavouriteRetail() throws Exception {

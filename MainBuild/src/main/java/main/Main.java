@@ -32,6 +32,7 @@ public class Main extends Application {
         FavouriteRouteData favRouteData = new FavouriteRouteData(db);
         FavouriteWifiData favWifiData = new FavouriteWifiData(db);
         FavouriteRetailData favRetailData = new FavouriteRetailData(db);
+        TakenRoutes takenRouteData = new TakenRoutes(db);
 
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/startUp.fxml"));
 

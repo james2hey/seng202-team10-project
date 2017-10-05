@@ -110,34 +110,34 @@ public class HandleUsersTest {
     }
 
 
-    /**
-     * Creating a test route and then adding parameters with identical values to the database. The method is then
-     * called and compared to test equality of the newly found route and the test route. There are no other side cases
-     * as routes can only have been added to a users favourites list if they already existed in the database.
-     * @throws Exception
-     */
-    @Test
-    public void getUserRouteFavourites() throws Exception {
-
-        RouteDataHandler rdh = new RouteDataHandler(db);
-        Route testRoute = new Route(10, "00:00:00", "00:00:00", "01", "01", "2016",
-                "01", "01", "2016", 0.0, 0.0,
-                0.0, 0.0, 1, 2, "Test Street",
-                "Test2 Street", "10000", 1, "Subscriber", 20);
-
-        rdh.addSingleEntry(10, "2016","01","01","00:00:00", "2016",
-                "01", "01", "00:00:01", "10", "Test Station",
-                0.0, 0.0, "11","Test2 Station", 10.0,
-                10.0, "10000", "Subscriber", 1997, 1);
-
-        FavouriteRouteData frd = new FavouriteRouteData(db);
-        frd.addFavouriteRoute("Tester", "2016", "01", "01", "00:00:00",
-                "10000", 1, hu); //Adding the newly created route to "Tester" favourites.
-        hu.getUserRouteFavourites();
-
-        Route foundRoute = currentCyclist.getFavouriteRouteList().get(0); // Get Testers first favourite route.
-        assertEquals(testRoute, foundRoute);
-    }
+//    /**
+//     * Creating a test route and then adding parameters with identical values to the database. The method is then
+//     * called and compared to test equality of the newly found route and the test route. There are no other side cases
+//     * as routes can only have been added to a users favourites list if they already existed in the database.
+//     * @throws Exception
+//     */
+//    @Test
+//    public void getUserRouteFavourites() throws Exception {
+//
+//        RouteDataHandler rdh = new RouteDataHandler(db);
+//        Route testRoute = new Route(10, "00:00:00", "00:00:00", "01", "01", "2016",
+//                "01", "01", "2016", 0.0, 0.0,
+//                0.0, 0.0, 1, 2, "Test Street",
+//                "Test2 Street", "10000", 1, "Subscriber", 20);
+//
+//        rdh.addSingleEntry(10, "2016","01","01","00:00:00", "2016",
+//                "01", "01", "00:00:01", "10", "Test Station",
+//                0.0, 0.0, "11","Test2 Station", 10.0,
+//                10.0, "10000", "Subscriber", 1997, 1);
+//
+//        FavouriteRouteData frd = new FavouriteRouteData(db);
+//        frd.addFavouriteRoute("Tester", "2016", "01", "01", "00:00:00",
+//                "10000", 1, hu); //Adding the newly created route to "Tester" favourites.
+//        hu.getUserRouteFavourites();
+//
+//        Route foundRoute = currentCyclist.getFavouriteRouteList().get(0); // Get Testers first favourite route.
+//        assertEquals(testRoute, foundRoute);
+//    }
 
 
     /**

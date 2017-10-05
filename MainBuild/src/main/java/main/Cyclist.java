@@ -17,10 +17,11 @@ import java.util.ArrayList;
 public class Cyclist {
     static public String name;
     static private int bday, bmonth, byear;
-    static private int gender, distanceCycled;   // 0 other, 1 male, 2 female
+    static private int gender, distanceCycled;   // gender either 0 other, 1 male, or 2 female.
     private ArrayList<Route> favouriteRouteList = new ArrayList<Route>();
     private ArrayList<RetailLocation> favouriteRetailLocations = new ArrayList<RetailLocation>();
     private ArrayList<WifiLocation> favouriteWifiLocations = new ArrayList<WifiLocation>();
+    private ArrayList<Route> takenRoutes = new ArrayList<>();
 
     public Cyclist() {
     }
@@ -85,8 +86,27 @@ public class Cyclist {
         return distanceCycled;
     }
 
-    public void setDistanceCycled(int distance) {
+
+    public void getDistanceCycled(int distance) {
         distanceCycled = distance;
+    }
+
+    /**
+     * Calculates the total distance a user has cycled --------------------toTest----
+     */
+    public void calculateDistanceCycled() {
+        for(int i = 0; i < takenRoutes.size(); i++) {
+            distanceCycled += takenRoutes.get(i).getDistance();
+        }
+    }
+
+
+    /**
+     * Updates the total distance a use thas cycled ------------------------toTest---
+     * @param route
+     */
+    public void updateDistanceCycled(Route route) {
+        distanceCycled += route.getDistance();
     }
 
     /**
