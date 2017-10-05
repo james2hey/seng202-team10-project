@@ -66,7 +66,7 @@ public class HelpController implements Initializable {
         String aboutMessage = "\nAbout\n\n\n" +
                 "Pedals is currently a desktop application that allows users to plan, and track bicycle routes in NYC. " +
                 "Using a Google API wrapper the user can add routes, retailers and wifi hotspots to the map to track. " +
-                "Currently in basic development the application is based around New York alone but we hope to expand this" +
+                "Currently in basic development the application is based around New York alone but we hope to expand this " +
                 "to the world for open source development.\n\n" +
                 "Created by: Braden, Lewis, Jack, James and Matt";
         aboutSection.setText(aboutMessage);

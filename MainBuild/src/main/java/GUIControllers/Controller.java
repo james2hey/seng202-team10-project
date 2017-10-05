@@ -89,7 +89,7 @@ public abstract class Controller {
      * @throws IOException Catches error if fxml does not load correctly
      */
     @FXML
-    void openDrawer() throws IOException {
+    private void openDrawer() throws IOException {
 //
         VBox box = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/SidePanel.fxml"));
         drawer.setSidePane(box);
