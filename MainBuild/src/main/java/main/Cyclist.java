@@ -17,7 +17,8 @@ import java.util.ArrayList;
 public class Cyclist {
     static public String name;
     static private int bday, bmonth, byear;
-    static private int gender, distanceCycled;   // gender either 0 other, 1 male, or 2 female.
+    static private int gender;   // gender either 0 other, 1 male, or 2 female.
+    private double distanceCycled;
     private ArrayList<Route> favouriteRouteList = new ArrayList<Route>();
     private ArrayList<RetailLocation> favouriteRetailLocations = new ArrayList<RetailLocation>();
     private ArrayList<WifiLocation> favouriteWifiLocations = new ArrayList<WifiLocation>();
@@ -84,12 +85,12 @@ public class Cyclist {
 
     public ArrayList<Route> getTakenRoutes() {return takenRoutes;}
 
-    public int getDistanceCycled() {
+    public double getDistanceCycled() {
         return distanceCycled;
     }
 
 
-    public void getDistanceCycled(int distance) {
+    public void setDistanceCycled(double distance) {
         distanceCycled = distance;
     }
 
@@ -168,7 +169,7 @@ public class Cyclist {
      * @param rank  the rank score which the user gives. If none is given it is set to 0
      * @param db    the database's favourite_route table that is to have the row added.
      */
-    public void addRoute(Route route, String name, int rank, SQLiteDB db, HandleUsers hu) {
+    public void addFavouriteRoute(Route route, String name, int rank, SQLiteDB db, HandleUsers hu) {
         favouriteRouteList.add(route);
         FavouriteRouteData f = new FavouriteRouteData(db);
         f.addFavouriteRoute(name, route.getStartYear(), route.getStartMonth(), route.getStartDay(),
@@ -176,20 +177,38 @@ public class Cyclist {
     }
 
 
+    public void addTakenRoute(Route route, String name, double distance, SQLiteDB db, HandleUsers hu) {
+        takenRoutes.add(route);
+        Main.takenRouteTable.addTakenRoute(name, route.getStartYear(), route.getStartMonth(), route.getStartDay(),
+                route.getStartTime(), route.getBikeID(), route.getDistance(), hu);
+    }
+
+
     /**
-     * Checks to see if a route is already in the cyclists favouriteRoute list.
+     * Checks to see if a route is already in the cyclists favouriteRoute list.------------------------------test---------
      *
      * @param route the route to be checked if it is already in the list
      * @return true if it is already in the list, otherwise false
      */
-    public boolean routeAlreadyInList(Route route) {
+    public boolean routeAlreadyInList(Route route, String type) {
         boolean alreadyInList = false;
-        for (Route tempRoute : favouriteRouteList) {
-            if (route.getStartYear().equals(tempRoute.getStartYear()) && route.getStartMonth().equals(tempRoute.getStartMonth()) &&
-                    route.getStartDay().equals(tempRoute.getStartDay()) && route.getStartTime().equals(tempRoute.getStartTime()) &&
-                    route.getBikeID().equals(tempRoute.getBikeID())) {
-                alreadyInList = true;
-                break;
+        if (type.equals("favourite_route")) {
+            for (Route tempRoute : favouriteRouteList) {
+                if (route.getStartYear().equals(tempRoute.getStartYear()) && route.getStartMonth().equals(tempRoute.getStartMonth()) &&
+                        route.getStartDay().equals(tempRoute.getStartDay()) && route.getStartTime().equals(tempRoute.getStartTime()) &&
+                        route.getBikeID().equals(tempRoute.getBikeID())) {
+                    alreadyInList = true;
+                    break;
+                }
+            }
+        } else {
+            for (Route tempRoute : takenRoutes) {
+                if (route.getStartYear().equals(tempRoute.getStartYear()) && route.getStartMonth().equals(tempRoute.getStartMonth()) &&
+                        route.getStartDay().equals(tempRoute.getStartDay()) && route.getStartTime().equals(tempRoute.getStartTime()) &&
+                        route.getBikeID().equals(tempRoute.getBikeID())) {
+                    alreadyInList = true;
+                    break;
+                }
             }
         }
         return alreadyInList;

@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+
 /**
  * Controller class for the route data viewer.
  */
@@ -222,7 +223,7 @@ public class RouteDataViewerController extends DataViewerController {
         } else {
             String name = Main.hu.currentCyclist.getName();
             Route routeToAdd = tableView.getSelectionModel().getSelectedItem();
-            boolean alreadyInList = Main.hu.currentCyclist.routeAlreadyInList(routeToAdd);
+            boolean alreadyInList = Main.hu.currentCyclist.routeAlreadyInList(routeToAdd, "favourite_route");
             if (!alreadyInList) {
                 openRouteRankStage(routeToAdd, name);
             } else {
@@ -235,16 +236,21 @@ public class RouteDataViewerController extends DataViewerController {
     /**
      * Adds the selected route to the completed routes.
      */
-    public void addCompletedRoute(ActionEvent event)  throws IOException {
+    public void addTakenRoute(ActionEvent event)  throws IOException {
         if (tableView.getSelectionModel().getSelectedItem() == null) {
             makeSuccessDialogueBox("Select a route to add.", "");
         } else {
             String name = Main.hu.currentCyclist.getName();
             Route routeToAdd = tableView.getSelectionModel().getSelectedItem();
-            boolean alreadyInList = Main.hu.currentCyclist.routeAlreadyInList(routeToAdd);
+            boolean alreadyInList = Main.hu.currentCyclist.routeAlreadyInList(routeToAdd, "taken_route");
             if (!alreadyInList) {
                 //DO SOMETHING HERE WHICH ADDS THE ROUTE TO THE DATABASE
                 // @JAMES
+
+                //Calculate distance ~~
+                double distance = routeToAdd.getDistance();
+
+                Main.hu.currentCyclist.addTakenRoute(routeToAdd, name, distance, Main.getDB(), Main.hu);
             } else {
                 makeErrorDialogueBox("Route already in completed", "This route has already been " +
                         "added\nto this users completed list.");
@@ -272,7 +278,7 @@ public class RouteDataViewerController extends DataViewerController {
         c.setContentText("Rating");
         Optional<Integer> result = c.showAndWait();
         if (result.isPresent()) {
-            Main.hu.currentCyclist.addRoute(routeToAdd, name, result.get(), Main.getDB(), Main.hu);
+            Main.hu.currentCyclist.addFavouriteRoute(routeToAdd, name, result.get(), Main.getDB(), Main.hu);
         }
     }
 

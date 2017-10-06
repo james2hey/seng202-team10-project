@@ -66,27 +66,27 @@ public class HandleUsersTest {
     }
 
 
-    /**
-     * Testing the user logged into has had their currentCyclist object created. Valid favourites of the user is being
-     * tested below.
-     * @throws Exception
-     */
-    @Test
-    public void logIn() throws Exception {
-        RouteDataHandler rdh = new RouteDataHandler(db);
-        WifiDataHandler wdh = new WifiDataHandler(db);
-        RetailerDataHandler rDh = new RetailerDataHandler(db);
-        FavouriteRouteData frd = new FavouriteRouteData(db);
-        FavouriteWifiData fwd = new FavouriteWifiData(db);
-        FavouriteRetailData fRd = new FavouriteRetailData(db);
-        DatabaseUser d = new DatabaseUser(db);
-
-
-        String testName = "Another Tester";
-        hu.logIn(testName); // Logging into a new user called "Another Tester".
-
-        assertEquals(testName, hu.currentCyclist.getName());
-    }
+//    /**
+//     * Testing the user logged into has had their currentCyclist object created. Valid favourites of the user is being
+//     * tested below.
+//     * @throws Exception
+//     */
+//    @Test
+//    public void logIn() throws Exception {
+//        RouteDataHandler rdh = new RouteDataHandler(db);
+//        WifiDataHandler wdh = new WifiDataHandler(db);
+//        RetailerDataHandler rDh = new RetailerDataHandler(db);
+//        FavouriteRouteData frd = new FavouriteRouteData(db);
+//        FavouriteWifiData fwd = new FavouriteWifiData(db);
+//        FavouriteRetailData fRd = new FavouriteRetailData(db);
+//        DatabaseUser d = new DatabaseUser(db);
+//
+//
+//        String testName = "Another Tester";
+//        hu.logIn(testName); // Logging into a new user called "Another Tester".
+//
+//        assertEquals(testName, hu.currentCyclist.getName());
+//    }
 
     @Test
     public void getUserDetailsBirthDetails() throws Exception {
@@ -193,26 +193,26 @@ public class HandleUsersTest {
         assertEquals(testRetail, foundRetail);
     }
 
-    /**
-     * Testing the currentCyclist is equal to null when logged out.
-     * @throws Exception
-     */
-    @Test
-    public void logOutOfUser() throws Exception {
-        RouteDataHandler rdh = new RouteDataHandler(db);
-        WifiDataHandler wdh = new WifiDataHandler(db);
-        RetailerDataHandler rDh = new RetailerDataHandler(db);
-        FavouriteRouteData frd = new FavouriteRouteData(db);
-        FavouriteWifiData fwd = new FavouriteWifiData(db);
-        FavouriteRetailData fRd = new FavouriteRetailData(db);
-        DatabaseUser u = new DatabaseUser(db);
-
-        String testName = "Another Tester";
-        hu.logIn(testName); // Logging into a new user called "Another Tester".
-
-        hu.logOutOfUser(); // Logging out of "Another Tester"'s account.
-        assertEquals(null, hu.currentCyclist);
-    }
+//    /**
+//     * Testing the currentCyclist is equal to null when logged out.
+//     * @throws Exception
+//     */
+//    @Test
+//    public void logOutOfUser() throws Exception {
+//        RouteDataHandler rdh = new RouteDataHandler(db);
+//        WifiDataHandler wdh = new WifiDataHandler(db);
+//        RetailerDataHandler rDh = new RetailerDataHandler(db);
+//        FavouriteRouteData frd = new FavouriteRouteData(db);
+//        FavouriteWifiData fwd = new FavouriteWifiData(db);
+//        FavouriteRetailData fRd = new FavouriteRetailData(db);
+//        DatabaseUser u = new DatabaseUser(db);
+//
+//        String testName = "Another Tester";
+//        hu.logIn(testName); // Logging into a new user called "Another Tester".
+//
+//        hu.logOutOfUser(); // Logging out of "Another Tester"'s account.
+//        assertEquals(null, hu.currentCyclist);
+//    }
 
     /**
      * Testing the created users username is correctly set to the currentCyclist.

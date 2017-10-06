@@ -154,6 +154,6 @@
             <JFXHamburger fx:id="hamburger" layoutX="82.0" layoutY="34.0" onMouseClicked="#openDrawer" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="50.0" />
          </children>
       </AnchorPane>
-      <Button alignment="TOP_CENTER" mnemonicParsing="false" onAction="#addCompletedRoute" prefHeight="25.0" prefWidth="187.0" text="Add to Completed Routes" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+      <Button alignment="TOP_CENTER" mnemonicParsing="false" onAction="#addTakenRoute" prefHeight="25.0" prefWidth="187.0" text="Add to Completed Routes" GridPane.columnIndex="2" GridPane.rowIndex="5" />
    </children>
 </GridPane>

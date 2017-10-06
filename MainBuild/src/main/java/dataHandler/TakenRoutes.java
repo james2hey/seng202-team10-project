@@ -18,7 +18,7 @@ public class TakenRoutes {
                     "start_day    VARCHAR(2)",
                     "start_time   VARCHAR(19)",
                     "bikeid       VARCHAR(20)",
-                    "distance         INTEGER"};
+                    "distance     DOUBLE"};
     private String primaryKey = "name, start_year, start_month, start_day, start_time, bikeid";
     private String tableName = "taken_routes";
     private PreparedStatement addTakenRoute;
@@ -48,7 +48,7 @@ public class TakenRoutes {
      * @param distance    distance of  the route
      */
     public void addTakenRoute(String name, String start_year, String start_month, String start_day,
-                                  String start_time, String bike_id, int distance, HandleUsers hu) {
+                                  String start_time, String bike_id, double distance, HandleUsers hu) {
         try {
             addTakenRoute.setObject(1, name);
             addTakenRoute.setObject(2, start_year);
