@@ -84,6 +84,10 @@ public class TakenRoutes {
     }
 
 
+    /**
+     * Finds the five (or less) most recently taken routes found from the users taken_route table.
+     * @return up to five of the most recently taken routes
+     */
     public ArrayList<String> findFiveRecentRoutes() {
         ResultSet rs;
         ArrayList<String> recentRoutes = new ArrayList<>();
