@@ -20,13 +20,14 @@ public class RetailerDataHandlerFake implements DataHandler, GeoCallback {
                     "STATE              VARCHAR(2)",
                     "ZIP                VARCHAR(8)",
                     "Main_Type          VARCHAR(50)",
-                    "Secondary_Type     VARCHAR(50)"};
+                    "Secondary_Type     VARCHAR(50)",
+                    "list_name          VARCHAR(25)"};
 
     private String primaryKey = "RETAILER_NAME, ADDRESS";
     private String tableName = "retailer";
 
     private PreparedStatement addData;
-    private String addDataStatement = "insert or fail into retailer values(?,?,?,?,?,?,?,?,?)";
+    private String addDataStatement = "insert or fail into retailer values(?,?,?,?,?,?,?,?,?,?)";
     private int[] fieldCounts = {9, 18};
 
     /**
@@ -96,6 +97,7 @@ public class RetailerDataHandlerFake implements DataHandler, GeoCallback {
             addData.setObject(7, ZIP);
             addData.setObject(8, MAIN_TYPE);
             addData.setObject(9, SECONDARY_TYPE);
+            addData.setObject(10, "list");
             addData.executeUpdate();
             return true;
         } catch (SQLException e) {

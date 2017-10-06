@@ -27,7 +27,7 @@ public class RetailerDataHandler implements DataHandler, GeoCallback {
     private String tableName = "retailer";
 
     private PreparedStatement addData;
-    private String addDataStatement = "insert or fail into retailer values(?,?,?,?,?,?,?,?,?)";
+    private String addDataStatement = "insert or fail into retailer values(?,?,?,?,?,?,?,?,?,?)";
     private int[] fieldCounts = {9, 18};
 
     /**

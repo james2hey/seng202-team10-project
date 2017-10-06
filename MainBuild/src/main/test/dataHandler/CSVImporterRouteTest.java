@@ -96,6 +96,7 @@ public class CSVImporterRouteTest {
         assertEquals(50, rs.getInt(1));
     }
 
+    @Ignore
     @Test
     @TestInJfxThread
     public void testImportSpeed() throws Exception {

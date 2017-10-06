@@ -15,7 +15,7 @@ import org.junit.runner.RunWith;
 import java.nio.file.Files;
 import java.util.ArrayList;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 @RunWith(JfxRunner.class)
 public class FindNearbyLocations_Retailers_Test {
@@ -55,7 +55,7 @@ public class FindNearbyLocations_Retailers_Test {
         FindNearbyLocations nearbyLocations = new FindNearbyLocations(db);
         retailers = nearbyLocations.findNearbyRetail(40.7230097, -74.0078529);
         for (int i = 0; i < retailers.size(); i++){
-            assertTrue(retailName.get(i).equals(retailers.get(i).getName()));
+            assertEquals(retailName.get(i), retailers.get(i).getName());
         }
     }
 
@@ -66,7 +66,7 @@ public class FindNearbyLocations_Retailers_Test {
         retailers = nearbyLocations.findNearbyRetail(40.7190097, -74.0078529);
         int size = retailers.size();
         System.out.println(size);
-        assertTrue(size == 20);
+        assertEquals(20, size);
     }
 
 
@@ -76,7 +76,7 @@ public class FindNearbyLocations_Retailers_Test {
         FindNearbyLocations nearbyLocations = new FindNearbyLocations(db);
         retailers = nearbyLocations.findNearbyRetail(0.0, 0.0);
         for (int i = 0; i < retailers.size(); i++){
-            assertTrue(retailName.get(i).equals(retailers.get(i).getName()));
+            assertEquals(retailName.get(i), retailers.get(i).getName());
         }
     }
 }
