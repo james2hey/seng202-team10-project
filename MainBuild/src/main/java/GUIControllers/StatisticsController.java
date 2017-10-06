@@ -49,7 +49,7 @@ public class StatisticsController extends Controller implements Initializable {
     private Text longestRoute;
 
     @FXML
-    private Text mostVisitedRetailer;
+    private Text averageRoute;
 
     @FXML
     private Text shortestRoute;
@@ -98,7 +98,7 @@ public class StatisticsController extends Controller implements Initializable {
      */
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
-
+        findStatistics();
 
         //Initialise the graph.
         final CategoryAxis xAxis = new CategoryAxis();
@@ -129,6 +129,27 @@ public class StatisticsController extends Controller implements Initializable {
         tableCompletedRoutes.getColumns().setAll(completedRoutes);
     }
 
+    /**
+     * Finds all of the most recent statistics for the user and displays them.
+     */
+    private void findStatistics() {
+        double total = Main.hu.currentCyclist.calculateDistanceCycled();
+        double average = Main.hu.currentCyclist.cacluateAverageDistance();
+
+        double shortest = Main.hu.currentCyclist.calculateShortestRoute();
+        if (shortest == 9999999) {
+            shortest = 0;
+        }
+        double longest = Main.hu.currentCyclist.calculateLongestRoute();
+        if (longest == -1) {
+            longest = 0;
+        }
+
+        totalDistance.setText(total + " km");
+        averageRoute.setText(average + " km");
+        shortestRoute.setText(shortest + " km");
+        longestRoute.setText(longest + " km");
+    }
 
 
     /**
@@ -137,9 +158,12 @@ public class StatisticsController extends Controller implements Initializable {
     @FXML
     private void deleteTakenRoute() {
         if (tableCompletedRoutes.getSelectionModel().getSelectedItem() != null) {
-            //Main.takenRouteTable.deleteTakenRoute();  --get selected route...
-            routeList.remove(tableCompletedRoutes.getSelectionModel().getSelectedItem());
-            routeListObservable.remove(tableCompletedRoutes.getSelectionModel().getSelectedItem());
+            Route removingRoute = tableCompletedRoutes.getSelectionModel().getSelectedItem();
+            Main.takenRouteTable.deleteTakenRoute(removingRoute);
+            routeList.remove(removingRoute);
+            routeListObservable.remove(removingRoute);
+            Main.hu.currentCyclist.getTakenRoutes().remove(removingRoute);
+            findStatistics();
         } else {
             makeErrorDialogueBox("No route selected", "No route was selected to delete." +
                     " You must\nchoose which route you want to delete.");

@@ -148,4 +148,66 @@ public class HelperFunctions {
         }
     }
 
+
+    public static double format2dp(double number) {
+        number = Math.round(number * 100);
+        number = number / 100;
+        return number;
+    }
+
+
+//    /**
+//     * Calculates the total distance a user has cycled --------------------toTest----
+//     */
+//    public double calculateDistanceCycled() {
+//        distanceCycled = 0;
+//        for(int i = 0; i < takenRoutesList.size(); i++) {
+//            distanceCycled += takenRoutesList.get(i).getDistance();
+//        }
+//        return distanceCycled;
+//    }
+//
+//
+//    public double cacluateAverageDistance() {
+//        if (takenRoutesList.size() == 0) { // Avoid divide by 0 error.
+//            averageDistance = 0;
+//        } else {
+//            averageDistance = distanceCycled / takenRoutesList.size();
+//        }
+//        return averageDistance;
+//    }
+//
+//
+//
+//    /**
+//     * Calculates the users shortest distance, returns an arbritraily large number if there are no--------------------toTest----
+//     * routes in the takenRouteList.
+//     * @return shortest distance out of all taken routes
+//     */
+//    public double calculateShortestRoute() {
+//        double shortestDistance = 9999999; // No routes will be of a size greater than this.
+//        for (int i = 0; i < takenRoutesList.size(); i++) {
+//            if (takenRoutesList.get(i).getDistance() < shortestDistance) {
+//                shortestDistance = takenRoutesList.get(i).getDistance();
+//            }
+//        }
+//        return shortestDistance;
+//    }
+//
+//
+//    /**
+//     * Calculates the users longest distance, returns -1 if there are no--------------------toTest----
+//     * routes in the takenRouteList.
+//     * @return shortest distance out of all taken routes
+//     */
+//    public double calculateLongestRoute() {
+//        longestDistance = -1;
+//        for (int i = 0; i < takenRoutesList.size(); i++) {
+//            if (takenRoutesList.get(i).getDistance() > longestDistance) {
+//                longestDistance = takenRoutesList.get(i).getDistance();
+//            }
+//        }
+//        return longestDistance;
+//    }
+
 }

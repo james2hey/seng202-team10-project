@@ -7,6 +7,8 @@ import dataHandler.*;
 
 import java.util.ArrayList;
 
+import static jdk.nashorn.internal.objects.NativeMath.round;
+
 /**
  * The user of the program gets an instance of this is created for each user. It contains all the users
  * favourite routes, stations, retail stores and wifi locations.
@@ -15,7 +17,7 @@ public class Cyclist {
     static public String name;
     static private int bday, bmonth, byear;
     static private int gender;   // gender either 0 other, 1 male, or 2 female.
-    private double distanceCycled;
+    private double distanceCycled, longestDistance, shortestDistance, averageDistance;
     private ArrayList<Route> favouriteRouteList = new ArrayList<Route>();
     private ArrayList<RetailLocation> favouriteRetailLocations = new ArrayList<RetailLocation>();
     private ArrayList<WifiLocation> favouriteWifiLocations = new ArrayList<WifiLocation>();
@@ -99,31 +101,63 @@ public class Cyclist {
         distanceCycled = distance;
     }
 
+    // ----------------------------------------Calculations------------------------------------------------
+
     /**
      * Calculates the total distance a user has cycled --------------------toTest----
      */
-    public void calculateDistanceCycled() {
+    public double calculateDistanceCycled() {
+        distanceCycled = 0;
         for(int i = 0; i < takenRoutesList.size(); i++) {
             distanceCycled += takenRoutesList.get(i).getDistance();
         }
+        return HelperFunctions.format2dp(distanceCycled);
+    }
+
+    /**
+     * Calculates the average distance a user has travelled.
+     * @return average distance travelled
+     */
+    public double cacluateAverageDistance() {
+        if (takenRoutesList.size() == 0) { // Avoid divide by 0 error.
+            averageDistance = 0;
+        } else {
+            averageDistance = distanceCycled / takenRoutesList.size();
+        }
+        return HelperFunctions.format2dp(averageDistance);
+        }
+
+
+
+    /**
+     * Calculates the users shortest distance, returns an arbritraily large number if there are no--------------------toTest----
+     * routes in the takenRouteList.
+     * @return shortest distance out of all taken routes
+     */
+    public double calculateShortestRoute() {
+        shortestDistance = 9999999; // No routes will be of a size greater than this.
+        for (int i = 0; i < takenRoutesList.size(); i++) {
+            if (takenRoutesList.get(i).getDistance() < shortestDistance) {
+                shortestDistance = takenRoutesList.get(i).getDistance();
+            }
+        }
+        return shortestDistance;
     }
 
 
     /**
-     * Updates the total distance a use thas cycled ------------------------toTest---
-     * @param route
+     * Calculates the users longest distance, returns -1 if there are no--------------------toTest----
+     * routes in the takenRouteList.
+     * @return shortest distance out of all taken routes
      */
-    public void updateDistanceCycled(Route route) {
-        distanceCycled += route.getDistance();
-    }
-
-    /**
-     * Adds distance to the cyclists total distance count.
-     *
-     * @param extraDistance the distance to be added to the total distance
-     */
-    public void addDistanceCycled(int extraDistance) {
-        distanceCycled += extraDistance;
+    public double calculateLongestRoute() {
+        longestDistance = -1;
+        for (int i = 0; i < takenRoutesList.size(); i++) {
+            if (takenRoutesList.get(i).getDistance() > longestDistance) {
+                longestDistance = takenRoutesList.get(i).getDistance();
+            }
+        }
+        return longestDistance;
     }
 
 
