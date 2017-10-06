@@ -147,7 +147,6 @@
          </font>
       </Label>
       <Button alignment="TOP_CENTER" mnemonicParsing="false" onAction="#viewSelectedOnMap" prefHeight="25.0" prefWidth="188.0" text="View Selected On Map" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-      <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" GridPane.rowSpan="7" />
       <Button alignment="TOP_CENTER" mnemonicParsing="false" onAction="#viewOnMap" prefHeight="25.0" prefWidth="187.0" text="View All On Map" GridPane.columnIndex="1" GridPane.rowIndex="5" />
       <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5">
          <children>
@@ -155,5 +154,8 @@
          </children>
       </AnchorPane>
       <Button alignment="TOP_CENTER" mnemonicParsing="false" onAction="#addTakenRoute" prefHeight="25.0" prefWidth="187.0" text="Add to Completed Routes" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+      <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" GridPane.rowSpan="7" />
+      <ComboBox fx:id="routeLists" prefHeight="25.0" prefWidth="199.0" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="List Selection:" GridPane.columnIndex="4" GridPane.rowIndex="1" />
    </children>
 </GridPane>
