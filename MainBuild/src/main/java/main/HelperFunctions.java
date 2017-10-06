@@ -1,8 +1,14 @@
 package main;
 
+import dataAnalysis.Route;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.Duration;
+
+import java.util.ArrayList;
+
+import static main.Cyclist.*;
+
 
 /**
  * Created by jes143 on 22/09/17.
@@ -149,65 +155,83 @@ public class HelperFunctions {
     }
 
 
+    // ----------------------------------------Calculations------------------------------------------------
+
+    /**
+     * Calculates the total distance a user has cycled --------------------toTest----
+     */
+    public static double calculateDistanceCycled() {
+        ArrayList<Route> takenList = new ArrayList<>();
+        takenList.addAll(Main.hu.currentCyclist.getTakenRoutes());
+        double distanceCycled = 0;
+        for(int i = 0; i < takenList.size(); i++) {
+            distanceCycled += takenList.get(i).getDistance();
+        }
+        return HelperFunctions.format2dp(distanceCycled);
+    }
+
+    /**
+     * Calculates the average distance a user has travelled.
+     * @return average distance travelled
+     */
+    public static double cacluateAverageDistance() {
+        ArrayList<Route> takenList = new ArrayList<>();
+        takenList.addAll(Main.hu.currentCyclist.getTakenRoutes());
+        double averageDistance = 0;
+        if (takenList.size() == 0) { // Avoid divide by 0 error.
+            averageDistance = 0;
+        } else {
+            averageDistance = calculateDistanceCycled() / takenList.size();
+        }
+        return HelperFunctions.format2dp(averageDistance);
+    }
+
+
+
+    /**
+     * Calculates the users shortest distance, returns an arbritraily large number if there are no--------------------toTest----
+     * routes in the takenRouteList.
+     * @return shortest distance out of all taken routes
+     */
+    public static double calculateShortestRoute() {
+        ArrayList<Route> takenList = new ArrayList<>();
+        takenList.addAll(Main.hu.currentCyclist.getTakenRoutes());
+        double shortestDistance = 9999999; // No routes will be of a size greater than this.
+        for (int i = 0; i < Main.hu.currentCyclist.getTakenRoutes().size(); i++) {
+            if (takenList.get(i).getDistance() < shortestDistance) {
+                shortestDistance = takenList.get(i).getDistance();
+            }
+        }
+        return shortestDistance;
+    }
+
+
+    /**
+     * Calculates the users longest distance, returns -1 if there are no--------------------toTest----
+     * routes in the takenRouteList.
+     * @return shortest distance out of all taken routes
+     */
+    public static double calculateLongestRoute() {
+        ArrayList<Route> takenList = new ArrayList<>();
+        takenList.addAll(Main.hu.currentCyclist.getTakenRoutes());
+        double longestDistance = -1;
+        for (int i = 0; i < takenList.size(); i++) {
+            if (takenList.get(i).getDistance() > longestDistance) {
+                longestDistance = takenList.get(i).getDistance();
+            }
+        }
+        return longestDistance;
+    }
+
+
+    /**
+     * Formats a number to 2dp.
+     * @param number the double to be formatted ----------------------toTest---
+     * @return
+     */
     public static double format2dp(double number) {
         number = Math.round(number * 100);
         number = number / 100;
         return number;
     }
-
-
-//    /**
-//     * Calculates the total distance a user has cycled --------------------toTest----
-//     */
-//    public double calculateDistanceCycled() {
-//        distanceCycled = 0;
-//        for(int i = 0; i < takenRoutesList.size(); i++) {
-//            distanceCycled += takenRoutesList.get(i).getDistance();
-//        }
-//        return distanceCycled;
-//    }
-//
-//
-//    public double cacluateAverageDistance() {
-//        if (takenRoutesList.size() == 0) { // Avoid divide by 0 error.
-//            averageDistance = 0;
-//        } else {
-//            averageDistance = distanceCycled / takenRoutesList.size();
-//        }
-//        return averageDistance;
-//    }
-//
-//
-//
-//    /**
-//     * Calculates the users shortest distance, returns an arbritraily large number if there are no--------------------toTest----
-//     * routes in the takenRouteList.
-//     * @return shortest distance out of all taken routes
-//     */
-//    public double calculateShortestRoute() {
-//        double shortestDistance = 9999999; // No routes will be of a size greater than this.
-//        for (int i = 0; i < takenRoutesList.size(); i++) {
-//            if (takenRoutesList.get(i).getDistance() < shortestDistance) {
-//                shortestDistance = takenRoutesList.get(i).getDistance();
-//            }
-//        }
-//        return shortestDistance;
-//    }
-//
-//
-//    /**
-//     * Calculates the users longest distance, returns -1 if there are no--------------------toTest----
-//     * routes in the takenRouteList.
-//     * @return shortest distance out of all taken routes
-//     */
-//    public double calculateLongestRoute() {
-//        longestDistance = -1;
-//        for (int i = 0; i < takenRoutesList.size(); i++) {
-//            if (takenRoutesList.get(i).getDistance() > longestDistance) {
-//                longestDistance = takenRoutesList.get(i).getDistance();
-//            }
-//        }
-//        return longestDistance;
-//    }
-
 }

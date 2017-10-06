@@ -26,6 +26,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import main.Cyclist;
+import main.HelperFunctions;
 import main.Main;
 import javafx.scene.chart.XYChart;
 
@@ -133,14 +134,14 @@ public class StatisticsController extends Controller implements Initializable {
      * Finds all of the most recent statistics for the user and displays them.
      */
     private void findStatistics() {
-        double total = Main.hu.currentCyclist.calculateDistanceCycled();
-        double average = Main.hu.currentCyclist.cacluateAverageDistance();
+        double total = HelperFunctions.calculateDistanceCycled();
+        double average = HelperFunctions.cacluateAverageDistance();
 
-        double shortest = Main.hu.currentCyclist.calculateShortestRoute();
+        double shortest = HelperFunctions.calculateShortestRoute();
         if (shortest == 9999999) {
             shortest = 0;
         }
-        double longest = Main.hu.currentCyclist.calculateLongestRoute();
+        double longest = HelperFunctions.calculateLongestRoute();
         if (longest == -1) {
             longest = 0;
         }
