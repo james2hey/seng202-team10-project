@@ -13,8 +13,7 @@
 <GridPane alignment="center" hgap="30.0" prefHeight="650.0" prefWidth="1100.0" style="-fx-background-color: Grey;" vgap="20.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIControllers.StatisticsController">
    <children>
       <Text fx:id="buttonPressedText" strokeType="OUTSIDE" strokeWidth="0.0" text="Button Pressed" textAlignment="CENTER" visible="false" wrappingWidth="269.6552734375" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-      <JFXHamburger fx:id="hamburger" onMouseClicked="#openDrawer" prefHeight="73.0" prefWidth="87.0" GridPane.columnIndex="5" />
-      <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Statistics" textAlignment="CENTER" wrappingWidth="871.7294921875" GridPane.columnIndex="1" GridPane.columnSpan="2">
+      <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Statistics" textAlignment="CENTER" wrappingWidth="957.7294921875" GridPane.columnIndex="1" GridPane.columnSpan="2">
          <font>
             <Font size="60.0" />
          </font>
@@ -58,7 +57,7 @@
                         <Font size="15.0" />
                      </font>
                   </Text>
-                  <Text fx:id="shortestRoute" layoutX="245.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="116.0">
+                  <Text fx:id="shortestRoute" layoutX="256.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="116.0">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -94,12 +93,13 @@
       </JFXDrawer>
       <BarChart fx:id="graph" title="Title" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
         <xAxis>
-          <CategoryAxis side="BOTTOM" />
+          <CategoryAxis label="Date" side="BOTTOM" />
         </xAxis>
         <yAxis>
-          <NumberAxis label="Distance (km)" side="LEFT" />
+          <NumberAxis label="Distance (km)" side="LEFT" upperBound="1.0" />
         </yAxis>
       </BarChart>
+      <JFXHamburger fx:id="hamburger" onMouseClicked="#openDrawer" prefHeight="73.0" prefWidth="87.0" GridPane.columnIndex="5" />
    </children>
    <columnConstraints>
       <ColumnConstraints maxWidth="800.0" minWidth="10.0" prefWidth="41.0" />

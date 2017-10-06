@@ -21,6 +21,8 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import main.Cyclist;
@@ -99,22 +101,22 @@ public class StatisticsController extends Controller implements Initializable {
 
 
         //Initialise the graph.
-        System.out.println("initialising graph");
         final CategoryAxis xAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis();
+        xAxis.setTickLabelFill(Color.RED);
         graph.setTitle("Recent Route Distances");
-        xAxis.setLabel("Country");
-        yAxis.setLabel("Value");
 
+        //Selecting data to add
         XYChart.Series series1 = new XYChart.Series();
-        series1.setName("Fuck");
-        series1.getData().add(new XYChart.Data(austria, 25601.34));
-        series1.getData().add(new XYChart.Data(brazil, 20148.82));
-        series1.getData().add(new XYChart.Data(france, 10000));
-        series1.getData().add(new XYChart.Data(italy, 35407.15));
-        series1.getData().add(new XYChart.Data(usa, 12000));
+        series1.getData().add(new XYChart.Data("01/08/2017", 2.35));
+        series1.getData().add(new XYChart.Data("03/10/2017", 1.50));
+        series1.getData().add(new XYChart.Data("24/10/2017", 3.00));
+        series1.getData().add(new XYChart.Data("25/10/2017", 0.89));
+        series1.getData().add(new XYChart.Data("03/11/2017", 0.99));
 
         graph.getData().addAll(series1);
+        graph.setLegendVisible(false);
+
 
 
 

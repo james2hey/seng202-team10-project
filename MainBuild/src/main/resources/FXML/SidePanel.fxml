@@ -11,12 +11,12 @@
       <Button fx:id="planRouteButton" mnemonicParsing="false" onAction="#changeToPlanRouteScene" prefHeight="85.0" prefWidth="275.0" text="Plan Route" />
       <Button fx:id="addDataButton" mnemonicParsing="false" onAction="#changeToAddDataScene" prefHeight="85.0" prefWidth="275.0" text="Add Data" />
       <Button fx:id="viewDataButton" mnemonicParsing="false" onAction="#changeToViewDataScene" prefHeight="85.0" prefWidth="275.0" text="View Data" />
-      <VBox prefHeight="156.0" prefWidth="230.0">
+      <VBox prefHeight="85.0" prefWidth="230.0">
          <children>
             <Button fx:id="viewDataButton1" mnemonicParsing="false" onAction="#changeToStatisticsScene" prefHeight="85.0" prefWidth="275.0" text="Statistics" />
          </children></VBox>
       <VBox prefHeight="46.0" prefWidth="230.0" />
-      <VBox prefHeight="46.0" prefWidth="230.0" />
+      <VBox prefHeight="57.0" prefWidth="230.0" />
       <Button fx:id="profileButton" mnemonicParsing="false" onAction="#changeToProfileScene" prefHeight="60.0" prefWidth="230.0" text="Profile" />
       <Button fx:id="helpButton" mnemonicParsing="false" onAction="#openHelpStage" prefHeight="60.0" prefWidth="230.0" text="Help" />
    </children>
