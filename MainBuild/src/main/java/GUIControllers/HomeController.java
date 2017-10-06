@@ -75,6 +75,7 @@ public class HomeController extends Controller implements Initializable {
     @FXML
     private TableView<RetailLocation> tableViewRetailers;
 
+
     @FXML
     private Text welcomeText;
 

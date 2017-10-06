@@ -241,7 +241,6 @@ public abstract class Controller {
      * @param event Event created on method call
      * @throws IOException Catches error if fxml does not load correctly
      */
-
     @FXML
     public void getHelp(ActionEvent event) throws IOException {
         Stage popup = new Stage();

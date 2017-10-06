@@ -18,6 +18,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.Main;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -227,6 +228,26 @@ public class RouteDataViewerController extends DataViewerController {
             } else {
                 makeErrorDialogueBox("Route already in favourites", "This route has already been " +
                         "added\nto this users favourites list.");
+            }
+        }
+    }
+
+    /**
+     * Adds the selected route to the completed routes.
+     */
+    public void addCompletedRoute(ActionEvent event)  throws IOException {
+        if (tableView.getSelectionModel().getSelectedItem() == null) {
+            makeSuccessDialogueBox("Select a route to add.", "");
+        } else {
+            String name = Main.hu.currentCyclist.getName();
+            Route routeToAdd = tableView.getSelectionModel().getSelectedItem();
+            boolean alreadyInList = Main.hu.currentCyclist.routeAlreadyInList(routeToAdd);
+            if (!alreadyInList) {
+                //DO SOMETHING HERE WHICH ADDS THE ROUTE TO THE DATABASE
+                // @JAMES
+            } else {
+                makeErrorDialogueBox("Route already in completed", "This route has already been " +
+                        "added\nto this users completed list.");
             }
         }
     }

@@ -82,6 +82,8 @@ public class Cyclist {
         return favouriteRouteList;
     }
 
+    public ArrayList<Route> getTakenRoutes() {return takenRoutes;}
+
     public int getDistanceCycled() {
         return distanceCycled;
     }
