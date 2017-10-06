@@ -90,7 +90,8 @@ public class HandleUsers {
                         rsRoute.getInt("end_station_id"), rsRoute.getString("start_station_name"),
                         rsRoute.getString("end_station_name"), rsRoute.getString("bikeid"),
                         rsRoute.getInt("gender"), rsRoute.getString("usertype"),
-                        rsRoute.getInt("birth_year"), rsFavourites.getFloat("distance"));
+                        rsRoute.getInt("birth_year"), rsFavourites.getString("list_name"),
+                        rsFavourites.getFloat("distance"));
                 currentCyclist.addTakenRouteInstance(tempRoute);
             }
         } catch (SQLException e) {
@@ -127,7 +128,8 @@ public class HandleUsers {
                         rsRoute.getInt("end_station_id"), rsRoute.getString("start_station_name"),
                         rsRoute.getString("end_station_name"), rsRoute.getString("bikeid"),
                         rsRoute.getInt("gender"), rsRoute.getString("usertype"),
-                        rsRoute.getInt("birth_year"), rsFavourites.getInt("rank"));
+                        rsRoute.getInt("birth_year"), rsFavourites.getString("list_name"),
+                        rsFavourites.getInt("rank"));
                 currentCyclist.addFavouriteRouteInstance(tempRoute);
             }
         } catch (SQLException e) {

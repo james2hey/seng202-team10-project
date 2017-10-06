@@ -18,7 +18,7 @@ import java.text.DecimalFormat;
 public class Route {
     private int duration, timesTaken = 1, rank, age;
     private String name, startTime, stopTime, startDate, stopDate, startDay, startMonth, startYear, stopDay, stopMonth,
-            stopYear, bikeid, gender, userType;
+            stopYear, bikeid, gender, userType, listName;
     private Location startLocation, endLocation, viaLocation;
     private double averageTime, distance;
 
@@ -49,7 +49,7 @@ public class Route {
     public Route(int tripDuration, String stTime, String spTime, String stDay, String stMonth, String stYear,
                  String spDay, String spMonth, String spYear, double stStationLat, double stStationLong,
                  double endStationLat, double endStationLong, int stStationID, int endStationID, String stStationAdr,
-                 String endStationAdr, String bId, int riderGender, String riderType, int riderAge) {
+                 String endStationAdr, String bId, int riderGender, String riderType, int riderAge, String list) {
         duration = tripDuration;
         startTime = stTime;
         startDay = stDay;
@@ -62,6 +62,7 @@ public class Route {
         bikeid = bId;
         userType = riderType;
         age = riderAge;
+        listName = list;
         setGender(riderGender);
         startLocation = new StationLocation(stStationID, stStationLat, stStationLong, stStationAdr);
         endLocation = new StationLocation(endStationID, endStationLat, endStationLong, endStationAdr);
@@ -76,7 +77,8 @@ public class Route {
     public Route(int tripDuration, String stTime, String spTime, String stDay, String stMonth, String stYear,
                  String spDay, String spMonth, String spYear, double stStationLat, double stStationLong,
                  double endStationLat, double endStationLong, int stStationID, int endStationID, String stStationAdr,
-                 String endStationAdr, String bId, int riderGender, String riderType, int riderAge, int routeRank) {
+                 String endStationAdr, String bId, int riderGender, String riderType, int riderAge, String list,
+                 int routeRank) {
         duration = tripDuration;
         startTime = stTime;
         startDay = stDay;
@@ -89,6 +91,7 @@ public class Route {
         bikeid = bId;
         userType = riderType;
         age = riderAge;
+        listName = list;
         setGender(riderGender);
         startLocation = new StationLocation(stStationID, stStationLat, stStationLong, stStationAdr);
         endLocation = new StationLocation(endStationID, endStationLat, endStationLong, endStationAdr);
@@ -100,7 +103,8 @@ public class Route {
     public Route(int tripDuration, String stTime, String spTime, String stDay, String stMonth, String stYear,
                  String spDay, String spMonth, String spYear, double stStationLat, double stStationLong,
                  double endStationLat, double endStationLong, int stStationID, int endStationID, String stStationAdr,
-                 String endStationAdr, String bId, int riderGender, String riderType, int riderAge, float rdistance) {
+                 String endStationAdr, String bId, int riderGender, String riderType, int riderAge, String list,
+                 float rdistance) {
         duration = tripDuration;
         startTime = stTime;
         startDay = stDay;
@@ -113,6 +117,7 @@ public class Route {
         bikeid = bId;
         userType = riderType;
         age = riderAge;
+        listName = list;
         setGender(riderGender);
         startLocation = new StationLocation(stStationID, stStationLat, stStationLong, stStationAdr);
         endLocation = new StationLocation(endStationID, endStationLat, endStationLong, endStationAdr);
@@ -160,14 +165,6 @@ public class Route {
         return duration;
     }
 
-    public void setDuration(int newDuration) {
-        if (newDuration != duration) {
-            duration = newDuration;
-            UpdateData.updateRouteField("tripduration", Integer.toString(duration), bikeid, startYear, startMonth,
-                    stopDay, startTime);
-        }
-    }
-
     public int getRank() {
         return rank;
     }
@@ -184,14 +181,6 @@ public class Route {
         return age;
     }
 
-    public void setAge(int newAge) {
-        if (newAge != age) {
-            age = newAge;
-            UpdateData.updateRouteField("birth_year", Integer.toString(age), bikeid, startYear, startMonth,
-                    stopDay, startTime);
-        }
-    }
-
     public String getName() {
         return name;
     }
@@ -203,17 +192,6 @@ public class Route {
     public String getStopTime() {
         return stopTime;
     }
-
-    public void setStopTime(String time) {
-        if (time.length() < 8) {
-            time = time + ":00";
-        }
-        if (!time.equals(stopTime)) {
-            stopTime = time;
-            UpdateData.updateRouteField("end_time", stopTime, bikeid, startYear, startMonth, stopDay, startTime);
-        }
-    }
-
 
     public String getStartDate() {
         return startDate;
@@ -227,67 +205,20 @@ public class Route {
         return stopDay;
     }
 
-    public void setStopDay(String day) {
-        if (day.length() < 2) {
-            day = "0" + day;
-        }
-        if (!day.equals(stopDay)) {
-            stopDay = day;
-            UpdateData.updateRouteField("end_day", stopDay, bikeid, startYear, startMonth, startDay, startTime);
-            setStopDate();
-        }
-    }
-
-
     public String getStopMonth() {
         return stopMonth;
-    }
-
-    public void setStopMonth(String month) {
-        if (month.length() < 2) {
-            month = "0" + month;
-        }
-        if (!month.equals(stopMonth)) {
-            stopMonth = month;
-            UpdateData.updateRouteField("end_month", stopMonth, bikeid, startYear, startMonth, startDay, startTime);
-            setStopDate();
-        }
     }
 
     public String getStopYear() {
         return stopYear;
     }
 
-    public void setStopYear(String year) {
-        if (!year.equals(stopYear)) {
-            stopYear = year;
-            UpdateData.updateRouteField("end_year", stopYear, bikeid, startYear, startMonth, startDay, startTime);
-            setStopDate();
-        }
-    }
-
     public String getStartAddress() {
         return startLocation.getAddress();
     }
 
-    public void setStartAddress(String newAddress) {
-        if (!newAddress.equals(startLocation.getAddress())) {
-            startLocation.setAddress(newAddress);
-            UpdateData.updateRouteField("start_station_name", startLocation.getAddress(), bikeid, startYear,
-                    startMonth, stopDay, startTime);
-        }
-    }
-
     public String getEndAddress() {
         return endLocation.getAddress();
-    }
-
-    public void setEndAddress(String newAddress) {
-        if (!newAddress.equals(endLocation.getAddress())) {
-            endLocation.setAddress(newAddress);
-            UpdateData.updateRouteField("end_station_name", endLocation.getAddress(), bikeid, startYear,
-                    startMonth, stopDay, startTime);
-        }
     }
 
     public String getViaLocation() {
@@ -298,29 +229,11 @@ public class Route {
         return gender;
     }
 
-    //Used when creating Route objects from the database.
-    public void setGender(int riderGender) {
-        if (riderGender == 1) {
-            gender = "Male";
-        } else if (riderGender == 2) {
-            gender = "Female";
-        } else if (riderGender == 3) {
-            gender = "Other";
-        } else {
-            gender = "Not Specified";
-        }
-    }
-
     public String getUserType() {
         return userType;
     }
 
-    public void setUserType(String newType) {
-        if (!newType.equals(userType)) {
-            userType = newType;
-            UpdateData.updateRouteField("usertype", userType, bikeid, startYear, startMonth, stopDay, startTime);
-        }
-    }
+    public String getListName() {return listName;}
 
     public double getStartLatitude() {
         return startLocation.getLatitude();
@@ -353,6 +266,22 @@ public class Route {
         stopDate = getDateString(stopDay, stopMonth, stopYear);
     }
 
+    public void setDuration(int newDuration) {
+        if (newDuration != duration) {
+            duration = newDuration;
+            UpdateData.updateRouteField("tripduration", Integer.toString(duration), bikeid, startYear, startMonth,
+                    stopDay, startTime);
+        }
+    }
+
+    public void setStartAddress(String newAddress) {
+        if (!newAddress.equals(startLocation.getAddress())) {
+            startLocation.setAddress(newAddress);
+            UpdateData.updateRouteField("start_station_name", startLocation.getAddress(), bikeid, startYear,
+                    startMonth, stopDay, startTime);
+        }
+    }
+
     public void setStartID(int newID) {
         if (newID != startLocation.getNumber()) {
             startLocation.setNumber(newID);
@@ -374,6 +303,14 @@ public class Route {
             startLocation.setLongitude(newLong);
             UpdateData.updateRouteField("start_longitude", Double.toString(startLocation.getLongitude()), bikeid,
                     startYear, startMonth, stopDay, startTime);
+        }
+    }
+
+    public void setEndAddress(String newAddress) {
+        if (!newAddress.equals(endLocation.getAddress())) {
+            endLocation.setAddress(newAddress);
+            UpdateData.updateRouteField("end_station_name", endLocation.getAddress(), bikeid, startYear,
+                    startMonth, stopDay, startTime);
         }
     }
 
@@ -401,6 +338,69 @@ public class Route {
         }
     }
 
+    public void setStopTime(String time) {
+        if (time.length() < 8) {
+            time = time + ":00";
+        }
+        if (!time.equals(stopTime)) {
+            stopTime = time;
+            UpdateData.updateRouteField("end_time", stopTime, bikeid, startYear, startMonth, stopDay, startTime);
+        }
+    }
+
+    public void setStopDay(String day) {
+        if (day.length() < 2) {
+            day = "0" + day;
+        }
+        if (!day.equals(stopDay)) {
+            stopDay = day;
+            UpdateData.updateRouteField("end_day", stopDay, bikeid, startYear, startMonth, startDay, startTime);
+            setStopDate();
+        }
+    }
+
+    public void setStopMonth(String month) {
+        if (month.length() < 2) {
+            month = "0" + month;
+        }
+        if (!month.equals(stopMonth)) {
+            stopMonth = month;
+            UpdateData.updateRouteField("end_month", stopMonth, bikeid, startYear, startMonth, startDay, startTime);
+            setStopDate();
+        }
+    }
+
+    public void setStopYear(String year) {
+        if (!year.equals(stopYear)) {
+            stopYear = year;
+            UpdateData.updateRouteField("end_year", stopYear, bikeid, startYear, startMonth, startDay, startTime);
+            setStopDate();
+        }
+    }
+
+    public void setUserType(String newType) {
+        if (!newType.equals(userType)) {
+            userType = newType;
+            UpdateData.updateRouteField("usertype", userType, bikeid, startYear, startMonth, stopDay, startTime);
+        }
+    }
+
+    public void setAge(int newAge) {
+        if (newAge != age) {
+            age = newAge;
+            UpdateData.updateRouteField("birth_year", Integer.toString(age), bikeid, startYear, startMonth,
+                    stopDay, startTime);
+        }
+    }
+
+    public void setListName(String newList) {
+        if (!newList.equals(listName)) {
+            listName = newList;
+            UpdateData.updateRouteField("list_name", listName, bikeid, startYear, startMonth,
+                    stopDay, startTime);
+        }
+    }
+
     public void setGender(String newGender) {
         if (!newGender.equals(gender)) {
             if ("Male".equals(newGender)) {
@@ -416,6 +416,19 @@ public class Route {
                 gender = newGender;
                 UpdateData.updateRouteField("gender", "0", bikeid, startYear, startMonth, stopDay, startTime);
             }
+        }
+    }
+
+    //Used when creating Route objects from the database.
+    public void setGender(int riderGender) {
+        if (riderGender == 1) {
+            gender = "Male";
+        } else if (riderGender == 2) {
+            gender = "Female";
+        } else if (riderGender == 3) {
+            gender = "Other";
+        } else {
+            gender = "Not Specified";
         }
     }
 

@@ -27,8 +27,8 @@ public class DataFilterer {
     private String startAddressCommand;
     private String endAddressCommand;
     private String bikeIDCommand;
+    private String listCommand;
     private String getAllRoutesCommand;
-
 
     //---Wifi Strings---
     private String wifiCommand;
@@ -74,6 +74,7 @@ public class DataFilterer {
         startAddressCommand = "start_station_name LIKE ?";
         endAddressCommand = "end_station_name LIKE ?";
         bikeIDCommand = "bikeid = ?";
+        listCommand = "list_name = ?";
         getAllRoutesCommand = "SELECT * FROM route_information;";
         //---Wifi Strings---
         wifiCommand = "SELECT * FROM wifi_location WHERE ";
@@ -142,7 +143,7 @@ public class DataFilterer {
                         rs.getInt("end_station_id"), rs.getString("start_station_name"),
                         rs.getString("end_station_name"), rs.getString("bikeid"),
                         rs.getInt("gender"), rs.getString("usertype"),
-                        rs.getInt("birth_year")));
+                        rs.getInt("birth_year"), rs.getString("list_name")));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -185,10 +186,13 @@ public class DataFilterer {
      *                      to filter by
      * @param endLocation   of type String. It is the ending address of a route that the user wants
      *                      to filter by
+     * @param bikeID        of type String. It is the bikeID of a route that the user want to filter by.
+     * @param list          of type String. It is the list name of the list the user wants to filter by.
      * @return queryCommand, of type String. This is the string that will be used as a query statement to the database
      */
     private String generateQueryString(int gender, String dateLower, String dateUpper, String timeLower,
-                                       String timeUpper, String startLocation, String endLocation, String bikeID) {
+                                       String timeUpper, String startLocation, String endLocation, String bikeID,
+                                       String list) {
         String queryCommand = routeCommand;
         int queryLength = 0;
 
@@ -226,6 +230,12 @@ public class DataFilterer {
             queryCommand = addAndToStmt(queryCommand, queryLength);
             queryCommand = queryCommand + bikeIDCommand;
             filterVariableStrings.add(bikeID);
+            queryLength = 1;
+        }
+        if (list != null) {
+            queryCommand = addAndToStmt(queryCommand, queryLength);
+            queryCommand = queryCommand + listCommand;
+            filterVariableStrings.add(list);
             queryLength = 1;
         }
         if (queryLength > 0) {
@@ -295,13 +305,16 @@ public class DataFilterer {
      *                      to filter by
      * @param endLocation   of type String. It is the ending address of a route that the user wants
      *                      to filter by
+     * @param bikeID        of type String. It is the bikeID of a route that the user want to filter by.
+     * @param list          of type String. It is the list name of the list the user wants to filter by.
      * @return ArrayList<Route>, this is an ArrayList that contains all filtered routes
      */
     public ArrayList<Route> filterRoutes(int gender, String dateLower, String dateUpper, String timeLower,
-                                         String timeUpper, String startLocation, String endLocation, String bikeID) {
+                                         String timeUpper, String startLocation, String endLocation, String bikeID,
+                                         String list) {
         String queryString;
         queryString = generateQueryString(gender, dateLower, dateUpper, timeLower, timeUpper, startLocation,
-                endLocation, bikeID);
+                endLocation, bikeID, list);
         if (queryString.equals(routeCommand)) {
             getAllRoutes();
             return routes;
