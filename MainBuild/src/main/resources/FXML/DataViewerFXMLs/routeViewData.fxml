@@ -120,12 +120,12 @@
             </VBox>
             <VBox prefHeight="161.0" prefWidth="103.0">
                <children>
-                  <DatePicker fx:id="startDateInput" />
+                  <DatePicker fx:id="startDateInput" prefHeight="25.0" prefWidth="240.0" />
                </children>
             </VBox>
             <VBox prefHeight="161.0" prefWidth="103.0">
                <children>
-                  <DatePicker fx:id="endDateInput" />
+                  <DatePicker fx:id="endDateInput" prefHeight="25.0" prefWidth="229.0" />
                </children>
             </VBox>
             <VBox prefHeight="161.0" prefWidth="103.0">
@@ -155,7 +155,7 @@
       </AnchorPane>
       <Button alignment="TOP_CENTER" mnemonicParsing="false" onAction="#addTakenRoute" prefHeight="25.0" prefWidth="187.0" text="Add to Completed Routes" GridPane.columnIndex="2" GridPane.rowIndex="5" />
       <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" GridPane.rowSpan="7" />
-      <ComboBox fx:id="routeLists" prefHeight="25.0" prefWidth="199.0" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+      <ComboBox fx:id="routeLists" prefHeight="25.0" prefWidth="235.0" GridPane.columnIndex="5" GridPane.rowIndex="1" />
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="List Selection:" GridPane.columnIndex="4" GridPane.rowIndex="1" />
    </children>
 </GridPane>

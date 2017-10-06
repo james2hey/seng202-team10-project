@@ -96,7 +96,7 @@
             <VBox prefHeight="161.0" prefWidth="103.0">
                <children>
                   <Accordion />
-                  <ComboBox fx:id="primaryInput" prefHeight="23.0" prefWidth="180.0">
+                  <ComboBox fx:id="primaryInput" prefHeight="25.0" prefWidth="230.0">
                      <items>
                         <FXCollections fx:factory="observableArrayList">
                            <String fx:value="Casual Eating &amp; Takeout" />
@@ -133,5 +133,7 @@
             <JFXHamburger fx:id="hamburger" layoutX="43.0" layoutY="31.0" onMouseClicked="#openDrawer" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="50.0" />
          </children>
       </AnchorPane>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="List Selection:" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+      <ComboBox fx:id="retailerLists" prefHeight="25.0" prefWidth="230.0" GridPane.columnIndex="5" GridPane.rowIndex="1" />
    </children>
 </GridPane>
