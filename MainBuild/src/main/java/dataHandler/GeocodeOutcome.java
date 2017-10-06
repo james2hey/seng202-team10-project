@@ -50,7 +50,6 @@ public class GeocodeOutcome implements PendingResult.Callback<GeocodingResult[]>
         latLon[0] = lat;
         latLon[1] = lon;
         geoCallback.result(record, latLon, callback);
-
     }
 
     /**
@@ -60,8 +59,6 @@ public class GeocodeOutcome implements PendingResult.Callback<GeocodingResult[]>
      */
     @Override
     public void onFailure(Throwable throwable) {
-        System.out.println("8");
-        throwable.printStackTrace();
         callback.result(false);
     }
 }

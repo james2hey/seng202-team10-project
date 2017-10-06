@@ -3,6 +3,7 @@ package dataHandler;
 import com.opencsv.CSVReader;
 import javafx.concurrent.Task;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.List;
 
@@ -15,7 +16,8 @@ public class CSVImporter extends Task<Void> implements Callback {
     private final String url;
     private SQLiteDB db;
     private DataHandler handler;
-    private int[] successFailCounts = {0, 0};
+    private int successful = 0;
+    private int failed = 0;
     private int resulted = 0;
     private int totalCount;
 
@@ -34,14 +36,23 @@ public class CSVImporter extends Task<Void> implements Callback {
 
     @Override
     protected Void call() throws Exception {
-        System.out.println("-1");
+        System.out.println("here");
         db.setAutoCommit(false);
-        CSVReader reader = new CSVReader(new FileReader(url), ',');
+        CSVReader reader;
+        try {
+            reader = new CSVReader(new FileReader(url), ',');
+        } catch (FileNotFoundException e) {
+            System.out.println("here");
+            updateMessage("That file doesn't exist.\nPlease select a valid file");
+            return null;
+        }
         List<String[]> records = reader.readAll();
-        System.out.println("-1");
-        if (records.get(0).length != handler.fieldCount()) {
-            System.out.println("1");
-            throw new NoSuchFieldException(String.format("Incorrect number of fields, expected %d but got %d", handler.fieldCount(), records.get(0).length));
+        if (!handler.canProcess(records.get(0).length)) {
+            updateMessage(String.format(
+                    "Incorrect number of fields, expected %s but got %d\n" +
+                    "Did you select the correct CSV file?", handler.getFieldCounts(), records.get(0).length));
+
+            return null;
         }
         totalCount = records.size() - 1;
 
@@ -63,19 +74,18 @@ public class CSVImporter extends Task<Void> implements Callback {
 
     @Override
     public void result(boolean result) {
-        resulted++;
+        resulted ++;
         if (result) {
-            successFailCounts[0] += 1;
+            successful ++;
         } else {
-            successFailCounts[1] += 1;
+            failed ++;
         }
-        updateProgress(resulted, totalCount);
+
+        updateProgress(successful + failed, totalCount);
 
         updateMessage(String.format("Currently processed %d records out of %d.\n" +
                 "Successfully imported: %d records\n" +
-                "Failed to import: %d records.", resulted, totalCount, successFailCounts[0], successFailCounts[1]));
-        System.out.println(totalCount);
-        System.out.println(resulted);
+                "Failed to import: %d records.", resulted, totalCount, successful, failed));
     }
 }
 

@@ -166,8 +166,14 @@ public class RouteDataHandler implements DataHandler {
         }
     }
 
-    public int fieldCount() {
-        return fieldCount;
+    @Override
+    public boolean canProcess(int columnCount) {
+        return columnCount == fieldCount;
+    }
+
+    @Override
+    public String getFieldCounts() {
+        return Integer.toString(fieldCount);
     }
 }
 

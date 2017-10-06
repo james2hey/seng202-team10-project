@@ -52,19 +52,14 @@ public class WifiDataHandler implements DataHandler {
         try {
             double lat = Double.parseDouble(record[7]);
             double lon = Double.parseDouble(record[8]);
-
-
-            callback.result(addSingleEntry(record[0], record[3], record[4], record[6], lat, lon, record[12], record[13],
-                    record[14], record[18], record[22]));
+            callback.result(addSingleEntry(record[0], record[3], record[4], record[6], lat, lon, record[12], record[13], record[14], record[18], record[22]));
 
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Incorrect string array size");
             callback.result(false);
+        } catch (NumberFormatException e) {
+            callback.result(false);
         }
-    }
-
-    public int fieldCount() {
-        return fieldCount;
     }
 
     /**
@@ -107,5 +102,15 @@ public class WifiDataHandler implements DataHandler {
             System.out.println(e.getMessage());
             return false;
         }
+    }
+
+    @Override
+    public boolean canProcess(int columnCount) {
+        return columnCount == fieldCount;
+    }
+
+    @Override
+    public String getFieldCounts() {
+        return Integer.toString(fieldCount);
     }
 }

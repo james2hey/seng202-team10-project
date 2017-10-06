@@ -7,6 +7,8 @@ public interface DataHandler {
 
     void processLine(String[] record, Callback callback);
 
-    int fieldCount();
+    boolean canProcess(int columnCount);
+
+    String getFieldCounts();
 
 }

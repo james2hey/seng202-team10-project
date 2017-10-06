@@ -7,7 +7,7 @@ import java.sql.SQLException;
  * Created by jes143 on 18/09/17.
  */
 
-public class RetailerDataHandler implements DataHandler, GeoCallback {
+public class RetailerDataHandlerFake implements DataHandler, GeoCallback {
 
     private SQLiteDB db;
 
@@ -20,8 +20,7 @@ public class RetailerDataHandler implements DataHandler, GeoCallback {
                     "STATE              VARCHAR(2)",
                     "ZIP                VARCHAR(8)",
                     "Main_Type          VARCHAR(50)",
-                    "Secondary_Type     VARCHAR(50)",
-                    "list_name          VARCHAR(25)"};
+                    "Secondary_Type     VARCHAR(50)"};
 
     private String primaryKey = "RETAILER_NAME, ADDRESS";
     private String tableName = "retailer";
@@ -35,7 +34,7 @@ public class RetailerDataHandler implements DataHandler, GeoCallback {
      *
      * @param db
      */
-    public RetailerDataHandler(SQLiteDB db) {
+    public RetailerDataHandlerFake(SQLiteDB db) {
         this.db = db;
         db.addTable(tableName, fields, primaryKey);
         addData = db.getPreparedStatement(addDataStatement);
@@ -51,6 +50,7 @@ public class RetailerDataHandler implements DataHandler, GeoCallback {
      * @return A bool stating the success state of the process.
      */
     public void processLine(String[] record, Callback callback) {
+        System.out.println("here");
         if (record.length == 18 && !record[10].equals("")) {
             double lat;
             double lon;
@@ -62,9 +62,8 @@ public class RetailerDataHandler implements DataHandler, GeoCallback {
                 return;
             }
             callback.result(addSingleEntry(record[0], record[1], lat, lon, record[3], record[4], record[5], record[7], record[8]));
-        } else if (record.length == 9 || record.length == 18){
-            GeocodeOutcome outcome = new GeocodeOutcome(record, callback, this);
-            Geocoder.addressToLatLonAsync(record[1] + ", " + record[3] + ", " + record[4] + ", " + record[5] + ", ", outcome);
+        } else if (record.length == 9 || record.length == 18) {
+            callback.result(addSingleEntry(record[0], record[1], 0.0, 0.0, record[3], record[4], record[5], record[7], record[8]));
         } else {
             callback.result(false);
         }
@@ -87,7 +86,6 @@ public class RetailerDataHandler implements DataHandler, GeoCallback {
     public Boolean addSingleEntry(
             String RETAILER_NAME, String ADDRESS, double LAT, double LONG, String CITY,
             String STATE, String ZIP, String MAIN_TYPE, String SECONDARY_TYPE) {
-        String listName = dataHandler.ListDataHandler.getListName();
         try {
             addData.setObject(1, RETAILER_NAME);
             addData.setObject(2, ADDRESS);
@@ -98,7 +96,6 @@ public class RetailerDataHandler implements DataHandler, GeoCallback {
             addData.setObject(7, ZIP);
             addData.setObject(8, MAIN_TYPE);
             addData.setObject(9, SECONDARY_TYPE);
-            addData.setObject(10, listName);
             addData.executeUpdate();
             return true;
         } catch (SQLException e) {
