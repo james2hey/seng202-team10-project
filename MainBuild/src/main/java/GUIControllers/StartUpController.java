@@ -110,7 +110,7 @@ public class StartUpController extends Controller implements Initializable {
             } else {
                 boolean created = Main.hu.createNewUser(name, day, month, year, gender);
                 if (created) {
-                    navigateHome(event);
+                    changeToPlanRouteScene(event);
                 } else {
                     makeErrorDialogueBox("Name already in use.", "");
                 }
@@ -133,23 +133,11 @@ public class StartUpController extends Controller implements Initializable {
         } else {
             String name = comboBox.getValue();
             Main.hu.logIn(name);
-            navigateHome(event);
+            changeToPlanRouteScene(event);
         }
     }
 
 
-    /**
-     * Navigates the user to the home screen.
-     *
-     * @param event clicking the home button
-     * @throws IOException
-     */
-    private void navigateHome(ActionEvent event) throws IOException {
-        Parent homeParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/home.fxml"));
-        Scene homeScene = new Scene(homeParent);
-        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        currentStage.setScene(homeScene);
-    }
 
     /**
      * Displays the help screen.
