@@ -67,7 +67,7 @@ public class ProfileController extends Controller implements Initializable {
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
         name.setText(getName());
-        dob.setValue(LocalDate.of(getBirthYear(), getBmonth(), getBDay()));
+//        dob.setValue(LocalDate.of(getBirthYear(), getBmonth(), getBDay())); //this is broken
         System.out.println(getGender());
         if (getGender() == 1) {
             gender.getSelectionModel().select("Male");

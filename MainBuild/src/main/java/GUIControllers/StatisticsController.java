@@ -58,8 +58,8 @@ public class StatisticsController extends Controller implements Initializable {
     @FXML
     private JFXHamburger hamburger;
 
-//    @FXML
-//    private BarChart<String, Number> graph;
+    @FXML
+    private BarChart<String, Number> graph;
 
     @FXML
     private TableView<Route> tableCompletedRoutes;
@@ -73,11 +73,11 @@ public class StatisticsController extends Controller implements Initializable {
     @FXML
     private TableColumn<Route, String> completedRoutes;
 
-//    final static String austria = "Austria";
-//    final static String brazil = "Brazil";
-//    final static String france = "France";
-//    final static String italy = "Italy";
-//    final static String usa = "USA";
+    final static String austria = "Austria";
+    final static String brazil = "Brazil";
+    final static String france = "France";
+    final static String italy = "Italy";
+    final static String usa = "USA";
 
     private ArrayList<Route> routeList = new ArrayList<>();
     private ObservableList<Route> routeListObservable = FXCollections.observableArrayList();
@@ -95,30 +95,31 @@ public class StatisticsController extends Controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
 
-//        System.out.println("initialising graph");
-//        final CategoryAxis xAxis = new CategoryAxis();
-//        final NumberAxis yAxis = new NumberAxis();
-//        graph.setTitle("Recent Route Distances");
-//        xAxis.setLabel("Country");
-//        yAxis.setLabel("Value");
-//
-//        XYChart.Series series1 = new XYChart.Series();
-//        series1.setName("Fuck");
-//        series1.getData().add(new XYChart.Data(austria, 25601.34));
-//        series1.getData().add(new XYChart.Data(brazil, 20148.82));
-//        series1.getData().add(new XYChart.Data(france, 10000));
-//        series1.getData().add(new XYChart.Data(italy, 35407.15));
-//        series1.getData().add(new XYChart.Data(usa, 12000));
+        System.out.println("initialising graph");
+        final CategoryAxis xAxis = new CategoryAxis();
+        final NumberAxis yAxis = new NumberAxis();
+        graph.setTitle("Recent Route Distances");
+        xAxis.setLabel("Country");
+        yAxis.setLabel("Value");
 
-//        graph.getData().addAll(series1);
+        XYChart.Series series1 = new XYChart.Series();
+        series1.setName("Fuck");
+        series1.getData().add(new XYChart.Data(austria, 25601.34));
+        series1.getData().add(new XYChart.Data(brazil, 20148.82));
+        series1.getData().add(new XYChart.Data(france, 10000));
+        series1.getData().add(new XYChart.Data(italy, 35407.15));
+        series1.getData().add(new XYChart.Data(usa, 12000));
+
+        graph.getData().addAll(series1);
+
+
 
         routeListObservable.addAll(Main.hu.currentCyclist.getTakenRoutes());
 
-        startLocation.setCellValueFactory(new PropertyValueFactory<>("StartLocation"));
+        startLocation.setCellValueFactory(new PropertyValueFactory<>("StartAddress"));
         distance.setCellValueFactory(new PropertyValueFactory<>("Distance"));
         tableCompletedRoutes.setItems(routeListObservable);
-
-        tableCompletedRoutes.getColumns().setAll();// needs to have the column table as a parameter.
+        tableCompletedRoutes.getColumns().setAll(completedRoutes);
     }
 
 
