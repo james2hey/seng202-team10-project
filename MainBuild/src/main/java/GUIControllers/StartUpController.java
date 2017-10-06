@@ -78,6 +78,7 @@ public class StartUpController extends Controller implements Initializable {
      */
     @FXML
     public void createCyclist(ActionEvent event) throws IOException {
+
         String name = username.getText();
         boolean noNullEntries = true;
         if (name.equals("") || !isLetter(name.charAt(0))) {

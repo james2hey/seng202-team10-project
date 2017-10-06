@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXTextField;
 import dataAnalysis.Route;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import dataHandler.DatabaseUser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,6 +23,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import main.Cyclist;
 import main.Main;
 import javafx.scene.chart.XYChart;
 
@@ -102,7 +104,14 @@ public class UserInformationController extends Controller implements Initializab
     public void initialize(URL location, ResourceBundle resources) {
         name.setText(getName());
         dob.setValue(LocalDate.of(getBirthYear(), getBmonth(), getBDay()));
-        gender.getSelectionModel().select(getGender());
+        System.out.println(getGender());
+        if (getGender() == 1) {
+            gender.getSelectionModel().select("Male");
+        } else if (getGender() == 2) {
+            gender.getSelectionModel().select("Female");
+        } else {
+            gender.getSelectionModel().select("Other");
+        }
 
 
 //        System.out.println("initialising graph");
@@ -145,17 +154,22 @@ public class UserInformationController extends Controller implements Initializab
             int newYear = Integer.parseInt(newDOBString.split("-")[0]);
             int newMonth = Integer.parseInt(newDOBString.split("-")[1]);
             int newDay = Integer.parseInt(newDOBString.split("-")[2]);
+            int newGender;
             setBirthday(newDay, newMonth, newYear);
-            if (gender.getSelectionModel().getSelectedItem() == "Male") {
+            if (gender.getSelectionModel().getSelectedItem().equals("Male")) {
                 setGender(1);
-            } else if (gender.getSelectionModel().getSelectedItem() == "Female") {
+                newGender = 1;
+            } else if (gender.getSelectionModel().getSelectedItem().equals("Female")) {
                 setGender(2);
-            } else if (gender.getSelectionModel().getSelectedItem() == "Other") {
-                setGender(3);
+                newGender = 2;
             } else {
                 setGender(0);
+                newGender = 0;
             }
-            setName(name.getText());
+            String newName = name.getText();
+            setName(newName);
+//            DatabaseUser d = new DatabaseUser(Main.getDB());
+            Main.databaseUser.updateDetails(newName, newDay, newMonth, newYear, newGender);
             makeSuccessDialogueBox("Success!", "Your profile has been successfully updated.");
         } catch (Exception e) {
             makeErrorDialogueBox("Failed", "An error occurred while updating your profile.");

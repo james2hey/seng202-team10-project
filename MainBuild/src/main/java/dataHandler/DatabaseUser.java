@@ -53,4 +53,9 @@ public class DatabaseUser {
             System.out.println(e.getMessage());
         }
     }
+
+    public void updateDetails(String name, int day, int month, int year, int gender) {
+        db.executeQuerySQL("UPDATE users set name = '" + name + "', birth_day = " + day + ", birth_month = " + month + "" +
+                ", birth_year = " + year +", gender = " + gender);
+    }
 }
