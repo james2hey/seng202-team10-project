@@ -412,6 +412,8 @@ public class AddDataController extends Controller implements Initializable {
         Thread thread = new Thread(task);
         thread.start();
         dialogStage.setOnCloseRequest(e -> task.cancel());
+
+
     }
 
     /**
