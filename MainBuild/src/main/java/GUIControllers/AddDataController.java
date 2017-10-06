@@ -219,7 +219,7 @@ public class AddDataController extends Controller implements Initializable {
         Boolean fromHandler = newRoute.addSingleEntry(duration, sDate[0], sDate[1], sDate[2], rSTime.getText(),
                 eDate[0], eDate[1], eDate[2], rETime.getText(), null,
                 rSAddress.getText(), SLatitude, SLongitude, null, rEAddress.getText(), ELatitude, ELongitude,
-                username, "Custom", Main.hu.currentCyclist.getBirthYear(), Main.hu.currentCyclist.getGender());
+                username, "Custom", Main.hu.currentCyclist.getBYear(), Main.hu.currentCyclist.getGender());
         //get distance
 
         if (!fromHandler) {

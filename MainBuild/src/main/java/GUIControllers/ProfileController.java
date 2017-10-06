@@ -23,10 +23,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.converter.LocalDateStringConverter;
 import main.Cyclist;
 import main.Main;
 import javafx.scene.chart.XYChart;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -67,7 +69,7 @@ public class ProfileController extends Controller implements Initializable {
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
         name.setText(getName());
-        dob.setValue(LocalDate.of(getBirthYear(), getBmonth(), getBDay())); //this is broken
+        dob.setValue(LocalDate.of(getBYear(), getBmonth(), getBDay())); //this is broken
         System.out.println(getGender());
         if (getGender() == 1) {
             gender.getSelectionModel().select("Male");

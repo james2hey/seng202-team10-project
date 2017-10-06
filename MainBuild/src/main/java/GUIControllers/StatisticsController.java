@@ -121,8 +121,8 @@ public class StatisticsController extends Controller implements Initializable {
         //Initialise routes completed table.
         routeListObservable.addAll(Main.hu.currentCyclist.getTakenRoutes());
         startLocation.setCellValueFactory(new PropertyValueFactory<>("StartAddress"));
-        distance.setCellValueFactory(new PropertyValueFactory<>("Distance"));
         endLocation.setCellValueFactory(new PropertyValueFactory<>("EndAddress"));
+        distance.setCellValueFactory(new PropertyValueFactory<>("Distance"));
         tableCompletedRoutes.setItems(routeListObservable);
         tableCompletedRoutes.getColumns().setAll(completedRoutes);
     }

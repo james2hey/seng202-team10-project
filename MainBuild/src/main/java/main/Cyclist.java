@@ -28,9 +28,17 @@ public class Cyclist {
         name = cName;
     }
 
+    public Cyclist(String uname, int day, int month, int year, int ugender) {
+        name = uname;
+        bday = day;
+        bmonth = month;
+        byear = year;
+        gender = ugender;
+    }
+
     //Getters
 
-    static public int getBirthYear() {
+    static public int getBYear() {
         return byear;
     }
 
