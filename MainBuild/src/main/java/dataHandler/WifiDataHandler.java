@@ -86,7 +86,7 @@ public class WifiDataHandler implements DataHandler {
     public Boolean addSingleEntry(
             String ID, String COST, String PROVIDER, String ADDRESS, double LAT, double LONG,
             String REMARKS, String CITY, String SSID, String SUBURB, String ZIP) {
-        String listName = ListData.getListName();
+        String listName = dataHandler.ListDataHandler.getListName();
         try {
             addData.setObject(1, ID);
             addData.setObject(2, COST);

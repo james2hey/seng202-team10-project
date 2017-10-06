@@ -24,7 +24,7 @@
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pick Existing List:" wrappingWidth="117.7294921875" GridPane.rowIndex="1" />
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Create New List:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
       <JFXTextField fx:id="newListInput" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-      <ComboBox fx:id="existingLists" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <ComboBox fx:id="existingLists" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" promptText="Select List" />
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Would you like to add this data to a list?" wrappingWidth="484.7294921875" GridPane.columnIndex="1" GridPane.columnSpan="4">
          <font>
             <Font size="20.0" />

@@ -133,7 +133,7 @@ public class RouteDataHandler implements DataHandler {
                                   String start_station_name, double start_latitude, double start_longitude,
                                   String end_station_id, String end_station_name, double end_latitude,
                                   double end_longitude, String bikeid, String usertype, Integer birth_year, int gender) {
-        String listName = ListData.getListName();
+        String listName = dataHandler.ListDataHandler.getListName();
         try {
             addData.setObject(1, tripduration);
             addData.setObject(2, start_year);

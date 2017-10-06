@@ -23,16 +23,14 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import main.HelperFunctions;
 import main.Main;
-import java.io.InterruptedIOException;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.ConnectException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -59,11 +57,18 @@ public class AddDataController extends Controller implements Initializable {
     @FXML
     private Text selectMessage;
 
+    //---for AddToListPopup scene---
+    @FXML
+    private JFXTextField newListInput;
+    @FXML
+    private ComboBox<String> existingLists;
+    //------------------------------
+
     private SQLiteDB db;
     private RetailerDataHandler retailerDataHandler;
     private WifiDataHandler wifiDataHandler;
     private RouteDataHandler routeDataHandler;
-    private ListData listDataHandler;
+    private ListDataHandler listDataHandler;
     public static String startAddress = "";
     public static String endAddress = "";
 
@@ -88,18 +93,17 @@ public class AddDataController extends Controller implements Initializable {
         retailerDataHandler = new RetailerDataHandler(db);
         wifiDataHandler = new WifiDataHandler(db);
         routeDataHandler = new RouteDataHandler(db);
-        listDataHandler = new ListData(db);
+        listDataHandler = new ListDataHandler(db);
 
 
-        SQLiteDB db = Main.getDB();
-        try {
-            ResultSet rs = db.executeQuerySQL("SELECT list_name FROM lists");
-            while (rs.next()) {
-                existingLists.getItems().add(rs.getString("list_name"));
+
+        ArrayList<String> lists = listDataHandler.getLists();
+        if (lists != null) {
+            for (int i = 0; i < lists.size(); i++) {
+                existingLists.getItems().add(lists.get(i));
             }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
         }
+
     }
 
     /**
@@ -553,12 +557,7 @@ public class AddDataController extends Controller implements Initializable {
     }
 
 
-    @FXML
-    private JFXTextField newListInput;
-
-    @FXML
-    private ComboBox<String> existingLists;
-
+//---------------------AddToListPopup.FXML methods--------------------
 
     @FXML
     public void dontAddToList(ActionEvent event) throws IOException {
@@ -570,9 +569,9 @@ public class AddDataController extends Controller implements Initializable {
 
     @FXML
     public void addToList(ActionEvent event) throws IOException {
-        listDataHandler.setListName(newListInput.getText());
-        String listName = listDataHandler.getListName();
-        System.out.println("--" + listName + "--");
+        String listName = newListInput.getText();
+        listDataHandler.setListName(listName);
+        listDataHandler.addList(listName);
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.close();
     }

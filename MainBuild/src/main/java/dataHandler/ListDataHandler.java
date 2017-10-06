@@ -3,12 +3,14 @@ package dataHandler;
 import main.Main;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
- * ListData creates the lists table in the database and adds list details to the table.
+ * ListDataHandler creates the lists table in the database and adds list details to the table.
  */
-public class ListData {
+public class ListDataHandler {
 
     private static String listName;
     private SQLiteDB db;
@@ -20,23 +22,23 @@ public class ListData {
 
 
     /**
-     * Constructor for ListData, creates new table in database.
+     * Constructor for ListDataHandler, creates new table in database.
      *
      * @param db the database connection.
      */
-    public ListData(SQLiteDB db) {
+    public ListDataHandler(SQLiteDB db) {
         this.db = db;
         db.addTable(tableName, tableFields, primaryKey);
     }
 
 
     /**
-     * Constructor for ListData, creates new table in database and adds a list to the table from the given listName and
+     * Constructor for ListDataHandler, creates new table in database and adds a list to the table from the given listName and
      * the current user.
      *
      * @param db the database connection.
      */
-    public ListData(SQLiteDB db, String listName) {
+    public ListDataHandler(SQLiteDB db, String listName) {
         this.db = db;
         db.addTable(tableName, tableFields, primaryKey);
         addList(listName);
@@ -61,6 +63,26 @@ public class ListData {
     public static void setListName(String name) {
         listName = name;
         System.out.println(getListName());
+    }
+
+
+    /**
+     * Creates a ArrayList of all the lists that the user had created.
+     *
+     * @return lists of type ArrayList
+     */
+    public ArrayList getLists() {
+        ArrayList<String> lists = new ArrayList<>();
+        String userName = Main.hu.currentCyclist.getName();
+        try {
+            ResultSet rs = db.executeQuerySQL("SELECT list_name FROM lists WHERE list_owner = '" + userName + "';");
+            while (rs.next()) {
+                lists.add(rs.getString(1));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return lists;
     }
 
 
