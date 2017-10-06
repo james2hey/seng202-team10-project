@@ -21,6 +21,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import static java.lang.Character.isLetter;
+import static org.apache.commons.lang3.StringUtils.isNumeric;
 
 /**
  * Handles the logging in scene of the GUI.
@@ -55,7 +56,7 @@ public class StartUpController extends Controller implements Initializable {
     }
 
     /**
-     * Creates new Cyclist instance with the given user name if it doesn't already exist in the database. Otherwise
+     * Creates new Cyclist instance with the given user name if it doesn't already exist in the database. Otherwise ----needs testsssss-----
      * it creates an error dialog box informing the use this name is already taken. Also throws error dialog boxes
      * for having no entries for a log in field or any incorrectly formatted dates.
      *
@@ -76,7 +77,8 @@ public class StartUpController extends Controller implements Initializable {
                     "a gender\n from the drop down box or 'other' if you would rather not specify this.");
             noNullEntries = false;
         }
-        if (userday.getText().equals("") || usermonth.getText().equals("") || useryear.getText().equals("")) {
+        if (userday.getText().equals("") || usermonth.getText().equals("") || useryear.getText().equals("")
+                || !isNumeric(userday.getText()) || !isNumeric(usermonth.getText()) || !isNumeric(useryear.getText())) {
             makeErrorDialogueBox("Enter a valid birth date", "Use the format DD/MM/YYYY");
             noNullEntries = false;
         }

@@ -39,8 +39,6 @@ public class HandleUsers {
     public void logIn(String username) {
         currentCyclist = new Cyclist(username);
         getUserDetails(username);
-        //getUserRoutes("taken_routes");
-        //getUserRoutes("favourite_routes");
         getUserTakenRoutes();
         getUserRouteFavourites();
         getUserWifiFavourites();
@@ -57,91 +55,14 @@ public class HandleUsers {
             currentCyclist.setBirthday(rs.getInt("birth_day"), rs.getInt("birth_month"),
                     rs.getInt("birth_year"));
             currentCyclist.setGender(rs.getInt("gender"));
-            //currentCyclist.calculateDistanceCycled();
-            //currentCyclist.calculateDistanceCycled(); //------------------------------------------
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
 
-//    /**
-//     * --------------------------------test
-//     */
-//    public void getUserRoutes(String tableName) {
-//        ResultSet rsFavourites, rsRoute;
-//        String name = currentCyclist.getName();
-//        Route tempRoute;
-//        try {
-//            rsFavourites = db.executeQuerySQL("SELECT * FROM " + tableName + " WHERE name = '" + name + "';");
-//            while (rsFavourites.next()) {
-//                PreparedStatement ps = db.getPreparedStatement("SELECT * FROM route_information where start_year = ? " +
-//                        "AND start_month = ? AND start_day = ? AND start_time = ? AND bikeid = ?");
-//                ps.setString(1, rsFavourites.getString(2));
-//                ps.setString(2, rsFavourites.getString(3));
-//                ps.setString(3, rsFavourites.getString(4));
-//                ps.setString(4, rsFavourites.getString(5));
-//                ps.setString(5, rsFavourites.getString(6));
-//                rsRoute = ps.executeQuery();
-//                if (tableName.equals("favourite_route")){tempRoute = createFavouriteRoute(rsRoute);}
-//                else {tempRoute = createTakenRoute(rsRoute);}
-//                currentCyclist.addRouteInstance(tempRoute, tableName);
-//            }
-//        } catch (SQLException e) {
-//            System.out.println(e.getMessage());
-//        }
-//    }
-//
-//    public Route createFavouriteRoute(ResultSet rsRoute) {
-//        Route tempRoute;
-//        try {
-//            tempRoute = new Route(rsRoute.getInt("tripduration"), rsRoute.getString("start_time"),
-//                    rsRoute.getString("end_time"), rsRoute.getString("start_day"),
-//                    rsRoute.getString("start_month"), rsRoute.getString("start_year"),
-//                    rsRoute.getString("end_day"), rsRoute.getString("end_month"),
-//                    rsRoute.getString("end_year"), rsRoute.getDouble("start_latitude"),
-//                    rsRoute.getDouble("start_longitude"), rsRoute.getDouble("end_latitude"),
-//                    rsRoute.getDouble("end_longitude"), rsRoute.getInt("start_station_id"),
-//                    rsRoute.getInt("end_station_id"), rsRoute.getString("start_station_name"),
-//                    rsRoute.getString("end_station_name"), rsRoute.getString("bikeid"),
-//                    rsRoute.getInt("gender"), rsRoute.getString("usertype"),
-//                    rsRoute.getInt("birth_year"), rsRoute.getInt("rank"));
-//            return tempRoute;
-//        } catch (SQLException e) {
-//            System.out.println(e.getMessage());
-//            tempRoute = new Route(0, "0", "0", "0", "0", "0", "0",
-//                    "0", "0", 0.0, 0.0, 0.0, 0.0,
-//                    0, 0, "0", "0", "0", 0, "0", 0, 0);
-//        }
-//        return tempRoute;
-//    }
-//
-//
-//    public Route createTakenRoute(ResultSet rsRoute) {
-//        Route tempRoute;
-//        try {
-//
-//            tempRoute=  new Route(rsRoute.getInt("tripduration"), rsRoute.getString("start_time"),
-//                    rsRoute.getString("end_time"), rsRoute.getString("start_day"),
-//                    rsRoute.getString("start_month"), rsRoute.getString("start_year"),
-//                    rsRoute.getString("end_day"), rsRoute.getString("end_month"),
-//                    rsRoute.getString("end_year"), rsRoute.getDouble("start_latitude"),
-//                    rsRoute.getDouble("start_longitude"), rsRoute.getDouble("end_latitude"),
-//                    rsRoute.getDouble("end_longitude"), rsRoute.getInt("start_station_id"),
-//                    rsRoute.getInt("end_station_id"), rsRoute.getString("start_station_name"),
-//                    rsRoute.getString("end_station_name"), rsRoute.getString("bikeid"),
-//                    rsRoute.getInt("gender"), rsRoute.getString("usertype"),
-//                    rsRoute.getInt("birth_year"), rsRoute.getFloat("distance"));
-//        } catch (SQLException e) {
-//            System.out.println(e.getMessage());
-//            tempRoute = new Route(0, "0", "0", "0", "0", "0", "0",
-//                    "0", "0", 0.0, 0.0, 0.0, 0.0,
-//                    0, 0, "0", "0", "0", 0, "0", 0, 0);
-//        }
-//        return tempRoute;
-//    }
 
     /**
-     * Gets all of the Cyclists taken Route's and adds them to the instances list.
+     * Gets all of the Cyclists taken Route's and adds them to the instances list. ------totest------------
      */
     public void getUserTakenRoutes() {
         ResultSet rsFavourites, rsRoute;
