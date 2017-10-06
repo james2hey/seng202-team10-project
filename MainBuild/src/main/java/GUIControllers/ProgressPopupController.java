@@ -21,7 +21,7 @@ public class ProgressPopupController extends Controller implements Initializable
     private ProgressBar progressBar;
 
     @FXML
-    private Text text;
+    private Text progressText;
 
     @FXML
     private Button ok;
@@ -37,7 +37,7 @@ public class ProgressPopupController extends Controller implements Initializable
 
     public void activateProgressBar(final Task<?> task) {
         progressBar.progressProperty().bind(task.progressProperty());
-        text.textProperty().bind(task.messageProperty());
+        progressText.textProperty().bind(task.messageProperty());
         ok.disableProperty().bind(task.runningProperty());
         this.task = task;
     }
