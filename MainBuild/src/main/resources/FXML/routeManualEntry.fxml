@@ -47,7 +47,7 @@
             </Text>
             <Text layoutX="132.0" layoutY="178.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Date (Required):" AnchorPane.leftAnchor="132.0" AnchorPane.topAnchor="166.0" />
             <JFXTextField fx:id="rSAddress" layoutX="283.0" layoutY="67.0" prefHeight="23.0" prefWidth="170.0" AnchorPane.topAnchor="67.0" />
-            <JFXTextField fx:id="rSTime" layoutX="283.0" layoutY="115.0" prefHeight="23.0" prefWidth="170.0" promptText="e.g. hh:mm:ss" />
+            <JFXTextField fx:id="rSTime" layoutX="283.0" layoutY="115.0" prefHeight="23.0" prefWidth="170.0" promptText="e.g. hh:mm" />
             <DatePicker fx:id="rSDate" layoutX="287.0" layoutY="162.0" prefHeight="25.0" prefWidth="170.0" />
             <Text fx:id="sTimeError" fill="RED" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ERROR: Type Error" visible="false" AnchorPane.topAnchor="113.93310546875" />
             <Text fx:id="sDateError" fill="RED" layoutY="178.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ERROR: Type Error" visible="false" AnchorPane.topAnchor="165.93310546875" />
@@ -66,7 +66,7 @@
                </font>
             </Text>
             <JFXTextField fx:id="rEAddress" layoutX="89.0" layoutY="81.0" prefHeight="23.0" prefWidth="170.0" AnchorPane.topAnchor="81.0" />
-            <JFXTextField fx:id="rETime" layoutX="89.0" layoutY="124.0" prefHeight="23.0" prefWidth="170.0" promptText="e.g. hh:mm:ss" />
+            <JFXTextField fx:id="rETime" layoutX="89.0" layoutY="124.0" prefHeight="23.0" prefWidth="170.0" promptText="e.g. hh:mm" />
             <Text layoutX="-55.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End Date (Required):" AnchorPane.leftAnchor="-55.0" AnchorPane.topAnchor="173.0" />
             <DatePicker fx:id="rEDate" layoutX="89.0" layoutY="168.0" prefHeight="25.0" prefWidth="170.0" />
             <Text fx:id="eTimeError" fill="RED" layoutX="268.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ERROR: Type Error" visible="false" />

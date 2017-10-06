@@ -126,11 +126,7 @@ public class HelperFunctions {
      * @return a boolean true if the time is valid, false otherwise
      */
     public static Boolean checkTime(String time) {
-        if (time == null || time.length() != 8 || time.charAt(2) != ':' || time.charAt(5) != ':') {
-            return false;
-        }
-        if (Integer.parseInt(time.substring(0, 2)) > 23 || Integer.parseInt(time.substring(3, 5)) > 59 || Integer.parseInt(time.substring(6, 8)) > 59
-                || Integer.parseInt(time.substring(0, 2)) < 0 || Integer.parseInt(time.substring(3, 5)) < 0 || Integer.parseInt(time.substring(6, 8)) < 0) {
+        if (!time.matches("([0-1][0-9]|2[0-4]):[0-5][0-9](:[0-5][0-9])?")) {
             return false;
         }
         return true;

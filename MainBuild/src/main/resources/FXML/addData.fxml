@@ -30,7 +30,7 @@
             <Font size="60.0" />
          </font>
       </Text>
-      <Button fx:id="manualEntryButton" mnemonicParsing="false" onAction="#changeToRouteEntryScene" prefHeight="93.0" prefWidth="579.0" style="-: #ff2b0a;" text="Manual Entry" GridPane.columnIndex="3" GridPane.rowIndex="1">
+      <Button fx:id="manualEntryButton" mnemonicParsing="false" onAction="#changeToRouteEntryScene" prefHeight="93.0" prefWidth="579.0" text="Manual Entry" GridPane.columnIndex="3" GridPane.rowIndex="1">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>
@@ -40,12 +40,14 @@
             <Font name="System Bold" size="17.0" />
          </font>
       </Button>
-      <AnchorPane prefHeight="144.0" prefWidth="385.0" GridPane.columnIndex="3" GridPane.rowIndex="4">
+      <AnchorPane prefHeight="144.0" prefWidth="385.0" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="4">
          <children>
-            <Button fx:id="importRetailer" layoutX="136.0" layoutY="44.0" mnemonicParsing="false" onAction="#chooseRetailer" prefHeight="25.0" prefWidth="114.0" text="Retailers" visible="false" />
-            <Button fx:id="importRoute" layoutY="44.0" mnemonicParsing="false" onAction="#chooseRoute" prefHeight="25.0" prefWidth="114.0" text="Routes" visible="false" />
-            <Button fx:id="importWifi" layoutX="271.0" layoutY="44.0" mnemonicParsing="false" onAction="#chooseWifi" prefHeight="25.0" prefWidth="114.0" text="Wifi Hotspots" visible="false" />
-            <Text fx:id="selectMessage" layoutX="69.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please select a type of data to import:" visible="false" />
+            <Button fx:id="importRetailer" layoutX="386.0" layoutY="113.0" mnemonicParsing="false" onAction="#chooseRetailer" prefHeight="25.0" prefWidth="114.0" text="Retailers" visible="false" />
+            <Button fx:id="importRoute" layoutX="250.0" layoutY="113.0" mnemonicParsing="false" onAction="#chooseRoute" prefHeight="25.0" prefWidth="114.0" text="Routes" visible="false" />
+            <Button fx:id="importWifi" layoutX="521.0" layoutY="113.0" mnemonicParsing="false" onAction="#chooseWifi" prefHeight="25.0" prefWidth="114.0" text="Wifi Hotspots" visible="false" />
+            <Text fx:id="selectMessage" layoutX="319.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please select a type of data to import:" visible="false" />
+            <Text fx:id="selectListMessage" layoutX="202.0" layoutY="12.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select an existing list or create a new one if you want to add data to a list" visible="false" />
+            <ComboBox fx:id="listInput" editable="true" layoutX="328.0" layoutY="33.0" prefHeight="25.0" prefWidth="229.0" promptText="Select existing or create list" visible="false" />
          </children>
       </AnchorPane>
       <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" prefHeight="664.0" prefWidth="145.0" style="-fx-background-color: grey;" GridPane.rowSpan="5" />

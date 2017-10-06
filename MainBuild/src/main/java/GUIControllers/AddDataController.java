@@ -4,6 +4,8 @@ import com.google.maps.errors.ApiException;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXTextField;
 import dataHandler.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -56,13 +58,10 @@ public class AddDataController extends Controller implements Initializable {
     private JFXDrawer drawer;
     @FXML
     private Text selectMessage;
-
-    //---for AddToListPopup scene---
     @FXML
-    private JFXTextField newListInput;
+    private Text selectListMessage;
     @FXML
-    private ComboBox<String> existingLists;
-    //------------------------------
+    private ComboBox<String> listInput;
 
     private SQLiteDB db;
     private RetailerDataHandler retailerDataHandler;
@@ -94,16 +93,6 @@ public class AddDataController extends Controller implements Initializable {
         wifiDataHandler = new WifiDataHandler(db);
         routeDataHandler = new RouteDataHandler(db);
         listDataHandler = new ListDataHandler(db);
-
-
-
-        ArrayList<String> lists = listDataHandler.getLists();
-        if (lists != null) {
-            for (int i = 0; i < lists.size(); i++) {
-                existingLists.getItems().add(lists.get(i));
-            }
-        }
-
     }
 
     /**
@@ -129,6 +118,8 @@ public class AddDataController extends Controller implements Initializable {
     void routeCSVLine(ActionEvent event) throws IOException {
         double SLatitude, SLongitude, ELatitude, ELongitude;
         boolean errorOccurred = false;
+        String sTime = "00:00:00";
+        String eTime = "00:00:00";
         String[] sDate = new String[3];
         String[] eDate = new String[3];
 
@@ -195,6 +186,7 @@ public class AddDataController extends Controller implements Initializable {
         }
 
         if (HelperFunctions.checkTime(rSTime.getText())) {
+            sTime = rSTime.getText() + ":00";
             sTimeError.setVisible(false);
         } else {
             errorOccurred = true;
@@ -202,6 +194,7 @@ public class AddDataController extends Controller implements Initializable {
         }
 
         if (HelperFunctions.checkTime(rETime.getText())) {
+            eTime = rETime.getText() + ":00";
             eTimeError.setVisible(false);
         } else {
             eTimeError.setVisible(true);
@@ -213,11 +206,11 @@ public class AddDataController extends Controller implements Initializable {
         }
         System.out.println(rSTime.getText());
         System.out.println(rSTime.getText());
-        int duration = HelperFunctions.getDuration(sDate[0], sDate[1], sDate[2], rSTime.getText(),
-                eDate[0], eDate[1], eDate[2], rETime.getText());
+        int duration = HelperFunctions.getDuration(sDate[0], sDate[1], sDate[2], sTime,
+                eDate[0], eDate[1], eDate[2], eTime);
         RouteDataHandler newRoute = new RouteDataHandler(Main.getDB());
-        Boolean fromHandler = newRoute.addSingleEntry(duration, sDate[0], sDate[1], sDate[2], rSTime.getText(),
-                eDate[0], eDate[1], eDate[2], rETime.getText(), null,
+        Boolean fromHandler = newRoute.addSingleEntry(duration, sDate[0], sDate[1], sDate[2], sTime,
+                eDate[0], eDate[1], eDate[2], eTime, null,
                 rSAddress.getText(), SLatitude, SLongitude, null, rEAddress.getText(), ELatitude, ELongitude,
                 username, "Custom", Main.hu.currentCyclist.getBYear(), Main.hu.currentCyclist.getGender());
         //get distance
@@ -357,6 +350,10 @@ public class AddDataController extends Controller implements Initializable {
     @FXML
     void chooseFile(ActionEvent event) throws IOException {
         if (!importRoute.isVisible()) {
+            ArrayList<String> listNames = listDataHandler.getLists();
+            listInput.getItems().addAll(listNames);
+            selectListMessage.setVisible(true);
+            listInput.setVisible(true);
             selectMessage.setVisible(true);
             importRoute.setVisible(true);
             importRetailer.setVisible(true);
@@ -376,6 +373,7 @@ public class AddDataController extends Controller implements Initializable {
     @FXML
     // Import file -> only allows *.csv and prints location afterwards for now...
     void chooseRoute(ActionEvent event) throws IOException {
+        listDataHandler.setListName(listInput.getSelectionModel().getSelectedItem());
         FileChooser fileChooser = new FileChooser();
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV (*.csv)", "*.csv");
         fileChooser.getExtensionFilters().add(extFilter);
@@ -384,16 +382,6 @@ public class AddDataController extends Controller implements Initializable {
         if (file == null) {
             return;
         }
-
-
-        Stage popup = new Stage();
-        popup.initModality(Modality.APPLICATION_MODAL);
-        popup.initOwner(((Node) event.getSource()).getScene().getWindow());
-        Parent popupParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/addToListPopup.fxml"));
-        Scene popupScene = new Scene(popupParent);
-        popup.setScene(popupScene);
-        popup.showAndWait();
-
 
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/progressPopup.fxml"));
         Parent progressParent = loader.load();
@@ -416,6 +404,7 @@ public class AddDataController extends Controller implements Initializable {
 
     }
 
+
     /**
      * Opens system file viewer and accepts only *.csv type files,
      * will print the file string to system and send it to the
@@ -427,6 +416,7 @@ public class AddDataController extends Controller implements Initializable {
     @FXML
     //Specifies file types.
     void chooseRetailer(ActionEvent event) throws IOException {
+        listDataHandler.setListName(listInput.getSelectionModel().getSelectedItem());
         boolean result = makeConfirmationDialogueBox("Warning! Depending on file size, this may take a few minutes.", "Are you sure you want to continue?");
         if (result) {
             FileChooser fileChooser = new FileChooser();
@@ -437,16 +427,6 @@ public class AddDataController extends Controller implements Initializable {
             if (file == null) {
                 return;
             }
-
-
-            Stage popup = new Stage();
-            popup.initModality(Modality.APPLICATION_MODAL);
-            popup.initOwner(((Node) event.getSource()).getScene().getWindow());
-            Parent popupParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/addToListPopup.fxml"));
-            Scene popupScene = new Scene(popupParent);
-            popup.setScene(popupScene);
-            popup.showAndWait();
-
 
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/progressPopup.fxml"));
             Parent progressParent = loader.load();
@@ -478,6 +458,7 @@ public class AddDataController extends Controller implements Initializable {
      */
     @FXML
     void chooseWifi(ActionEvent event) throws IOException {
+        listDataHandler.setListName(listInput.getSelectionModel().getSelectedItem());
         FileChooser fileChooser = new FileChooser();
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV (*.csv)", "*.csv");
         fileChooser.getExtensionFilters().add(extFilter);
@@ -486,16 +467,6 @@ public class AddDataController extends Controller implements Initializable {
         if (file == null) {
             return;
         }
-
-
-        Stage popup = new Stage();
-        popup.initModality(Modality.APPLICATION_MODAL);
-        popup.initOwner(((Node) event.getSource()).getScene().getWindow());
-        Parent popupParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/addToListPopup.fxml"));
-        Scene popupScene = new Scene(popupParent);
-        popup.setScene(popupScene);
-        popup.showAndWait();
-
 
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/progressPopup.fxml"));
         Parent progressParent = loader.load();
@@ -556,25 +527,5 @@ public class AddDataController extends Controller implements Initializable {
         Scene manualEntryScene = new Scene(manualEntryParent);
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.setScene(manualEntryScene);
-    }
-
-
-//---------------------AddToListPopup.FXML methods--------------------
-
-    @FXML
-    public void dontAddToList(ActionEvent event) throws IOException {
-        listDataHandler.setListName(null);
-        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        currentStage.close();
-    }
-
-
-    @FXML
-    public void addToList(ActionEvent event) throws IOException {
-        String listName = newListInput.getText();
-        listDataHandler.setListName(listName);
-        listDataHandler.addList(listName);
-        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        currentStage.close();
     }
 }
