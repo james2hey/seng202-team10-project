@@ -21,7 +21,6 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import static java.lang.Character.isLetter;
-import static org.apache.commons.lang3.StringUtils.isNumeric;
 
 /**
  * Handles the logging in scene of the GUI.
@@ -34,7 +33,7 @@ public class StartUpController extends Controller implements Initializable {
     @FXML
     private ComboBox<String> comboBox;
     @FXML
-    private TextField userday, usermonth, useryear;
+    private ComboBox userday, usermonth, useryear;
     @FXML
     private ComboBox<String> usergender;
 
@@ -53,10 +52,24 @@ public class StartUpController extends Controller implements Initializable {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        for(int day = 0; day <31;){
+            day++;
+            userday.getItems().add(day);
+        }
+        for(int mon = 0; mon < 12;){
+            mon++;
+            usermonth.getItems().add(mon);
+        }
+        for(int year = 2017; year > 1900;){
+            year--;
+            useryear.getItems().add(year);
+        }
     }
 
+
+
     /**
-     * Creates new Cyclist instance with the given user name if it doesn't already exist in the database. Otherwise ----needs testsssss-----
+     * Creates new Cyclist instance with the given user name if it doesn't already exist in the database. Otherwise
      * it creates an error dialog box informing the use this name is already taken. Also throws error dialog boxes
      * for having no entries for a log in field or any incorrectly formatted dates.
      *
@@ -77,16 +90,17 @@ public class StartUpController extends Controller implements Initializable {
                     "a gender\n from the drop down box or 'other' if you would rather not specify this.");
             noNullEntries = false;
         }
-        if (userday.getText().equals("") || usermonth.getText().equals("") || useryear.getText().equals("")
-                || !isNumeric(userday.getText()) || !isNumeric(usermonth.getText()) || !isNumeric(useryear.getText())) {
+        System.out.println(userday.getSelectionModel().getSelectedItem());
+        if (userday.getSelectionModel().getSelectedItem() == null || usermonth.getSelectionModel().getSelectedItem() == null
+                || useryear.getSelectionModel().getSelectedItem() == null) {
             makeErrorDialogueBox("Enter a valid birth date", "Use the format DD/MM/YYYY");
             noNullEntries = false;
         }
         if (noNullEntries) {
             String gender = usergender.getSelectionModel().getSelectedItem();
-            int day = Integer.parseInt(userday.getText());
-            int month = Integer.parseInt(usermonth.getText());
-            int year = Integer.parseInt(useryear.getText());
+            int day = Integer.parseInt(userday.getSelectionModel().getSelectedItem().toString());
+            int month = Integer.parseInt(usermonth.getSelectionModel().getSelectedItem().toString());
+            int year = Integer.parseInt(useryear.getSelectionModel().getSelectedItem().toString());
 
             boolean dateError = HelperFunctions.checkDateDetails(day, month, year);
 

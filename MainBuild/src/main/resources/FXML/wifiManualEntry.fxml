@@ -43,7 +43,7 @@
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button fx:id="back" layoutX="326.0" layoutY="44.0" mnemonicParsing="false" onAction="#changeToAddDataScene" prefHeight="32.0" prefWidth="210.0" style="-fx-background-color: #ffffff;" text="Back" textFill="#000000">
+            <Button fx:id="back" layoutX="326.0" layoutY="44.0" mnemonicParsing="false" onAction="#changeToAddDataScene" prefHeight="32.0" prefWidth="210.0" text="Back" textFill="#000000">
                <font>
                   <Font size="15.0" />
                </font>
