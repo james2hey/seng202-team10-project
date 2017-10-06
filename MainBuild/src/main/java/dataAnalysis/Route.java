@@ -6,6 +6,8 @@ import main.HelperFunctions;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+import java.text.DecimalFormat;
+
 /**
  * Has methods for all main functionality of the routing.
  */
@@ -236,6 +238,7 @@ public class Route {
         }
     }
 
+
     public String getStopMonth() {
         return stopMonth;
     }
@@ -341,7 +344,7 @@ public class Route {
 
     public double getDistance() {
         distance = HelperFunctions.getDistance(getStartLatitude(), getStartLongitude(), getEndLatitude(), getEndLongitude());
-        return distance;
+        return HelperFunctions.format2dp(distance);
     }
 
 

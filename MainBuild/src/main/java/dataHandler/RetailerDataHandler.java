@@ -48,7 +48,7 @@ public class RetailerDataHandler implements DataHandler, GeoCallback {
      * To add support for a new format, just add some extra checks, and if there is a different number of fields, add that number to the fieldCounts list
      *
      * @param record A string array of object corresponding to the CSV
-     * @return A bool stating the success state of the process.
+     * @param callback The callback function to return the success value to
      */
     public void processLine(String[] record, Callback callback) {
         if (record.length == 18 && !record[10].equals("")) {

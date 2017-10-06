@@ -4,6 +4,7 @@ package dataHandler;
 import com.google.maps.GeoApiContext;
 import com.google.maps.model.GeocodingResult;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -12,8 +13,10 @@ import static org.junit.Assert.*;
 
 
 /**
- * Created by jes143 on 25/09/17.
+ * These tests can't run reliably as they rely on an outside source.
+ * These can be run specifically as long as there is a valid internet connection and API key
  */
+@Ignore
 public class GeocoderTest {
 
     @Rule
