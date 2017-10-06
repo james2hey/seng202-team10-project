@@ -43,6 +43,7 @@ public abstract class Controller {
 
     private Stage currentStage;
 
+
     /**
      * Creates a dialogue box over current scene with two strings that explain to the user why the dialogue box has popped up.
      *

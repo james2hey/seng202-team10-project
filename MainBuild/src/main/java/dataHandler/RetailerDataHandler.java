@@ -20,13 +20,14 @@ public class RetailerDataHandler implements DataHandler, GeoCallback {
                     "STATE              VARCHAR(2)",
                     "ZIP                VARCHAR(8)",
                     "Main_Type          VARCHAR(50)",
-                    "Secondary_Type     VARCHAR(50)"};
+                    "Secondary_Type     VARCHAR(50)",
+                    "list_name          VARCHAR(25)"};
 
     private String primaryKey = "RETAILER_NAME, ADDRESS";
     private String tableName = "retailer";
 
     private PreparedStatement addData;
-    private String addDataStatement = "insert or fail into retailer values(?,?,?,?,?,?,?,?,?)";
+    private String addDataStatement = "insert or fail into retailer values(?,?,?,?,?,?,?,?,?,?)";
     private int fieldCount = 9;
 
     /**
@@ -83,6 +84,7 @@ public class RetailerDataHandler implements DataHandler, GeoCallback {
     public Boolean addSingleEntry(
             String RETAILER_NAME, String ADDRESS, double LAT, double LONG, String CITY,
             String STATE, String ZIP, String MAIN_TYPE, String SECONDARY_TYPE) {
+        String listName = ListData.getListName();
         try {
             addData.setObject(1, RETAILER_NAME);
             addData.setObject(2, ADDRESS);
@@ -93,6 +95,7 @@ public class RetailerDataHandler implements DataHandler, GeoCallback {
             addData.setObject(7, ZIP);
             addData.setObject(8, MAIN_TYPE);
             addData.setObject(9, SECONDARY_TYPE);
+            addData.setObject(10, listName);
             addData.executeUpdate();
             return true;
         } catch (SQLException e) {

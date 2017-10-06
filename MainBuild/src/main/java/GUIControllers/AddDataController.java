@@ -23,11 +23,16 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import main.HelperFunctions;
 import main.Main;
+import java.io.InterruptedIOException;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.ConnectException;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -35,8 +40,6 @@ import java.util.ResourceBundle;
  */
 public class AddDataController extends Controller implements Initializable {
 
-    public static String startAddress = "";
-    public static String endAddress = "";
     @FXML //This importButton reveals other buttons
     private Button importRoute, importRetailer, importWifi;
     @FXML // Route Errors
@@ -55,18 +58,15 @@ public class AddDataController extends Controller implements Initializable {
     private JFXDrawer drawer;
     @FXML
     private Text selectMessage;
-    private SQLiteDB db;
 
-    /**
-     * Sets values of address from the PlanRoute scene.
-     *
-     * @param newStartAddress Starting address for route.
-     * @param newEndAddress   Starting address for route.
-     */
-    public static void setRouteVals(String newStartAddress, String newEndAddress) {
-        startAddress = newStartAddress;
-        endAddress = newEndAddress;
-    }
+    private SQLiteDB db;
+    private RetailerDataHandler retailerDataHandler;
+    private WifiDataHandler wifiDataHandler;
+    private RouteDataHandler routeDataHandler;
+    private ListData listDataHandler;
+    public static String startAddress = "";
+    public static String endAddress = "";
+
 
     /**
      * Runs on successfully loading the fxml. This initialises the data handlers so that CSV's can be imported in
@@ -85,6 +85,32 @@ public class AddDataController extends Controller implements Initializable {
 
         System.out.println(location);
         db = Main.getDB();
+        retailerDataHandler = new RetailerDataHandler(db);
+        wifiDataHandler = new WifiDataHandler(db);
+        routeDataHandler = new RouteDataHandler(db);
+        listDataHandler = new ListData(db);
+
+
+        SQLiteDB db = Main.getDB();
+        try {
+            ResultSet rs = db.executeQuerySQL("SELECT list_name FROM lists");
+            while (rs.next()) {
+                existingLists.getItems().add(rs.getString("list_name"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /**
+     * Sets values of address from the PlanRoute scene.
+     *
+     * @param newStartAddress Starting address for route.
+     * @param newEndAddress Starting address for route.
+     */
+    public static void setRouteVals(String newStartAddress, String newEndAddress) {
+        startAddress = newStartAddress;
+        endAddress = newEndAddress;
     }
 
     /**
@@ -191,7 +217,7 @@ public class AddDataController extends Controller implements Initializable {
                 rSAddress.getText(), SLatitude, SLongitude, null, rEAddress.getText(), ELatitude, ELongitude,
                 username, "Custom", Main.hu.currentCyclist.getBirthYear(), Main.hu.currentCyclist.getGender());
         //get distance
-        //
+
         if (!fromHandler) {
             makeErrorDialogueBox("Something wrong with input", "Fill all required fields\nCheck entry is not already in database");
         } else {
@@ -355,6 +381,16 @@ public class AddDataController extends Controller implements Initializable {
             return;
         }
 
+
+        Stage popup = new Stage();
+        popup.initModality(Modality.APPLICATION_MODAL);
+        popup.initOwner(((Node) event.getSource()).getScene().getWindow());
+        Parent popupParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/addToListPopup.fxml"));
+        Scene popupScene = new Scene(popupParent);
+        popup.setScene(popupScene);
+        popup.showAndWait();
+
+
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/progressPopup.fxml"));
         Parent progressParent = loader.load();
         ProgressPopupController controller = loader.getController();
@@ -396,6 +432,16 @@ public class AddDataController extends Controller implements Initializable {
                 return;
             }
 
+
+            Stage popup = new Stage();
+            popup.initModality(Modality.APPLICATION_MODAL);
+            popup.initOwner(((Node) event.getSource()).getScene().getWindow());
+            Parent popupParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/addToListPopup.fxml"));
+            Scene popupScene = new Scene(popupParent);
+            popup.setScene(popupScene);
+            popup.showAndWait();
+
+
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/progressPopup.fxml"));
             Parent progressParent = loader.load();
             ProgressPopupController controller = loader.getController();
@@ -434,6 +480,16 @@ public class AddDataController extends Controller implements Initializable {
         if (file == null) {
             return;
         }
+
+
+        Stage popup = new Stage();
+        popup.initModality(Modality.APPLICATION_MODAL);
+        popup.initOwner(((Node) event.getSource()).getScene().getWindow());
+        Parent popupParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/addToListPopup.fxml"));
+        Scene popupScene = new Scene(popupParent);
+        popup.setScene(popupScene);
+        popup.showAndWait();
+
 
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/progressPopup.fxml"));
         Parent progressParent = loader.load();
@@ -494,5 +550,30 @@ public class AddDataController extends Controller implements Initializable {
         Scene manualEntryScene = new Scene(manualEntryParent);
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.setScene(manualEntryScene);
+    }
+
+
+    @FXML
+    private JFXTextField newListInput;
+
+    @FXML
+    private ComboBox<String> existingLists;
+
+
+    @FXML
+    public void dontAddToList(ActionEvent event) throws IOException {
+        listDataHandler.setListName(null);
+        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        currentStage.close();
+    }
+
+
+    @FXML
+    public void addToList(ActionEvent event) throws IOException {
+        listDataHandler.setListName(newListInput.getText());
+        String listName = listDataHandler.getListName();
+        System.out.println("--" + listName + "--");
+        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        currentStage.close();
     }
 }

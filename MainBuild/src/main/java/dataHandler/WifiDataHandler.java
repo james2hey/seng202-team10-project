@@ -20,13 +20,14 @@ public class WifiDataHandler implements DataHandler {
                     "CITY       VARCHAR(8)",
                     "SSID       VARCHAR(50) NOT NULL",
                     "SUBURB     VARCHAR(20)",
-                    "ZIP        VARCHAR(8)"};
+                    "ZIP        VARCHAR(8)",
+                    "list_name  VARCHAR(25)"};
 
     private String primaryKey = "WIFI_ID";
     private String tableName = "wifi_location";
 
     private PreparedStatement addData;
-    private String addDataStatement = "insert or fail into wifi_location values(?,?,?,?,?,?,?,?,?,?,?)";
+    private String addDataStatement = "insert or fail into wifi_location values(?,?,?,?,?,?,?,?,?,?,?,?)";
 
     private int fieldCount = 29;
 
@@ -53,7 +54,8 @@ public class WifiDataHandler implements DataHandler {
             double lon = Double.parseDouble(record[8]);
 
 
-            callback.result(addSingleEntry(record[0], record[3], record[4], record[6], lat, lon, record[12], record[13], record[14], record[18], record[22]));
+            callback.result(addSingleEntry(record[0], record[3], record[4], record[6], lat, lon, record[12], record[13],
+                    record[14], record[18], record[22]));
 
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Incorrect string array size");
@@ -84,6 +86,7 @@ public class WifiDataHandler implements DataHandler {
     public Boolean addSingleEntry(
             String ID, String COST, String PROVIDER, String ADDRESS, double LAT, double LONG,
             String REMARKS, String CITY, String SSID, String SUBURB, String ZIP) {
+        String listName = ListData.getListName();
         try {
             addData.setObject(1, ID);
             addData.setObject(2, COST);
@@ -96,6 +99,7 @@ public class WifiDataHandler implements DataHandler {
             addData.setObject(9, SSID);
             addData.setObject(10, SUBURB);
             addData.setObject(11, ZIP);
+            addData.setObject(12, listName);
             addData.executeUpdate();
             return true;
         } catch (SQLException e) {
