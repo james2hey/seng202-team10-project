@@ -88,7 +88,7 @@ public class UserInformationController extends Controller implements Initializab
 //    final static String italy = "Italy";
 //    final static String usa = "USA";
 
-
+    private ArrayList<Route> routeList = new ArrayList<>();
     private ObservableList<Route> routeListObservable = FXCollections.observableArrayList();
 
 
@@ -103,7 +103,7 @@ public class UserInformationController extends Controller implements Initializab
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
         name.setText(getName());
-        dob.setValue(LocalDate.of(getBirthYear(), getBmonth(), getBDay()));
+        dob.setValue(LocalDate.of(getBirthYear(), getBmonth(), getBDay())); // This is crashing for some reason @Braden
         System.out.println(getGender());
         if (getGender() == 1) {
             gender.getSelectionModel().select("Male");
@@ -137,6 +137,7 @@ public class UserInformationController extends Controller implements Initializab
         distance.setCellValueFactory(new PropertyValueFactory<>("Distance"));
         tableCompletedRoutes.setItems(routeListObservable);
 
+        tableCompletedRoutes.getColumns().setAll();// needs to have the column table as a parameter.
     }
 
 
@@ -173,6 +174,23 @@ public class UserInformationController extends Controller implements Initializab
             makeSuccessDialogueBox("Success!", "Your profile has been successfully updated.");
         } catch (Exception e) {
             makeErrorDialogueBox("Failed", "An error occurred while updating your profile.");
+        }
+    }
+
+
+    /**
+     * Deletes the selected route from the users taken routes.
+     */
+    @FXML
+    private void deleteTakenRoute() {
+        if (tableCompletedRoutes.getSelectionModel().getSelectedItem() != null) {
+            //Main.takenRouteTable.deleteTakenRoute();  --get selected route...
+            routeList.remove(tableCompletedRoutes.getSelectionModel().getSelectedItem());
+            routeListObservable.remove(tableCompletedRoutes.getSelectionModel().getSelectedItem());
+        } else {
+            makeErrorDialogueBox("No route selected", "No route was selected to delete." +
+                " You must\nchoose which route you want to delete.");
+
         }
     }
 

@@ -90,7 +90,7 @@ public class HandleUsers {
                         rsRoute.getString("end_station_name"), rsRoute.getString("bikeid"),
                         rsRoute.getInt("gender"), rsRoute.getString("usertype"),
                         rsRoute.getInt("birth_year"), rsFavourites.getFloat("distance"));
-                currentCyclist.addRouteInstance(tempRoute);
+                currentCyclist.addTakenRouteInstance(tempRoute);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -127,7 +127,7 @@ public class HandleUsers {
                         rsRoute.getString("end_station_name"), rsRoute.getString("bikeid"),
                         rsRoute.getInt("gender"), rsRoute.getString("usertype"),
                         rsRoute.getInt("birth_year"), rsFavourites.getInt("rank"));
-                currentCyclist.addRouteInstance(tempRoute);
+                currentCyclist.addFavouriteRouteInstance(tempRoute);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());

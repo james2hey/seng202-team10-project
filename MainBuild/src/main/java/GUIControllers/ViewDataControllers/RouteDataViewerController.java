@@ -234,7 +234,7 @@ public class RouteDataViewerController extends DataViewerController {
     }
 
     /**
-     * Adds the selected route to the completed routes.
+     * Adds the selected route to the completed routes.---------------------------------test
      */
     public void addTakenRoute(ActionEvent event)  throws IOException {
         if (tableView.getSelectionModel().getSelectedItem() == null) {
@@ -247,10 +247,7 @@ public class RouteDataViewerController extends DataViewerController {
                 //DO SOMETHING HERE WHICH ADDS THE ROUTE TO THE DATABASE
                 // @JAMES
 
-                //Calculate distance ~~
-                double distance = routeToAdd.getDistance();
-
-                Main.hu.currentCyclist.addTakenRoute(routeToAdd, name, distance, Main.getDB(), Main.hu);
+                Main.hu.currentCyclist.addTakenRoute(routeToAdd, name, Main.getDB(), Main.hu);
             } else {
                 makeErrorDialogueBox("Route already in completed", "This route has already been " +
                         "added\nto this users completed list.");

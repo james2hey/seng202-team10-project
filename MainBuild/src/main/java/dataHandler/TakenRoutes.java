@@ -1,6 +1,8 @@
 package dataHandler;
 
+import dataAnalysis.Route;
 import main.HandleUsers;
+import main.Main;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -48,7 +50,7 @@ public class TakenRoutes {
      * @param distance    distance of  the route
      */
     public void addTakenRoute(String name, String start_year, String start_month, String start_day,
-                                  String start_time, String bike_id, double distance, HandleUsers hu) {
+                                  String start_time, String bike_id, double distance, HandleUsers hu) {//---------------test
         try {
             addTakenRoute.setObject(1, name);
             addTakenRoute.setObject(2, start_year);
@@ -65,5 +67,17 @@ public class TakenRoutes {
             addTakenRoute = db.getPreparedStatement(addRouteStatement);
             System.out.println(e.getMessage());
         }
+    }
+
+    /**
+     * Deletes the given route from the taken_routes table.
+     *
+     * @param route the route to be deleted
+     */
+    public void deleteTakenRoute(Route route) {
+        db.executeQuerySQL("DELETE FROM taken_routes WHERE name = '" + Main.hu.currentCyclist.name + "' " +
+                "AND start_year = '" + route.getStartYear() + "' AND start_month = '" + route.getStartMonth() + "' " +
+                "AND start_day = '" + route.getStartDay() + "' AND start_time = '" + route.getStartTime() + "' " +
+                "AND bikeid = '" + route.getBikeID() + "';");
     }
 }

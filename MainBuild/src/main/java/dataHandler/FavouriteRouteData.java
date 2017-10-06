@@ -72,7 +72,7 @@ public class FavouriteRouteData {
 
 
     /**
-     * Deletes the given route from the database.
+     * Deletes the given route from the favourite_routes table.
      *
      * @param route the route to be deleted
      */

@@ -3,10 +3,7 @@ package main;
 import dataAnalysis.RetailLocation;
 import dataAnalysis.Route;
 import dataAnalysis.WifiLocation;
-import dataHandler.FavouriteRetailData;
-import dataHandler.FavouriteRouteData;
-import dataHandler.FavouriteWifiData;
-import dataHandler.SQLiteDB;
+import dataHandler.*;
 
 import java.util.ArrayList;
 
@@ -22,7 +19,7 @@ public class Cyclist {
     private ArrayList<Route> favouriteRouteList = new ArrayList<Route>();
     private ArrayList<RetailLocation> favouriteRetailLocations = new ArrayList<RetailLocation>();
     private ArrayList<WifiLocation> favouriteWifiLocations = new ArrayList<WifiLocation>();
-    private ArrayList<Route> takenRoutes = new ArrayList<>();
+    private ArrayList<Route> takenRoutesList = new ArrayList<>();
 
     public Cyclist() {
     }
@@ -83,7 +80,7 @@ public class Cyclist {
         return favouriteRouteList;
     }
 
-    public ArrayList<Route> getTakenRoutes() {return takenRoutes;}
+    public ArrayList<Route> getTakenRoutes() {return takenRoutesList;}
 
     public double getDistanceCycled() {
         return distanceCycled;
@@ -98,8 +95,8 @@ public class Cyclist {
      * Calculates the total distance a user has cycled --------------------toTest----
      */
     public void calculateDistanceCycled() {
-        for(int i = 0; i < takenRoutes.size(); i++) {
-            distanceCycled += takenRoutes.get(i).getDistance();
+        for(int i = 0; i < takenRoutesList.size(); i++) {
+            distanceCycled += takenRoutesList.get(i).getDistance();
         }
     }
 
@@ -127,7 +124,17 @@ public class Cyclist {
      *
      * @param route the route to be added
      */
-    public void addRouteInstance(Route route) {
+    public void addTakenRouteInstance(Route route) {
+        takenRoutesList.add(route);
+    }
+
+
+    /**
+     * Adds a route to the cyclists favouriteRoute list.
+     *
+     * @param route the route to be added
+     */
+    public void addFavouriteRouteInstance(Route route) {
         favouriteRouteList.add(route);
     }
 
@@ -177,8 +184,8 @@ public class Cyclist {
     }
 
 
-    public void addTakenRoute(Route route, String name, double distance, SQLiteDB db, HandleUsers hu) {
-        takenRoutes.add(route);
+    public void addTakenRoute(Route route, String name, SQLiteDB db, HandleUsers hu) {
+        takenRoutesList.add(route);
         Main.takenRouteTable.addTakenRoute(name, route.getStartYear(), route.getStartMonth(), route.getStartDay(),
                 route.getStartTime(), route.getBikeID(), route.getDistance(), hu);
     }
@@ -202,7 +209,7 @@ public class Cyclist {
                 }
             }
         } else {
-            for (Route tempRoute : takenRoutes) {
+            for (Route tempRoute : takenRoutesList) {
                 if (route.getStartYear().equals(tempRoute.getStartYear()) && route.getStartMonth().equals(tempRoute.getStartMonth()) &&
                         route.getStartDay().equals(tempRoute.getStartDay()) && route.getStartTime().equals(tempRoute.getStartTime()) &&
                         route.getBikeID().equals(tempRoute.getBikeID())) {

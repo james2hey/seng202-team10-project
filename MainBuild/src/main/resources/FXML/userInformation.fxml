@@ -118,7 +118,8 @@
                         </TableColumn>
                      </columns>
                   </TableView>
-                  <Button layoutX="132.0" layoutY="392.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="136.0" text="View On Graph" />
+                  <Button layoutX="40.0" layoutY="392.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="136.0" text="View On Graph" />
+                  <Button layoutX="209.0" layoutY="392.0" mnemonicParsing="false" onAction="#deleteTakenRoute" prefHeight="34.0" prefWidth="136.0" text="Delete" />
                </children></AnchorPane>
          </center>
       </BorderPane>
