@@ -1,6 +1,8 @@
 package dataAnalysis;
 
 import dataManipulation.UpdateData;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 /**
  * Stores the data about a wifi hotspot.
@@ -143,5 +145,37 @@ public class WifiLocation extends Location {
             longitude = newLong;
             UpdateData.updateWifiField("lon", Double.toString(longitude), wifiID);
         }
+    }
+
+    /**
+     * Defines the hashCode function.
+     * Allows for hashsets that don't collide on the same points
+     * Collides if the other WifiLocation has same wifiID
+     *
+     * @return A hash value
+     */
+    public int hashCode() {
+        return new HashCodeBuilder(137, 337)
+                .append(wifiID)
+                .toHashCode();
+    }
+
+    /**
+     * Defines the equals functions, allowing for easy equality testing
+     * Fails if the other WifiLocation has same wifiID
+     *
+     * @param obj The object to compare
+     * @return Equality boolean
+     */
+    public boolean equals(Object obj) {
+        if (!(obj instanceof WifiLocation))
+            return false;
+        if (obj == this)
+            return true;
+
+        WifiLocation rhs = (WifiLocation) obj;
+        return new EqualsBuilder()
+                .append(wifiID, rhs.getWifiID())
+                .isEquals();
     }
 }

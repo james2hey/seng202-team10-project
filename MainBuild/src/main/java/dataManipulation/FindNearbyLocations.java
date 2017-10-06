@@ -1,9 +1,11 @@
 package dataManipulation;
 
+import GUIControllers.HelpController;
 import GUIControllers.PlanRouteController;
 import dataAnalysis.RetailLocation;
 import dataAnalysis.WifiLocation;
 import dataHandler.SQLiteDB;
+import main.HelperFunctions;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -54,44 +56,6 @@ public class FindNearbyLocations {
         }
     }
 
-
-    /**
-     * Creates a Result Set of wifi data entries from the table wifi_location in the database. Uses the four parameters,
-     * an upper and lower latitude and upper and lower longitude to query the database and find all wifi data entries
-     * that fall between these values. Returns the result set. A null pointer exception may occur if no data has
-     * been added to the database. In this case, an error message is created to inform the user.
-     *
-     * @param lowerLat  of type Double. A number describing a latitude value
-     * @param upperLat  of type Double. A number describing a latitude value
-     * @param lowerLong of type Double. A number describing a latitude value
-     * @param upperLong of type Double. A number describing a latitude value
-     * @return result set of wifi data entries from the query to the database
-     */
-    private ResultSet generateWifiResultSet(double lowerLat, double upperLat, double lowerLong, double upperLong) {
-        PreparedStatement pstmt;
-        ResultSet rs = null;
-        try {
-            try {
-                String queryString = "SELECT * FROM wifi_location WHERE LAT BETWEEN ? AND ? AND LON BETWEEN ? AND ?;";
-                pstmt = db.getPreparedStatement(queryString);
-                pstmt.setDouble(1, lowerLat);
-                pstmt.setDouble(2, upperLat);
-                pstmt.setDouble(3, lowerLong);
-                pstmt.setDouble(4, upperLong);
-                System.out.println("SELECT * FROM wifi_location WHERE LAT BETWEEN " + lowerLat + " AND " + upperLat +
-                        " AND LON BETWEEN " + lowerLong + " AND " + upperLong);
-                rs = pstmt.executeQuery();
-            } catch (NullPointerException e) {
-                PlanRouteController.makeErrorDialogueBox("Nothing Nearby", "We couldn't find any locations nearby\nHave you imported any data?");
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            return null;
-        }
-        return rs;
-    }
-
-
     /**
      * generateRetailArray takes a result set, rs of retail data entries from the database, it converts each one into a
      * RetailLocation object and adds them to and ArrayList.
@@ -115,39 +79,23 @@ public class FindNearbyLocations {
 
 
     /**
-     * Creates a Result Set of retail data entries from the table retailer in the database. Uses the four parameters,
-     * an upper and lower latitude and upper and lower longitude to query the database and find all retail data entries
-     * that fall between these values. Returns the result set. A null pointer exception may occur if no data has been
-     * put into the database yet, so a try and catch bracket is used to inform the user of this.
-     *
-     * @param lowerLat  of type Double. A number describing a latitude value
-     * @param upperLat  of type Double. A number describing a latitude value
-     * @param lowerLong of type Double. A number describing a latitude value
-     * @param upperLong of type Double. A number describing a latitude value
-     * @return result set of retail data entries from the query to the database
      */
-    private ResultSet generateRetailerResultSet(double lowerLat, double upperLat, double lowerLong, double upperLong) {
-        PreparedStatement pstmt;
-        ResultSet rs = null;
+    private ResultSet getNearbyResults(PreparedStatement statement, double lat, double lon, double dist, double fudge) {
         try {
-            try {
-                String queryString = "SELECT * FROM retailer WHERE lat BETWEEN ? AND ? AND long BETWEEN ? AND ?;";
-                pstmt = db.getPreparedStatement(queryString);
-                pstmt.setDouble(1, lowerLat);
-                pstmt.setDouble(2, upperLat);
-                pstmt.setDouble(3, lowerLong);
-                pstmt.setDouble(4, upperLong);
-                System.out.println("SELECT * FROM retailer WHERE LAT BETWEEN " + lowerLat + " AND " + upperLat +
-                        " AND LON BETWEEN " + lowerLong + " AND " + upperLong);
-                rs = pstmt.executeQuery();
-            } catch (NullPointerException e) {
-                PlanRouteController.makeErrorDialogueBox("Nothing Nearby", "We couldn't find any locations nearby\nHave you imported any data?");
-            }
+            statement.setDouble(1, lat - dist);
+            statement.setDouble(2, lat + dist);
+            statement.setDouble(3, lon - dist);
+            statement.setDouble(4, lon + dist);
+            statement.setDouble(5, lat);
+            statement.setDouble(6, lat);
+            statement.setDouble(7, lon);
+            statement.setDouble(8, lon);
+            statement.setDouble(9, fudge);
+            return statement.executeQuery();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return null;
         }
-        return rs;
     }
 
 
@@ -160,9 +108,25 @@ public class FindNearbyLocations {
      * @return ArrayList<WifiLocation>, contains all results from the query.
      */
     public ArrayList<WifiLocation> findNearbyWifi(double lat, double lon) {
-        ResultSet rs = generateWifiResultSet(lat - 0.01, lat + 0.01, lon - 0.01,
-                lon + 0.01);
+
+        double dist = 0.01;
+        double fudge = Math.pow(Math.cos(Math.toRadians(lat)), 2);
+        ResultSet rs;
+        PreparedStatement statement = db.getPreparedStatement(
+                "SELECT * FROM wifi_location WHERE LAT BETWEEN ? AND ? AND LON BETWEEN ? AND ?" +
+                " order by ((? - LAT) * (? - LAT) + (? - LON) * (? - LON) * ?) limit 100");
+
+        rs = getNearbyResults(statement, lat, lon, dist, fudge);
         generateWifiArray(rs);
+
+        while (nearbyWifi.size() < 100) {
+            dist *= 2;
+            if (dist > 360) {
+                return new ArrayList<>();
+            }
+            rs = getNearbyResults(statement, lat, lon, dist, fudge);
+            generateWifiArray(rs);
+        }
         return nearbyWifi;
     }
 
@@ -176,10 +140,101 @@ public class FindNearbyLocations {
      * @return ArrayList<RetailLocation>, contains all results from the query.
      */
     public ArrayList<RetailLocation> findNearbyRetail(double lat, double lon) {
-        ResultSet rs = generateRetailerResultSet(lat - 0.01, lat + 0.01, lon - 0.01,
-                lon + 0.01);
+
+        double dist = 0.01;
+        double fudge = Math.pow(Math.cos(Math.toRadians(lat)), 2);
+        ResultSet rs;
+
+        PreparedStatement statement = db.getPreparedStatement(
+                "SELECT * FROM retailer WHERE lat BETWEEN ? AND ? AND long BETWEEN ? AND ?" +
+                " order by ((? - lat) * (? - lat) + (? - long) * (? - long) * ?) limit 100");
+
+        rs = getNearbyResults(statement, lat, lon, dist, fudge);
         generateRetailerArray(rs);
+
+        while (nearbyRetail.size() < 100) {
+            dist *= 2;
+            if (dist > 360) {
+                return new ArrayList<>();
+            }
+            rs = getNearbyResults(statement, lat, lon, dist, fudge);
+            generateRetailerArray(rs);
+        }
         return nearbyRetail;
     }
+
+    public RetailLocation findClosestRetailer(double lat, double lon) {
+        try {
+            double dist = 0.01;
+            double fudge = Math.pow(Math.cos(Math.toRadians(lat)), 2);
+            int count = 0;
+
+            PreparedStatement statement = db.getPreparedStatement("" +
+                    "SELECT * FROM retailer WHERE lat BETWEEN ? AND ? AND long BETWEEN ? AND ?" +
+                    " order by ((? - lat) * (? - lat) + (? - long) * (? - long) * ?) limit 100");
+
+            statement.setDouble(1, lat - dist);
+            statement.setDouble(2, lat + dist);
+            statement.setDouble(3, lon - dist);
+            statement.setDouble(4, lon + dist);
+            statement.setDouble(5, lat);
+            statement.setDouble(6, lat);
+            statement.setDouble(7, lon);
+            statement.setDouble(8, lon);
+            statement.setDouble(9, fudge);
+            ResultSet rs = statement.executeQuery();
+            dist = dist * 2;
+
+            while (!rs.next()) {
+                statement.setDouble(1, lat - dist);
+                statement.setDouble(2, lat + dist);
+                statement.setDouble(3, lon - dist);
+                statement.setDouble(4, lon + dist);
+                statement.setDouble(5, lat);
+                statement.setDouble(6, lat);
+                statement.setDouble(7, lon);
+                statement.setDouble(8, lon);
+                statement.setDouble(9, fudge);
+                rs = statement.executeQuery();
+                dist = dist * 2;
+            }
+            RetailLocation location;
+            String name;
+            String address;
+            double distance;
+
+            location = new RetailLocation(rs.getString("retailer_name"),
+                    rs.getString("address"), rs.getString("city"),
+                    rs.getString("main_type"), rs.getString("secondary_type"),
+                    rs.getString("state"), rs.getInt("zip"),
+                    rs.getDouble("lat"), rs.getDouble("long"));
+
+            distance = HelperFunctions.getDistance(lat,lon, rs.getDouble(3), rs.getDouble(4));
+            while(rs.next()) {
+                double tempDist = HelperFunctions.getDistance(lat,lon, rs.getDouble(3), rs.getDouble(4));
+                System.out.println(tempDist);
+                if (tempDist < distance) {
+                    System.out.println(tempDist);
+                    distance = tempDist;
+                    location = new RetailLocation(rs.getString("retailer_name"),
+                            rs.getString("address"), rs.getString("city"),
+                            rs.getString("main_type"), rs.getString("secondary_type"),
+                            rs.getString("state"), rs.getInt("zip"),
+                            rs.getDouble("lat"), rs.getDouble("long"));
+                }
+            }
+
+            System.out.println(distance);
+            System.out.println(dist);
+            return location;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+//    public WifiLocation findClosestWifi(double lat, double lon) {
+//
+//    }
 }
 

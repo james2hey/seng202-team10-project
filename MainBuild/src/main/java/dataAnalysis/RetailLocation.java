@@ -1,6 +1,8 @@
 package dataAnalysis;
 
 import dataManipulation.UpdateData;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 /**
  * Stores the data about a retail store.
@@ -110,5 +112,40 @@ public class RetailLocation extends Location {
             longitude = newLong;
             UpdateData.updateRetailerField("long", Double.toString(longitude), name, address);
         }
+    }
+
+
+    /**
+     * Defines the hashCode function.
+     * Allows for hashsets that don't collide on the same points
+     * Collides if the other RetailLocation has same name and address
+     *
+     * @return A hash value
+     */
+    public int hashCode() {
+        return new HashCodeBuilder(137, 337)
+                .append(name)
+                .append(address)
+                .toHashCode();
+    }
+
+    /**
+     * Defines the equals functions, allowing for easy equality testing
+     * Fails if the other RetailLocation has same name and address
+     *
+     * @param obj The object to compare
+     * @return Equality boolean
+     */
+    public boolean equals(Object obj) {
+        if (!(obj instanceof RetailLocation))
+            return false;
+        if (obj == this)
+            return true;
+
+        RetailLocation rhs = (RetailLocation) obj;
+        return new EqualsBuilder()
+                .append(name, rhs.getName())
+                .append(address, rhs.getAddress())
+                .isEquals();
     }
 }

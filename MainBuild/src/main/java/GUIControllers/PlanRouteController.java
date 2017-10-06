@@ -23,6 +23,7 @@ import main.HelperFunctions;
 import main.Main;
 import netscape.javascript.JSObject;
 
+import javax.print.attribute.standard.Fidelity;
 import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
@@ -68,8 +69,8 @@ public class PlanRouteController extends Controller implements Initializable, Ma
     private String currentEnd;
 
     private HashSet<WifiLocation> wifiLocations = new HashSet<>();
-    private HashSet<RetailLocation> retailLocations = new HashSet<RetailLocation>();
-    private HashSet<Route> routes = new HashSet<Route>();
+    private HashSet<RetailLocation> retailLocations = new HashSet<>();
+    private HashSet<Route> routes = new HashSet<>();
 
     /**
      * Called automatically when the map is loaded. Loads the map.
@@ -157,84 +158,92 @@ public class PlanRouteController extends Controller implements Initializable, Ma
         currentPoint = mid;
     }
 
+    private void renderWifiMarker(WifiLocation location) {
+        MarkerOptions options = new MarkerOptions();
+        LatLong latLong = new LatLong(location.getLatitude(), location.getLongitude());
+        options.position(latLong)
+                .title(location.getName())
+                .visible(true)
+                .icon("http://maps.google.com/mapfiles/ms/icons/orange-dot.png");
+        Marker marker = new Marker(options);
+        wifiMarkers.add(marker);
+        map.addMarker(marker);
+
+        map.addUIEventHandler(marker, UIEventType.click, (JSObject obj) -> {
+            nearbyRetailerButton.setDisable(false);
+            nearbyWifiButton.setDisable(false);
+            System.out.println("Clicked");
+            InfoWindowOptions infoWindowOptions = new InfoWindowOptions()
+                    .content(
+                            "SSID: " + location.getSSID() + "<br>" +
+                                    "Provider: " + location.getProvider() + "<br>" +
+                                    "Address: " + location.getAddress() + "<br>" +
+                                    "Extra Info: " + location.getRemarks());
+            currentInfoWindow.close();
+            currentInfoWindow = new InfoWindow(infoWindowOptions);
+            currentInfoWindow.open(map, marker);
+            currentPoint = latLong;
+        });
+    }
+
     /**
      * Renders the CurrentStates wifiLocations HashSet on the map.
      * Initially removes all current wifiMarkers, then renders each one from the HashSet
      */
-    public void renderWifiMarkers() {
+    private void renderWifiMarkers() {
         for (Marker marker : wifiMarkers) {
             map.removeMarker(marker);
         }
         wifiMarkers.clear();
 
         for (WifiLocation location : wifiLocations) {
-            MarkerOptions options = new MarkerOptions();
-            LatLong latLong = new LatLong(location.getLatitude(), location.getLongitude());
-            options.position(latLong)
-                    .title(location.getName())
-                    .visible(true)
-                    .icon("http://maps.google.com/mapfiles/ms/icons/orange-dot.png");
-            Marker marker = new Marker(options);
-            wifiMarkers.add(marker);
-            map.addMarker(marker);
-
-            map.addUIEventHandler(marker, UIEventType.click, (JSObject obj) -> {
-                nearbyRetailerButton.setDisable(false);
-                nearbyWifiButton.setDisable(false);
-                System.out.println("Clicked");
-                InfoWindowOptions infoWindowOptions = new InfoWindowOptions()
-                        .content(
-                                "SSID: " + location.getSSID() + "<br>" +
-                                        "Provider: " + location.getProvider() + "<br>" +
-                                        "Address: " + location.getAddress() + "<br>" +
-                                        "Extra Info: " + location.getRemarks());
-                currentInfoWindow.close();
-                currentInfoWindow = new InfoWindow(infoWindowOptions);
-                currentInfoWindow.open(map, marker);
-                currentPoint = latLong;
-            });
+            renderWifiMarker(location);
         }
+    }
+
+    private void renderRetailerMarker(RetailLocation location) {
+        MarkerOptions options = new MarkerOptions();
+        LatLong latLong = new LatLong(location.getLatitude(), location.getLongitude());
+        options.position(latLong)
+                .title(location.getName())
+                .visible(true)
+                .icon("http://maps.google.com/mapfiles/ms/icons/blue-dot.png");
+        Marker marker = new Marker(options);
+        retailerMarkers.add(marker);
+        map.addMarker(marker);
+        System.out.println("Added");
+        System.out.println(location.getLatitude());
+        System.out.println(location.getLongitude());
+
+        map.addUIEventHandler(marker, UIEventType.click, (JSObject obj) -> {
+            nearbyRetailerButton.setDisable(false);
+            nearbyWifiButton.setDisable(false);
+            System.out.println("Clicked");
+            InfoWindowOptions infoWindowOptions = new InfoWindowOptions()
+                    .content(
+                            "Name: " + location.getName() + "<br>" +
+                                    "Address: " + location.getAddress() + "<br>" +
+                                    "Category: " + location.getMainType() + "<br>" +
+                                    "Extra Info: " + location.getSecondaryType());
+            currentInfoWindow.close();
+            currentInfoWindow = new InfoWindow(infoWindowOptions);
+            currentInfoWindow.open(map, marker);
+            currentPoint = latLong;
+        });
     }
 
     /**
      * Renders the CurrentStates retailerMarkers HashSet on the map.
      * Initially removes all current retailerMarkers, then renders each one from the HashSet
      */
-    public void renderRetailerMarkers() {
+    private void renderRetailerMarkers() {
         for (Marker marker : retailerMarkers) {
             map.removeMarker(marker);
         }
         retailerMarkers.clear();
 
         for (RetailLocation location : retailLocations) {
-            MarkerOptions options = new MarkerOptions();
-            LatLong latLong = new LatLong(location.getLatitude(), location.getLongitude());
-            options.position(latLong)
-                    .title(location.getName())
-                    .visible(true)
-                    .icon("http://maps.google.com/mapfiles/ms/icons/blue-dot.png");
-            Marker marker = new Marker(options);
-            retailerMarkers.add(marker);
-            map.addMarker(marker);
-            System.out.println("Added");
-            System.out.println(location.getLatitude());
-            System.out.println(location.getLongitude());
-
-            map.addUIEventHandler(marker, UIEventType.click, (JSObject obj) -> {
-                nearbyRetailerButton.setDisable(false);
-                nearbyWifiButton.setDisable(false);
-                System.out.println("Clicked");
-                InfoWindowOptions infoWindowOptions = new InfoWindowOptions()
-                        .content(
-                                "Name: " + location.getName() + "<br>" +
-                                        "Address: " + location.getAddress() + "<br>" +
-                                        "Category: " + location.getMainType() + "<br>" +
-                                        "Extra Info: " + location.getSecondaryType());
-                currentInfoWindow.close();
-                currentInfoWindow = new InfoWindow(infoWindowOptions);
-                currentInfoWindow.open(map, marker);
-                currentPoint = latLong;
-            });
+            renderRetailerMarker(location);
         }
     }
 
@@ -243,7 +252,7 @@ public class PlanRouteController extends Controller implements Initializable, Ma
      * Initially removes all current route markers, and route polylines, then for each route, adds a start and end marker, and a polyline between them.
      * If there is only one trip, render it singularly as a direction based route, otherwise render the set with polylines
      */
-    public void renderTripMarkers() {
+    private void renderTripMarkers() {
         for (Marker marker : tripMarkers) {
             map.removeMarker(marker);
         }
@@ -421,13 +430,18 @@ public class PlanRouteController extends Controller implements Initializable, Ma
         if (currentPoint == null) {
             makeErrorDialogueBox("Error", "Please select a point");
         } else {
-            ArrayList<WifiLocation> newLocations = nearbyFinder.findNearbyWifi(currentPoint.getLatitude(), currentPoint.getLongitude());
-            if (newLocations.size() == 0) {
-                makeErrorDialogueBox("Nothing Nearby", "We couldn't find any locations nearby\nHave you imported any data?");
-                return;
+            boolean newPoint = false;
+            ArrayList<WifiLocation> locations = nearbyFinder.findNearbyWifi(currentPoint.getLatitude(), currentPoint.getLongitude());
+            for (WifiLocation location : locations) {
+                if (wifiLocations.add(location)) {
+                    renderWifiMarker(location);
+                    newPoint = true;
+                    break;
+                }
             }
-            addWifiLocations(newLocations);
-            renderWifiMarkers();
+            if (!newPoint) {
+                makeErrorDialogueBox("Error", "There aren't any more points nearby");
+            }
         }
     }
 
@@ -441,13 +455,18 @@ public class PlanRouteController extends Controller implements Initializable, Ma
         if (currentPoint == null) {
             makeErrorDialogueBox("Error", "Please select a point");
         } else {
-            ArrayList<RetailLocation> newLocations = nearbyFinder.findNearbyRetail(currentPoint.getLatitude(), currentPoint.getLongitude());
-            if (newLocations.size() == 0) {
-                makeErrorDialogueBox("Nothing Nearby", "We couldn't find any locations nearby\nHave you imported any data?");
-                return;
+            boolean newPoint = false;
+            ArrayList<RetailLocation> locations = nearbyFinder.findNearbyRetail(currentPoint.getLatitude(), currentPoint.getLongitude());
+            for (RetailLocation location : locations) {
+                if (retailLocations.add(location)) {
+                    renderRetailerMarker(location);
+                    newPoint = true;
+                    break;
+                }
             }
-            addRetailLocations(newLocations);
-            renderRetailerMarkers();
+            if (!newPoint) {
+                makeErrorDialogueBox("Error", "There aren't any more points nearby");
+            }
         }
     }
 
