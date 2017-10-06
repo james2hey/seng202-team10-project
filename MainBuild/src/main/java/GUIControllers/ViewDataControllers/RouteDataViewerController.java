@@ -3,6 +3,7 @@ package GUIControllers.ViewDataControllers;
 import com.jfoenix.controls.JFXTextField;
 import customExceptions.FilterByTimeException;
 import dataAnalysis.Route;
+import dataHandler.SQLiteDB;
 import dataManipulation.DataFilterer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,6 +22,8 @@ import main.Main;
 import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -80,6 +83,9 @@ public class RouteDataViewerController extends DataViewerController {
     private DatePicker endDateInput;
 
     @FXML
+    private ComboBox<String> routeLists;
+
+    @FXML
     private Label favouritesError;
 
     private ObservableList<Route> routeList = FXCollections.observableArrayList();
@@ -102,6 +108,18 @@ public class RouteDataViewerController extends DataViewerController {
      */
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
+
+        SQLiteDB db = Main.getDB();
+        try {
+            ResultSet rs = db.executeQuerySQL("SELECT list_name FROM lists");
+            while (rs.next()) {
+                routeLists.getItems().add(rs.getString(1));
+            }
+            routeLists.getItems().add("No Selection");
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
         StartLocation.setCellValueFactory(new PropertyValueFactory<>("StartAddress"));
         EndLocation.setCellValueFactory(new PropertyValueFactory<>("EndAddress"));
         Date.setCellValueFactory(new PropertyValueFactory<>("StartDate"));
@@ -199,9 +217,14 @@ public class RouteDataViewerController extends DataViewerController {
             bikeID = null;
         }
 
+        String list = routeLists.getSelectionModel().getSelectedItem();
+        if (list == null || list.equals("No Selection")) {
+            list = null;
+        }
+
         DataFilterer filterer = new DataFilterer(Main.getDB());
-        routes = filterer.filterRoutes(gender, dateLower, dateUpper,
-                timeLower, timeUpper, startLocation, endLocation, bikeID);
+        routes = filterer.filterRoutes(gender, dateLower, dateUpper, timeLower, timeUpper, startLocation, endLocation,
+                bikeID, list);
         System.out.println("Got data");
         System.out.println(routes.size());
         for (int i = 0; i < routes.size(); i++) {
