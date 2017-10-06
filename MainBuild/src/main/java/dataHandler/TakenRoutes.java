@@ -5,7 +5,9 @@ import main.HandleUsers;
 import main.Main;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * Created by jto59 on 6/10/17.
@@ -79,5 +81,27 @@ public class TakenRoutes {
                 "AND start_year = '" + route.getStartYear() + "' AND start_month = '" + route.getStartMonth() + "' " +
                 "AND start_day = '" + route.getStartDay() + "' AND start_time = '" + route.getStartTime() + "' " +
                 "AND bikeid = '" + route.getBikeID() + "';");
+    }
+
+
+    public ArrayList<String> findFiveRecentRoutes() {
+        ResultSet rs;
+        ArrayList<String> recentRoutes = new ArrayList<>();
+        rs = db.executeQuerySQL("SELECT start_year, start_month, start_day, start_time, start_time, distance FROM taken_routes " +
+                                "ORDER BY start_year, start_month, start_day, start_time, start_time;");
+
+        for(int i = 0; i < 5; i++) {
+            try {
+                System.out.println("START YEAR = " + rs.getString("start_year"));
+                recentRoutes.add(rs.getString("start_year") + " " + rs.getString("start_month") +
+                        " " + rs.getString("start_day") + " " + rs.getString("start_time") +
+                        "|" + rs.getDouble("distance"));
+                rs.next();
+            } catch (SQLException e) {
+                addTakenRoute = db.getPreparedStatement(addRouteStatement);
+                System.out.println(e.getMessage());
+            }
+        }
+        return recentRoutes;
     }
 }

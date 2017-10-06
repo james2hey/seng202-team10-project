@@ -155,8 +155,6 @@ public class HelperFunctions {
     }
 
 
-    // ----------------------------------------Calculations------------------------------------------------
-
     /**
      * Calculates the total distance a user has cycled --------------------toTest----
      */
@@ -170,8 +168,9 @@ public class HelperFunctions {
         return HelperFunctions.format2dp(distanceCycled);
     }
 
+
     /**
-     * Calculates the average distance a user has travelled.
+     * Calculates the average distance a user has travelled.--------------------toTest----
      * @return average distance travelled
      */
     public static double cacluateAverageDistance() {
@@ -185,7 +184,6 @@ public class HelperFunctions {
         }
         return HelperFunctions.format2dp(averageDistance);
     }
-
 
 
     /**

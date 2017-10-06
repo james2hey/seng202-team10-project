@@ -150,6 +150,7 @@ public class StatisticsController extends Controller implements Initializable {
         averageRoute.setText(average + " km");
         shortestRoute.setText(shortest + " km");
         longestRoute.setText(longest + " km");
+        System.out.println(Main.takenRouteTable.findFiveRecentRoutes());
     }
 
 
