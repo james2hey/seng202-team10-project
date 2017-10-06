@@ -344,6 +344,7 @@ public class Route {
         return distance;
     }
 
+
     // Setters
     public void setStopDate() {
         stopDate = getDateString(stopDay, stopMonth, stopYear);

@@ -34,13 +34,12 @@ public class RouteDataHandler implements DataHandler {
                     "usertype                VARCHAR(10)",
                     "birth_year              INTEGER",
                     "gender                  INTEGER",
-                    "list_name               VARCHAR(25)",
-                    "distance                DOUBLE"};
+                    "list_name               VARCHAR(25)"};
     private String primaryKey = "start_year, start_month, start_day, start_time, bikeid";
     private String tableName = "route_information";
 
     private PreparedStatement addData;
-    private String addDataStatement = "insert or fail into route_information values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    private String addDataStatement = "insert or fail into route_information values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
     private int fieldCount = 15;
 
@@ -158,7 +157,6 @@ public class RouteDataHandler implements DataHandler {
             addData.setObject(20, birth_year);
             addData.setObject(21, gender);
             addData.setObject(22, listName);
-            addData.setObject(23, null);
             addData.executeUpdate();
             return true;
         } catch (SQLException e) {
