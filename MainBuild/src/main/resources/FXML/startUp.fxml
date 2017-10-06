@@ -33,7 +33,12 @@
          <center>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Pane prefHeight="417.0" prefWidth="404.0" style="-fx-background-color: LIGHTGREY; -fx-opacity: 0.75; -fx-border-color: BLACK;" />
+                  <Pane prefHeight="417.0" prefWidth="404.0" style="-fx-background-color: LIGHTGREY; -fx-opacity: 0.85; -fx-border-color: BLACK;">
+                     <children>
+                        <ComboBox fx:id="userday" layoutX="128.0" layoutY="186.0" prefHeight="25.0" prefWidth="75.0" promptText="Day" />
+                        <ComboBox fx:id="usermonth" layoutX="206.0" layoutY="186.0" prefHeight="25.0" prefWidth="89.0" promptText="Month" />
+                        <ComboBox fx:id="useryear" layoutX="298.0" layoutY="186.0" prefHeight="25.0" prefWidth="81.0" promptText="Year" />
+                     </children></Pane>
                   <Text fill="WHITE" layoutX="46.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign Up:" textAlignment="CENTER" wrappingWidth="310.0">
                      <font>
                         <Font size="46.0" />
@@ -50,9 +55,6 @@
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="useryear" layoutX="276.0" layoutY="186.0" prefHeight="25.0" prefWidth="65.0" promptText="Year" />
-                  <TextField fx:id="usermonth" layoutX="205.0" layoutY="186.0" prefHeight="25.0" prefWidth="65.0" promptText="Month" />
-                  <TextField fx:id="userday" layoutX="133.0" layoutY="186.0" prefHeight="25.0" prefWidth="65.0" promptText="Day" />
                   <Text layoutX="33.0" layoutY="276.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gender:" textAlignment="RIGHT" wrappingWidth="83.732421875">
                      <font>
                         <Font size="18.0" />
@@ -76,7 +78,7 @@
          <center>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Pane prefHeight="241.0" prefWidth="386.0" style="-fx-background-color: LIGHTGREY; -fx-border-color: BLACK; -fx-opacity: 0.75;" />
+                  <Pane prefHeight="241.0" prefWidth="386.0" style="-fx-background-color: LIGHTGREY; -fx-border-color: BLACK; -fx-opacity: 0.85;" />
                   <Text fill="WHITE" layoutX="68.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign In:" textAlignment="CENTER" wrappingWidth="249.0">
                      <font>
                         <Font size="46.0" />
@@ -99,4 +101,3 @@
       </AnchorPane>
    </children>
 </GridPane>
-

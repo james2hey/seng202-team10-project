@@ -76,7 +76,7 @@
       <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" style="-fx-background-color: grey;" GridPane.rowSpan="5" />
       <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="3">
          <children>
-            <Button fx:id="back" layoutX="326.0" layoutY="44.0" mnemonicParsing="false" onAction="#changeToAddDataScene" prefHeight="32.0" prefWidth="210.0" style="-fx-background-color: #ffffff;" text="Back" textFill="#000000">
+            <Button fx:id="back" layoutX="326.0" layoutY="44.0" mnemonicParsing="false" onAction="#changeToAddDataScene" prefHeight="32.0" prefWidth="210.0" text="Back" textFill="#000000">
                <font>
                   <Font size="15.0" />
                </font>
