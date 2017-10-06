@@ -34,7 +34,7 @@ import java.util.ResourceBundle;
  * Controller class for home.
  */
 
-public class HomeController extends Controller implements Initializable {
+public class FavouritesController extends Controller implements Initializable {
 
     @FXML
     private GridPane gridPane;
@@ -76,9 +76,6 @@ public class HomeController extends Controller implements Initializable {
     private TableView<RetailLocation> tableViewRetailers;
 
 
-    @FXML
-    private Text welcomeText;
-
     private ArrayList<Route> routeList = new ArrayList<>();
 
     private ArrayList<WifiLocation> wifiList = new ArrayList<>();
@@ -98,8 +95,6 @@ public class HomeController extends Controller implements Initializable {
      * @param resources Locale-specific data required for the method to run automatically
      */
     public void initialize(URL location, ResourceBundle resources) {
-        String username = Main.hu.currentCyclist.getName();
-        welcomeText.setText("Welcome: " + username);
 
         routeList.addAll(Main.hu.currentCyclist.getFavouriteRouteList());
         routeListObservable.addAll(routeList);

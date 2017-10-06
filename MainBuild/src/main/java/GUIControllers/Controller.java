@@ -145,8 +145,8 @@ public abstract class Controller {
      * @throws IOException Handles errors caused by an fxml not loading correctly
      */
     @FXML
-    public void changeToHomeScene(ActionEvent event) throws IOException {
-        Parent homeParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/home.fxml"));
+    public void changeToFavouritesScene(ActionEvent event) throws IOException {
+        Parent homeParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/favourites.fxml"));
         Scene homeScene = new Scene(homeParent);
         currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.setScene(homeScene);
