@@ -92,15 +92,17 @@ public class TakenRoutes {
         ResultSet rs;
         ArrayList<String> recentRoutes = new ArrayList<>();
         rs = db.executeQuerySQL("SELECT start_year, start_month, start_day, start_time, start_time, distance FROM taken_routes " +
-                                "ORDER BY start_year, start_month, start_day, start_time, start_time;");
+                                "WHERE name = '" + Main.hu.currentCyclist.getName() + "' " +
+                                "ORDER BY start_year DESC, start_month DESC, start_day DESC, start_time DESC, start_time DESC;");
 
         for(int i = 0; i < 5; i++) {
             try {
-                System.out.println("START YEAR = " + rs.getString("start_year"));
+                rs.next();
+                System.out.println("START DAY = " + rs.getString("start_day"));
                 recentRoutes.add(rs.getString("start_year") + " " + rs.getString("start_month") +
                         " " + rs.getString("start_day") + " " + rs.getString("start_time") +
                         "|" + rs.getDouble("distance"));
-                rs.next();
+
             } catch (SQLException e) {
                 addTakenRoute = db.getPreparedStatement(addRouteStatement);
                 System.out.println(e.getMessage());

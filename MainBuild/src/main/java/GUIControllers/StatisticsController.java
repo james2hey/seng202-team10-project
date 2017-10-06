@@ -79,12 +79,6 @@ public class StatisticsController extends Controller implements Initializable {
     @FXML
     private TableColumn<Route, String> completedRoutes;
 
-    final static String austria = "Austria";
-    final static String brazil = "Brazil";
-    final static String france = "France";
-    final static String italy = "Italy";
-    final static String usa = "USA";
-
     private ArrayList<Route> routeList = new ArrayList<>();
     private ObservableList<Route> routeListObservable = FXCollections.observableArrayList();
 
@@ -108,17 +102,40 @@ public class StatisticsController extends Controller implements Initializable {
         graph.setTitle("Recent Route Distances");
 
         //Selecting data to add
+        ArrayList<String> recentRoutes = Main.takenRouteTable.findFiveRecentRoutes();
+        System.out.println(recentRoutes);
         XYChart.Series series1 = new XYChart.Series();
-        series1.getData().add(new XYChart.Data("01/08/2017", 2.35));
-        series1.getData().add(new XYChart.Data("03/10/2017", 1.50));
-        series1.getData().add(new XYChart.Data("24/10/2017", 3.00));
-        series1.getData().add(new XYChart.Data("25/10/2017", 0.89));
-        series1.getData().add(new XYChart.Data("03/11/2017", 0.99));
+
+
+
+        String currentRoute;
+        String currentDate;
+        Double currentDistance;
+        String[] currentData;
+
+//        currentRoute = recentRoutes.get(0);
+//        currentData = currentRoute.split("\\|");
+//        currentDate = currentData[0];
+//        currentDistance = Double.parseDouble(currentData[1]);
+//        series1.getData().add(new XYChart.Data(currentDate, currentDistance));
+
+        for (int count = 0; count<5; count++) {
+            System.out.println("We have entered the loop for the " + count + " time...");
+            try {
+                currentRoute = recentRoutes.get(count);
+                currentData = currentRoute.split("\\|");
+                currentDate = currentData[0];
+                currentDistance = Double.parseDouble(currentData[1]);
+                series1.getData().add(new XYChart.Data(currentDate, currentDistance));
+
+            } catch (Exception e) {
+                System.out.println("There are less than 5 routes in completed routes.");
+            }
+        }
 
         graph.getData().addAll(series1);
+
         graph.setLegendVisible(false);
-
-
 
 
         //Initialise routes completed table.
@@ -150,7 +167,6 @@ public class StatisticsController extends Controller implements Initializable {
         averageRoute.setText(average + " km");
         shortestRoute.setText(shortest + " km");
         longestRoute.setText(longest + " km");
-        System.out.println(Main.takenRouteTable.findFiveRecentRoutes());
     }
 
 
