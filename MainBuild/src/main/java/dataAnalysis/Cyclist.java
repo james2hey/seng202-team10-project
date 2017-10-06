@@ -1,9 +1,8 @@
-package main;
+package dataAnalysis;
 
-import dataAnalysis.RetailLocation;
-import dataAnalysis.Route;
-import dataAnalysis.WifiLocation;
 import dataHandler.*;
+import main.HandleUsers;
+import main.Main;
 
 import java.util.ArrayList;
 
@@ -17,7 +16,7 @@ public class Cyclist {
     static public String name;
     static private int bday, bmonth, byear;
     static private int gender;   // gender either 0 other, 1 male, or 2 female.
-    private double distanceCycled, longestDistance, shortestDistance, averageDistance;
+    private double distanceCycled;
     private ArrayList<Route> favouriteRouteList = new ArrayList<Route>();
     private ArrayList<RetailLocation> favouriteRetailLocations = new ArrayList<RetailLocation>();
     private ArrayList<WifiLocation> favouriteWifiLocations = new ArrayList<WifiLocation>();
@@ -145,10 +144,21 @@ public class Cyclist {
 
     /**
      * Updates the users favourite routes. This will set the rank variable for the new Route object that has been added.
+     * @param hu the instance of HandleUsers to retrieve favourite_route's from
      */
     public void updateUserRouteFavourites(HandleUsers hu) {
         favouriteRouteList.clear();
         hu.getUserRouteFavourites();
+    }
+
+
+    /**
+     * Updates the users taken routes. This will set the rank variable for the new Route object that has been added.
+     * @param hu the instance of HandleUsers to retrieve taken_routes's from
+     */
+    public void updateUserTakenRoutes(HandleUsers hu) {
+        takenRoutesList.clear();
+        hu.getUserTakenRoutes();
     }
 
 
@@ -168,9 +178,17 @@ public class Cyclist {
     }
 
 
+    /**
+     * Adds a Route to the Users takenRoutesList if it is not already in it.
+     *
+     * @param route the route to be added
+     * @param name  the username of whose taken route this is
+     * @param db    the database's taken_route table that is to have the row added.
+     */
     public void addTakenRoute(Route route, String name, SQLiteDB db, HandleUsers hu) {
         takenRoutesList.add(route);
-        Main.takenRouteTable.addTakenRoute(name, route.getStartYear(), route.getStartMonth(), route.getStartDay(),
+        TakenRoutes t = new TakenRoutes(db);
+        t.addTakenRoute(name, route.getStartYear(), route.getStartMonth(), route.getStartDay(),
                 route.getStartTime(), route.getBikeID(), route.getDistance(), hu);
     }
 
@@ -251,14 +269,5 @@ public class Cyclist {
             f.addFavouriteWifi(name, wifi.getWifiID());
         }
         return alreadyInList;
-    }
-
-    public void deleteFavouriteRetail(RetailLocation store) {
-        for (int i = 0; i < favouriteRetailLocations.size(); i++) {
-            if (favouriteRetailLocations.get(i) == store) {
-                favouriteRetailLocations.remove(i);
-                break;
-            }
-        }
     }
 }

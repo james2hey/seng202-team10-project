@@ -244,6 +244,8 @@ public class RouteDataViewerController extends DataViewerController {
             Route routeToAdd = tableView.getSelectionModel().getSelectedItem();
             boolean alreadyInList = Main.hu.currentCyclist.routeAlreadyInList(routeToAdd, "taken_route");
             if (!alreadyInList) {
+                makeSuccessDialogueBox("Route successfully added.", "This route has been added to" +
+                        " your completed routes.");
                 Main.hu.currentCyclist.addTakenRoute(routeToAdd, name, Main.getDB(), Main.hu);
             } else {
                 makeErrorDialogueBox("Route already in completed", "This route has already been " +

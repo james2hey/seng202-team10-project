@@ -1,5 +1,6 @@
 package main;
 
+import dataAnalysis.Cyclist;
 import dataAnalysis.RetailLocation;
 import dataAnalysis.Route;
 import dataAnalysis.WifiLocation;
@@ -62,7 +63,7 @@ public class HandleUsers {
 
 
     /**
-     * Gets all of the Cyclists taken Route's and adds them to the instances list. ------totest------------
+     * Gets all of the Cyclists taken Route's and adds them to the instances list.
      */
     public void getUserTakenRoutes() {
         ResultSet rsFavourites, rsRoute;

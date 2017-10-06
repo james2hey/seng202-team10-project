@@ -1,15 +1,14 @@
 package main;
 
+import dataAnalysis.Cyclist;
 import dataAnalysis.RetailLocation;
 import dataAnalysis.Route;
 import dataAnalysis.WifiLocation;
 import dataHandler.*;
-import dataManipulation.DataFilterer;
 import org.junit.*;
 
 import java.nio.file.Files;
 import java.sql.ResultSet;
-import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 
@@ -66,27 +65,27 @@ public class HandleUsersTest {
     }
 
 
-//    /**
-//     * Testing the user logged into has had their currentCyclist object created. Valid favourites of the user is being
-//     * tested below.
-//     * @throws Exception
-//     */
-//    @Test
-//    public void logIn() throws Exception {
-//        RouteDataHandler rdh = new RouteDataHandler(db);
-//        WifiDataHandler wdh = new WifiDataHandler(db);
-//        RetailerDataHandler rDh = new RetailerDataHandler(db);
-//        FavouriteRouteData frd = new FavouriteRouteData(db);
-//        FavouriteWifiData fwd = new FavouriteWifiData(db);
-//        FavouriteRetailData fRd = new FavouriteRetailData(db);
-//        DatabaseUser d = new DatabaseUser(db);
-//
-//
-//        String testName = "Another Tester";
-//        hu.logIn(testName); // Logging into a new user called "Another Tester".
-//
-//        assertEquals(testName, hu.currentCyclist.getName());
-//    }
+    /**
+     * Testing the user logged into has had their currentCyclist object created. Valid favourites of the user is being
+     * tested below.
+     * @throws Exception
+     */
+    @Test
+    public void logIn() throws Exception {
+        RouteDataHandler rdh = new RouteDataHandler(db);
+        WifiDataHandler wdh = new WifiDataHandler(db);
+        RetailerDataHandler rDh = new RetailerDataHandler(db);
+        FavouriteRouteData frd = new FavouriteRouteData(db);
+        FavouriteWifiData fwd = new FavouriteWifiData(db);
+        FavouriteRetailData fRd = new FavouriteRetailData(db);
+        DatabaseUser d = new DatabaseUser(db);
+        TakenRoutes t = new TakenRoutes(db);
+
+        String testName = "Another Tester";
+        hu.logIn(testName); // Logging into a new user called "Another Tester".
+
+        assertEquals(testName, hu.currentCyclist.getName());
+    }
 
     @Test
     public void getUserDetailsBirthDetails() throws Exception {
@@ -109,41 +108,69 @@ public class HandleUsersTest {
         assertEquals(0, currentCyclist.getGender());
     }
 
+    /**
+     * Creating a test route and then adding parameters with identical values to the database. The method is then
+     * called and compared to test equality of the newly found route and the test route. There are no other side cases
+     * as routes can only have been added to a users taken routes list if they already existed in the database.
+     * @throws Exception
+     */
+    @Test
+    public void getUserTakenRoutes() throws Exception {
 
-//    /**
-//     * Creating a test route and then adding parameters with identical values to the database. The method is then
-//     * called and compared to test equality of the newly found route and the test route. There are no other side cases
-//     * as routes can only have been added to a users favourites list if they already existed in the database.
-//     * @throws Exception
-//     */
-//    @Test
-//    public void getUserRouteFavourites() throws Exception {
-//
-//        RouteDataHandler rdh = new RouteDataHandler(db);
-//        Route testRoute = new Route(10, "00:00:00", "00:00:00", "01", "01", "2016",
-//                "01", "01", "2016", 0.0, 0.0,
-//                0.0, 0.0, 1, 2, "Test Street",
-//                "Test2 Street", "10000", 1, "Subscriber", 20);
-//
-//        rdh.addSingleEntry(10, "2016","01","01","00:00:00", "2016",
-//                "01", "01", "00:00:01", "10", "Test Station",
-//                0.0, 0.0, "11","Test2 Station", 10.0,
-//                10.0, "10000", "Subscriber", 1997, 1);
-//
-//        FavouriteRouteData frd = new FavouriteRouteData(db);
-//        frd.addFavouriteRoute("Tester", "2016", "01", "01", "00:00:00",
-//                "10000", 1, hu); //Adding the newly created route to "Tester" favourites.
-//        hu.getUserRouteFavourites();
-//
-//        Route foundRoute = currentCyclist.getFavouriteRouteList().get(0); // Get Testers first favourite route.
-//        assertEquals(testRoute, foundRoute);
-//    }
+        RouteDataHandler rdh = new RouteDataHandler(db);
+        Route testRoute = new Route(10, "00:00:00", "00:00:00", "01", "01", "2016",
+                "01", "01", "2016", 0.0, 0.0,
+                0.0, 0.0, 1, 2, "Test Street",
+                "Test2 Street", "10000", 1, "Subscriber", 20);
+
+        rdh.addSingleEntry(10, "2016","01","01","00:00:00", "2016",
+                "01", "01", "00:00:01", "10", "Test Station",
+                0.0, 0.0, "11","Test2 Station", 10.0,
+                10.0, "10000", "Subscriber", 1997, 1);
+
+        TakenRoutes t = new TakenRoutes(db);
+        t.addTakenRoute("Tester", "2016", "01", "01", "00:00:00",
+                "10000", 0, hu); //Adding the newly created route to "Tester" favourites.
+        hu.getUserTakenRoutes();
+
+        Route foundRoute = currentCyclist.getTakenRoutes().get(0);
+        assertEquals(testRoute, foundRoute);
+    }
+
+    /**
+     * Creating a test route and then adding parameters with identical values to the database. The method is then
+     * called and compared to test equality of the newly found route and the test route. There are no other side cases
+     * as routes can only have been added to a users favourite route list if they already existed in the database.
+     * @throws Exception
+     */
+    @Test
+    public void getUserRouteFavourites() throws Exception {
+
+        RouteDataHandler rdh = new RouteDataHandler(db);
+        Route testRoute = new Route(10, "00:00:00", "00:00:00", "01", "01", "2016",
+                "01", "01", "2016", 0.0, 0.0,
+                0.0, 0.0, 1, 2, "Test Street",
+                "Test2 Street", "10000", 1, "Subscriber", 20);
+
+        rdh.addSingleEntry(10, "2016","01","01","00:00:00", "2016",
+                "01", "01", "00:00:01", "10", "Test Station",
+                0.0, 0.0, "11","Test2 Station", 10.0,
+                10.0, "10000", "Subscriber", 1997, 1);
+
+        FavouriteRouteData frd = new FavouriteRouteData(db);
+        frd.addFavouriteRoute("Tester", "2016", "01", "01", "00:00:00",
+                "10000", 1, hu); //Adding the newly created route to "Tester" favourites.
+        hu.getUserRouteFavourites();
+
+        Route foundRoute = currentCyclist.getFavouriteRouteList().get(0); // Get Testers first favourite route.
+        assertEquals(testRoute, foundRoute);
+    }
 
 
     /**
      * Creating a test wifi hotspot and then adding parameters with identical values to the database. The method is then
      * called and compared to test equality of the newly found hotspot and the test hotspot. There are no other side cases
-     * as wifi hotspots can only have been added to a users favourites list if they already existed in the database.
+     * as wifi hotspots can only have been added to a users favourite wifi list if they already existed in the database.
      * @throws Exception
      */
     @Test
@@ -170,7 +197,7 @@ public class HandleUsersTest {
     /**
      * Creating a test retail store and then adding parameters with identical values to the database. The method is then
      * called and compared to test equality of the newly found retailer and the test retailer. There are no other side cases
-     * as retail stores can only have been added to a users favourites list if they already existed in the database.
+     * as retail stores can only have been added to a users favourite retail list if they already existed in the database.
      * @throws Exception
      */
     @Test
@@ -193,26 +220,27 @@ public class HandleUsersTest {
         assertEquals(testRetail, foundRetail);
     }
 
-//    /**
-//     * Testing the currentCyclist is equal to null when logged out.
-//     * @throws Exception
-//     */
-//    @Test
-//    public void logOutOfUser() throws Exception {
-//        RouteDataHandler rdh = new RouteDataHandler(db);
-//        WifiDataHandler wdh = new WifiDataHandler(db);
-//        RetailerDataHandler rDh = new RetailerDataHandler(db);
-//        FavouriteRouteData frd = new FavouriteRouteData(db);
-//        FavouriteWifiData fwd = new FavouriteWifiData(db);
-//        FavouriteRetailData fRd = new FavouriteRetailData(db);
-//        DatabaseUser u = new DatabaseUser(db);
-//
-//        String testName = "Another Tester";
-//        hu.logIn(testName); // Logging into a new user called "Another Tester".
-//
-//        hu.logOutOfUser(); // Logging out of "Another Tester"'s account.
-//        assertEquals(null, hu.currentCyclist);
-//    }
+    /**
+     * Testing the currentCyclist is equal to null when logged out.
+     * @throws Exception
+     */
+    @Test
+    public void logOutOfUser() throws Exception {
+        RouteDataHandler rdh = new RouteDataHandler(db);
+        WifiDataHandler wdh = new WifiDataHandler(db);
+        RetailerDataHandler rDh = new RetailerDataHandler(db);
+        FavouriteRouteData frd = new FavouriteRouteData(db);
+        FavouriteWifiData fwd = new FavouriteWifiData(db);
+        FavouriteRetailData fRd = new FavouriteRetailData(db);
+        DatabaseUser u = new DatabaseUser(db);
+        TakenRoutes t = new TakenRoutes(db);
+
+        String testName = "Another Tester";
+        hu.logIn(testName); // Logging into a new user called "Another Tester".
+
+        hu.logOutOfUser(); // Logging out of "Another Tester"'s account.
+        assertEquals(null, hu.currentCyclist);
+    }
 
     /**
      * Testing the created users username is correctly set to the currentCyclist.

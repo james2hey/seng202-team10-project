@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
- * Created by jto59 on 6/10/17.
+ * Handles all of the taken routes data for every user in the database.
  */
 public class TakenRoutes {
 
@@ -63,7 +63,7 @@ public class TakenRoutes {
             addTakenRoute.setObject(7, distance);
             addTakenRoute.executeUpdate();
             db.commit();
-            hu.currentCyclist.updateUserRouteFavourites(hu);
+            hu.currentCyclist.updateUserTakenRoutes(hu);
 
         } catch (SQLException e) {
             addTakenRoute = db.getPreparedStatement(addRouteStatement);

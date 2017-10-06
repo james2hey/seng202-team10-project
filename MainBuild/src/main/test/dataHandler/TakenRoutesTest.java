@@ -10,12 +10,11 @@ import java.sql.ResultSet;
 import static org.junit.Assert.*;
 
 /**
- * Test for the FavouriteRouteData database table when adding data. Note that error
- * handling for retail shops being added twice is found in the HandleUser getUserRouteFavourites method.
+ * Created by jto59 on 6/10/17.
  */
-public class FavouriteRouteDataTest {
+public class TakenRoutesTest {
     private static SQLiteDB db;
-    private static FavouriteRouteData favouriteRouteData;
+    private static TakenRoutes takenRoutes;
     private static HandleUsers hu;
 
     @AfterClass
@@ -42,18 +41,38 @@ public class FavouriteRouteDataTest {
 
     @Before
     public void init() throws Exception {
-        favouriteRouteData = new FavouriteRouteData(db);
+        takenRoutes = new TakenRoutes(db);
     }
 
     @Test
     public void addFavouriteRoute() throws Exception {
         RouteDataHandler rdh = new RouteDataHandler(db);
-        favouriteRouteData.addFavouriteRoute("Tester", "2016", "01", "01",
+        takenRoutes.addTakenRoute("Tester", "2016", "01", "01",
                 "00:00:00", "10000", 1, hu);
         ResultSet rs;
-        rs = db.executeQuerySQL("SELECT * FROM favourite_routes WHERE name = 'Tester' AND start_year = '2016' AND " +
-                        "start_month = '01' AND start_day = '01' AND start_time = '00:00:00' AND bikeid = '10000' " +
-                        "AND rank = '1';");
+        rs = db.executeQuerySQL("SELECT * FROM taken_routes WHERE name = 'Tester' AND start_year = '2016' AND " +
+                "start_month = '01' AND start_day = '01' AND start_time = '00:00:00' AND bikeid = '10000' " +
+                "AND distance = '1';");
         assertFalse(rs.isClosed());
+    }
+
+    @Test
+    public void deleteTakenRoute() throws Exception {
+
+    }
+
+    @Test
+    public void findFiveRecentRoutesMoreThanFive() throws Exception {
+
+    }
+
+    @Test
+    public void findFiveRecentRoutesLessThanFive() throws Exception {
+
+    }
+
+    @Test
+    public void findFiveRecentRoutesEmpty() throws Exception {
+
     }
 }

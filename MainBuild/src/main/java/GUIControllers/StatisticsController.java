@@ -1,44 +1,29 @@
 package GUIControllers;
 
 import com.jfoenix.controls.JFXHamburger;
-import com.jfoenix.controls.JFXTextField;
 import dataAnalysis.Route;
+import dataHandler.SQLiteDB;
+import dataHandler.TakenRoutes;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import dataHandler.DatabaseUser;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
-import main.Cyclist;
 import main.HelperFunctions;
 import main.Main;
 import javafx.scene.chart.XYChart;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
-import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
-
-import static main.Cyclist.*;
 
 
 /**
@@ -93,16 +78,55 @@ public class StatisticsController extends Controller implements Initializable {
      */
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
-        findStatistics();
+        findStatistics(Main.getDB());
+        createGraph(Main.getDB());
 
+
+        //Initialise routes completed table.
+        routeListObservable.addAll(Main.hu.currentCyclist.getTakenRoutes());
+        startLocation.setCellValueFactory(new PropertyValueFactory<>("StartAddress"));
+        endLocation.setCellValueFactory(new PropertyValueFactory<>("EndAddress"));
+        distance.setCellValueFactory(new PropertyValueFactory<>("Distance"));
+        tableCompletedRoutes.setItems(routeListObservable);
+        tableCompletedRoutes.getColumns().setAll(completedRoutes);
+    }
+
+    /**
+     * Finds all of the most recent statistics for the user and displays them.
+     */
+    private void findStatistics(SQLiteDB db) {
+        double total = HelperFunctions.calculateDistanceCycled();
+        double average = HelperFunctions.cacluateAverageDistance();
+
+        double shortest = HelperFunctions.calculateShortestRoute();
+        if (shortest == 9999999) {
+            shortest = 0;
+        }
+        double longest = HelperFunctions.calculateLongestRoute();
+        if (longest == -1) {
+            longest = 0;
+        }
+        totalDistance.setText(total + " km");
+        averageRoute.setText(average + " km");
+        shortestRoute.setText(shortest + " km");
+        longestRoute.setText(longest + " km");
+    }
+
+
+    /**
+     * Creates a visual representation of the taken routes on a bar graph.
+     * @param db The database to retrieve the graphs data
+     */
+    private void createGraph(SQLiteDB db) {
         //Initialise the graph.
-        final CategoryAxis xAxis = new CategoryAxis();
+        final CategoryAxis xAxis = new CategoryAxis(); // SOMETHING NOT QUITE WORKING HERE LOL
         final NumberAxis yAxis = new NumberAxis();
         xAxis.setTickLabelFill(Color.RED);
         graph.setTitle("Recent Route Distances");
 
         //Selecting data to add
-        ArrayList<String> recentRoutes = Main.takenRouteTable.findFiveRecentRoutes();
+        TakenRoutes t = new TakenRoutes(Main.getDB());
+        ArrayList<String> recentRoutes = t.findFiveRecentRoutes();
         System.out.println(recentRoutes);
         XYChart.Series series1 = new XYChart.Series();
 
@@ -137,38 +161,7 @@ public class StatisticsController extends Controller implements Initializable {
 
         graph.setLegendVisible(false);
 
-
-        //Initialise routes completed table.
-        routeListObservable.addAll(Main.hu.currentCyclist.getTakenRoutes());
-        startLocation.setCellValueFactory(new PropertyValueFactory<>("StartAddress"));
-        endLocation.setCellValueFactory(new PropertyValueFactory<>("EndAddress"));
-        distance.setCellValueFactory(new PropertyValueFactory<>("Distance"));
-        tableCompletedRoutes.setItems(routeListObservable);
-        tableCompletedRoutes.getColumns().setAll(completedRoutes);
     }
-
-    /**
-     * Finds all of the most recent statistics for the user and displays them.
-     */
-    private void findStatistics() {
-        double total = HelperFunctions.calculateDistanceCycled();
-        double average = HelperFunctions.cacluateAverageDistance();
-
-        double shortest = HelperFunctions.calculateShortestRoute();
-        if (shortest == 9999999) {
-            shortest = 0;
-        }
-        double longest = HelperFunctions.calculateLongestRoute();
-        if (longest == -1) {
-            longest = 0;
-        }
-
-        totalDistance.setText(total + " km");
-        averageRoute.setText(average + " km");
-        shortestRoute.setText(shortest + " km");
-        longestRoute.setText(longest + " km");
-    }
-
 
     /**
      * Deletes the selected route from the users taken routes.
@@ -176,12 +169,14 @@ public class StatisticsController extends Controller implements Initializable {
     @FXML
     private void deleteTakenRoute() {
         if (tableCompletedRoutes.getSelectionModel().getSelectedItem() != null) {
+            TakenRoutes t = new TakenRoutes(Main.getDB());
             Route removingRoute = tableCompletedRoutes.getSelectionModel().getSelectedItem();
-            Main.takenRouteTable.deleteTakenRoute(removingRoute);
+            t.deleteTakenRoute(removingRoute);
             routeList.remove(removingRoute);
             routeListObservable.remove(removingRoute);
             Main.hu.currentCyclist.getTakenRoutes().remove(removingRoute);
-            findStatistics();
+            findStatistics(Main.getDB());
+            createGraph(Main.getDB());
         } else {
             makeErrorDialogueBox("No route selected", "No route was selected to delete." +
                     " You must\nchoose which route you want to delete.");

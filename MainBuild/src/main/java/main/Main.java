@@ -14,7 +14,6 @@ public class Main extends Application {
     public static HandleUsers hu;
     static SQLiteDB db;
     public static DatabaseUser databaseUser;
-    public static TakenRoutes takenRouteTable;
 
     public static SQLiteDB getDB() {
         return db;
@@ -34,7 +33,7 @@ public class Main extends Application {
         FavouriteRouteData favRouteData = new FavouriteRouteData(db);
         FavouriteWifiData favWifiData = new FavouriteWifiData(db);
         FavouriteRetailData favRetailData = new FavouriteRetailData(db);
-        takenRouteTable = new TakenRoutes(db);
+        TakenRoutes takenRouteTable = new TakenRoutes(db);
 
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/startUp.fxml"));
 

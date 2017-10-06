@@ -7,8 +7,6 @@ import org.joda.time.Duration;
 
 import java.util.ArrayList;
 
-import static main.Cyclist.*;
-
 
 /**
  * Created by jes143 on 22/09/17.
