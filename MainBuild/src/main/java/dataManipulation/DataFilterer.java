@@ -186,6 +186,8 @@ public class DataFilterer {
      *                      to filter by
      * @param endLocation   of type String. It is the ending address of a route that the user wants
      *                      to filter by
+     * @param bikeID        of type String. It is the bikeID of a route that the user want to filter by.
+     * @param list          of type String. It is the list name of the list the user wants to filter by.
      * @return queryCommand, of type String. This is the string that will be used as a query statement to the database
      */
     private String generateQueryString(int gender, String dateLower, String dateUpper, String timeLower,
@@ -303,6 +305,8 @@ public class DataFilterer {
      *                      to filter by
      * @param endLocation   of type String. It is the ending address of a route that the user wants
      *                      to filter by
+     * @param bikeID        of type String. It is the bikeID of a route that the user want to filter by.
+     * @param list          of type String. It is the list name of the list the user wants to filter by.
      * @return ArrayList<Route>, this is an ArrayList that contains all filtered routes
      */
     public ArrayList<Route> filterRoutes(int gender, String dateLower, String dateUpper, String timeLower,
