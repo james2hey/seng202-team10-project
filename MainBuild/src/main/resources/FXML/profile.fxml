@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane alignment="center" hgap="30.0" prefHeight="650.0" prefWidth="1100.0" style="-fx-background-color: Grey;" vgap="20.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIControllers.ProfileController">
+   <children>
+      <Text fx:id="buttonPressedText" strokeType="OUTSIDE" strokeWidth="0.0" text="Button Pressed" textAlignment="CENTER" visible="false" wrappingWidth="269.6552734375" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <JFXHamburger fx:id="hamburger" onMouseClicked="#openDrawer" prefHeight="73.0" prefWidth="87.0" GridPane.columnIndex="4" />
+      <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile" textAlignment="CENTER" wrappingWidth="429.7294921875" GridPane.columnIndex="1" GridPane.columnSpan="2">
+         <font>
+            <Font size="60.0" />
+         </font>
+      </Text>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: white;" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
+         <center>
+            <AnchorPane prefHeight="429.0" prefWidth="427.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Text layoutX="58.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Text>
+                  <JFXTextField fx:id="name" layoutX="128.0" layoutY="45.0" prefHeight="23.0" prefWidth="238.0" />
+                  <Text layoutX="14.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date of birth:">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="45.0" layoutY="155.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gender:">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Text>
+                  <DatePicker fx:id="dob" layoutX="131.0" layoutY="90.0" prefHeight="25.0" prefWidth="235.0" />
+                  <ComboBox fx:id="gender" layoutX="131.0" layoutY="137.0" prefHeight="25.0" prefWidth="233.0">
+                     <items>
+                        <FXCollections fx:factory="observableArrayList">
+                           <String fx:value="Male" />
+                           <String fx:value="Female" />
+                           <String fx:value="Other" />
+                        </FXCollections>
+                     </items>
+                  </ComboBox>
+                  <Button layoutX="155.0" layoutY="206.0" mnemonicParsing="false" onAction="#updateProfile" text="Update Profile" />
+               </children>
+            </AnchorPane>
+         </center>
+      </BorderPane>
+      <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" style="-fx-background-color: grey;" GridPane.rowSpan="4">
+         <effect>
+            <Blend />
+         </effect>
+      </JFXDrawer>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3">
+         <children>
+            <Button layoutX="139.0" layoutY="31.0" mnemonicParsing="false" onAction="#logout" prefHeight="32.0" prefWidth="151.0" text="Logout">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+   </children>
+   <columnConstraints>
+      <ColumnConstraints maxWidth="800.0" minWidth="10.0" prefWidth="321.0" />
+      <ColumnConstraints maxWidth="991.0" minWidth="10.0" prefWidth="173.0" />
+      <ColumnConstraints maxWidth="991.0" minWidth="0.0" prefWidth="226.0" />
+      <ColumnConstraints maxWidth="991.0" minWidth="0.0" prefWidth="174.0" />
+      <ColumnConstraints maxWidth="891.0" minWidth="0.0" prefWidth="86.0" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints maxHeight="251.0" minHeight="10.0" prefHeight="153.0" />
+      <RowConstraints maxHeight="272.0" minHeight="10.0" prefHeight="21.0" />
+      <RowConstraints maxHeight="393.0" minHeight="6.0" prefHeight="236.0" />
+      <RowConstraints maxHeight="510.0" minHeight="22.0" prefHeight="180.0" />
+   </rowConstraints>
+</GridPane>

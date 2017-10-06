@@ -68,6 +68,9 @@ public class StatisticsController extends Controller implements Initializable {
     private TableColumn<Route, String> startLocation;
 
     @FXML
+    private TableColumn<Route, String> endLocation;
+
+    @FXML
     private TableColumn<Route, String> distance;
 
     @FXML
@@ -95,6 +98,7 @@ public class StatisticsController extends Controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
 
+        //Initialise the graph.
         System.out.println("initialising graph");
         final CategoryAxis xAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis();
@@ -114,10 +118,11 @@ public class StatisticsController extends Controller implements Initializable {
 
 
 
+        //Initialise routes completed table.
         routeListObservable.addAll(Main.hu.currentCyclist.getTakenRoutes());
-
         startLocation.setCellValueFactory(new PropertyValueFactory<>("StartAddress"));
         distance.setCellValueFactory(new PropertyValueFactory<>("Distance"));
+        endLocation.setCellValueFactory(new PropertyValueFactory<>("EndAddress"));
         tableCompletedRoutes.setItems(routeListObservable);
         tableCompletedRoutes.getColumns().setAll(completedRoutes);
     }
