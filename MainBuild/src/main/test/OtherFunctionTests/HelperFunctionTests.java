@@ -29,7 +29,7 @@ public class HelperFunctionTests {
 
     @Test
     public void timeChecking() {
-        String time1 = "00:00";
+        String time1 = "00:00:00";
         String time2 = "25-12-2017";
         String time3 = "11111";
         String time4 = "23:59"; // Edge case

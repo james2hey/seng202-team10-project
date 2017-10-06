@@ -93,6 +93,9 @@ public class AddDataController extends Controller implements Initializable {
         wifiDataHandler = new WifiDataHandler(db);
         routeDataHandler = new RouteDataHandler(db);
         listDataHandler = new ListDataHandler(db);
+
+        ArrayList<String> listNames = listDataHandler.getLists();
+        listInput.getItems().addAll(listNames);
     }
 
     /**
@@ -125,6 +128,8 @@ public class AddDataController extends Controller implements Initializable {
 
         double[] sLatLon;
         double[] eLatLon;
+
+        listDataHandler.setListName(listInput.getSelectionModel().getSelectedItem());
 
         try {
             if (rSAddress.getText().length() != 0 || rEAddress.getText().length() != 0) {
@@ -234,6 +239,9 @@ public class AddDataController extends Controller implements Initializable {
     void retailerCSVLine(ActionEvent event) throws IOException {
         Boolean errorOccured = false;
         double[] latLon;
+
+        listDataHandler.setListName(listInput.getSelectionModel().getSelectedItem());
+
         try {
             if (retailerAddress.getText().length() != 0) {
                 latLon = Geocoder.addressToLatLon(retailerAddress.getText());
@@ -296,6 +304,8 @@ public class AddDataController extends Controller implements Initializable {
         Boolean errorOccured = false;
         double[] latLon;
 
+        listDataHandler.setListName(listInput.getSelectionModel().getSelectedItem());
+
         try {
             if (wifiAddress.getText().length() != 0) {
                 latLon = Geocoder.addressToLatLon(wifiAddress.getText());
@@ -350,8 +360,6 @@ public class AddDataController extends Controller implements Initializable {
     @FXML
     void chooseFile(ActionEvent event) throws IOException {
         if (!importRoute.isVisible()) {
-            ArrayList<String> listNames = listDataHandler.getLists();
-            listInput.getItems().addAll(listNames);
             selectListMessage.setVisible(true);
             listInput.setVisible(true);
             selectMessage.setVisible(true);
