@@ -3,16 +3,18 @@ package dataManipulation;
 import dataHandler.Geocoder;
 import dataHandler.RetailerDataHandler;
 import dataHandler.SQLiteDB;
+import de.saxsys.javafx.test.JfxRunner;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import java.nio.file.Files;
 import java.sql.ResultSet;
 
 import static org.junit.Assert.*;
 
-
+@RunWith(JfxRunner.class)
 public class UpdateData_Retailers_Test {
 
     private SQLiteDB db;
@@ -32,9 +34,8 @@ public class UpdateData_Retailers_Test {
         java.nio.file.Path path = java.nio.file.Paths.get(home, "testdatabase.db");
         db = new SQLiteDB(path.toString());
         UpdateData.init(db);
-        Geocoder.init();
         RetailerDataHandler retailerDataHandler = new RetailerDataHandler(db);
-        //retailerDataHandler.processCSV(getClass().getClassLoader().getResource("CSV/Lower_Manhattan_Retailers-test3.csv").getFile());
+        retailerDataHandler.addSingleEntry("Starbucks Coffee","3 New York Plaza",0,0,"New York","NY","10004", "Casual Eating & Takeout","F-Coffeehouse");
     }
 
 

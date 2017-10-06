@@ -9,6 +9,8 @@ import java.nio.file.Files;
 import java.sql.ResultSet;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 /**
  * Created by jes143 on 25/09/17.
@@ -72,60 +74,10 @@ public class WifiDataHandlerTest {
     }
 
     @Test
-    public void processCSVIncorrectFormat() throws Exception {
-        exception.expect(NoSuchFieldException.class);
-        Task<Void> task = new CSVImporter(db, getClass().getClassLoader().getResource("CSV/Lower_Manhattan_Retailers-test.csv").getFile(), wifiDataHandler);
-        Thread thread = new Thread(task);
-        thread.start();
-    }
-
-    @Test
-    public void processCSVInvalidFile() throws Exception {
-        exception.expect(FileNotFoundException.class);
-        Task<Void> task = new CSVImporter(db, "NotARealFile.csv", wifiDataHandler);
-        Thread thread = new Thread(task);
-        thread.start();
-    }
-
-    @Test
-    public void processCSVValid() throws Exception {
-        Geocoder.init();
-        //exception.expect(ConnectException.class);
-        Task<Void> task = new CSVImporter(db, getClass().getClassLoader().getResource("CSV/NYC_Free_Public_WiFi_03292017-test.csv").getFile(), wifiDataHandler);
-        Thread thread = new Thread(task);
-        thread.start();
-        ResultSet rs = db.executeQuerySQL("SELECT COUNT(*) FROM wifi_location");
-        assertEquals(50, rs.getInt(1));
-        //System.out.println(rs.getInt(1));
-    }
-
-    @Test
-    public void processCSVValidTwice() throws Exception {
-        Geocoder.init();
-        Task<Void> task = new CSVImporter(db, getClass().getClassLoader().getResource("CSV/NYC_Free_Public_WiFi_03292017-test.csv").getFile(), wifiDataHandler);
-        Thread thread = new Thread(task);
-        thread.start();
-        Task<Void> task2 = new CSVImporter(db, getClass().getClassLoader().getResource("CSV/NYC_Free_Public_WiFi_03292017-test.csv").getFile(), wifiDataHandler);
-        Thread thread2 = new Thread(task2);
-        thread2.start();
-        ResultSet rs = db.executeQuerySQL("SELECT COUNT(*) FROM wifi_location");
-        assertEquals(50, rs.getInt(1));
-    }
-
-
-    @Ignore
-    @Test
-    public void testImportSpeed() throws Exception {
-        Geocoder.init();
-        long startTime = System.currentTimeMillis();
-        //wifiDataHandler.processCSV(getClass().getClassLoader().getResource("CSV/NYC_Free_Public_WiFi_03292017.csv").getFile());
-        long endTime = System.currentTimeMillis();
-        long timeTaken = endTime - startTime;
-        long average = 2566/timeTaken;
-        long expectedAverage = 10000/500;
-        System.out.println(timeTaken);
-        System.out.println(average);
-        System.out.println(expectedAverage);
-        assertTrue(average > expectedAverage);
+    public void processLineValid() throws Exception {
+        String[] list = {"998","POINT (-73.99403913047428 40.745968480330795)","MN","Free","LinkNYC - Citybridge","mn-05-123662","179 WEST 26 STREET","40.745968","-73.994039","985901.695307","211053.130644","Outdoor Kiosk","Tablet Internet -phone "," Free 1 GB Wi-FI Service","New York","LinkNYC Free Wi-Fi","LINK-008695","01/18/2017 12:00:00 AM +0000","1","Manhattan","MN17","Midtown-Midtown South","3","10001","105","95","1009500","0","0","1425"};
+        CSVImporter importer = mock(CSVImporter.class);
+        wifiDataHandler.processLine(list, importer);
+        verify(importer).result(true);
     }
 }

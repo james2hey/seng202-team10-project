@@ -2,13 +2,15 @@ package dataManipulation;
 
 import dataAnalysis.RetailLocation;
 import dataAnalysis.WifiLocation;
-import dataHandler.Geocoder;
-import dataHandler.RetailerDataHandler;
-import dataHandler.SQLiteDB;
-import dataHandler.WifiDataHandler;
+import dataHandler.*;
+import de.saxsys.javafx.test.JfxRunner;
+import de.saxsys.javafx.test.TestInJfxThread;
+import javafx.concurrent.Task;
 import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import java.nio.file.Files;
 import java.util.ArrayList;
@@ -17,11 +19,11 @@ import static org.junit.Assert.assertTrue;
 
 
 
-
+@RunWith(JfxRunner.class)
 public class FindNearbyLocations_Wifi_Test {
 
-    private ArrayList<WifiLocation> wifi;
-    private SQLiteDB db;
+    private static ArrayList<WifiLocation> wifi;
+    private static SQLiteDB db;
 
     @AfterClass
     public static void clearDB() throws Exception {
@@ -30,17 +32,19 @@ public class FindNearbyLocations_Wifi_Test {
         Files.delete(path);
     }
 
-    @Before
-    public void setUp() throws Exception {
+    @BeforeClass
+    @TestInJfxThread
+    public static void setUp() throws Exception {
         wifi = new ArrayList<>();
 
         String home = System.getProperty("user.home");
         java.nio.file.Path path = java.nio.file.Paths.get(home, "testdatabase.db");
         db = new SQLiteDB(path.toString());
 
-        WifiDataHandler wdh = new WifiDataHandler(db);
-        //wdh.processCSV(getClass().getClassLoader().getResource("CSV/NYC_Free_Public_WiFi_03292017-test.csv").getFile());
+        WifiDataHandler handler = new WifiDataHandler(db);
 
+        Task<Void> task = new CSVImporter(db, FindNearbyLocations_Wifi_Test.class.getClassLoader().getResource("CSV/NYC_Free_Public_WiFi_03292017-test.csv").getFile(), handler);
+        task.run();
     }
 
 

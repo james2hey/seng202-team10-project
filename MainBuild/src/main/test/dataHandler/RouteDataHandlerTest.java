@@ -1,11 +1,15 @@
 package dataHandler;
 
+import jdk.nashorn.internal.codegen.CompilerConstants;
 import org.junit.*;
 import org.junit.rules.ExpectedException;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 
 import java.io.FileNotFoundException;
 import java.nio.file.Files;
 import java.sql.ResultSet;
+import static org.mockito.Mockito.*;
 
 import static org.junit.Assert.*;
 
@@ -90,6 +94,24 @@ public class RouteDataHandlerTest {
         assertFalse(success);
     }
 
+    @Test
+    public void processLineValid() throws Exception {
+
+        String[] list = {"349","1/4/2016 15:45:52","1/4/2016 15:51:41","305","E 58 St & 3 Ave","40.76095756","-73.96724467","510","W 51 St & 6 Ave","40.7606597","-73.98042047","23483","Subscriber","1983","1"};
+        CSVImporter importer = mock(CSVImporter.class);
+        routeDataHandler.processLine(list, importer);
+        verify(importer).result(true);
+    }
+
+    @Test
+    public void processLineTooShort() throws Exception {
+        String[] list = {"349","1/4/2016 15:45:52","1/4/2016 15:51:41","305","E 58 St & 3 Ave","40.76095756","-73.96724467","510","W 51 St & 6 Ave","40.7606597","-73.98042047","23483","Subscriber","1983"};
+        CSVImporter importer = mock(CSVImporter.class);
+        routeDataHandler.processLine(list, importer);
+        verify(importer).result(false);
+    }
+}
+
 //    @Test
 //    public void processCSVIncorrectFormat() throws Exception {
 //        exception.expect(NoSuchFieldException.class);
@@ -130,8 +152,4 @@ public class RouteDataHandlerTest {
 //        long expectedAverage = 10000/500;
 //        System.out.println(timeTaken);
 //        System.out.println(average);
-//        System.out.println(expectedAverage);
-//        assertTrue(average > expectedAverage);
-//    }
-
-}
+//        System.out.println(expect

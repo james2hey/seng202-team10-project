@@ -2,22 +2,26 @@ package dataManipulation;
 
 
 import dataAnalysis.RetailLocation;
-import dataHandler.Geocoder;
-import dataHandler.RetailerDataHandler;
-import dataHandler.SQLiteDB;
+import dataHandler.*;
+import de.saxsys.javafx.test.JfxRunner;
+import de.saxsys.javafx.test.TestInJfxThread;
+import javafx.concurrent.Task;
 import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import java.nio.file.Files;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertTrue;
 
+@RunWith(JfxRunner.class)
 public class FindNearbyLocations_Retailers_Test {
 
-    private ArrayList<RetailLocation> retailers;
-    private SQLiteDB db;
+    private static ArrayList<RetailLocation> retailers;
+    private static SQLiteDB db;
 
     @AfterClass
     public static void clearDB() throws Exception {
@@ -26,16 +30,20 @@ public class FindNearbyLocations_Retailers_Test {
         Files.delete(path);
     }
 
-    @Before
-    public void setUp() throws Exception {
+    @BeforeClass
+    @TestInJfxThread
+    public static void setUp() throws Exception {
         retailers = new ArrayList<>();
 
         String home = System.getProperty("user.home");
         java.nio.file.Path path = java.nio.file.Paths.get(home, "testdatabase.db");
         db = new SQLiteDB(path.toString());
 
-        Geocoder.init();
-        RetailerDataHandler retailerDataHandler = new RetailerDataHandler(db);
+        RetailerDataHandlerFake handler = new RetailerDataHandlerFake(db);
+
+        Task<Void> task = new CSVImporter(db, DataFilterer_Retailers_Test.class.getClassLoader().getResource("CSV/Lower_Manhattan_Retailers-test4.csv").getFile(), handler);
+        task.run();
+
         //retailerDataHandler.processCSV(getClass().getClassLoader().getResource("CSV/Lower_Manhattan_Retailers-test4.csv").getFile());
     }
 

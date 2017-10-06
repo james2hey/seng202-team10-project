@@ -1,48 +1,69 @@
 package dataManipulation;
 
-import dataHandler.RetailerDataHandler;
-import dataHandler.RouteDataHandler;
-import dataHandler.SQLiteDB;
-import dataHandler.WifiDataHandler;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import dataHandler.*;
+import de.saxsys.javafx.test.JfxRunner;
+import de.saxsys.javafx.test.TestInJfxThread;
+import javafx.concurrent.Task;
+import org.junit.*;
+import org.junit.runner.RunWith;
 
 import java.nio.file.Files;
 import java.sql.ResultSet;
 
 import static org.junit.Assert.*;
 
-
+@RunWith(JfxRunner.class)
 public class UpdateData_Routes_Wifi_Test {
 
-    private SQLiteDB db;
+    private static SQLiteDB db;
 
 
-    @After
-    public void tearDown() throws Exception {
+    @AfterClass
+    public static void tearDown() throws Exception {
         String home = System.getProperty("user.home");
         java.nio.file.Path path = java.nio.file.Paths.get(home, "testdatabase.db");
         Files.delete(path);
     }
 
 
-    @Before
-    public void setUp() throws Exception {
+//    @Before
+//    public void setUp() throws Exception {
+//        String home = System.getProperty("user.home");
+//        java.nio.file.Path path = java.nio.file.Paths.get(home, "testdatabase.db");
+//        db = new SQLiteDB(path.toString());
+//        UpdateData.init(db);
+//
+//
+//        WifiDataHandler wdh = new WifiDataHandler(db);
+//        //wdh.processCSV(getClass().getClassLoader().getResource("CSV/NYC_Free_Public_WiFi_03292017-test.csv").getFile());
+//
+//        RouteDataHandler rdh = new RouteDataHandler(db);
+//        //rdh.processCSV(getClass().getClassLoader().getResource("CSV/201601-citibike-tripdata-test.csv").getFile());
+//
+//    }
+    @BeforeClass
+    @TestInJfxThread
+    public static void setUp() throws Exception {
+        ClassLoader loader = DataFilterer_Routes_Wifi_Test.class.getClassLoader();
+        Task<Void> task;
+
         String home = System.getProperty("user.home");
         java.nio.file.Path path = java.nio.file.Paths.get(home, "testdatabase.db");
         db = new SQLiteDB(path.toString());
+
         UpdateData.init(db);
 
+        WifiDataHandler wifiDataHandler = new WifiDataHandler(db);
+        RouteDataHandler routeDataHandler = new RouteDataHandler(db);
 
-        WifiDataHandler wdh = new WifiDataHandler(db);
-        //wdh.processCSV(getClass().getClassLoader().getResource("CSV/NYC_Free_Public_WiFi_03292017-test.csv").getFile());
+        task = new CSVImporter(db, loader.getResource("CSV/NYC_Free_Public_WiFi_03292017-test.csv").getFile(), wifiDataHandler);
+        task.run();
 
-        RouteDataHandler rdh = new RouteDataHandler(db);
-        //rdh.processCSV(getClass().getClassLoader().getResource("CSV/201601-citibike-tripdata-test.csv").getFile());
+        task = new CSVImporter(db, loader.getResource("CSV/201601-citibike-tripdata-test.csv").getFile(), routeDataHandler);
+        task.run();
 
+        System.out.println(db.executeQuerySQL("select count(*) from route_information").getInt(1));
     }
-
 
     @Test
     public void updateRouteFieldDuration_500_() throws Exception {

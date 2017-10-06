@@ -14,6 +14,8 @@ import java.util.Map;
 import java.util.Properties;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 /**
  * Created by jes143 on 25/09/17.
@@ -24,7 +26,7 @@ public class RetailerDataHandlerTest {
     public final ExpectedException exception = ExpectedException.none();
 
     private static SQLiteDB db;
-    private static RetailerDataHandler retailerDataHandler;
+    private static RetailerDataHandlerFake retailerDataHandler;
 
     @AfterClass
     public static void clearDB() throws Exception {
@@ -47,7 +49,7 @@ public class RetailerDataHandlerTest {
 
     @Before
     public void init() throws Exception {
-        retailerDataHandler = new RetailerDataHandler(db);
+        retailerDataHandler = new RetailerDataHandlerFake(db);
     }
 
     @Test
@@ -76,53 +78,29 @@ public class RetailerDataHandlerTest {
         assertFalse(success);
     }
 
-//    @Test
-//    public void processCSVIncorrectFormat() throws Exception {
-//        exception.expect(NoSuchFieldException.class);
-//        retailerDataHandler.processCSV(getClass().getClassLoader().getResource("CSV/NYC_Free_Public_WiFi_03292017-test.csv").getFile());
-//    }
-//
-//    @Test
-//    public void processCSVInvalidFile() throws Exception {
-//        exception.expect(FileNotFoundException.class);
-//        retailerDataHandler.processCSV("NotARealFile.csv");
-//    }
-//
-//    @Test
-//    public void processCSVValid() throws Exception {
-//        Geocoder.init();
-//        //exception.expect(ConnectException.class);
-//        retailerDataHandler.processCSV(getClass().getClassLoader().getResource("CSV/Lower_Manhattan_Retailers-test-2.csv").getFile());
-//        ResultSet rs = db.executeQuerySQL("SELECT COUNT(*) FROM retailer");
-//        assertEquals(2, rs.getInt(1));
-//        //System.out.println(rs.getInt(1));
-//    }
-//
-//    @Test
-//    public void processCSVValidTwice() throws Exception {
-//        Geocoder.init();
-//        retailerDataHandler.processCSV(getClass().getClassLoader().getResource("CSV/Lower_Manhattan_Retailers-test-2.csv").getFile());
-//        retailerDataHandler.processCSV(getClass().getClassLoader().getResource("CSV/Lower_Manhattan_Retailers-test-2.csv").getFile());
-//        ResultSet rs = db.executeQuerySQL("SELECT COUNT(*) FROM retailer");
-//        assertEquals(2, rs.getInt(1));
-//    }
-//
-//    @Ignore
-//    @Test
-//    public void testImportSpeed() throws Exception {
-//        Geocoder.init();
-//        long startTime = System.currentTimeMillis();
-//        int[] results = retailerDataHandler.processCSV(getClass().getClassLoader().getResource("CSV/Lower_Manhattan_Retailers-test.csv").getFile());
-//
-//        long endTime = System.currentTimeMillis();
-//        long timeTaken = endTime - startTime;
-//        double average = 50/timeTaken;
-//        long expectedAverage = 10000/500;
-//        System.out.println(timeTaken);
-//        System.out.println(average);
-//        System.out.println(expectedAverage);
-//        System.out.println(results[0]);
-//        System.out.println(results[1]);
-//        assertTrue(average > expectedAverage);
-//    }
+    @Test
+    public void processLineValidOld() throws Exception {
+
+        String[] list = {"Starbucks Coffee","3 New York Plaza","","New York","NY","10004","8-32","Casual Eating & Takeout","F-Coffeehouse"};
+        CSVImporter importer = mock(CSVImporter.class);
+        retailerDataHandler.processLine(list, importer);
+        verify(importer).result(true);
+    }
+
+    @Test
+    public void processLineValidNew() throws Exception {
+
+        String[] list = {"New York Health & Racquet Club","39 Whitehall Street","","New York","NY","10004","Aug-32","Personal and Professional Services","P-Athletic Clubs/Fitness","MANHATTAN","40.703037","-74.012969","1","1","9","1087700","1000087501","Battery Park City-Lower Manhattan"};
+        CSVImporter importer = mock(CSVImporter.class);
+        retailerDataHandler.processLine(list, importer);
+        verify(importer).result(true);
+    }
+
+    @Test
+    public void processLineInvalidFieldCount() throws Exception {
+        String[] list = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
+        CSVImporter importer = mock(CSVImporter.class);
+        retailerDataHandler.processLine(list, importer);
+        verify(importer).result(false);
+    }
 }

@@ -2,16 +2,19 @@ package dataManipulation;
 
 
 import dataAnalysis.RetailLocation;
-import dataHandler.Geocoder;
-import dataHandler.RetailerDataHandler;
-import dataHandler.SQLiteDB;
+import dataHandler.*;
+import de.saxsys.javafx.test.JfxRunner;
+import de.saxsys.javafx.test.TestInJfxThread;
+import javafx.concurrent.Task;
 import org.junit.*;
+import org.junit.runner.RunWith;
 
 import java.nio.file.Files;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertTrue;
 
+@RunWith(JfxRunner.class)
 public class DataFilterer_Retailers_Test {
 
 
@@ -27,13 +30,15 @@ public class DataFilterer_Retailers_Test {
 
 
     @BeforeClass
+    @TestInJfxThread
     public static void setUpBeforeClass() throws Exception {
+        System.out.println("here");
         String home = System.getProperty("user.home");
         java.nio.file.Path path = java.nio.file.Paths.get(home, "testdatabase.db");
         db = new SQLiteDB(path.toString());
-        Geocoder.init();
-        RetailerDataHandler retailerDataHandler = new RetailerDataHandler(db);
-        //retailerDataHandler.processCSV(DataFilterer_Retailers_Test.class.getClassLoader().getResource("CSV/Lower_Manhattan_Retailers-test.csv").getFile());
+        RetailerDataHandlerFake handler = new RetailerDataHandlerFake(db);
+        Task<Void> task = new CSVImporter(db, DataFilterer_Retailers_Test.class.getClassLoader().getResource("CSV/Lower_Manhattan_Retailers-test.csv").getFile(), handler);
+        task.run();
     }
 
     @Test
