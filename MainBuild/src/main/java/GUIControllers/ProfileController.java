@@ -41,10 +41,8 @@ import static main.Cyclist.*;
 /**
  * Controller for the user information scene.
  */
-public class UserInformationController extends Controller implements Initializable {
+public class ProfileController extends Controller implements Initializable {
 
-    @FXML
-    private Text longestRoute;
 
     @FXML
     private ComboBox<String> gender;
@@ -53,91 +51,31 @@ public class UserInformationController extends Controller implements Initializab
     private DatePicker dob;
 
     @FXML
-    private Text mostVisitedRetailer;
-
-    @FXML
     private JFXTextField name;
-
-    @FXML
-    private Text shortestRoute;
-
-    @FXML
-    private Text totalDistance;
 
     @FXML
     private JFXHamburger hamburger;
 
-//    @FXML
-//    private BarChart<String, Number> graph;
-
-    @FXML
-    private TableView<Route> tableCompletedRoutes;
-
-    @FXML
-    private TableColumn<Route, String> startLocation;
-
-    @FXML
-    private TableColumn<Route, String> distance;
-
-    @FXML
-    private TableColumn<Route, String> completedRoutes;
-
-//    final static String austria = "Austria";
-//    final static String brazil = "Brazil";
-//    final static String france = "France";
-//    final static String italy = "Italy";
-//    final static String usa = "USA";
-
-    private ArrayList<Route> routeList = new ArrayList<>();
-    private ObservableList<Route> routeListObservable = FXCollections.observableArrayList();
-
 
 
     /**
-     * Runs on start up. Sets the values of the user profile to what is currently saved in the database.
-     * Also, calculates the User statistics and displays them for the user.
+     * Runs on loading the page. Sets the values of the user profile to what is currently saved in the database.
      *
      * @param location  Location of the fxml
      * @param resources Locale-specific data required for the method to run automatically
      */
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
-//        name.setText(getName());
-//        dob.setValue(LocalDate.of(getBirthYear(), getBmonth(), getBDay())); // This is crashing for some reason @Braden
-//        System.out.println(getGender());
-//        if (getGender() == 1) {
-//            gender.getSelectionModel().select("Male");
-//        } else if (getGender() == 2) {
-//            gender.getSelectionModel().select("Female");
-//        } else {
-//            gender.getSelectionModel().select("Other");
-//        }
-
-
-//        System.out.println("initialising graph");
-//        final CategoryAxis xAxis = new CategoryAxis();
-//        final NumberAxis yAxis = new NumberAxis();
-//        graph.setTitle("Recent Route Distances");
-//        xAxis.setLabel("Country");
-//        yAxis.setLabel("Value");
-//
-//        XYChart.Series series1 = new XYChart.Series();
-//        series1.setName("Fuck");
-//        series1.getData().add(new XYChart.Data(austria, 25601.34));
-//        series1.getData().add(new XYChart.Data(brazil, 20148.82));
-//        series1.getData().add(new XYChart.Data(france, 10000));
-//        series1.getData().add(new XYChart.Data(italy, 35407.15));
-//        series1.getData().add(new XYChart.Data(usa, 12000));
-
-//        graph.getData().addAll(series1);
-
-        routeListObservable.addAll(Main.hu.currentCyclist.getTakenRoutes());
-
-        startLocation.setCellValueFactory(new PropertyValueFactory<>("StartLocation"));
-        distance.setCellValueFactory(new PropertyValueFactory<>("Distance"));
-        tableCompletedRoutes.setItems(routeListObservable);
-
-        tableCompletedRoutes.getColumns().setAll();// needs to have the column table as a parameter.
+        name.setText(getName());
+        dob.setValue(LocalDate.of(getBirthYear(), getBmonth(), getBDay()));
+        System.out.println(getGender());
+        if (getGender() == 1) {
+            gender.getSelectionModel().select("Male");
+        } else if (getGender() == 2) {
+            gender.getSelectionModel().select("Female");
+        } else {
+            gender.getSelectionModel().select("Other");
+        }
     }
 
 
@@ -177,22 +115,6 @@ public class UserInformationController extends Controller implements Initializab
         }
     }
 
-
-    /**
-     * Deletes the selected route from the users taken routes.
-     */
-    @FXML
-    private void deleteTakenRoute() {
-        if (tableCompletedRoutes.getSelectionModel().getSelectedItem() != null) {
-            //Main.takenRouteTable.deleteTakenRoute();  --get selected route...
-            routeList.remove(tableCompletedRoutes.getSelectionModel().getSelectedItem());
-            routeListObservable.remove(tableCompletedRoutes.getSelectionModel().getSelectedItem());
-        } else {
-            makeErrorDialogueBox("No route selected", "No route was selected to delete." +
-                " You must\nchoose which route you want to delete.");
-
-        }
-    }
 
 
     /**

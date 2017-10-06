@@ -201,17 +201,31 @@ public abstract class Controller {
     }
 
     /**
-     * Changes the scene to the user information scene.
+     * Changes the scene to the profile scene.
      *
      * @param event Created when the method is called
      * @throws IOException Handles errors caused by an fxml not loading correctly
      */
     @FXML
-    public void changeToUserInformationScene(ActionEvent event) throws IOException {
-        Parent userInfoParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/userInformation.fxml"));
-        Scene userInfoScene = new Scene(userInfoParent);
+    public void changeToProfileScene(ActionEvent event) throws IOException {
+        Parent profileParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/profile.fxml"));
+        Scene profileScene = new Scene(profileParent);
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        currentStage.setScene(userInfoScene);
+        currentStage.setScene(profileScene);
+    }
+
+    /**
+     * Changes the scene to the user statistics scene.
+     *
+     * @param event Created when the method is called
+     * @throws IOException Handles errors caused by an fxml not loading correctly
+     */
+    @FXML
+    public void changeToStatisticsScene(ActionEvent event) throws IOException {
+        Parent statisticsParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/statistics.fxml"));
+        Scene statisticsScene = new Scene(statisticsParent);
+        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        currentStage.setScene(statisticsScene);
     }
 
     /**
