@@ -214,9 +214,9 @@ public class HandleUsers {
         } catch (SQLException e) {
             e.getMessage();
             String name = capitalizeFully(username);
-            currentCyclist = new Cyclist(name, day, month, year, 0); // JAMES SORT
             DatabaseUser d = new DatabaseUser(db);
             int genderInt = convertGender(gender);
+            currentCyclist = new Cyclist(name, day, month, year, genderInt); // JAMES SORT
             d.addUser(name, day, month, year, genderInt);
             created = true;
         }
