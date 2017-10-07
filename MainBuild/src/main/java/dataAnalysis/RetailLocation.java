@@ -10,11 +10,11 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 public class RetailLocation extends Location {
     private int zip;
-    private String city, state, mainType, secondaryType;
+    private String city, state, mainType, secondaryType, listName;
 
     // Constructor
     public RetailLocation(String retailName, String retailStreet, String retailCity, String mType, String sType,
-                          String retailState, int zipNumber, double lat, double lon) {
+                          String retailState, int zipNumber, double lat, double lon, String list) {
         name = retailName;
         address = retailStreet;
         city = retailCity;
@@ -24,6 +24,7 @@ public class RetailLocation extends Location {
         zip = zipNumber;
         latitude = lat;
         longitude = lon;
+        listName = list;
     }
 
 
@@ -111,6 +112,15 @@ public class RetailLocation extends Location {
         if (newLong != longitude) {
             longitude = newLong;
             UpdateData.updateRetailerField("long", Double.toString(longitude), name, address);
+        }
+    }
+
+    public String getListName() {return listName;}
+
+    public void setListName(String newList) {
+        if (!newList.equals(listName)) {
+            listName = newList;
+            UpdateData.updateRetailerField("list_name", newList, name, address);
         }
     }
 

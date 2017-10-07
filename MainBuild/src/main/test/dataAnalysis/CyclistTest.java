@@ -137,7 +137,7 @@ public class CyclistTest {
     public void addFavouriteRetail() throws Exception {
         FavouriteRetailData frd = new FavouriteRetailData(db);
         RetailLocation testRetail = new RetailLocation("Test Shop", "1 Test Street", "NY",
-                "Casual Eating", "F-Pizza", "NY", 10000, 0.0, 0.0);
+                "Casual Eating", "F-Pizza", "NY", 10000, 0.0, 0.0, null);
         testCyclist.addFavouriteRetail(testRetail, testCyclist.getName(), db);
         ResultSet rs;
 
@@ -151,7 +151,7 @@ public class CyclistTest {
         FavouriteWifiData fwd = new FavouriteWifiData(db);
         WifiLocation testWifi = new WifiLocation("1", 0.0, 0.0, "1 Test Street", "Guest",
                 "Free", "BPL", "free", "NY", "Manhattan",
-                10000);
+                10000, null);
         testCyclist.addFavouriteWifi(testWifi, testCyclist.getName(), db);
         ResultSet rs;
 

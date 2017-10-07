@@ -35,7 +35,7 @@ import java.util.ResourceBundle;
  * Controller for the plan route scene.
  */
 
-public class PlanRouteController extends Controller implements Initializable, MapComponentInitializedListener, DirectionsServiceCallback {
+public class MapController extends Controller implements Initializable, MapComponentInitializedListener, DirectionsServiceCallback {
 
     @FXML
     protected TextField startAddressField;
@@ -121,6 +121,8 @@ public class PlanRouteController extends Controller implements Initializable, Ma
         endAddress.bindBidirectional(endAddressField.textProperty());
         nearbyFinder = new FindNearbyLocations(Main.getDB());
     }
+
+
 
     /**
      * Called when enter key is pressed from inside the address textfields. Requests a route and loads it on the map.

@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXTextField;
 import dataAnalysis.RetailLocation;
+import dataHandler.SQLiteDB;
 import dataManipulation.DataFilterer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,6 +24,8 @@ import main.Main;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -36,6 +39,8 @@ public class RetailerDataViewerController extends DataViewerController {
     private JFXTextField streetInput;
     @FXML
     private ComboBox<String> primaryInput;
+    @FXML
+    private ComboBox<String> retailerLists;
     @FXML
     private TableView<RetailLocation> tableView;
     @FXML
@@ -71,6 +76,18 @@ public class RetailerDataViewerController extends DataViewerController {
      */
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
+
+        SQLiteDB db = Main.getDB();
+        try {
+            ResultSet rs = db.executeQuerySQL("SELECT list_name FROM lists");
+            while (rs.next()) {
+                retailerLists.getItems().add(rs.getString(1));
+            }
+            retailerLists.getItems().add("No Selection");
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
         Name.setCellValueFactory(new PropertyValueFactory<>("Name"));
         Address.setCellValueFactory(new PropertyValueFactory<>("Address"));
         Zip.setCellValueFactory(new PropertyValueFactory<>("Zip"));
@@ -159,8 +176,14 @@ public class RetailerDataViewerController extends DataViewerController {
         if (primaryType == null || primaryType.equals("No Selection")) {
             primaryType = null;
         }
+
+        String list = retailerLists.getSelectionModel().getSelectedItem();
+        if (list == null || list.equals("No Selection")) {
+            list = null;
+        }
+
         DataFilterer filterer = new DataFilterer(Main.getDB());
-        retailLocations = filterer.filterRetailers(name, address, primaryType, zip);
+        retailLocations = filterer.filterRetailers(name, address, primaryType, zip, list);
         System.out.println("Got data");
         for (RetailLocation retailLocation : retailLocations) {
             System.out.println(retailLocation.getName());

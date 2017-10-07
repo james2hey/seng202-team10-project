@@ -156,8 +156,8 @@ public class HelperFunctions {
         ArrayList<Route> takenList = new ArrayList<>();
         takenList.addAll(Main.hu.currentCyclist.getTakenRoutes());
         double distanceCycled = 0;
-        for(int i = 0; i < takenList.size(); i++) {
-            distanceCycled += takenList.get(i).getDistance();
+        for (Route route : takenList) {
+            distanceCycled += route.getDistance();
         }
         return HelperFunctions.format2dp(distanceCycled);
     }
@@ -207,9 +207,9 @@ public class HelperFunctions {
         ArrayList<Route> takenList = new ArrayList<>();
         takenList.addAll(Main.hu.currentCyclist.getTakenRoutes());
         double longestDistance = -1;
-        for (int i = 0; i < takenList.size(); i++) {
-            if (takenList.get(i).getDistance() > longestDistance) {
-                longestDistance = takenList.get(i).getDistance();
+        for (Route route : takenList) {
+            if (route.getDistance() > longestDistance) {
+                longestDistance = route.getDistance();
             }
         }
         return longestDistance;

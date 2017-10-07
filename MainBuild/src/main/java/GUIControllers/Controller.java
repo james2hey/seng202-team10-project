@@ -131,7 +131,7 @@ public abstract class Controller {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/planRoute.fxml"));
         Scene planRouteScene = new Scene(loader.load());
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        PlanRouteController controller = loader.<PlanRouteController>getController();
+        MapController controller = loader.<MapController>getController();
         controller.addWifiLocations(wifiLocations);
         controller.addRetailLocations(retailLocations);
         controller.addRoutes(routes);

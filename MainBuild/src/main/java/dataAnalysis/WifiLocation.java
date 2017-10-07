@@ -11,13 +11,13 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 public class WifiLocation extends Location {
     private int zip;
-    private String SSID, cost, provider, remarks, city, suburb, wifiID;
+    private String SSID, cost, provider, remarks, city, suburb, wifiID, listName;
 
 
     // Constructor
     public WifiLocation(String id, double wifiLatitude, double wifiLongitude, String wifiAddress, String wifiSSID,
                         String wifiCost, String wifiProvider, String wifiRemarks, String wifiCity, String wifiSuburb,
-                        int wifiZIP) {
+                        int wifiZIP, String list) {
         wifiID = id;
         latitude = wifiLatitude;
         longitude = wifiLongitude;
@@ -29,6 +29,7 @@ public class WifiLocation extends Location {
         city = wifiCity;
         suburb = wifiSuburb;
         zip = wifiZIP;
+        listName = list;
     }
 
     // Getters
@@ -144,6 +145,16 @@ public class WifiLocation extends Location {
         if (newLong != longitude) {
             longitude = newLong;
             UpdateData.updateWifiField("lon", Double.toString(longitude), wifiID);
+        }
+    }
+
+
+    public String getListName() {return listName;}
+
+    public void setListName(String newList) {
+        if (!newList.equals(listName)) {
+            listName = newList;
+            UpdateData.updateWifiField("list_name", newList, wifiID);
         }
     }
 

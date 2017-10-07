@@ -121,7 +121,7 @@ public class HandleUsersTest {
         Route testRoute = new Route(10, "00:00:00", "00:00:00", "01", "01", "2016",
                 "01", "01", "2016", 0.0, 0.0,
                 0.0, 0.0, 1, 2, "Test Street",
-                "Test2 Street", "10000", 1, "Subscriber", 20, "testlist");
+                "Test2 Street", "10000", 1, "Subscriber", 20, null);
 
         rdh.addSingleEntry(10, "2016","01","01","00:00:00", "2016",
                 "01", "01", "00:00:01", "10", "Test Station",
@@ -150,7 +150,7 @@ public class HandleUsersTest {
         Route testRoute = new Route(10, "00:00:00", "00:00:00", "01", "01", "2016",
                 "01", "01", "2016", 0.0, 0.0,
                 0.0, 0.0, 1, 2, "Test Street",
-                "Test2 Street", "10000", 1, "Subscriber", 20, "testlist");
+                "Test2 Street", "10000", 1, "Subscriber", 20, null);
 
         rdh.addSingleEntry(10, "2016","01","01","00:00:00", "2016",
                 "01", "01", "00:00:01", "10", "Test Station",
@@ -179,7 +179,7 @@ public class HandleUsersTest {
         WifiDataHandler wdh = new WifiDataHandler(db);
         WifiLocation testWifi = new WifiLocation("1", 0.0, 0.0, "1 Test Street", "Guest",
                 "Free", "BPL", "free", "NY", "Manhattan",
-                10000);
+                10000, null);
         wdh.addSingleEntry("1", "Free", "BPL", "1 Test Street", 0.0, 0.0,
                 "free", "NY", "Guest", "Manhattan", "10000");
 
@@ -206,7 +206,7 @@ public class HandleUsersTest {
         // Init RetailerDataHandler and add an entry.
         RetailerDataHandler rdh = new RetailerDataHandler(db);
         RetailLocation testRetail = new RetailLocation("Test Shop", "1 Test Street", "NY",
-                "Casual Eating", "F-Pizza", "NY", 10000, 0.0, 0.0);
+                "Casual Eating", "F-Pizza", "NY", 10000, 0.0, 0.0, null);
         rdh.addSingleEntry("Test Shop", "1 Test Street", 0.0, 0.0, "NY", "NY",
                 "10000", "Casual Eating", "F-Pizza");
 
