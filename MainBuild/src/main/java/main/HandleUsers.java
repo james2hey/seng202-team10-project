@@ -44,6 +44,7 @@ public class HandleUsers {
         getUserRouteFavourites();
         getUserWifiFavourites();
         getUserRetailFavourites();
+        System.out.println("THE SIZE = " + currentCyclist.getFavouriteRouteList().size());
     }
 
     /**
@@ -118,6 +119,7 @@ public class HandleUsers {
                 ps.setString(4, rsFavourites.getString(5));
                 ps.setString(5, rsFavourites.getString(6));
                 rsRoute = ps.executeQuery();
+                System.out.println("HERE");
                 tempRoute = new Route(rsRoute.getInt("tripduration"), rsRoute.getString("start_time"),
                         rsRoute.getString("end_time"), rsRoute.getString("start_day"),
                         rsRoute.getString("start_month"), rsRoute.getString("start_year"),
@@ -130,6 +132,7 @@ public class HandleUsers {
                         rsRoute.getInt("gender"), rsRoute.getString("usertype"),
                         rsRoute.getInt("birth_year"), rsRoute.getString("list_name"),
                         rsFavourites.getInt("rank"));
+                System.out.println("HERE");
                 currentCyclist.addFavouriteRouteInstance(tempRoute);
             }
         } catch (SQLException e) {

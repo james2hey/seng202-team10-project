@@ -144,103 +144,108 @@ public class AddDataController extends Controller implements Initializable {
         double[] sLatLon;
         double[] eLatLon;
 
-        listDataHandler.setListName(listInput.getSelectionModel().getSelectedItem());
-        listDataHandler.addList(listInput.getSelectionModel().getSelectedItem());
-        initListCombobox();
+        if (listDataHandler.checkListName(listInput.getSelectionModel().getSelectedItem()) == true) {
+            makeErrorDialogueBox("List name already exists", "This list name has been used by " +
+                    "another user,\nplease choose another name");
+        } else {
+            listDataHandler.setListName(listInput.getSelectionModel().getSelectedItem());
+            listDataHandler.addList(listInput.getSelectionModel().getSelectedItem());
+            initListCombobox();
 
-        try {
-            if (rSAddress.getText().length() != 0 || rEAddress.getText().length() != 0) {
-                sLatLon = Geocoder.addressToLatLon(rSAddress.getText());
-                eLatLon = Geocoder.addressToLatLon(rEAddress.getText());
+            try {
+                if (rSAddress.getText().length() != 0 || rEAddress.getText().length() != 0) {
+                    sLatLon = Geocoder.addressToLatLon(rSAddress.getText());
+                    eLatLon = Geocoder.addressToLatLon(rEAddress.getText());
+                } else {
+                    makeErrorDialogueBox("Something wrong with input", "Fill all required fields\nCheck entry is not already in database");
+                    return;
+                }
+            } catch (ApiException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("API Error");
+                alert.setHeaderText("Google API Error");
+                alert.setContentText("The application could not get the lat and lon because there was an issue with the API");
+                alert.showAndWait();
+                return;
+            } catch (IOException | InterruptedException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("IO Error");
+                alert.setHeaderText("Input Error");
+                alert.setContentText("The application could not convert the address as it could not connect to the internet");
+                alert.showAndWait();
+                return;
+            }
+            SLatitude = sLatLon[0];
+            SLongitude = sLatLon[1];
+            ELatitude = eLatLon[0];
+            ELongitude = eLatLon[1];
+
+            String username;
+            try {
+                username = Main.hu.currentCyclist.getName();
+            } catch (Exception e) {
+                username = "_";
+            }
+
+            try { //Start Date
+                sDateError.setVisible(false);
+                sDate = HelperFunctions.convertDates(rSDate.getValue().toString());
+                if (sDate == null) {
+                    errorOccurred = true;
+                    sDateError.setVisible(true);
+                }
+            } catch (Exception e) {
+                sDateError.setVisible(true);
+                errorOccurred = true;
+            }
+
+            try { // End Date
+                eDateError.setVisible(false);
+                eDate = HelperFunctions.convertDates(rEDate.getValue().toString());
+                if (eDate == null) {
+                    errorOccurred = true;
+                    //eDateError.setVisible(true);
+                }
+            } catch (Exception e) {
+                eDateError.setVisible(true);
+                errorOccurred = true;
+            }
+
+            if (HelperFunctions.checkTime(rSTime.getText())) {
+                sTime = rSTime.getText() + ":00";
+                sTimeError.setVisible(false);
             } else {
+                errorOccurred = true;
+                sTimeError.setVisible(true);
+            }
+
+            if (HelperFunctions.checkTime(rETime.getText())) {
+                eTime = rETime.getText() + ":00";
+                eTimeError.setVisible(false);
+            } else {
+                eTimeError.setVisible(true);
+                errorOccurred = true;
+            }
+            if (errorOccurred) {
                 makeErrorDialogueBox("Something wrong with input", "Fill all required fields\nCheck entry is not already in database");
                 return;
             }
-        } catch (ApiException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("API Error");
-            alert.setHeaderText("Google API Error");
-            alert.setContentText("The application could not get the lat and lon because there was an issue with the API");
-            alert.showAndWait();
-            return;
-        } catch (IOException | InterruptedException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("IO Error");
-            alert.setHeaderText("Input Error");
-            alert.setContentText("The application could not convert the address as it could not connect to the internet");
-            alert.showAndWait();
-            return;
-        }
-        SLatitude = sLatLon[0];
-        SLongitude = sLatLon[1];
-        ELatitude = eLatLon[0];
-        ELongitude = eLatLon[1];
+            System.out.println(rSTime.getText());
+            System.out.println(rSTime.getText());
+            int duration = HelperFunctions.getDuration(sDate[0], sDate[1], sDate[2], sTime,
+                    eDate[0], eDate[1], eDate[2], eTime);
+            RouteDataHandler newRoute = new RouteDataHandler(Main.getDB());
+            Boolean fromHandler = newRoute.addSingleEntry(duration, sDate[0], sDate[1], sDate[2], sTime,
+                    eDate[0], eDate[1], eDate[2], eTime, null,
+                    rSAddress.getText(), SLatitude, SLongitude, null, rEAddress.getText(), ELatitude, ELongitude,
+                    username, "Custom", Main.hu.currentCyclist.getBYear(), Main.hu.currentCyclist.getGender());
+            //get distance
 
-        String username;
-        try {
-            username = Main.hu.currentCyclist.getName();
-        } catch (Exception e) {
-            username = "_";
-        }
-
-        try { //Start Date
-            sDateError.setVisible(false);
-            sDate = HelperFunctions.convertDates(rSDate.getValue().toString());
-            if (sDate == null) {
-                errorOccurred = true;
-                sDateError.setVisible(true);
+            if (!fromHandler) {
+                makeErrorDialogueBox("Something wrong with input", "Fill all required fields\nCheck entry is not already in database");
+            } else {
+                makeSuccessDialogueBox("Successfully added route to Database", "You may add more entries");
             }
-        } catch (Exception e) {
-            sDateError.setVisible(true);
-            errorOccurred = true;
-        }
-
-        try { // End Date
-            eDateError.setVisible(false);
-            eDate = HelperFunctions.convertDates(rEDate.getValue().toString());
-            if (eDate == null) {
-                errorOccurred = true;
-                //eDateError.setVisible(true);
-            }
-        } catch (Exception e) {
-            eDateError.setVisible(true);
-            errorOccurred = true;
-        }
-
-        if (HelperFunctions.checkTime(rSTime.getText())) {
-            sTime = rSTime.getText() + ":00";
-            sTimeError.setVisible(false);
-        } else {
-            errorOccurred = true;
-            sTimeError.setVisible(true);
-        }
-
-        if (HelperFunctions.checkTime(rETime.getText())) {
-            eTime = rETime.getText() + ":00";
-            eTimeError.setVisible(false);
-        } else {
-            eTimeError.setVisible(true);
-            errorOccurred = true;
-        }
-        if (errorOccurred) {
-            makeErrorDialogueBox("Something wrong with input", "Fill all required fields\nCheck entry is not already in database");
-            return;
-        }
-        System.out.println(rSTime.getText());
-        System.out.println(rSTime.getText());
-        int duration = HelperFunctions.getDuration(sDate[0], sDate[1], sDate[2], sTime,
-                eDate[0], eDate[1], eDate[2], eTime);
-        RouteDataHandler newRoute = new RouteDataHandler(Main.getDB());
-        Boolean fromHandler = newRoute.addSingleEntry(duration, sDate[0], sDate[1], sDate[2], sTime,
-                eDate[0], eDate[1], eDate[2], eTime, null,
-                rSAddress.getText(), SLatitude, SLongitude, null, rEAddress.getText(), ELatitude, ELongitude,
-                username, "Custom", Main.hu.currentCyclist.getBYear(), Main.hu.currentCyclist.getGender());
-        //get distance
-
-        if (!fromHandler) {
-            makeErrorDialogueBox("Something wrong with input", "Fill all required fields\nCheck entry is not already in database");
-        } else {
-            makeSuccessDialogueBox("Successfully added route to Database", "You may add more entries");
         }
     }
 
@@ -257,56 +262,61 @@ public class AddDataController extends Controller implements Initializable {
         Boolean errorOccured = false;
         double[] latLon;
 
-        listDataHandler.setListName(listInput.getSelectionModel().getSelectedItem());
-        listDataHandler.addList(listInput.getSelectionModel().getSelectedItem());
-        initListCombobox();
+        if (listDataHandler.checkListName(listInput.getSelectionModel().getSelectedItem()) == true) {
+            makeErrorDialogueBox("List name already exists", "This list name has been used by " +
+                    "another user,\nplease choose another name");
+        } else {
+            listDataHandler.setListName(listInput.getSelectionModel().getSelectedItem());
+            listDataHandler.addList(listInput.getSelectionModel().getSelectedItem());
+            initListCombobox();
 
-        try {
-            if (retailerAddress.getText().length() != 0) {
-                latLon = Geocoder.addressToLatLon(retailerAddress.getText());
-            } else {
-                makeErrorDialogueBox("Something wrong with input", "Fill all required fields\nCheck entry is not already in database");
+            try {
+                if (retailerAddress.getText().length() != 0) {
+                    latLon = Geocoder.addressToLatLon(retailerAddress.getText());
+                } else {
+                    makeErrorDialogueBox("Something wrong with input", "Fill all required fields\nCheck entry is not already in database");
+                    return;
+                }
+            } catch (ApiException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("API Error");
+                alert.setHeaderText("Google API Error");
+                alert.setContentText("The application could not get the lat and lon because there was an issue with the API");
+                alert.showAndWait();
+                return;
+            } catch (IOException | InterruptedException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("IO Error");
+                alert.setHeaderText("Input Error");
+                alert.setContentText("The application could not convert the address as it could not connect to the internet");
+                alert.showAndWait();
                 return;
             }
-        } catch (ApiException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("API Error");
-            alert.setHeaderText("Google API Error");
-            alert.setContentText("The application could not get the lat and lon because there was an issue with the API");
-            alert.showAndWait();
-            return;
-        } catch (IOException | InterruptedException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("IO Error");
-            alert.setHeaderText("Input Error");
-            alert.setContentText("The application could not convert the address as it could not connect to the internet");
-            alert.showAndWait();
-            return;
-        }
 
-        if (retailerAddress.getText() == null) {
-            errorOccured = true;
-        }
-        if (retailerName.getText() == null) {
-            errorOccured = true;
-        }
-        if (retailerPrim.getSelectionModel().isEmpty()) {
-            errorOccured = true;
-        }
-        if (retailerSec.getText() == null) {
-            errorOccured = true;
-        }
-        if (!errorOccured) {
-            RetailerDataHandler newRetailer = new RetailerDataHandler(Main.getDB());
-            Boolean fromHandler = newRetailer.addSingleEntry(retailerName.getText(), retailerAddress.getText(), latLon[0], latLon[1], null,
-                    null, null, retailerPrim.getValue().toString(), retailerSec.getText());
-            if (!fromHandler) {
-                makeErrorDialogueBox("Something wrong with input", "Fill all required fields\nCheck entry is not already in database");
-            } else {
-                makeSuccessDialogueBox("Successfully added to retailer to Database", "You may add more entries");
+            if (retailerAddress.getText() == null) {
+                errorOccured = true;
             }
-        } else {
-            makeErrorDialogueBox("Something wrong with input", "Fill all required fields\nCheck entry is not already in database");
+            if (retailerName.getText() == null) {
+                errorOccured = true;
+            }
+            if (retailerPrim.getSelectionModel().isEmpty()) {
+                errorOccured = true;
+            }
+            if (retailerSec.getText() == null) {
+                errorOccured = true;
+            }
+            if (!errorOccured) {
+                RetailerDataHandler newRetailer = new RetailerDataHandler(Main.getDB());
+                Boolean fromHandler = newRetailer.addSingleEntry(retailerName.getText(), retailerAddress.getText(), latLon[0], latLon[1], null,
+                        null, null, retailerPrim.getValue().toString(), retailerSec.getText());
+                if (!fromHandler) {
+                    makeErrorDialogueBox("Something wrong with input", "Fill all required fields\nCheck entry is not already in database");
+                } else {
+                    makeSuccessDialogueBox("Successfully added to retailer to Database", "You may add more entries");
+                }
+            } else {
+                makeErrorDialogueBox("Something wrong with input", "Fill all required fields\nCheck entry is not already in database");
+            }
         }
     }
 
@@ -323,48 +333,53 @@ public class AddDataController extends Controller implements Initializable {
         Boolean errorOccured = false;
         double[] latLon;
 
-        listDataHandler.setListName(listInput.getSelectionModel().getSelectedItem());
-        listDataHandler.addList(listInput.getSelectionModel().getSelectedItem());
-        initListCombobox();
-
-        try {
-            if (wifiAddress.getText().length() != 0) {
-                latLon = Geocoder.addressToLatLon(wifiAddress.getText());
-            } else {
-                makeErrorDialogueBox("Something wrong with input", "Fill all required fields\nCheck entry is not already in database");
-                return;
-            }
-        } catch (ApiException e) {
-            makeErrorDialogueBox("Google API Error", "The application could not get the lat and lon\nThere was an issue with the API");
-            return;
-        } catch (IOException | InterruptedException e) {
-            makeErrorDialogueBox("Input Error", "The application could not convert the address \nIt could not connect to the internet");
-            return;
-        } catch (ArrayIndexOutOfBoundsException e) {
-            makeErrorDialogueBox("Input Error", "Invalid address.");
-            return;
-
-        }
-
-        if (wifiName.getText() == null) {
-            errorOccured = true;
-        }
-        if (wifiAddress.getText() == null) {
-            errorOccured = true;
-        }
-
-        if (!errorOccured) {
-
-            WifiDataHandler newWifi = new WifiDataHandler(Main.getDB());
-            Boolean fromHandler = newWifi.addSingleEntry(wifiName.getText(), "", "", wifiAddress.getText(), latLon[0], latLon[1],
-                    wifiComments.getText(), "", wifiName.getText(), "", wifiPostcode.getText());
-            if (!fromHandler) {
-                makeErrorDialogueBox("Something wrong with input", "Fill all required fields\nCheck entry is not already in database");
-            } else {
-                makeSuccessDialogueBox("Successfully added Wifi to Database", "You may add more entries");
-            }
+        if (listDataHandler.checkListName(listInput.getSelectionModel().getSelectedItem()) == true) {
+            makeErrorDialogueBox("List name already exists", "This list name has been used by " +
+                    "another user,\nplease choose another name");
         } else {
-            makeErrorDialogueBox("Something wrong with input", "Fill all required fields\nCheck entry is not already in database");
+            listDataHandler.setListName(listInput.getSelectionModel().getSelectedItem());
+            listDataHandler.addList(listInput.getSelectionModel().getSelectedItem());
+            initListCombobox();
+
+            try {
+                if (wifiAddress.getText().length() != 0) {
+                    latLon = Geocoder.addressToLatLon(wifiAddress.getText());
+                } else {
+                    makeErrorDialogueBox("Something wrong with input", "Fill all required fields\nCheck entry is not already in database");
+                    return;
+                }
+            } catch (ApiException e) {
+                makeErrorDialogueBox("Google API Error", "The application could not get the lat and lon\nThere was an issue with the API");
+                return;
+            } catch (IOException | InterruptedException e) {
+                makeErrorDialogueBox("Input Error", "The application could not convert the address \nIt could not connect to the internet");
+                return;
+            } catch (ArrayIndexOutOfBoundsException e) {
+                makeErrorDialogueBox("Input Error", "Invalid address.");
+                return;
+
+            }
+
+            if (wifiName.getText() == null) {
+                errorOccured = true;
+            }
+            if (wifiAddress.getText() == null) {
+                errorOccured = true;
+            }
+
+            if (!errorOccured) {
+
+                WifiDataHandler newWifi = new WifiDataHandler(Main.getDB());
+                Boolean fromHandler = newWifi.addSingleEntry(wifiName.getText(), "", "", wifiAddress.getText(), latLon[0], latLon[1],
+                        wifiComments.getText(), "", wifiName.getText(), "", wifiPostcode.getText());
+                if (!fromHandler) {
+                    makeErrorDialogueBox("Something wrong with input", "Fill all required fields\nCheck entry is not already in database");
+                } else {
+                    makeSuccessDialogueBox("Successfully added Wifi to Database", "You may add more entries");
+                }
+            } else {
+                makeErrorDialogueBox("Something wrong with input", "Fill all required fields\nCheck entry is not already in database");
+            }
         }
 
     }
@@ -402,58 +417,15 @@ public class AddDataController extends Controller implements Initializable {
     @FXML
     // Import file -> only allows *.csv and prints location afterwards for now...
     void chooseRoute(ActionEvent event) throws IOException {
-        listDataHandler.setListName(listInput.getSelectionModel().getSelectedItem());
-        listDataHandler.addList(listInput.getSelectionModel().getSelectedItem());
-        initListCombobox();
 
-        FileChooser fileChooser = new FileChooser();
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV (*.csv)", "*.csv");
-        fileChooser.getExtensionFilters().add(extFilter);
-        File file = fileChooser.showOpenDialog(((Node) event.getSource()).getScene().getWindow());
-        System.out.println(file);
-        if (file == null) {
-            return;
-        }
+        if (listDataHandler.checkListName(listInput.getSelectionModel().getSelectedItem()) == true) {
+            makeErrorDialogueBox("List name already exists", "This list name has been used by " +
+                    "another user,\nplease choose another name");
+        } else {
+            listDataHandler.setListName(listInput.getSelectionModel().getSelectedItem());
+            listDataHandler.addList(listInput.getSelectionModel().getSelectedItem());
+            initListCombobox();
 
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/progressPopup.fxml"));
-        Parent progressParent = loader.load();
-        ProgressPopupController controller = loader.getController();
-        Scene progressScene = new Scene(progressParent);
-        Stage dialogStage = new Stage();
-        dialogStage.initStyle(StageStyle.UTILITY);
-        dialogStage.setResizable(false);
-        dialogStage.initModality(Modality.APPLICATION_MODAL);
-        dialogStage.setScene(progressScene);
-        dialogStage.show();
-
-        RouteDataHandler handler = new RouteDataHandler(db);
-        Task<Void> task = new CSVImporter(db, file.toString(), handler);
-        controller.activateProgressBar(task);
-        Thread thread = new Thread(task);
-        thread.start();
-        dialogStage.setOnCloseRequest(e -> task.cancel());
-
-
-    }
-
-
-    /**
-     * Opens system file viewer and accepts only *.csv type files,
-     * will print the file string to system and send it to the
-     * retailerDataHandler.
-     *
-     * @param event Clicking the Retailers button after Import File.
-     * @throws IOException
-     */
-    @FXML
-    //Specifies file types.
-    void chooseRetailer(ActionEvent event) throws IOException {
-        listDataHandler.setListName(listInput.getSelectionModel().getSelectedItem());
-        listDataHandler.addList(listInput.getSelectionModel().getSelectedItem());
-        initListCombobox();
-
-        boolean result = makeConfirmationDialogueBox("Warning! Depending on file size, this may take a few minutes.", "Are you sure you want to continue?");
-        if (result) {
             FileChooser fileChooser = new FileChooser();
             FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV (*.csv)", "*.csv");
             fileChooser.getExtensionFilters().add(extFilter);
@@ -474,12 +446,65 @@ public class AddDataController extends Controller implements Initializable {
             dialogStage.setScene(progressScene);
             dialogStage.show();
 
-            RetailerDataHandler handler = new RetailerDataHandler(db);
+            RouteDataHandler handler = new RouteDataHandler(db);
             Task<Void> task = new CSVImporter(db, file.toString(), handler);
             controller.activateProgressBar(task);
             Thread thread = new Thread(task);
             thread.start();
             dialogStage.setOnCloseRequest(e -> task.cancel());
+        }
+    }
+
+
+    /**
+     * Opens system file viewer and accepts only *.csv type files,
+     * will print the file string to system and send it to the
+     * retailerDataHandler.
+     *
+     * @param event Clicking the Retailers button after Import File.
+     * @throws IOException
+     */
+    @FXML
+    //Specifies file types.
+    void chooseRetailer(ActionEvent event) throws IOException {
+
+        if (listDataHandler.checkListName(listInput.getSelectionModel().getSelectedItem()) == true) {
+            makeErrorDialogueBox("List name already exists", "This list name has been used by " +
+                    "another user,\nplease choose another name");
+        } else {
+            listDataHandler.setListName(listInput.getSelectionModel().getSelectedItem());
+            listDataHandler.addList(listInput.getSelectionModel().getSelectedItem());
+            initListCombobox();
+
+            boolean result = makeConfirmationDialogueBox("Warning! Depending on file size, this may take a few minutes.", "Are you sure you want to continue?");
+            if (result) {
+                FileChooser fileChooser = new FileChooser();
+                FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV (*.csv)", "*.csv");
+                fileChooser.getExtensionFilters().add(extFilter);
+                File file = fileChooser.showOpenDialog(((Node) event.getSource()).getScene().getWindow());
+                System.out.println(file);
+                if (file == null) {
+                    return;
+                }
+
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/progressPopup.fxml"));
+                Parent progressParent = loader.load();
+                ProgressPopupController controller = loader.getController();
+                Scene progressScene = new Scene(progressParent);
+                Stage dialogStage = new Stage();
+                dialogStage.initStyle(StageStyle.UTILITY);
+                dialogStage.setResizable(false);
+                dialogStage.initModality(Modality.APPLICATION_MODAL);
+                dialogStage.setScene(progressScene);
+                dialogStage.show();
+
+                RetailerDataHandler handler = new RetailerDataHandler(db);
+                Task<Void> task = new CSVImporter(db, file.toString(), handler);
+                controller.activateProgressBar(task);
+                Thread thread = new Thread(task);
+                thread.start();
+                dialogStage.setOnCloseRequest(e -> task.cancel());
+            }
         }
     }
 
@@ -493,36 +518,42 @@ public class AddDataController extends Controller implements Initializable {
      */
     @FXML
     void chooseWifi(ActionEvent event) throws IOException {
-        listDataHandler.setListName(listInput.getSelectionModel().getSelectedItem());
-        listDataHandler.addList(listInput.getSelectionModel().getSelectedItem());
-        initListCombobox();
 
-        FileChooser fileChooser = new FileChooser();
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV (*.csv)", "*.csv");
-        fileChooser.getExtensionFilters().add(extFilter);
-        File file = fileChooser.showOpenDialog(((Node) event.getSource()).getScene().getWindow());
-        System.out.println(file);
-        if (file == null) {
-            return;
+        if (listDataHandler.checkListName(listInput.getSelectionModel().getSelectedItem()) == true) {
+            makeErrorDialogueBox("List name already exists", "This list name has been used by " +
+                    "another user,\nplease choose another name");
+        } else {
+            listDataHandler.setListName(listInput.getSelectionModel().getSelectedItem());
+            listDataHandler.addList(listInput.getSelectionModel().getSelectedItem());
+            initListCombobox();
+
+            FileChooser fileChooser = new FileChooser();
+            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV (*.csv)", "*.csv");
+            fileChooser.getExtensionFilters().add(extFilter);
+            File file = fileChooser.showOpenDialog(((Node) event.getSource()).getScene().getWindow());
+            System.out.println(file);
+            if (file == null) {
+                return;
+            }
+
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/progressPopup.fxml"));
+            Parent progressParent = loader.load();
+            ProgressPopupController controller = loader.getController();
+            Scene progressScene = new Scene(progressParent);
+            Stage dialogStage = new Stage();
+            dialogStage.initStyle(StageStyle.UTILITY);
+            dialogStage.setResizable(false);
+            dialogStage.initModality(Modality.APPLICATION_MODAL);
+            dialogStage.setScene(progressScene);
+            dialogStage.show();
+
+            WifiDataHandler handler = new WifiDataHandler(db);
+            Task<Void> task = new CSVImporter(db, file.toString(), handler);
+            controller.activateProgressBar(task);
+            Thread thread = new Thread(task);
+            thread.start();
+            dialogStage.setOnCloseRequest(e -> task.cancel());
         }
-
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/progressPopup.fxml"));
-        Parent progressParent = loader.load();
-        ProgressPopupController controller = loader.getController();
-        Scene progressScene = new Scene(progressParent);
-        Stage dialogStage = new Stage();
-        dialogStage.initStyle(StageStyle.UTILITY);
-        dialogStage.setResizable(false);
-        dialogStage.initModality(Modality.APPLICATION_MODAL);
-        dialogStage.setScene(progressScene);
-        dialogStage.show();
-
-        WifiDataHandler handler = new WifiDataHandler(db);
-        Task<Void> task = new CSVImporter(db, file.toString(), handler);
-        controller.activateProgressBar(task);
-        Thread thread = new Thread(task);
-        thread.start();
-        dialogStage.setOnCloseRequest(e -> task.cancel());
     }
 
     /**
