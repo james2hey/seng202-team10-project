@@ -90,7 +90,7 @@ public class HandleUsers {
                         rsRoute.getInt("end_station_id"), rsRoute.getString("start_station_name"),
                         rsRoute.getString("end_station_name"), rsRoute.getString("bikeid"),
                         rsRoute.getInt("gender"), rsRoute.getString("usertype"),
-                        rsRoute.getInt("birth_year"), rsFavourites.getString("list_name"),
+                        rsRoute.getInt("birth_year"), rsRoute.getString("list_name"),
                         rsFavourites.getFloat("distance"));
                 currentCyclist.addTakenRouteInstance(tempRoute);
             }
@@ -128,7 +128,7 @@ public class HandleUsers {
                         rsRoute.getInt("end_station_id"), rsRoute.getString("start_station_name"),
                         rsRoute.getString("end_station_name"), rsRoute.getString("bikeid"),
                         rsRoute.getInt("gender"), rsRoute.getString("usertype"),
-                        rsRoute.getInt("birth_year"), rsFavourites.getString("list_name"),
+                        rsRoute.getInt("birth_year"), rsRoute.getString("list_name"),
                         rsFavourites.getInt("rank"));
                 currentCyclist.addFavouriteRouteInstance(tempRoute);
             }

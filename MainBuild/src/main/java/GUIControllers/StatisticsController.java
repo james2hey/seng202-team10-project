@@ -1,9 +1,13 @@
 package GUIControllers;
 
 import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.controls.JFXTextField;
+import com.sun.javafx.charts.Legend;
 import dataAnalysis.Route;
 import dataHandler.SQLiteDB;
 import dataHandler.TakenRoutes;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -14,7 +18,10 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import main.HelperFunctions;
 import main.Main;
@@ -45,6 +52,12 @@ public class StatisticsController extends Controller implements Initializable {
 
     @FXML
     private JFXHamburger hamburger;
+
+    @FXML
+    private Text errorText;
+
+    @FXML
+    private BorderPane errorBorder;
 
     @FXML
     private BarChart<String, Number> graph;
@@ -79,8 +92,7 @@ public class StatisticsController extends Controller implements Initializable {
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
         findStatistics(Main.getDB());
-        createGraph(Main.getDB());
-
+        loadGraph();
 
         //Initialise routes completed table.
         routeListObservable.addAll(Main.hu.currentCyclist.getTakenRoutes());
@@ -106,62 +118,78 @@ public class StatisticsController extends Controller implements Initializable {
         if (longest == -1) {
             longest = 0;
         }
+
         totalDistance.setText(total + " km");
         averageRoute.setText(average + " km");
         shortestRoute.setText(shortest + " km");
         longestRoute.setText(longest + " km");
     }
 
-
     /**
-     * Creates a visual representation of the taken routes on a bar graph.
-     * @param db The database to retrieve the graphs data
+     * Refreshes the graph, loads its data, and displays it on the graph. If less than 3 routes are in the completed
+     *
      */
-    private void createGraph(SQLiteDB db) {
-        //Initialise the graph.
-        final CategoryAxis xAxis = new CategoryAxis(); // SOMETHING NOT QUITE WORKING HERE LOL
-        final NumberAxis yAxis = new NumberAxis();
-        xAxis.setTickLabelFill(Color.RED);
-        graph.setTitle("Recent Route Distances");
+    private void loadGraph() {
+        //initialises the graph
+        errorText.setVisible(false);
+        errorBorder.setVisible(false);
+        graph.setOpacity(1);
 
-        //Selecting data to add
+        CategoryAxis xAxis = new CategoryAxis();
+        NumberAxis yAxis = new NumberAxis();
+        graph.setTitle("           Most Recent Route Distances\n");
+
+
         TakenRoutes t = new TakenRoutes(Main.getDB());
         ArrayList<String> recentRoutes = t.findFiveRecentRoutes();
-        System.out.println(recentRoutes);
-        XYChart.Series series1 = new XYChart.Series();
+        XYChart.Series<String,Number> series1 = new XYChart.Series();
 
+        if (recentRoutes.size() >= 3) {
+            //Adds the data
+            String currentRoute;
+            String currentDate = "";
+            Double currentDistance;
+            String[] currentData;
 
-
-        String currentRoute;
-        String currentDate;
-        Double currentDistance;
-        String[] currentData;
-
-//        currentRoute = recentRoutes.get(0);
-//        currentData = currentRoute.split("\\|");
-//        currentDate = currentData[0];
-//        currentDistance = Double.parseDouble(currentData[1]);
-//        series1.getData().add(new XYChart.Data(currentDate, currentDistance));
-
-        for (int count = 0; count<5; count++) {
-            System.out.println("We have entered the loop for the " + count + " time...");
-            try {
+            for (int count = 0; count < recentRoutes.size(); count++) {
                 currentRoute = recentRoutes.get(count);
                 currentData = currentRoute.split("\\|");
-                currentDate = currentData[0];
+                if (count == 0) {
+                    currentDate = "Most Recent";
+                } else if (count == 1) {
+                    currentDate = "2nd";
+                } else if (count == 2) {
+                    currentDate = "3rd";
+                } else if (count == 3) {
+                    currentDate = "4th";
+                } else if (count == 4) {
+                    currentDate = "5th";
+                }
                 currentDistance = Double.parseDouble(currentData[1]);
                 series1.getData().add(new XYChart.Data(currentDate, currentDistance));
-
-            } catch (Exception e) {
-                System.out.println("There are less than 5 routes in completed routes.");
             }
+        } else {
+            graph.setOpacity(0.3);
+            errorBorder.setVisible(true);
+            errorText.setVisible(true);
         }
 
+        graph.getData().clear();
+        graph.layout();
         graph.getData().addAll(series1);
 
-        graph.setLegendVisible(false);
+        //Sets the colour
+        series1.getData().forEach(d->
+                d.getNode().setStyle("-fx-bar-fill: "
+                        .concat(d.getYValue().floatValue()>-10?"navy;":
+                                d.getYValue().floatValue()>-11?"firebrick;":"orange")));
+        Legend legend = (Legend) graph.lookup(".chart-legend");
+        Legend.LegendItem li1=new Legend.LegendItem("Dates", new Rectangle(10,4,Color.NAVY));
+        legend.getItems().setAll(li1);
 
+        graph.setLegendVisible(false);
     }
+
 
     /**
      * Deletes the selected route from the users taken routes.
@@ -176,7 +204,7 @@ public class StatisticsController extends Controller implements Initializable {
             routeListObservable.remove(removingRoute);
             Main.hu.currentCyclist.getTakenRoutes().remove(removingRoute);
             findStatistics(Main.getDB());
-            createGraph(Main.getDB());
+            loadGraph();
         } else {
             makeErrorDialogueBox("No route selected", "No route was selected to delete." +
                     " You must\nchoose which route you want to delete.");

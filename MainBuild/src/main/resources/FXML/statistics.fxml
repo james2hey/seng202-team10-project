@@ -91,17 +91,23 @@
             <Blend />
          </effect>
       </JFXDrawer>
-      <BarChart fx:id="graph" title="Title" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
+      <BarChart fx:id="graph" animated="false" title="Title" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
         <xAxis>
-          <CategoryAxis label="Date" side="BOTTOM" />
+          <CategoryAxis label="Most Recent Routes" side="BOTTOM" />
         </xAxis>
         <yAxis>
           <NumberAxis label="Distance (km)" side="LEFT" upperBound="1.0" />
         </yAxis>
       </BarChart>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5">
+      <JFXHamburger fx:id="hamburger" onMouseClicked="#openDrawer" prefHeight="73.0" prefWidth="87.0" GridPane.columnIndex="5" />
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
          <children>
-            <JFXHamburger fx:id="hamburger" layoutX="24.0" layoutY="11.0" onMouseClicked="#openDrawer" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0" />
+            <Text fx:id="errorText" layoutX="103.0" layoutY="218.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You need to add at least 3 completed routes for a graph to display." textAlignment="CENTER" wrappingWidth="253.26123046875">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Text>
+            <BorderPane fx:id="errorBorder" layoutX="87.0" layoutY="179.0" prefHeight="151.0" prefWidth="276.0" style="-fx-border-color: black;" />
          </children>
       </AnchorPane>
    </children>
