@@ -130,7 +130,7 @@
       <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" GridPane.rowSpan="7" />
       <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5">
          <children>
-            <JFXHamburger fx:id="hamburger" layoutX="43.0" layoutY="31.0" onMouseClicked="#openDrawer" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="50.0" />
+            <JFXHamburger fx:id="hamburger" layoutX="43.0" layoutY="31.0" onMouseClicked="#openDrawer" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0" />
          </children>
       </AnchorPane>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="List Selection:" GridPane.columnIndex="4" GridPane.rowIndex="1" />
