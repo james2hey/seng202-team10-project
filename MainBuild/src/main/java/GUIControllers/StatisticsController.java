@@ -126,7 +126,9 @@ public class StatisticsController extends Controller implements Initializable {
     }
 
     /**
-     * Refreshes the graph, loads its data, and displays it on the graph. If less than 3 routes are in the completed
+     * Refreshes the graph, loads its data, and displays it on the graph. If less than 3 routes are completed,
+     * then the graph will not display, instead showing a message informing the user that they need to add more routes
+     * to the completed routes.
      *
      */
     private void loadGraph() {
@@ -169,6 +171,7 @@ public class StatisticsController extends Controller implements Initializable {
                 series1.getData().add(new XYChart.Data(currentDate, currentDistance));
             }
         } else {
+            //Does not add the data as there is not enough routes in completed routes.
             graph.setOpacity(0.3);
             errorBorder.setVisible(true);
             errorText.setVisible(true);
@@ -180,12 +183,7 @@ public class StatisticsController extends Controller implements Initializable {
 
         //Sets the colour
         series1.getData().forEach(d->
-                d.getNode().setStyle("-fx-bar-fill: "
-                        .concat(d.getYValue().floatValue()>-10?"navy;":
-                                d.getYValue().floatValue()>-11?"firebrick;":"orange")));
-        Legend legend = (Legend) graph.lookup(".chart-legend");
-        Legend.LegendItem li1=new Legend.LegendItem("Dates", new Rectangle(10,4,Color.NAVY));
-        legend.getItems().setAll(li1);
+                d.getNode().setStyle("-fx-bar-fill: navy;"));
 
         graph.setLegendVisible(false);
     }
