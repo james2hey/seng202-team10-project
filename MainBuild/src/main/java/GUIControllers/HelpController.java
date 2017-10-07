@@ -14,7 +14,7 @@ import java.util.ResourceBundle;
 public class HelpController implements Initializable {
 
     @FXML
-    private Text userSection, navSection, homeSection, planSection, addDataSection, viewSection, aboutSection;
+    private Text userSection, navSection, homeSection, planSection, addDataSection, viewSection, aboutSection, legalSection;
 
     /**
      * Runs on start up and sets the text to helpMessage string.
@@ -70,6 +70,11 @@ public class HelpController implements Initializable {
                 "to the world for open source development.\n\n" +
                 "Created by: Braden, Lewis, Jack, James and Matt";
         aboutSection.setText(aboutMessage);
-
+        String legalMessage = "\nDisclaimer\n\n\n" +
+                "This software is licenced under the Apache License, Version 2.0. (http://www.apache.org/licenses/LICENSE-2.0)\n\n" +
+                "Any third party libraries can be accessed and installed within the LICENCE and NOTICE files.(http://www.github.com/jackodsteel/pedals)\n\n" +
+                "By using this software you agree to abide by the Google Maps TOS. (https://developers.google.com/maps/terms)\n\n" +
+                "Feel free to modify and distribute this code as you please, just remember to reference us!";
+        legalSection.setText(legalMessage);
     }
 }

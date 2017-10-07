@@ -58,7 +58,6 @@ public class RouteDataHandler implements DataHandler {
      * Processes a CSV line and adds to the database if valid.
      *
      * @param record A string array of object corresponding to the CSV
-     * @return A bool stating the success state of the process.
      */
     public void processLine(String[] record, Callback callback) {
         try {

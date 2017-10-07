@@ -121,7 +121,7 @@ public class HandleUsersTest {
         Route testRoute = new Route(10, "00:00:00", "00:00:00", "01", "01", "2016",
                 "01", "01", "2016", 0.0, 0.0,
                 0.0, 0.0, 1, 2, "Test Street",
-                "Test2 Street", "10000", 1, "Subscriber", 20);
+                "Test2 Street", "10000", 1, "Subscriber", 20, "testlist");
 
         rdh.addSingleEntry(10, "2016","01","01","00:00:00", "2016",
                 "01", "01", "00:00:01", "10", "Test Station",
@@ -150,7 +150,7 @@ public class HandleUsersTest {
         Route testRoute = new Route(10, "00:00:00", "00:00:00", "01", "01", "2016",
                 "01", "01", "2016", 0.0, 0.0,
                 0.0, 0.0, 1, 2, "Test Street",
-                "Test2 Street", "10000", 1, "Subscriber", 20);
+                "Test2 Street", "10000", 1, "Subscriber", 20, "testlist");
 
         rdh.addSingleEntry(10, "2016","01","01","00:00:00", "2016",
                 "01", "01", "00:00:01", "10", "Test Station",

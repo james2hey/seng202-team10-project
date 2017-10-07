@@ -1,7 +1,5 @@
 package dataManipulation;
 
-import GUIControllers.HelpController;
-import GUIControllers.PlanRouteController;
 import dataAnalysis.RetailLocation;
 import dataAnalysis.WifiLocation;
 import dataHandler.SQLiteDB;
@@ -232,9 +230,5 @@ public class FindNearbyLocations {
         }
         return null;
     }
-
-//    public WifiLocation findClosestWifi(double lat, double lon) {
-//
-//    }
 }
 
