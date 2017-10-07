@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
     public static HandleUsers hu;
     static SQLiteDB db;
-    public static DatabaseUser databaseUser;
+    //public static DatabaseUser databaseUser;
 
     public static SQLiteDB getDB() {
         return db;
@@ -24,10 +24,11 @@ public class Main extends Application {
 
         db = new SQLiteDB();
         Geocoder.init();
-        databaseUser = new DatabaseUser(db);
+        DatabaseUser databaseUser = new DatabaseUser(db);
         hu = new HandleUsers();
         hu.init(db);
         UpdateData.init(db);
+
 
         FindNearbyLocations nearbyLocations = new FindNearbyLocations(db);
         FavouriteRouteData favRouteData = new FavouriteRouteData(db);

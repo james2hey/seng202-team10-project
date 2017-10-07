@@ -2,6 +2,7 @@ package GUIControllers;
 
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXTextField;
+import dataHandler.DatabaseUser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -89,10 +90,11 @@ public class ProfileController extends Controller implements Initializable {
                 setGender(0);
                 newGender = 0;
             }
+            String oldName = getName();
             String newName = name.getText();
             setName(newName);
-//            DatabaseUser d = new DatabaseUser(Main.getDB());
-            Main.databaseUser.updateDetails(newName, newDay, newMonth, newYear, newGender);
+            DatabaseUser d = new DatabaseUser(Main.getDB());
+            d.updateDetails(newName, oldName, newDay, newMonth, newYear, newGender);
             makeSuccessDialogueBox("Success!", "Your profile has been successfully updated.");
         } catch (Exception e) {
             makeErrorDialogueBox("Failed", "An error occurred while updating your profile.");

@@ -54,8 +54,12 @@ public class DatabaseUser {
         }
     }
 
-    public void updateDetails(String name, int day, int month, int year, int gender) {
-        db.executeQuerySQL("UPDATE users set name = '" + name + "', birth_day = " + day + ", birth_month = " + month + "" +
+    public void updateDetails(String newName, String oldName, int day, int month, int year, int gender) {
+        db.executeQuerySQL("UPDATE users SET name = '" + newName + "', birth_day = " + day + ", birth_month = " + month + "" +
                 ", birth_year = " + year +", gender = " + gender);
+        db.executeQuerySQL("UPDATE taken_routes SET name = '" + newName +"' " + "WHERE name = '" + oldName + "';");
+        db.executeQuerySQL("UPDATE favourite_routes SET name = '" + newName +"' " + "WHERE name = '" + oldName + "';");
+        db.executeQuerySQL("UPDATE favourite_wifi SET name = '" + newName +"' " + "WHERE name = '" + oldName + "';");
+        db.executeQuerySQL("UPDATE favourite_retail SET name = '" + newName +"' " + "WHERE name = '" + oldName + "';");
     }
 }
