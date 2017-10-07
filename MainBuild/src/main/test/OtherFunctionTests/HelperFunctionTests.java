@@ -1,11 +1,56 @@
 package OtherFunctionTests;
 
+import dataAnalysis.Cyclist;
+import dataAnalysis.Route;
 import main.HelperFunctions;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
 public class HelperFunctionTests {
+
+//    Route(int tripDuration, String stTime, String spTime, String stDay, String stMonth, String stYear,
+//          String spDay, String spMonth, String spYear, double stStationLat, double stStationLong,
+//          double endStationLat, double endStationLong, int stStationID, int endStationID, String stStationAdr,
+//          String endStationAdr, String bId, int riderGender, String riderType, int riderAge, String list,
+//          float rdistance)
+
+//    Route(rsRoute.getInt("tripduration"), rsRoute.getString("start_time"),
+//            rsRoute.getString("end_time"), rsRoute.getString("start_day"),
+//                                rsRoute.getString("start_month"), rsRoute.getString("start_year"),
+//                                rsRoute.getString("end_day"), rsRoute.getString("end_month"),
+//                                rsRoute.getString("end_year"), rsRoute.getDouble("start_latitude"),
+//                                rsRoute.getDouble("start_longitude"), rsRoute.getDouble("end_latitude"),
+//                                rsRoute.getDouble("end_longitude"), rsRoute.getInt("start_station_id"),
+//                                rsRoute.getInt("end_station_id"), rsRoute.getString("start_station_name"),
+//                                rsRoute.getString("end_station_name"), rsRoute.getString("bikeid"),
+//                                rsRoute.getInt("gender"), rsRoute.getString("usertype"),
+//                                rsRoute.getInt("birth_year"), rsRoute.getString("list_name"),
+//                                rsFavourites.getFloat("distance"));
+
+    public Cyclist createCyclistWithRoutes() {
+        Cyclist cyclist = new Cyclist("Tester");
+
+        Route r1 = new Route(0, "0", "0", "0", "0", "0",
+                "0", "0",
+                "0", 0,
+                0, 0,
+                0, 0,
+                0, "0",
+                "0", "0",
+                0, "0",
+                0, "0");
+        Route r2 = new Route(0, "0", "0", "0", "0", "0",
+                "0", "0",
+                "0", 0,
+                0, 0,
+                0, 0,
+                0, "0",
+                "0", "0",
+                0, "0",
+                0, "0");
+        return cyclist;
+    }
 
     @Test
     public void dateConversion(){
@@ -104,4 +149,100 @@ public class HelperFunctionTests {
         System.out.println(dist);
         assertEquals( 20035, dist, 20.035);
     }
+
+
+    @Test
+    public void checkDateDetailsValid1() {
+        boolean invalidDate = HelperFunctions.checkDateDetails(1, 1, 2017);
+        assertFalse(invalidDate);
+    }
+
+    @Test
+    public void checkDateDetailsValid2() {
+        boolean invalidDate = HelperFunctions.checkDateDetails(5, 9, 2012);
+        assertFalse(invalidDate);
+    }
+
+    @Test
+    public void checkDateDetailsInvalidYear() {
+        boolean invalidDate = HelperFunctions.checkDateDetails(1, 1, 2018);
+        assertTrue(invalidDate);
+    }
+
+    @Test
+    public void checkDateDetailsInvalidMonth() {
+        boolean invalidDate = HelperFunctions.checkDateDetails(1, 0, 2017);
+        assertTrue(invalidDate);
+    }
+
+    @Test
+    public void checkDateDetailsInvalidDay() {
+        boolean invalidDate = HelperFunctions.checkDateDetails(32, 1, 2017);
+        assertTrue(invalidDate);
+    }
+
+    @Test
+    public void calculateDistanceCycled1() {
+        Cyclist cyclist = new Cyclist("Tester");
+        double distance = HelperFunctions.calculateDistanceCycled(cyclist);
+        assertEquals(0, distance, 0.1);
+    }
+
+    @Test
+    public void calculateDistanceCycled2() {
+        Cyclist cyclist = new Cyclist("Tester"); //Need geocoding here.
+    }
+
+    @Test
+    public void calculateDistanceCycled3() {
+        Cyclist cyclist = new Cyclist("Tester");
+    }
+
+
+    @Test
+    public void cacluateAverageDistance1() {
+
+    }
+
+    @Test
+    public void cacluateAverageDistance2() {
+
+    }
+
+    @Test
+    public void cacluateAverageDistance3() {
+
+    }
+
+    @Test
+    public void calculateShortestRoute1() {
+
+    }
+
+    @Test
+    public void calculateShortestRoute2() {
+
+    }
+
+    @Test
+    public void calculateShortestRoute3() {
+
+    }
+
+
+    @Test
+    public void calculateLongestRoute1() {
+
+    }
+
+    @Test
+    public void calculateLongestRoute2() {
+
+    }
+
+    @Test
+    public void calculateLongestRoute3() {
+
+    }
+
 }

@@ -1,11 +1,13 @@
 package dataHandler;
 
 import dataAnalysis.Cyclist;
+import dataAnalysis.Route;
 import main.HandleUsers;
 import org.junit.*;
 
 import java.nio.file.Files;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
@@ -36,7 +38,7 @@ public class TakenRoutesTest {
 
     @After
     public void tearDown() throws Exception {
-        db.executeUpdateSQL("DROP TABLE favourite_routes");
+        db.executeUpdateSQL("DROP TABLE taken_routes");
     }
 
     @Before
@@ -45,7 +47,7 @@ public class TakenRoutesTest {
     }
 
     @Test
-    public void addFavouriteRoute() throws Exception {
+    public void addTakenRoute() throws Exception {
         RouteDataHandler rdh = new RouteDataHandler(db);
         takenRoutes.addTakenRoute("Tester", "2016", "01", "01",
                 "00:00:00", "10000", 1, hu);
@@ -58,21 +60,66 @@ public class TakenRoutesTest {
 
     @Test
     public void deleteTakenRoute() throws Exception {
+        RouteDataHandler rdh = new RouteDataHandler(db);
+        takenRoutes.addTakenRoute("Tester", "2016", "01", "01",
+                "00:00:00", "10000", 1, hu);
+        Route route = new Route(0, "00:00:00", "0", "01", "01",
+                "2016", "2016", "0", "0", 0, 0, 0,
+                0, 0, 0, "0", "0", "10000",
+                0, "0", 1, "0");
 
+        takenRoutes.deleteTakenRoute(route, hu);
+        ResultSet rs;
+        rs = db.executeQuerySQL("SELECT COUNT(*) FROM taken_routes;");
+        int result = rs.getInt("count(*)");
+        assertEquals(0, result);
     }
 
     @Test
     public void findFiveRecentRoutesMoreThanFive() throws Exception {
+        RouteDataHandler rdh = new RouteDataHandler(db);
 
+        // Adding routes in random order with different days for testing.
+        takenRoutes.addTakenRoute("Tester", "2016", "01", "01",
+                "00:00:00", "10000", 1, hu);
+        takenRoutes.addTakenRoute("Tester", "2016", "01", "02",
+                "00:00:00", "10000", 1, hu);
+        takenRoutes.addTakenRoute("Tester", "2016", "01", "05",
+                "00:00:00", "10000", 1, hu);
+        takenRoutes.addTakenRoute("Tester", "2016", "01", "03",
+                "00:00:00", "10000", 1, hu);
+        takenRoutes.addTakenRoute("Tester", "2016", "01", "06",
+                "00:00:00", "10000", 1, hu);
+        takenRoutes.addTakenRoute("Tester", "2016", "01", "04",
+                "00:00:00", "10000", 1, hu);
+        ArrayList<String> result = takenRoutes.findFiveRecentRoutes(hu);
+
+        // Setting up the expected result.
+        ArrayList<String> expected = new ArrayList<>();
+        expected.add("2016 01 06 00:00:00|1.0");
+        expected.add("2016 01 05 00:00:00|1.0");
+        expected.add("2016 01 04 00:00:00|1.0");
+        expected.add("2016 01 03 00:00:00|1.0");
+        expected.add("2016 01 02 00:00:00|1.0");
+        assertEquals(expected, result);
     }
 
     @Test
     public void findFiveRecentRoutesLessThanFive() throws Exception {
+        RouteDataHandler rdh = new RouteDataHandler(db);
+        takenRoutes.addTakenRoute("Tester", "2016", "01", "01",
+                "00:00:00", "10000", 1, hu);
+        ArrayList<String> result = takenRoutes.findFiveRecentRoutes(hu);
+        ArrayList<String> expected = new ArrayList<>();
+        expected.add("2016 01 01 00:00:00|1.0");
 
+        assertEquals(expected, result);
     }
 
     @Test
     public void findFiveRecentRoutesEmpty() throws Exception {
-
+        ArrayList<String> result = takenRoutes.findFiveRecentRoutes(hu);
+        ArrayList<String> expected = new ArrayList<>();
+        assertEquals(expected, result);
     }
 }

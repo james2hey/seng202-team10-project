@@ -1,5 +1,6 @@
 package main;
 
+import dataAnalysis.Cyclist;
 import dataAnalysis.Route;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
@@ -132,11 +133,12 @@ public class HelperFunctions {
 
     /**
      * Checks that the date entered has a year between 1900-2017, month between 1-12 and day between 1-31.
+     * If these bounds aren't met, a true boolean will be returned.
      *
      * @param day   the dates day
-     * @param month the dates month_________________________________________________test this man
+     * @param month the dates month
      * @param year  the dates year
-     * @return
+     * @return true if an invalid date is given, false otherwise
      */
     public static boolean checkDateDetails(int day, int month, int year) {
         if (year < 1900 || year > 2017) { // People born out of these bounds are assumed not to use this program.
@@ -152,9 +154,10 @@ public class HelperFunctions {
     /**
      * Calculates the total distance a user has cycled --------------------toTest----
      */
-    public static double calculateDistanceCycled() {
+    public static double calculateDistanceCycled(Cyclist cyclist) {
         ArrayList<Route> takenList = new ArrayList<>();
-        takenList.addAll(Main.hu.currentCyclist.getTakenRoutes());
+        takenList.addAll(cyclist.getTakenRoutes());
+        //takenList.addAll(Main.hu.currentCyclist.getTakenRoutes());
         double distanceCycled = 0;
         for (Route route : takenList) {
             distanceCycled += route.getDistance();
@@ -167,14 +170,14 @@ public class HelperFunctions {
      * Calculates the average distance a user has travelled.--------------------toTest----
      * @return average distance travelled
      */
-    public static double cacluateAverageDistance() {
+    public static double cacluateAverageDistance(Cyclist cyclist) {
         ArrayList<Route> takenList = new ArrayList<>();
         takenList.addAll(Main.hu.currentCyclist.getTakenRoutes());
         double averageDistance = 0;
         if (takenList.size() == 0) { // Avoid divide by 0 error.
             averageDistance = 0;
         } else {
-            averageDistance = calculateDistanceCycled() / takenList.size();
+            averageDistance = calculateDistanceCycled(cyclist) / takenList.size();
         }
         return HelperFunctions.format2dp(averageDistance);
     }
@@ -185,11 +188,11 @@ public class HelperFunctions {
      * routes in the takenRouteList.
      * @return shortest distance out of all taken routes
      */
-    public static double calculateShortestRoute() {
+    public static double calculateShortestRoute(Cyclist cyclist) {
         ArrayList<Route> takenList = new ArrayList<>();
-        takenList.addAll(Main.hu.currentCyclist.getTakenRoutes());
+        takenList.addAll(cyclist.getTakenRoutes());
         double shortestDistance = 9999999; // No routes will be of a size greater than this.
-        for (int i = 0; i < Main.hu.currentCyclist.getTakenRoutes().size(); i++) {
+        for (int i = 0; i < cyclist.getTakenRoutes().size(); i++) {
             if (takenList.get(i).getDistance() < shortestDistance) {
                 shortestDistance = takenList.get(i).getDistance();
             }
@@ -203,9 +206,9 @@ public class HelperFunctions {
      * routes in the takenRouteList.
      * @return shortest distance out of all taken routes
      */
-    public static double calculateLongestRoute() {
+    public static double calculateLongestRoute(Cyclist cyclist) {
         ArrayList<Route> takenList = new ArrayList<>();
-        takenList.addAll(Main.hu.currentCyclist.getTakenRoutes());
+        takenList.addAll(cyclist.getTakenRoutes());
         double longestDistance = -1;
         for (Route route : takenList) {
             if (route.getDistance() > longestDistance) {

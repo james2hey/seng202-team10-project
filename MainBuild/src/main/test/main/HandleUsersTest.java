@@ -294,7 +294,7 @@ public class HandleUsersTest {
 
     @Test
     public void convertGender2() throws Exception {
-        int result = hu.convertGender("Test");
+        int result = hu.convertGender("Other");
         assertEquals(0, result);
     }
 

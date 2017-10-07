@@ -100,6 +100,10 @@ public class Route {
         rank = routeRank;
     }
 
+
+    /**
+     * Constructor used when a user adds a route as a taken route, inputting the routes distance.
+     */
     public Route(int tripDuration, String stTime, String spTime, String stDay, String stMonth, String stYear,
                  String spDay, String spMonth, String spYear, double stStationLat, double stStationLong,
                  double endStationLat, double endStationLong, int stStationID, int endStationID, String stStationAdr,

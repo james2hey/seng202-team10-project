@@ -44,7 +44,6 @@ public class HandleUsers {
         getUserRouteFavourites();
         getUserWifiFavourites();
         getUserRetailFavourites();
-        System.out.println("THE SIZE = " + currentCyclist.getFavouriteRouteList().size());
     }
 
     /**

@@ -107,14 +107,14 @@ public class StatisticsController extends Controller implements Initializable {
      * Finds all of the most recent statistics for the user and displays them.
      */
     private void findStatistics(SQLiteDB db) {
-        double total = HelperFunctions.calculateDistanceCycled();
-        double average = HelperFunctions.cacluateAverageDistance();
+        double total = HelperFunctions.calculateDistanceCycled(Main.hu.currentCyclist);
+        double average = HelperFunctions.cacluateAverageDistance(Main.hu.currentCyclist);
 
-        double shortest = HelperFunctions.calculateShortestRoute();
+        double shortest = HelperFunctions.calculateShortestRoute(Main.hu.currentCyclist);
         if (shortest == 9999999) {
             shortest = 0;
         }
-        double longest = HelperFunctions.calculateLongestRoute();
+        double longest = HelperFunctions.calculateLongestRoute(Main.hu.currentCyclist);
         if (longest == -1) {
             longest = 0;
         }
@@ -141,7 +141,7 @@ public class StatisticsController extends Controller implements Initializable {
 
 
         TakenRoutes t = new TakenRoutes(Main.getDB());
-        ArrayList<String> recentRoutes = t.findFiveRecentRoutes();
+        ArrayList<String> recentRoutes = t.findFiveRecentRoutes(Main.hu);
         XYChart.Series<String,Number> series1 = new XYChart.Series();
 
         if (recentRoutes.size() >= 3) {
@@ -199,7 +199,7 @@ public class StatisticsController extends Controller implements Initializable {
         if (tableCompletedRoutes.getSelectionModel().getSelectedItem() != null) {
             TakenRoutes t = new TakenRoutes(Main.getDB());
             Route removingRoute = tableCompletedRoutes.getSelectionModel().getSelectedItem();
-            t.deleteTakenRoute(removingRoute);
+            t.deleteTakenRoute(removingRoute, Main.hu);
             routeList.remove(removingRoute);
             routeListObservable.remove(removingRoute);
             Main.hu.currentCyclist.getTakenRoutes().remove(removingRoute);

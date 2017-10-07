@@ -75,9 +75,10 @@ public class TakenRoutes {
      * Deletes the given route from the taken_routes table.
      *
      * @param route the route to be deleted
+     * @param hu the programs current HandleUsers object
      */
-    public void deleteTakenRoute(Route route) {
-        db.executeQuerySQL("DELETE FROM taken_routes WHERE name = '" + Main.hu.currentCyclist.name + "' " +
+    public void deleteTakenRoute(Route route, HandleUsers hu) {
+        db.executeQuerySQL("DELETE FROM taken_routes WHERE name = '" + hu.currentCyclist.name + "' " +
                 "AND start_year = '" + route.getStartYear() + "' AND start_month = '" + route.getStartMonth() + "' " +
                 "AND start_day = '" + route.getStartDay() + "' AND start_time = '" + route.getStartTime() + "' " +
                 "AND bikeid = '" + route.getBikeID() + "';");
@@ -86,19 +87,21 @@ public class TakenRoutes {
 
     /**
      * Finds the five (or less) most recently taken routes found from the users taken_route table.
-     * @return up to five of the most recently taken routes
+     * @param hu the programs current HandleUsers object
+     * @return up to five of the most recently taken routes in the string format "year month day time|distance"
      */
-    public ArrayList<String> findFiveRecentRoutes() {
+    public ArrayList<String> findFiveRecentRoutes(HandleUsers hu) {
+        RouteDataHandler rdh = new RouteDataHandler(db);
         ResultSet rs;
         ArrayList<String> recentRoutes = new ArrayList<>();
         rs = db.executeQuerySQL("SELECT start_year, start_month, start_day, start_time, start_time, distance FROM taken_routes " +
-                                "WHERE name = '" + Main.hu.currentCyclist.getName() + "' " +
+                                "WHERE name = '" + hu.currentCyclist.getName() + "' " +
                                 "ORDER BY start_year DESC, start_month DESC, start_day DESC, start_time DESC, start_time DESC;");
 
         for(int i = 0; i < 5; i++) {
             try {
                 rs.next();
-                System.out.println("START DAY = " + rs.getString("start_day"));
+                if (rs.isClosed()) {break;}
                 recentRoutes.add(rs.getString("start_year") + " " + rs.getString("start_month") +
                         " " + rs.getString("start_day") + " " + rs.getString("start_time") +
                         "|" + rs.getDouble("distance"));
