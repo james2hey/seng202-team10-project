@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXDrawer?>
 <?import com.jfoenix.controls.JFXHamburger?>
 <?import com.jfoenix.controls.JFXTextField?>
@@ -15,7 +21,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane alignment="center" hgap="10" prefHeight="650.0" prefWidth="1100.0" style="-fx-background-color: grey; -fx-background-image: url(Images/sky.jpg);" vgap="10" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIControllers.AddDataController">
+<GridPane alignment="center" hgap="10" prefHeight="650.0" prefWidth="1100.0" style="-fx-background-color: grey; -fx-background-image: url(Images/sky.jpg);" vgap="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIControllers.AddDataController">
    <children>
       <Pane prefHeight="500.0" prefWidth="800.0" GridPane.columnIndex="4" GridPane.rowIndex="3" />
       <Text fx:id="buttonPressedText" strokeType="OUTSIDE" strokeWidth="0.0" text="Button Pressed" textAlignment="CENTER" visible="false" wrappingWidth="269.6552734375" GridPane.columnIndex="3" GridPane.rowIndex="3" />
@@ -45,18 +51,18 @@
       </AnchorPane>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="2">
          <children>
-            <Text layoutX="405.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Retailer">
+            <Text layoutX="401.0" layoutY="10.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Retailer">
                <font>
                   <Font size="20.0" />
                </font>
             </Text>
-            <JFXTextField fx:id="retailerName" layoutX="390.0" layoutY="50.0" prefHeight="23.0" prefWidth="180.0" />
-            <JFXTextField fx:id="retailerAddress" layoutX="390.0" layoutY="90.0" prefHeight="23.0" prefWidth="180.0" />
-            <Text layoutX="256.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address (Required): " />
-            <Text layoutX="271.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name (Required):" />
-            <Text layoutX="259.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Primary (Required):" AnchorPane.leftAnchor="259.0" AnchorPane.topAnchor="144.0" />
-            <Text layoutX="314.0" layoutY="204.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Secondary:" AnchorPane.leftAnchor="314.0" AnchorPane.topAnchor="192.0" />
-            <ComboBox fx:id="retailerPrim" layoutX="394.0" layoutY="139.0" prefHeight="25.0" prefWidth="180.0">
+            <JFXTextField fx:id="retailerName" layoutX="386.0" layoutY="27.0" prefHeight="23.0" prefWidth="180.0" />
+            <JFXTextField fx:id="retailerAddress" layoutX="386.0" layoutY="67.0" prefHeight="23.0" prefWidth="180.0" />
+            <Text layoutX="252.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address (Required): " />
+            <Text layoutX="267.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name (Required):" />
+            <Text layoutX="255.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Primary (Required):" AnchorPane.leftAnchor="255.0" AnchorPane.topAnchor="121.0" />
+            <Text layoutX="310.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Secondary:" AnchorPane.leftAnchor="310.0" AnchorPane.topAnchor="159.0" />
+            <ComboBox fx:id="retailerPrim" layoutX="390.0" layoutY="116.0" prefHeight="25.0" prefWidth="180.0">
                <items>
                   <FXCollections fx:factory="observableArrayList">
                      <String fx:value="Casual Eating &amp; Takeout" />
@@ -70,7 +76,8 @@
                   </FXCollections>
                </items>
             </ComboBox>
-            <JFXTextField fx:id="retailerSec" layoutX="394.0" layoutY="188.0" prefHeight="23.0" prefWidth="180.0" promptText="e.g. Mexican Food" />
+            <JFXTextField fx:id="retailerSec" layoutX="390.0" layoutY="155.0" prefHeight="23.0" prefWidth="180.0" promptText="e.g. Mexican Food" />
+            <JFXCheckBox fx:id="addToFavourites" checkedColor="#05c361" layoutX="331.0" layoutY="198.0" prefHeight="15.0" prefWidth="173.0" text="           Add to Favourites" unCheckedColor="BLACK" />
          </children>
       </AnchorPane>
       <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" prefHeight="650.0" prefWidth="8.0" style="-fx-background-color: grey;" GridPane.rowSpan="5" />

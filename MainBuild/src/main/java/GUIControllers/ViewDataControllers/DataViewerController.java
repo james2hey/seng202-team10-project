@@ -40,6 +40,8 @@ public abstract class DataViewerController extends Controller implements Initial
     }
 
 
+
+
     /**
      * Changes the current scene to wifi location viewer.
      *

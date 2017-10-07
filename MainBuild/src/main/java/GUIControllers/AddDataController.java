@@ -1,8 +1,10 @@
 package GUIControllers;
 
 import com.google.maps.errors.ApiException;
+import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXTextField;
+import dataAnalysis.RetailLocation;
 import dataHandler.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -34,6 +36,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import static dataAnalysis.Cyclist.name;
+
 
 /**
  * Controller class for the add data scene.
@@ -62,6 +66,8 @@ public class AddDataController extends Controller implements Initializable {
     private Text selectListMessage;
     @FXML
     private ComboBox<String> listInput;
+    @FXML
+    private JFXCheckBox addToFavourites, addToCompletedRoutes;
 
     private SQLiteDB db;
     private RetailerDataHandler retailerDataHandler;

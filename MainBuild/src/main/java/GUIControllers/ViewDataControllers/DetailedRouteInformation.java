@@ -117,6 +117,7 @@ public class DetailedRouteInformation extends RouteDataViewerController {
         tripDurationListener();
         userTypeListener();
         cyclistBirthYearListener();
+
     }
 
 

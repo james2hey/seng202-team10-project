@@ -9,6 +9,7 @@ import dataManipulation.DataFilterer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -18,6 +19,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.Main;
@@ -88,6 +90,12 @@ public class RetailerDataViewerController extends DataViewerController {
             System.out.println(e);
         }
 
+        try {
+            initialiseEditListener();
+        } catch (IOException e ) {
+            //do nothing
+        }
+
         Name.setCellValueFactory(new PropertyValueFactory<>("Name"));
         Address.setCellValueFactory(new PropertyValueFactory<>("Address"));
         Zip.setCellValueFactory(new PropertyValueFactory<>("Zip"));
@@ -101,6 +109,27 @@ public class RetailerDataViewerController extends DataViewerController {
         } catch (Exception e) {
             System.out.println("Initialising data has failed.");
         }
+    }
+
+    /**
+     * Starts listener for double clicking an item in the table.
+     * @throws IOException Handles errors caused by an fxml not loading correctly
+     */
+    private void initialiseEditListener() throws IOException {
+        tableView.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+                    try {
+                        ActionEvent ae = new ActionEvent(event.getSource(), null);
+                        editData(ae);
+                    } catch (IOException e) {
+                        //do nothing
+                    }
+
+                }
+            }
+        });
     }
 
     /**

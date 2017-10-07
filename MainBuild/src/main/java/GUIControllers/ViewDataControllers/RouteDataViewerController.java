@@ -8,6 +8,7 @@ import dataManipulation.DataFilterer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -15,6 +16,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.Main;
@@ -108,7 +110,11 @@ public class RouteDataViewerController extends DataViewerController {
      */
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
-
+        try {
+            initialiseEditListener();
+        } catch (IOException e) {
+            //do nothing
+        }
         SQLiteDB db = Main.getDB();
         try {
             ResultSet rs = db.executeQuerySQL("SELECT list_name FROM lists");
@@ -119,6 +125,8 @@ public class RouteDataViewerController extends DataViewerController {
         } catch (SQLException e) {
             System.out.println(e);
         }
+
+
 
         StartLocation.setCellValueFactory(new PropertyValueFactory<>("StartAddress"));
         EndLocation.setCellValueFactory(new PropertyValueFactory<>("EndAddress"));
@@ -133,6 +141,27 @@ public class RouteDataViewerController extends DataViewerController {
         } catch (Exception e) {
             System.out.println("Initialising data has failed.");
         }
+    }
+
+    /**
+     * Starts listener for double clicking an item in the table.
+     * @throws IOException Handles errors caused by an fxml not loading correctly
+     */
+    private void initialiseEditListener() throws IOException {
+        tableView.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+                    try {
+                        ActionEvent ae = new ActionEvent(event.getSource(), null);
+                        editData(ae);
+                    } catch (IOException e) {
+                        //do nothing
+                    }
+
+                }
+            }
+        });
     }
 
     /**

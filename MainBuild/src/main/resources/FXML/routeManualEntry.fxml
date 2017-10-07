@@ -51,19 +51,20 @@
       </AnchorPane>
       <AnchorPane prefHeight="270.0" prefWidth="389.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
          <children>
-            <Text layoutX="147.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address (Required):" AnchorPane.topAnchor="70.0" />
-            <Text layoutX="131.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Time (Required):" AnchorPane.leftAnchor="131.0" AnchorPane.topAnchor="115.0" />
-            <Text layoutX="257.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start of Route">
+            <Text layoutX="147.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address (Required):" AnchorPane.topAnchor="41.0" />
+            <Text layoutX="131.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Time (Required):" AnchorPane.leftAnchor="131.0" AnchorPane.topAnchor="86.0" />
+            <Text layoutX="257.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start of Route">
                <font>
                   <Font size="20.0" />
                </font>
             </Text>
-            <Text layoutX="132.0" layoutY="178.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Date (Required):" AnchorPane.leftAnchor="132.0" AnchorPane.topAnchor="166.0" />
-            <JFXTextField fx:id="rSAddress" layoutX="283.0" layoutY="67.0" prefHeight="23.0" prefWidth="170.0" AnchorPane.topAnchor="67.0" />
-            <JFXTextField fx:id="rSTime" layoutX="283.0" layoutY="115.0" prefHeight="23.0" prefWidth="170.0" promptText="e.g. hh:mm" />
-            <DatePicker fx:id="rSDate" layoutX="287.0" layoutY="162.0" prefHeight="25.0" prefWidth="170.0" />
+            <Text layoutX="132.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Date (Required):" AnchorPane.leftAnchor="132.0" AnchorPane.topAnchor="137.0" />
+            <JFXTextField fx:id="rSAddress" layoutX="283.0" layoutY="39.0" prefHeight="23.0" prefWidth="170.0" AnchorPane.topAnchor="39.0" />
+            <JFXTextField fx:id="rSTime" layoutX="283.0" layoutY="87.0" prefHeight="23.0" prefWidth="170.0" promptText="e.g. hh:mm" />
+            <DatePicker fx:id="rSDate" layoutX="287.0" layoutY="134.0" prefHeight="25.0" prefWidth="170.0" />
             <Text fx:id="sTimeError" fill="RED" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ERROR: Type Error" visible="false" AnchorPane.topAnchor="113.93310546875" />
             <Text fx:id="sDateError" fill="RED" layoutY="178.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ERROR: Type Error" visible="false" AnchorPane.topAnchor="165.93310546875" />
+            <JFXCheckBox fx:id="addToCompletedRoutes" checkedColor="#05c361" layoutX="189.0" layoutY="196.0" prefHeight="15.0" prefWidth="254.0" text="           Add to Completed Routes" unCheckedColor="BLACK" />
          </children>
          <GridPane.margin>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -71,19 +72,20 @@
       </AnchorPane>
       <AnchorPane prefHeight="264.0" prefWidth="147.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
          <children>
-            <Text layoutX="-50.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address (Required):" AnchorPane.topAnchor="85.0" />
-            <Text layoutX="-55.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End Time (Required):" AnchorPane.leftAnchor="-55.0" AnchorPane.topAnchor="128.93310546875" />
-            <Text layoutX="79.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End of Route">
+            <Text layoutX="-47.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address (Required):" AnchorPane.topAnchor="54.0" />
+            <Text layoutX="-52.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End Time (Required):" AnchorPane.leftAnchor="-52.0" AnchorPane.topAnchor="97.0" />
+            <Text layoutX="79.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End of Route">
                <font>
                   <Font size="20.0" />
                </font>
             </Text>
-            <JFXTextField fx:id="rEAddress" layoutX="89.0" layoutY="81.0" prefHeight="23.0" prefWidth="170.0" AnchorPane.topAnchor="81.0" />
-            <JFXTextField fx:id="rETime" layoutX="89.0" layoutY="124.0" prefHeight="23.0" prefWidth="170.0" promptText="e.g. hh:mm" />
-            <Text layoutX="-55.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End Date (Required):" AnchorPane.leftAnchor="-55.0" AnchorPane.topAnchor="173.0" />
-            <DatePicker fx:id="rEDate" layoutX="89.0" layoutY="168.0" prefHeight="25.0" prefWidth="170.0" />
+            <JFXTextField fx:id="rEAddress" layoutX="92.0" layoutY="50.0" prefHeight="23.0" prefWidth="170.0" AnchorPane.topAnchor="50.0" />
+            <JFXTextField fx:id="rETime" layoutX="92.0" layoutY="93.0" prefHeight="23.0" prefWidth="170.0" promptText="e.g. hh:mm" />
+            <Text layoutX="-52.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End Date (Required):" AnchorPane.leftAnchor="-52.0" AnchorPane.topAnchor="141.0" />
+            <DatePicker fx:id="rEDate" layoutX="92.0" layoutY="137.0" prefHeight="25.0" prefWidth="170.0" />
             <Text fx:id="eTimeError" fill="RED" layoutX="268.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ERROR: Type Error" visible="false" />
             <Text fx:id="eDateError" fill="RED" layoutX="274.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ERROR: Type Error" visible="false" />
+            <JFXCheckBox fx:id="addToFavourites" checkedColor="#05c361" layoutX="-34.0" layoutY="198.0" prefHeight="15.0" prefWidth="173.0" text="           Add to Favourites" unCheckedColor="BLACK" />
          </children>
       </AnchorPane>
       <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" style="-fx-background-color: grey;" GridPane.rowSpan="5" />
