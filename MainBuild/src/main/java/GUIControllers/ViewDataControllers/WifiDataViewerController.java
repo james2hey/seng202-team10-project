@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXTextField;
 import dataAnalysis.WifiLocation;
+import dataHandler.SQLiteDB;
 import dataManipulation.DataFilterer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,6 +24,8 @@ import main.Main;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -45,6 +48,8 @@ public class WifiDataViewerController extends DataViewerController {
     private ComboBox<String> boroughInput;
     @FXML
     private ComboBox<String> typeInput;
+    @FXML
+    private ComboBox<String> wifiLists;
     @FXML
     private JFXHamburger hamburger;
     @FXML
@@ -73,6 +78,18 @@ public class WifiDataViewerController extends DataViewerController {
      */
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
+
+        SQLiteDB db = Main.getDB();
+        try {
+            ResultSet rs = db.executeQuerySQL("SELECT list_name FROM lists");
+            while (rs.next()) {
+                wifiLists.getItems().add(rs.getString(1));
+            }
+            wifiLists.getItems().add("No Selection");
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
         Name.setCellValueFactory(new PropertyValueFactory<>("SSID"));
         Provider.setCellValueFactory(new PropertyValueFactory<>("Provider"));
         Address.setCellValueFactory(new PropertyValueFactory<>("Address"));
@@ -148,8 +165,13 @@ public class WifiDataViewerController extends DataViewerController {
             cost = null;
         }
 
+        String list = wifiLists.getSelectionModel().getSelectedItem();
+        if (list == null || list.equals("No Selection")) {
+            list = null;
+        }
+
         DataFilterer filterer = new DataFilterer(Main.getDB());
-        wifiLocations = filterer.filterWifi(name, suburb, cost, provider);
+        wifiLocations = filterer.filterWifi(name, suburb, cost, provider, list);
         System.out.println("Got data");
         for (WifiLocation wifiLocation : wifiLocations) {
             System.out.println(wifiLocation.getSSID());

@@ -94,7 +94,16 @@ public class AddDataController extends Controller implements Initializable {
         routeDataHandler = new RouteDataHandler(db);
         listDataHandler = new ListDataHandler(db);
 
+        initListCombobox();
+    }
+
+
+    /**
+     * populates the list combobox.
+     */
+    public void initListCombobox() {
         ArrayList<String> listNames = listDataHandler.getLists();
+        listInput.getItems().removeAll();
         listInput.getItems().addAll(listNames);
     }
 
@@ -130,6 +139,8 @@ public class AddDataController extends Controller implements Initializable {
         double[] eLatLon;
 
         listDataHandler.setListName(listInput.getSelectionModel().getSelectedItem());
+        listDataHandler.addList(listInput.getSelectionModel().getSelectedItem());
+        initListCombobox();
 
         try {
             if (rSAddress.getText().length() != 0 || rEAddress.getText().length() != 0) {
@@ -241,6 +252,8 @@ public class AddDataController extends Controller implements Initializable {
         double[] latLon;
 
         listDataHandler.setListName(listInput.getSelectionModel().getSelectedItem());
+        listDataHandler.addList(listInput.getSelectionModel().getSelectedItem());
+        initListCombobox();
 
         try {
             if (retailerAddress.getText().length() != 0) {
@@ -305,6 +318,8 @@ public class AddDataController extends Controller implements Initializable {
         double[] latLon;
 
         listDataHandler.setListName(listInput.getSelectionModel().getSelectedItem());
+        listDataHandler.addList(listInput.getSelectionModel().getSelectedItem());
+        initListCombobox();
 
         try {
             if (wifiAddress.getText().length() != 0) {
@@ -382,6 +397,9 @@ public class AddDataController extends Controller implements Initializable {
     // Import file -> only allows *.csv and prints location afterwards for now...
     void chooseRoute(ActionEvent event) throws IOException {
         listDataHandler.setListName(listInput.getSelectionModel().getSelectedItem());
+        listDataHandler.addList(listInput.getSelectionModel().getSelectedItem());
+        initListCombobox();
+
         FileChooser fileChooser = new FileChooser();
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV (*.csv)", "*.csv");
         fileChooser.getExtensionFilters().add(extFilter);
@@ -425,6 +443,9 @@ public class AddDataController extends Controller implements Initializable {
     //Specifies file types.
     void chooseRetailer(ActionEvent event) throws IOException {
         listDataHandler.setListName(listInput.getSelectionModel().getSelectedItem());
+        listDataHandler.addList(listInput.getSelectionModel().getSelectedItem());
+        initListCombobox();
+
         boolean result = makeConfirmationDialogueBox("Warning! Depending on file size, this may take a few minutes.", "Are you sure you want to continue?");
         if (result) {
             FileChooser fileChooser = new FileChooser();
@@ -467,6 +488,9 @@ public class AddDataController extends Controller implements Initializable {
     @FXML
     void chooseWifi(ActionEvent event) throws IOException {
         listDataHandler.setListName(listInput.getSelectionModel().getSelectedItem());
+        listDataHandler.addList(listInput.getSelectionModel().getSelectedItem());
+        initListCombobox();
+
         FileChooser fileChooser = new FileChooser();
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV (*.csv)", "*.csv");
         fileChooser.getExtensionFilters().add(extFilter);

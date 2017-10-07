@@ -199,44 +199,44 @@ public class DataFilterer {
         if (gender != -1) {
             queryCommand = queryCommand + genderCommand;
             filterVariables.add(gender);
-            queryLength = 1;
+            queryLength += 1;
         }
         if (dateLower != null && dateUpper != null) {
             convertDates(dateLower, dateUpper);
             queryCommand = addAndToStmt(queryCommand, queryLength);
             queryCommand = queryCommand + dateCommand;
-            queryLength = 1;
+            queryLength += 1;
         }
         if (timeLower != null && timeUpper != null) {
             queryCommand = addAndToStmt(queryCommand, queryLength);
             queryCommand = queryCommand + timeCommand;
             filterVariableStrings.add(timeLower);
             filterVariableStrings.add(timeUpper);
-            queryLength = 1;
+            queryLength += 1;
         }
         if (startLocation != null) {
             queryCommand = addAndToStmt(queryCommand, queryLength);
             queryCommand = queryCommand + startAddressCommand;
             filterVariableStrings.add("%" + startLocation + "%");
-            queryLength = 1;
+            queryLength += 1;
         }
         if (endLocation != null) {
             queryCommand = addAndToStmt(queryCommand, queryLength);
             queryCommand = queryCommand + endAddressCommand;
             filterVariableStrings.add("%" + endLocation + "%");
-            queryLength = 1;
+            queryLength += 1;
         }
         if (bikeID != null) {
             queryCommand = addAndToStmt(queryCommand, queryLength);
             queryCommand = queryCommand + bikeIDCommand;
             filterVariableStrings.add(bikeID);
-            queryLength = 1;
+            queryLength += 1;
         }
         if (list != null) {
             queryCommand = addAndToStmt(queryCommand, queryLength);
             queryCommand = queryCommand + listCommand;
             filterVariableStrings.add(list);
-            queryLength = 1;
+            queryLength += 1;
         }
         if (queryLength > 0) {
             queryCommand = queryCommand + commandEnd;
@@ -305,8 +305,8 @@ public class DataFilterer {
      *                      to filter by
      * @param endLocation   of type String. It is the ending address of a route that the user wants
      *                      to filter by
-     * @param bikeID        of type String. It is the bikeID of a route that the user want to filter by.
-     * @param list          of type String. It is the list name of the list the user wants to filter by.
+     * @param bikeID        of type String. It is the bikeID of a route that the user want to filter by
+     * @param list          of type String. It is the list name of the list the user wants to filter by
      * @return ArrayList<Route>, this is an ArrayList that contains all filtered routes
      */
     public ArrayList<Route> filterRoutes(int gender, String dateLower, String dateUpper, String timeLower,
@@ -351,7 +351,7 @@ public class DataFilterer {
                         rs.getString("ssid"), rs.getString("cost"),
                         rs.getString("provider"), rs.getString("remarks"),
                         rs.getString("city"), rs.getString("suburb"),
-                        rs.getInt("zip")));
+                        rs.getInt("zip"), rs.getString("list_name")));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -384,9 +384,10 @@ public class DataFilterer {
      * @param suburb   of type String. This is a string that the user wants to filter wifi suburbs by
      * @param type     of type String. This is a string that the user wants to filter wifi types by
      * @param provider of type String. This is a sub string that the user wants to filter providers by
+     * @param list     of type String. It is the list name of the list the user wants to filter by
      * @return ArrayList<WifiLocation>, an ArrayList that contains WifiLocation objects
      */
-    public ArrayList<WifiLocation> filterWifi(String name, String suburb, String type, String provider) {
+    public ArrayList<WifiLocation> filterWifi(String name, String suburb, String type, String provider, String list) {
         int queryLen = 0;
         String queryString = wifiCommand;
 
@@ -412,6 +413,12 @@ public class DataFilterer {
             queryString = queryString + providerCommand;
             queryLen += 1;
             filterVariableStrings.add("%" + provider + "%");
+        }
+        if (list != null) {
+            queryString = addAndToStmt(queryString, queryLen);
+            queryString = queryString + listCommand;
+            queryLen += 1;
+            filterVariableStrings.add(list);
         }
         if (queryLen > 0) {
             queryString = queryString + commandEnd;
@@ -453,7 +460,8 @@ public class DataFilterer {
                         rs.getString("address"), rs.getString("city"),
                         rs.getString("main_type"), rs.getString("secondary_type"),
                         rs.getString("state"), rs.getInt("zip"),
-                        rs.getDouble("lat"), rs.getDouble("long")));
+                        rs.getDouble("lat"), rs.getDouble("long"),
+                        rs.getString("list_name")));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -486,9 +494,10 @@ public class DataFilterer {
      * @param address of type String. This is a sub string that the user wants to filter retail addresses by
      * @param primary of type String. This is a string that the user wants to filter retail primary types by
      * @param zip     of type int. This is a integer that the user wants to filter retailer zip codes by
+     * @param list    of type String. It is the list name of the list the user wants to filter by
      * @return ArrayList<RetailLocation>, this is an ArrayList of RetailLocations objects
      */
-    public ArrayList<RetailLocation> filterRetailers(String name, String address, String primary, int zip) {
+    public ArrayList<RetailLocation> filterRetailers(String name, String address, String primary, int zip, String list) {
         int queryLen = 0;
         String queryString = retailerCommand;
 
@@ -514,6 +523,12 @@ public class DataFilterer {
             queryString = queryString + zipCommand;
             queryLen += 1;
             filterVariables.add(zip);
+        }
+        if (list != null) {
+            queryString = addAndToStmt(queryString, queryLen);
+            queryString = queryString + listCommand;
+            queryLen += 1;
+            filterVariableStrings.add(list);
         }
 
         if (queryLen > 0) {

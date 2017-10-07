@@ -157,7 +157,7 @@ public class HandleUsers {
                         rsWifi.getString("ssid"), rsWifi.getString("cost"),
                         rsWifi.getString("provider"), rsWifi.getString("remarks"),
                         rsWifi.getString("city"), rsWifi.getString("suburb"),
-                        rsWifi.getInt("zip"));
+                        rsWifi.getInt("zip"), rsWifi.getString("list_name"));
                 currentCyclist.addWifiInstance(tempWifi);
             }
         } catch (SQLException e) {
@@ -184,7 +184,8 @@ public class HandleUsers {
                         rsRetail.getString("address"), rsRetail.getString("city"),
                         rsRetail.getString("main_type"), rsRetail.getString("secondary_type"),
                         rsRetail.getString("state"), rsRetail.getInt("zip"),
-                        rsRetail.getDouble("lat"), rsRetail.getDouble("long"));
+                        rsRetail.getDouble("lat"), rsRetail.getDouble("long"),
+                        rsRetail.getString("list_name"));
                 currentCyclist.addRetailInstance(tempRetail);
             }
         } catch (SQLException e) {

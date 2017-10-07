@@ -47,7 +47,7 @@ public class FindNearbyLocations {
                         rs.getString("ssid"), rs.getString("cost"),
                         rs.getString("provider"), rs.getString("remarks"),
                         rs.getString("city"), rs.getString("suburb"),
-                        rs.getInt("zip")));
+                        rs.getInt("zip"), rs.getString("list_name")));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -68,7 +68,8 @@ public class FindNearbyLocations {
                         rs.getString("address"), rs.getString("city"),
                         rs.getString("main_type"), rs.getString("secondary_type"),
                         rs.getString("state"), rs.getInt("zip"),
-                        rs.getDouble("lat"), rs.getDouble("long")));
+                        rs.getDouble("lat"), rs.getDouble("long"),
+                        rs.getString("list_name")));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -205,7 +206,8 @@ public class FindNearbyLocations {
                     rs.getString("address"), rs.getString("city"),
                     rs.getString("main_type"), rs.getString("secondary_type"),
                     rs.getString("state"), rs.getInt("zip"),
-                    rs.getDouble("lat"), rs.getDouble("long"));
+                    rs.getDouble("lat"), rs.getDouble("long"),
+                    rs.getString("list_name"));
 
             distance = HelperFunctions.getDistance(lat,lon, rs.getDouble(3), rs.getDouble(4));
             while(rs.next()) {
@@ -218,7 +220,8 @@ public class FindNearbyLocations {
                             rs.getString("address"), rs.getString("city"),
                             rs.getString("main_type"), rs.getString("secondary_type"),
                             rs.getString("state"), rs.getInt("zip"),
-                            rs.getDouble("lat"), rs.getDouble("long"));
+                            rs.getDouble("lat"), rs.getDouble("long"),
+                            rs.getString("list_name"));
                 }
             }
 
