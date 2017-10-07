@@ -14,6 +14,7 @@ public class ListDataHandler {
 
     private static String listName;
     private SQLiteDB db;
+    private static SQLiteDB staticDb = Main.getDB();
     private String tableName = "lists";
     private String[] tableFields = {"list_name    VARCHAR(50)",
                                     "list_owner   VARCHAR(12)"};
@@ -56,13 +57,30 @@ public class ListDataHandler {
 
 
     /**
+     * checks name of list to be created hasn't all ready been created by another user.
+     */
+    public boolean checkListName(String name) {
+        try {
+            ResultSet rs = staticDb.executeQuerySQL("SELECT list_name FROM lists WHERE list_owner != '" + Main.hu.currentCyclist.getName() + "';");
+            while (rs.next()) {
+                if (rs.getString("list_name").equals(name)) {
+                    return true;
+                }
+            }
+        }catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
+
+
+    /**
      * sets the listName variable to the given name.
      *
      * @param name type String
      */
     public static void setListName(String name) {
         listName = name;
-        System.out.println(getListName());
     }
 
 
