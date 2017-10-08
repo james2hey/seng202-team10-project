@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import java.lang.String?>
 <?import javafx.collections.FXCollections?>
@@ -13,9 +19,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-
 <?import javafx.scene.layout.AnchorPane?>
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="555.0" prefWidth="600.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIControllers.ViewDataControllers.DetailedRouteInformation">
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="555.0" prefWidth="600.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIControllers.ViewDataControllers.DetailedRouteInformation">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="338.0" minWidth="10.0" prefWidth="299.0" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="304.0" minWidth="10.0" prefWidth="301.0" />
@@ -312,7 +318,7 @@
                      </children></HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <ComboBox fx:id="list" editable="true" onAction="#checkIfEditable" prefHeight="25.0" prefWidth="172.0" />
+                        <ComboBox fx:id="list" editable="true" onMouseClicked="#checkIfEditable" prefHeight="25.0" prefWidth="172.0" />
                      </children></HBox>
                </children>
             </HBox>

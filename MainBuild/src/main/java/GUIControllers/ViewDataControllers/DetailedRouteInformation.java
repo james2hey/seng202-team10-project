@@ -5,6 +5,7 @@ import dataAnalysis.Route;
 import dataHandler.ListDataHandler;
 import dataHandler.SQLiteDB;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -13,6 +14,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import main.Main;
 
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -136,6 +138,17 @@ public class DetailedRouteInformation extends RouteDataViewerController {
         cyclistBirthYearListener();
         listListener();
 
+        list.getEditor().setOnMouseClicked(new EventHandler<javafx.scene.input.MouseEvent>() {
+            @Override
+            public void handle(javafx.scene.input.MouseEvent event) {
+                ArrayList<String> lists = listDataHandler.getLists();
+                if (!lists.contains(currentRoute.getListName()) && currentRoute.getListName() != null) {
+                    makeErrorDialogueBox("Cannot edit List", "This Route is part of another users " +
+                            "list and\ncannot be changed");
+                    list.setDisable(true);
+                }
+            }
+        });
     }
 
 
@@ -167,7 +180,7 @@ public class DetailedRouteInformation extends RouteDataViewerController {
             currentRoute.setGender(gender.getSelectionModel().getSelectedItem());
             currentRoute.setUserType(userType.getText());
             listDataHandler.addList(list.getSelectionModel().getSelectedItem());
-            currentRoute.setListName(list.getSelectionModel().getSelectedItem());
+            currentRoute.setListName(list.getEditor().getText());
 
             Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             currentStage.close();
@@ -179,14 +192,19 @@ public class DetailedRouteInformation extends RouteDataViewerController {
     }
 
 
+    /**
+     * Checks if list is owned by current user. If not creates an error popup and disables the list field
+     *
+     * @throws IOException IOException Handles errors caused by an fxml not loading correctly
+     */
     @FXML
     void checkIfEditable() throws IOException {
-//        ArrayList<String> lists = listDataHandler.getLists();
-//        if (!lists.contains(currentRoute.getListName())) {
-//            makeErrorDialogueBox("Cannot edit List", "This Route is part of another users " +
-//                    "list and\ncannot be changed");
-//            list.getEditor().setText(currentRoute.getListName());
-//        }
+        ArrayList<String> lists = listDataHandler.getLists();
+        if (!lists.contains(currentRoute.getListName()) && currentRoute.getListName() != null) {
+            makeErrorDialogueBox("Cannot edit List", "This Route is part of another users " +
+                    "list and\ncannot be changed");
+            list.setDisable(true);
+        }
     }
 
 
@@ -491,8 +509,8 @@ public class DetailedRouteInformation extends RouteDataViewerController {
 
 
     /**
-     * Error handler for list field. Uses a listener to see state of text. Sets color and makes confirm button
-     * un-selectable if text field incorrect.
+     * Error handler for list field. Uses a listener to see state of text. Makes confirm button
+     * un-selectable if text field incorrect. Stops strings over 25 char long from being entered.
      */
     private void listListener() {
         list.getEditor().textProperty().addListener(((observable, oldValue, newValue) -> {
@@ -506,7 +524,6 @@ public class DetailedRouteInformation extends RouteDataViewerController {
                         "been used by another\nuser. Please choose a new name.\n");
                 update.setDisable(true);
             } else {
-                list.setPromptText("");
                 update.setDisable(false);
             }
         }));
