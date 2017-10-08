@@ -87,7 +87,7 @@ public class RetailerDataHandler implements DataHandler, GeoCallback {
     public Boolean addSingleEntry(
             String RETAILER_NAME, String ADDRESS, double LAT, double LONG, String CITY,
             String STATE, String ZIP, String MAIN_TYPE, String SECONDARY_TYPE) {
-        String listName = dataHandler.ListDataHandler.getListName();
+        String listName = ListDataHandler.getListName();
         try {
             addData.setObject(1, RETAILER_NAME);
             addData.setObject(2, ADDRESS);
