@@ -102,7 +102,6 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" GridPane.rowSpan="7" />
       <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5">
          <children>
             <JFXHamburger fx:id="hamburger" layoutX="43.0" layoutY="31.0" onMouseClicked="#openDrawer" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0" />
@@ -120,5 +119,6 @@
             <Button layoutX="363.0" layoutY="50.0" mnemonicParsing="false" onAction="#displayDataOnMap" prefHeight="25.0" prefWidth="190.0" text="View All On Map" />
          </children>
       </AnchorPane>
+      <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" GridPane.rowSpan="7" />
    </children>
 </GridPane>
