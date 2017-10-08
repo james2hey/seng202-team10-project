@@ -18,6 +18,9 @@
         <ColumnConstraints maxWidth="800.0" minWidth="0.0" prefWidth="0.0" />
         <ColumnConstraints maxWidth="991.0" minWidth="10.0" prefWidth="956.0" />
       <ColumnConstraints maxWidth="991.0" minWidth="0.0" prefWidth="83.0" />
+      <ColumnConstraints />
+      <ColumnConstraints />
+      <ColumnConstraints />
     </columnConstraints>
     <rowConstraints>
         <RowConstraints maxHeight="251.0" minHeight="10.0" prefHeight="81.0" />
@@ -48,8 +51,7 @@
             </VBox>
             <VBox alignment="CENTER" prefHeight="77.0" prefWidth="281.0">
                <children>
-            
-                    <TextField fx:id="startAddressField" onAction="#addressTextFieldAction" promptText="Start Address" />
+                  <JFXTextField fx:id="startAddressField" focusColor="#2f4890" onAction="#addressTextFieldAction" promptText="Start Address" />
                </children>
             </VBox>
             <VBox alignment="CENTER_RIGHT" prefHeight="77.0" prefWidth="176.0">
@@ -64,14 +66,11 @@
                   </Text>
                </children>
             </VBox>
-            <TextField fx:id="endAddressField" onAction="#addressTextFieldAction" prefHeight="25.0" prefWidth="280.0" promptText="End Address">
+            <JFXTextField fx:id="endAddressField" onAction="#addressTextFieldAction" prefHeight="23.0" prefWidth="272.0" promptText="End Address">
                <HBox.margin>
                   <Insets top="10.0" />
                </HBox.margin>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-            </TextField>
+            </JFXTextField>
          </children>
       </HBox>
       <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="3">
@@ -111,7 +110,9 @@
       </HBox>
       <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" GridPane.rowSpan="4" />
         <AnchorPane prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="6">
-            <JFXHamburger fx:id="hamburger" onMouseClicked="#openDrawer" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0"/>
+           <children>
+               <JFXHamburger fx:id="hamburger" onMouseClicked="#openDrawer" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0" />
+           </children>
         </AnchorPane>
 
     </children>

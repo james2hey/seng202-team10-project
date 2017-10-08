@@ -1,5 +1,6 @@
 package GUIControllers;
 
+import com.jfoenix.controls.JFXTextField;
 import dataHandler.SQLiteDB;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,7 +29,7 @@ import static java.lang.Character.isLetter;
 public class StartUpController extends Controller implements Initializable {
 
     @FXML
-    private TextField username;
+    private JFXTextField username;
 
     @FXML
     private ComboBox<String> comboBox;

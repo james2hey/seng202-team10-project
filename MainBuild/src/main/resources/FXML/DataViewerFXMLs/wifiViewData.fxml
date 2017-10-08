@@ -15,21 +15,21 @@
 <GridPane hgap="40.0" prefHeight="650.0" prefWidth="1100.0" style="-fx-background-color: grey; -fx-background-image: url(Images/sky.jpg);" vgap="30.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIControllers.ViewDataControllers.WifiDataViewerController">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="269.0" minWidth="10.0" prefWidth="29.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="269.0" minWidth="10.0" prefWidth="166.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="269.0" minWidth="10.0" prefWidth="173.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="269.0" minWidth="5.0" prefWidth="151.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="616.0" minWidth="10.0" prefWidth="99.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="595.0" minWidth="10.0" prefWidth="229.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="269.0" minWidth="10.0" prefWidth="165.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="269.0" minWidth="10.0" prefWidth="189.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="269.0" minWidth="5.0" prefWidth="162.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="616.0" minWidth="0.0" prefWidth="0.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="595.0" minWidth="10.0" prefWidth="317.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="455.0" minWidth="0.0" prefWidth="0.0" />
    </columnConstraints>
    <rowConstraints>
-      <RowConstraints maxHeight="201.0" minHeight="10.0" prefHeight="91.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="392.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="475.0" minHeight="0.0" prefHeight="328.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="465.0" minHeight="1.0" prefHeight="1.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="465.0" minHeight="0.0" prefHeight="33.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="465.0" minHeight="0.0" prefHeight="33.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="201.0" minHeight="10.0" prefHeight="84.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="392.0" minHeight="0.0" prefHeight="14.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="475.0" minHeight="0.0" prefHeight="300.0" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="465.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="465.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="465.0" minHeight="0.0" prefHeight="43.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="465.0" minHeight="0.0" prefHeight="29.0" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
       <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Wifi Data Viewer" textAlignment="CENTER" wrappingWidth="953.193359375" GridPane.columnIndex="1" GridPane.columnSpan="6">
@@ -37,38 +37,6 @@
             <Font size="60.0" />
          </font>
       </Text>
-      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
-         <children>
-            <VBox prefHeight="161.0" prefWidth="103.0">
-               <children>
-                  <VBox prefHeight="161.0" prefWidth="103.0">
-                     <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" />
-                     </children>
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </VBox>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" />
-                  <VBox prefHeight="161.0" prefWidth="103.0">
-                     <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Provider:" />
-                     </children>
-                  </VBox>
-               </children>
-            </VBox>
-            <VBox prefHeight="91.0" prefWidth="102.0">
-               <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Borough:" />
-               </children>
-            </VBox>
-            <VBox prefHeight="161.0" prefWidth="103.0">
-               <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Type: " />
-               </children>
-            </VBox>
-         </children>
-      </VBox>
       <TableView fx:id="tableView" prefHeight="456.0" prefWidth="570.0" tableMenuButtonVisible="true" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="2" GridPane.rowSpan="2">
          <columns>
             <TableColumn fx:id="Name" prefWidth="145.0" text="Name" />
@@ -80,12 +48,12 @@
       </TableView>
       <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="5" GridPane.rowIndex="2">
          <children>
-            <VBox prefHeight="161.0" prefWidth="103.0">
+            <VBox prefHeight="116.0" prefWidth="317.0">
                <children>
-                  <VBox prefHeight="161.0" prefWidth="103.0">
+                  <VBox prefHeight="121.0" prefWidth="317.0">
                      <children>
                         <JFXTextField fx:id="nameInput" prefHeight="25.0" prefWidth="231.0" promptText="Name" />
-                        <JFXTextField fx:id="providerInput" prefHeight="33.0" prefWidth="231.0" promptText="Company Name">
+                        <JFXTextField fx:id="providerInput" prefHeight="33.0" prefWidth="231.0" promptText="Provider Company Name">
                            <VBox.margin>
                               <Insets top="30.0" />
                            </VBox.margin>
@@ -93,11 +61,11 @@
                      </children>
                   </VBox>
                </children></VBox>
-            <VBox prefHeight="91.0" prefWidth="231.0">
+            <VBox prefHeight="60.0" prefWidth="317.0">
                <children>
                   <VBox prefHeight="58.0" prefWidth="231.0">
                      <children>
-                        <ComboBox fx:id="boroughInput" prefHeight="25.0" prefWidth="262.0">
+                        <ComboBox fx:id="boroughInput" prefHeight="25.0" prefWidth="336.0" promptText="Borough">
                            <items>
                               <FXCollections fx:factory="observableArrayList">
                                  <String fx:value="Manhattan" />
@@ -113,10 +81,10 @@
                   </VBox>
                </children>
             </VBox>
-            <VBox prefHeight="161.0" prefWidth="103.0">
+            <VBox prefHeight="68.0" prefWidth="317.0">
                <children>
                   <Accordion />
-                  <ComboBox fx:id="typeInput" prefHeight="25.0" prefWidth="262.0">
+                  <ComboBox fx:id="typeInput" prefHeight="25.0" prefWidth="346.0" promptText="Wifi Type">
                      <items>
                         <FXCollections fx:factory="observableArrayList">
                            <String fx:value="Free" />
@@ -128,28 +96,38 @@
                   </ComboBox>
                </children>
             </VBox>
+            <VBox prefHeight="68.0" prefWidth="317.0">
+               <children>
+                  <Accordion />
+                  <ComboBox fx:id="wifiLists" prefHeight="25.0" prefWidth="330.0" promptText="List Selection" />
+               </children>
+            </VBox>
          </children>
       </VBox>
-      <Button mnemonicParsing="false" onAction="#displayDataOnMap" prefHeight="25.0" prefWidth="180.0" text="View All On Map" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="5" />
-      <Button mnemonicParsing="false" onAction="#displayData" prefHeight="25.0" prefWidth="342.0" text="Filter" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+      <Button mnemonicParsing="false" onAction="#displayData" prefHeight="26.0" prefWidth="318.0" text="Filter" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="3">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font></Button>
       <Button mnemonicParsing="false" onAction="#showRoutes" prefHeight="25.0" prefWidth="163.0" text="View Routes" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       <Button disable="true" mnemonicParsing="false" onAction="#showWifiLocations" prefHeight="25.0" prefWidth="206.0" text="View Wifi Locations" GridPane.columnIndex="2" GridPane.rowIndex="1" />
       <Button mnemonicParsing="false" onAction="#showRetailers" prefHeight="25.0" prefWidth="170.0" text="View Retailers" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-      <Button fx:id="favouritesButton" mnemonicParsing="false" onAction="#addFavouriteWifi" prefHeight="25.0" prefWidth="208.0" text="Add to Favourites" GridPane.columnIndex="3" GridPane.rowIndex="4" />
       <Label fx:id="favouritesError" alignment="CENTER" prefHeight="15.0" prefWidth="221.0" text="Already in favourites!" textAlignment="CENTER" textFill="RED" visible="false" GridPane.columnIndex="5">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Button mnemonicParsing="false" onAction="#editData" prefHeight="25.0" prefWidth="206.0" text="View/Edit Wifi Location" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-      <Button mnemonicParsing="false" onAction="#displaySelectedDataOnMap" prefHeight="25.0" prefWidth="190.0" text="View Selected On Map" GridPane.columnIndex="2" GridPane.rowIndex="4" />
       <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" GridPane.rowSpan="7" />
       <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5">
          <children>
             <JFXHamburger fx:id="hamburger" layoutX="50.0" layoutY="29.0" onMouseClicked="#openDrawer" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0" />
          </children>
       </AnchorPane>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="List Selection:" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-      <ComboBox fx:id="wifiLists" prefHeight="25.0" prefWidth="231.0" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="4" GridPane.rowSpan="2">
+         <children>
+            <Button layoutX="363.0" layoutY="2.0" mnemonicParsing="false" onAction="#displaySelectedDataOnMap" prefHeight="25.0" prefWidth="190.0" text="View Selected On Map" />
+            <Button fx:id="favouritesButton" layoutX="34.0" layoutY="26.0" mnemonicParsing="false" onAction="#addFavouriteWifi" prefHeight="25.0" prefWidth="190.0" text="Add to Favourites" />
+            <Button layoutX="363.0" layoutY="50.0" mnemonicParsing="false" onAction="#displayDataOnMap" prefHeight="25.0" prefWidth="190.0" text="View All On Map" />
+         </children>
+      </AnchorPane>
    </children>
 </GridPane>

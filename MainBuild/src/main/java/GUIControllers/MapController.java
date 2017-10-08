@@ -1,5 +1,6 @@
 package GUIControllers;
 
+import com.jfoenix.controls.JFXTextField;
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.MapComponentInitializedListener;
 import com.lynden.gmapsfx.javascript.event.UIEventType;
@@ -38,9 +39,9 @@ import java.util.ResourceBundle;
 public class MapController extends Controller implements Initializable, MapComponentInitializedListener, DirectionsServiceCallback {
 
     @FXML
-    protected TextField startAddressField;
+    protected JFXTextField startAddressField;
     @FXML
-    protected TextField endAddressField;
+    protected JFXTextField endAddressField;
     @FXML
     protected GoogleMapView mapView;
     protected DirectionsService directionsService;

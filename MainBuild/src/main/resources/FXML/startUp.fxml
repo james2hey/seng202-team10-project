@@ -33,13 +33,15 @@
          <center>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Pane prefHeight="417.0" prefWidth="404.0" style="-fx-background-color: LIGHTGREY; -fx-opacity: 0.85; -fx-border-color: BLACK;" />
+                  <Pane prefHeight="417.0" prefWidth="404.0" style="-fx-background-color: LIGHTGREY; -fx-opacity: 0.85; -fx-border-color: BLACK;">
+                     <children>
+                        <JFXTextField fx:id="username" layoutX="139.0" layoutY="109.0" prefHeight="23.0" prefWidth="209.0" promptText="New User Name" />
+                     </children></Pane>
                   <Text fill="WHITE" layoutX="46.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign Up:" textAlignment="CENTER" wrappingWidth="310.0">
                      <font>
                         <Font size="46.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="username" layoutX="136.0" layoutY="108.0" prefHeight="25.0" prefWidth="209.0" promptText="New User Name" />
                   <Text layoutX="51.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" textAlignment="RIGHT" wrappingWidth="68.732421875">
                      <font>
                         <Font size="18.0" />
@@ -50,7 +52,7 @@
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <ComboBox fx:id="userday" layoutX="120.0" layoutY="185.0" prefHeight="25.0" prefWidth="75.0" promptText="Day" />
+                  <ComboBox fx:id="userday" layoutX="120.0" layoutY="185.0" prefHeight="25.0" prefWidth="75.0" promptText="Day"/>
                   <ComboBox fx:id="usermonth" layoutX="201.0" layoutY="185.0" prefHeight="25.0" prefWidth="89.0" promptText="Month" />
                   <ComboBox fx:id="useryear" layoutX="296.0" layoutY="185.0" prefHeight="25.0" prefWidth="84.0" promptText="Year" />
                   <Text layoutX="33.0" layoutY="276.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gender:" textAlignment="RIGHT" wrappingWidth="83.732421875">
@@ -82,7 +84,7 @@
                         <Font size="46.0" />
                      </font>
                   </Text>
-                  <ComboBox fx:id="comboBox" layoutX="67.0" layoutY="107.0" prefHeight="25.0" prefWidth="250.0" promptText="Select User" style="-fx-background-color: white;" />
+                  <ComboBox fx:id="comboBox" layoutX="67.0" layoutY="107.0" prefHeight="25.0" prefWidth="250.0" promptText="Select User" />
                   <Button fx:id="SignIn" layoutX="108.0" layoutY="177.0" mnemonicParsing="false" onAction="#logIn" prefHeight="25.0" prefWidth="168.0" text="Sign in" />
                </children>
             </AnchorPane>
