@@ -237,7 +237,7 @@ public abstract class Controller {
      * @return boolean representing result of yes/no answer in confirmation box.
      */
     @FXML
-    boolean makeConfirmationDialogueBox(String errorMessage, String errorDetails) {
+    public boolean makeConfirmationDialogueBox(String errorMessage, String errorDetails) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, errorDetails, ButtonType.NO, ButtonType.YES);
         alert.setHeaderText(errorMessage);
         alert.showAndWait();

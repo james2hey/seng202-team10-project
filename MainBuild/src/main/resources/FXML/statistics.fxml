@@ -86,11 +86,6 @@
             </AnchorPane>
          </center>
       </BorderPane>
-      <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" style="-fx-background-color: grey;" GridPane.rowSpan="4">
-         <effect>
-            <Blend />
-         </effect>
-      </JFXDrawer>
       <BarChart fx:id="graph" animated="false" title="Title" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
         <xAxis>
           <CategoryAxis label="Most Recent Routes" side="BOTTOM" />
@@ -110,6 +105,11 @@
             <BorderPane fx:id="errorBorder" layoutX="116.0" layoutY="179.0" prefHeight="151.0" prefWidth="276.0" style="-fx-border-color: black;" />
          </children>
       </AnchorPane>
+      <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" style="-fx-background-color: grey;" GridPane.rowSpan="4">
+         <effect>
+            <Blend />
+         </effect>
+      </JFXDrawer>
    </children>
    <columnConstraints>
       <ColumnConstraints maxWidth="800.0" minWidth="0.0" prefWidth="0.0" />

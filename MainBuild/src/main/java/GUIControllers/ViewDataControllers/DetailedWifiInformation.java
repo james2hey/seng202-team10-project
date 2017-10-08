@@ -39,6 +39,8 @@ public class DetailedWifiInformation extends DataViewerController {
     @FXML
     private ComboBox<String> suburb;
     @FXML
+    private Button delete;
+    @FXML
     private JFXTextField latitude;
     @FXML
     private JFXTextField SSID;
@@ -272,6 +274,24 @@ public class DetailedWifiInformation extends DataViewerController {
                 update.setDisable(false);
             }
         }));
+    }
+
+    /**
+     * Called when the delete wifi location button is pressed. Does a popup check as to whether the user is sure he/she/other
+     * wants to delete the wifi location and if so, removes it from the database.
+     * @param event Created when the method is called
+     */
+    @FXML
+    void deleteWifi(ActionEvent event) throws IOException{
+        if (makeConfirmationDialogueBox("Are you sure you want to delete this Wifi Location?", "This cannot be undone.")) {
+            //MATT TO ADD CODE WHICH WILL REMOVE RETAILER FROM DATABASE
+
+
+            //Closes popup
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            currentStage.close();
+            showWifiLocations(mainAppEvent);
+        };
     }
 
 }

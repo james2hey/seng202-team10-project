@@ -43,6 +43,8 @@ public class DetailedRetailerInformation extends DataViewerController {
     @FXML
     private JFXTextField longitude;
     @FXML
+    private Button delete;
+    @FXML
     private ComboBox<String> list;
     @FXML
     private Button update;
@@ -224,6 +226,24 @@ public class DetailedRetailerInformation extends DataViewerController {
                 update.setDisable(false);
             }
         }));
+    }
+
+    /**
+     * Called when the delete retailer button is pressed. Does a popup check as to whether the user is sure he/she/other
+     * wants to delete the retailer and if so, removes it from the database.
+     * @param event Created when the method is called
+     */
+    @FXML
+    void deleteRetailer(ActionEvent event)  throws IOException{
+        if (makeConfirmationDialogueBox("Are you sure you want to delete this retailer?", "This cannot be undone.")) {
+            //MATT TO ADD CODE WHICH WILL REMOVE RETAILER FROM DATABASE
+
+
+            //Closes popup
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            currentStage.close();
+            showWifiLocations(mainAppEvent);
+        };
     }
 
 }
