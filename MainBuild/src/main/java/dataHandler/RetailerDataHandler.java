@@ -1,6 +1,7 @@
 package dataHandler;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -63,10 +64,27 @@ public class RetailerDataHandler implements DataHandler, GeoCallback {
             }
             callback.result(addSingleEntry(record[0], record[1], lat, lon, record[3], record[4], record[5], record[7], record[8]));
         } else if (record.length == 9 || record.length == 18) {
+            if (inDatabase(record[0], record[1])) {
+                callback.result(false);
+                return;
+            }
             GeocodeOutcome outcome = new GeocodeOutcome(record, callback, this);
             Geocoder.addressToLatLonAsync(record[1] + ", " + record[3] + ", " + record[4] + ", " + record[5] + ", ", outcome);
         } else {
             callback.result(false);
+        }
+    }
+
+    private boolean inDatabase(String name, String address) {
+        try {
+            PreparedStatement ps = db.getPreparedStatement("select count(*) from retailer where RETAILER_NAME=? and ADDRESS=?");
+            ps.setString(1, name);
+            ps.setString(2, address);
+            ResultSet rs = ps.executeQuery();
+            return rs.getInt(1) == 1;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return true;
         }
     }
 
