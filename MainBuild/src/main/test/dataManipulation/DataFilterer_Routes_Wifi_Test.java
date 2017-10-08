@@ -1,11 +1,14 @@
 package dataManipulation;
 
+import dataAnalysis.Cyclist;
 import dataAnalysis.Route;
 import dataAnalysis.WifiLocation;
 import dataHandler.*;
 import de.saxsys.javafx.test.JfxRunner;
 import de.saxsys.javafx.test.TestInJfxThread;
 import javafx.concurrent.Task;
+import main.HandleUsers;
+import main.Main;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -23,6 +26,9 @@ import static org.mockito.Mockito.*;
 public class DataFilterer_Routes_Wifi_Test implements AddRouteCallback {
 
     private static DataFilterer dataFilterer;
+    private static ListDataHandler listDataHandler;
+    private static HandleUsers hu;
+    private static DatabaseUser databaseUser;
     private ArrayList<Route> routes = new ArrayList<>();
     private ArrayList<WifiLocation> wifiLocations = new ArrayList<>();
     private static SQLiteDB db;
@@ -45,7 +51,14 @@ public class DataFilterer_Routes_Wifi_Test implements AddRouteCallback {
         java.nio.file.Path path = java.nio.file.Paths.get(home, "testdatabase.db");
         db = new SQLiteDB(path.toString());
 
+        hu = new HandleUsers();
+        hu.init(db);
+        hu.currentCyclist = new Cyclist("Tester");
+        listDataHandler = new ListDataHandler(db, "test name");
+        ListDataHandler.setListName("test list");
         dataFilterer = new DataFilterer(db);
+        databaseUser = new DatabaseUser(db);
+        databaseUser.addUser("Tester", 1, 1, 2017, 1);
 
         WifiDataHandler wifiDataHandler = new WifiDataHandler(db);
         RouteDataHandler routeDataHandler = new RouteDataHandler(db);
@@ -463,6 +476,39 @@ public class DataFilterer_Routes_Wifi_Test implements AddRouteCallback {
 
 
     @Test
+    public void filterRoutesTestList_foo() throws Exception {
+        Task task = new RouteFiltererTask(db,-1, null, null, null, null,
+                null, null, null, "foo", this);
+        task.run();
+        int size = routes.size();
+        assertEquals(size ,  0);
+
+    }
+
+
+    @Test
+    public void filterRoutesTestList_test_list() throws Exception {
+        Task task = new RouteFiltererTask(db,-1, null, null, null, null,
+                null, null, null, "test list", this);
+        task.run();
+        int size = routes.size();
+        assertEquals(size ,  50);
+
+    }
+
+
+    @Test
+    public void filterRoutesTestList__() throws Exception {
+        Task task = new RouteFiltererTask(db,-1, null, null, null, null,
+                null, null, null, "", this);
+        task.run();
+        int size = routes.size();
+        assertEquals(size ,  0);
+
+    }
+
+
+    @Test
     public void filterRoutesTestGender_1_Date_20160101_20160120_() throws Exception {
         ArrayList<String> bikeID = new ArrayList<>();
         bikeID.add("23114");
@@ -745,6 +791,30 @@ public class DataFilterer_Routes_Wifi_Test implements AddRouteCallback {
 
 
     @Test
+    public void filterWifiTestList_foo() throws Exception {
+        wifiLocations = dataFilterer.filterWifi(null, null, null, null, "foo");
+        int size = wifiLocations.size();
+        assertEquals(size, 0);
+    }
+
+
+    @Test
+    public void filterWifiTestList_test_list() throws Exception {
+        wifiLocations = dataFilterer.filterWifi(null, null, null, null, "test list");
+        int size = wifiLocations.size();
+        assertEquals(size, 50);
+    }
+
+
+    @Test
+    public void filterWifiTestList__() throws Exception {
+        wifiLocations = dataFilterer.filterWifi(null, null, null, null, "");
+        int size = wifiLocations.size();
+        assertEquals(size, 0);
+    }
+
+
+    @Test
     public void filterWifiTestName_nypl_Suburb_manhattan() throws Exception {
         ArrayList<String> wifiID = new ArrayList<>();
         wifiID.add("247");
@@ -816,7 +886,7 @@ public class DataFilterer_Routes_Wifi_Test implements AddRouteCallback {
     }
 
     @Test
-    public void filterWifiTestType_() throws Exception {
+    public void filterWifiTestType_limited_free_provider_alticeusa() throws Exception {
         ArrayList<String> wifiID = new ArrayList<>();
         ArrayList<String> wifiIDff = new ArrayList<>();
         wifiID.add("3");

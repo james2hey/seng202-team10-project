@@ -1,11 +1,13 @@
 package dataManipulation;
 
 
+import dataAnalysis.Cyclist;
 import dataAnalysis.RetailLocation;
 import dataHandler.*;
 import de.saxsys.javafx.test.JfxRunner;
 import de.saxsys.javafx.test.TestInJfxThread;
 import javafx.concurrent.Task;
+import main.HandleUsers;
 import org.junit.*;
 import org.junit.runner.RunWith;
 
@@ -19,6 +21,9 @@ public class DataFilterer_Retailers_Test {
 
 
     private static SQLiteDB db;
+    private static ListDataHandler listDataHandler;
+    private static HandleUsers hu;
+    private static DatabaseUser databaseUser;
 
 
     @AfterClass
@@ -36,6 +41,16 @@ public class DataFilterer_Retailers_Test {
         String home = System.getProperty("user.home");
         java.nio.file.Path path = java.nio.file.Paths.get(home, "testdatabase.db");
         db = new SQLiteDB(path.toString());
+
+        hu = new HandleUsers();
+        hu.init(db);
+        hu.currentCyclist = new Cyclist("Tester");
+        listDataHandler = new ListDataHandler(db, "test name");
+        ListDataHandler.setListName("test list");
+
+        databaseUser = new DatabaseUser(db);
+        databaseUser.addUser("Tester", 1, 1, 2017, 1);
+
         RetailerDataHandlerFake handler = new RetailerDataHandlerFake(db);
         Task<Void> task = new CSVImporter(db, DataFilterer_Retailers_Test.class.getClassLoader().getResource("CSV/Lower_Manhattan_Retailers-test.csv").getFile(), handler);
         task.run();
@@ -56,7 +71,6 @@ public class DataFilterer_Retailers_Test {
     public void filterRetailersTestName__() throws Exception {
         DataFilterer dataFilterer = new DataFilterer(db);
         ArrayList<RetailLocation> retailLocations;
-        ArrayList<String> retailName = new ArrayList();
         retailLocations = dataFilterer.filterRetailers("", null, null, -1, null);
         int size = retailLocations.size();
         assertTrue(size == 50);
@@ -189,6 +203,36 @@ public class DataFilterer_Retailers_Test {
         for (int i = 0; i < size; i++){
             assertTrue(retailName.get(i).equals(retailLocations.get(i).getName()));
         }
+    }
+
+
+    @Test
+    public void filterRetailersTestList_foo() throws Exception {
+        DataFilterer dataFilterer = new DataFilterer(db);
+        ArrayList<RetailLocation> retailLocations;
+        retailLocations = dataFilterer.filterRetailers(null, null, null, -1, "foo");
+        int size = retailLocations.size();
+        assertTrue(size == 0);
+    }
+
+
+    @Test
+    public void filterRetailersTestList_test_list() throws Exception {
+        DataFilterer dataFilterer = new DataFilterer(db);
+        ArrayList<RetailLocation> retailLocations;
+        retailLocations = dataFilterer.filterRetailers(null, null, null, -1, "test list");
+        int size = retailLocations.size();
+        assertTrue(size == 50);
+    }
+
+
+    @Test
+    public void filterRetailersTestList__() throws Exception {
+        DataFilterer dataFilterer = new DataFilterer(db);
+        ArrayList<RetailLocation> retailLocations;
+        retailLocations = dataFilterer.filterRetailers(null, null, null, -1, "");
+        int size = retailLocations.size();
+        assertTrue(size == 0);
     }
 
 
