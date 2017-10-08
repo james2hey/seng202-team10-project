@@ -157,8 +157,11 @@ public class RouteDataViewerController extends DataViewerController implements A
                         editData(ae);
                     } catch (IOException e) {
                         //do nothing
+                        System.out.println("this shits fucked");
                     }
 
+                } else {
+                    System.out.println("j");
                 }
             }
         });
