@@ -61,7 +61,7 @@ public class AddDataController extends Controller implements Initializable {
     @FXML
     private DatePicker rSDate, rEDate;
     @FXML // Wifi Fields
-    private JFXTextField wifiName, wifiAddress, wifiPostcode, wifiComments;
+    private JFXTextField wifiName, wifiAddress, wifiComments;
     @FXML
     private Text selectMessage;
     @FXML
@@ -357,8 +357,9 @@ public class AddDataController extends Controller implements Initializable {
     void wifiCSVLine(ActionEvent event) throws IOException {
         Boolean errorOccured = false;
         double[] latLon;
-
-        if (listDataHandler.checkListName(listInput.getSelectionModel().getSelectedItem()) == true) {
+        String currentListInput;
+        currentListInput = listInput.getSelectionModel().getSelectedItem();
+        if (listDataHandler.checkListName(currentListInput) == true) {
             makeErrorDialogueBox("List name already exists", "This list name has been used by " +
                     "another user,\nplease choose another name");
         } else {
@@ -396,14 +397,14 @@ public class AddDataController extends Controller implements Initializable {
 
                 WifiDataHandler newWifi = new WifiDataHandler(Main.getDB());
                 Boolean fromHandler = newWifi.addSingleEntry(wifiName.getText(), "", "", wifiAddress.getText(), latLon[0], latLon[1],
-                        wifiComments.getText(), "", wifiName.getText(), "", wifiPostcode.getText());
+                        wifiComments.getText(), "", wifiName.getText(), "", null);
                 if (!fromHandler) {
                     makeErrorDialogueBox("Something wrong with input", "Fill all required fields\nCheck entry is not already in database");
                 } else {
                     if (addToFavourites.isSelected()) {
                         WifiLocation wifiToAdd = new WifiLocation(wifiName.getText(), latLon[0], latLon[1], wifiAddress.getText(),
                                 wifiName.getText(), "", "", wifiComments.getText(), "", "",
-                                parseInt(wifiPostcode.getText()), listInput.getSelectionModel().getSelectedItem());
+                                0, listInput.getSelectionModel().getSelectedItem());
                         Main.hu.currentCyclist.addFavouriteWifi(wifiToAdd, name, Main.getDB());
                         makeSuccessDialogueBox("Successfully added this entry to the database and your favourite Wifi list.", "You may add more entries");
                     } else {
@@ -429,42 +430,55 @@ public class AddDataController extends Controller implements Initializable {
     @FXML
     // Import file -> only allows *.csv and prints location afterwards for now...
     void chooseRoute(ActionEvent event) throws IOException {
+        String currentList = null;
+        currentList = listInput.getSelectionModel().getSelectedItem();
 
-        if (listDataHandler.checkListName(listInput.getSelectionModel().getSelectedItem()) == true) {
+        if (listDataHandler.checkListName(currentList) == true) {
             makeErrorDialogueBox("List name already exists", "This list name has been used by " +
                     "another user,\nplease choose another name");
         } else {
-            System.out.println(listInput.getSelectionModel().getSelectedItem());
-            listDataHandler.setListName(listInput.getSelectionModel().getSelectedItem());
-            listDataHandler.addList(listInput.getSelectionModel().getSelectedItem());
-            initListCombobox();
 
-            FileChooser fileChooser = new FileChooser();
-            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV (*.csv)", "*.csv");
-            fileChooser.getExtensionFilters().add(extFilter);
-            File file = fileChooser.showOpenDialog(((Node) event.getSource()).getScene().getWindow());
-            System.out.println(file);
-            if (file == null) {
-                return;
+            boolean result = true;
+            System.out.println(currentList);
+            if (currentList == null) {
+                result = makeConfirmationDialogueBox("You haven't selected a list to import your data into.",
+                        "This will import the data into a general list.\nAre you sure you want to continue?");
             }
 
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/progressPopup.fxml"));
-            Parent progressParent = loader.load();
-            ProgressPopupController controller = loader.getController();
-            Scene progressScene = new Scene(progressParent);
-            Stage dialogStage = new Stage();
-            dialogStage.initStyle(StageStyle.UTILITY);
-            dialogStage.setResizable(false);
-            dialogStage.initModality(Modality.APPLICATION_MODAL);
-            dialogStage.setScene(progressScene);
-            dialogStage.show();
+            if (result) {
 
-            RouteDataHandler handler = new RouteDataHandler(db);
-            Task<Void> task = new CSVImporter(db, file.toString(), handler);
-            controller.activateProgressBar(task);
-            Thread thread = new Thread(task);
-            thread.start();
-            dialogStage.setOnCloseRequest(e -> task.cancel());
+                System.out.println(currentList);
+                listDataHandler.setListName(currentList);
+                listDataHandler.addList(currentList);
+                initListCombobox();
+
+                FileChooser fileChooser = new FileChooser();
+                FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV (*.csv)", "*.csv");
+                fileChooser.getExtensionFilters().add(extFilter);
+                File file = fileChooser.showOpenDialog(((Node) event.getSource()).getScene().getWindow());
+                System.out.println(file);
+                if (file == null) {
+                    return;
+                }
+
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/progressPopup.fxml"));
+                Parent progressParent = loader.load();
+                ProgressPopupController controller = loader.getController();
+                Scene progressScene = new Scene(progressParent);
+                Stage dialogStage = new Stage();
+                dialogStage.initStyle(StageStyle.UTILITY);
+                dialogStage.setResizable(false);
+                dialogStage.initModality(Modality.APPLICATION_MODAL);
+                dialogStage.setScene(progressScene);
+                dialogStage.show();
+
+                RouteDataHandler handler = new RouteDataHandler(db);
+                Task<Void> task = new CSVImporter(db, file.toString(), handler);
+                controller.activateProgressBar(task);
+                Thread thread = new Thread(task);
+                thread.start();
+                dialogStage.setOnCloseRequest(e -> task.cancel());
+            }
         }
     }
 
@@ -485,13 +499,20 @@ public class AddDataController extends Controller implements Initializable {
             makeErrorDialogueBox("List name already exists", "This list name has been used by " +
                     "another user,\nplease choose another name");
         } else {
+            String currentList = listInput.getSelectionModel().getSelectedItem();
 
-            listDataHandler.setListName(listInput.getSelectionModel().getSelectedItem());
-            listDataHandler.addList(listInput.getSelectionModel().getSelectedItem());
-            initListCombobox();
+            boolean result = true;
+            System.out.println(currentList);
+            if (currentList == null) {
+                result = makeConfirmationDialogueBox("You haven't selected a list to import your data into.",
+                        "This will import the data into a general list.\nAre you sure you want to continue?");
+            }
 
-            boolean result = makeConfirmationDialogueBox("Warning! Depending on file size, this may take a few minutes.", "Are you sure you want to continue?");
             if (result) {
+                listDataHandler.setListName(currentList);
+                listDataHandler.addList(currentList);
+                initListCombobox();
+
                 FileChooser fileChooser = new FileChooser();
                 FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV (*.csv)", "*.csv");
                 fileChooser.getExtensionFilters().add(extFilter);
@@ -534,40 +555,52 @@ public class AddDataController extends Controller implements Initializable {
     @FXML
     void chooseWifi(ActionEvent event) throws IOException {
 
-        if (listDataHandler.checkListName(listInput.getSelectionModel().getSelectedItem()) == true) {
+        String currentList = listInput.getSelectionModel().getSelectedItem();
+
+        if (listDataHandler.checkListName(currentList) == true) {
             makeErrorDialogueBox("List name already exists", "This list name has been used by " +
                     "another user,\nplease choose another name");
         } else {
-            listDataHandler.setListName(listInput.getSelectionModel().getSelectedItem());
-            listDataHandler.addList(listInput.getSelectionModel().getSelectedItem());
-            initListCombobox();
 
-            FileChooser fileChooser = new FileChooser();
-            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV (*.csv)", "*.csv");
-            fileChooser.getExtensionFilters().add(extFilter);
-            File file = fileChooser.showOpenDialog(((Node) event.getSource()).getScene().getWindow());
-            System.out.println(file);
-            if (file == null) {
-                return;
+            boolean result = true;
+            System.out.println(currentList);
+            if (currentList == null) {
+                result = makeConfirmationDialogueBox("You haven't selected a list to import your data into.",
+                        "This will import the data into a general list.\nAre you sure you want to continue?");
             }
 
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/progressPopup.fxml"));
-            Parent progressParent = loader.load();
-            ProgressPopupController controller = loader.getController();
-            Scene progressScene = new Scene(progressParent);
-            Stage dialogStage = new Stage();
-            dialogStage.initStyle(StageStyle.UTILITY);
-            dialogStage.setResizable(false);
-            dialogStage.initModality(Modality.APPLICATION_MODAL);
-            dialogStage.setScene(progressScene);
-            dialogStage.show();
+            if (result) {
+                listDataHandler.setListName(currentList);
+                listDataHandler.addList(currentList);
+                initListCombobox();
 
-            WifiDataHandler handler = new WifiDataHandler(db);
-            Task<Void> task = new CSVImporter(db, file.toString(), handler);
-            controller.activateProgressBar(task);
-            Thread thread = new Thread(task);
-            thread.start();
-            dialogStage.setOnCloseRequest(e -> task.cancel());
+                FileChooser fileChooser = new FileChooser();
+                FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV (*.csv)", "*.csv");
+                fileChooser.getExtensionFilters().add(extFilter);
+                File file = fileChooser.showOpenDialog(((Node) event.getSource()).getScene().getWindow());
+                System.out.println(file);
+                if (file == null) {
+                    return;
+                }
+
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/progressPopup.fxml"));
+                Parent progressParent = loader.load();
+                ProgressPopupController controller = loader.getController();
+                Scene progressScene = new Scene(progressParent);
+                Stage dialogStage = new Stage();
+                dialogStage.initStyle(StageStyle.UTILITY);
+                dialogStage.setResizable(false);
+                dialogStage.initModality(Modality.APPLICATION_MODAL);
+                dialogStage.setScene(progressScene);
+                dialogStage.show();
+
+                WifiDataHandler handler = new WifiDataHandler(db);
+                Task<Void> task = new CSVImporter(db, file.toString(), handler);
+                controller.activateProgressBar(task);
+                Thread thread = new Thread(task);
+                thread.start();
+                dialogStage.setOnCloseRequest(e -> task.cancel());
+            }
         }
     }
 

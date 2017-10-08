@@ -37,7 +37,7 @@ import java.util.ResourceBundle;
 /**
  * Controller for the user information scene.
  */
-public class StatisticsController extends Controller implements Initializable {
+public class CompletedRoutesController extends Controller implements Initializable {
 
     @FXML
     private Text longestRoute;

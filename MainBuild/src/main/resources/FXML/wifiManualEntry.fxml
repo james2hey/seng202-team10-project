@@ -30,15 +30,14 @@
       <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="2">
          <children>
             <BorderPane layoutX="126.0" layoutY="15.0" prefHeight="300.0" prefWidth="608.0" style="-fx-border-color: black;" />
-            <JFXTextField fx:id="wifiName" layoutX="188.0" layoutY="69.0" prefHeight="23.0" prefWidth="184.0" promptText="Wifi Name (Required)" />
+            <JFXTextField fx:id="wifiName" layoutX="188.0" layoutY="85.0" prefHeight="23.0" prefWidth="184.0" promptText="Wifi Name (Required)" />
             <Text layoutX="154.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wifi Location Information">
                <font>
                   <Font size="20.0" />
                </font>
             </Text>
-            <JFXTextField fx:id="wifiAddress" layoutX="188.0" layoutY="116.0" prefHeight="23.0" prefWidth="184.0" promptText="Address (Required)" />
-            <JFXTextField fx:id="wifiPostcode" layoutX="188.0" layoutY="158.0" prefHeight="23.0" prefWidth="184.0" promptText="Postcode" />
-            <JFXTextField fx:id="wifiComments" layoutX="188.0" layoutY="200.0" prefHeight="23.0" prefWidth="184.0" promptText="Comments (e.g. Data Cap)" />
+            <JFXTextField fx:id="wifiAddress" layoutX="188.0" layoutY="139.0" prefHeight="23.0" prefWidth="184.0" promptText="Address (Required)" />
+            <JFXTextField fx:id="wifiComments" layoutX="188.0" layoutY="197.0" prefHeight="23.0" prefWidth="184.0" promptText="Comments (e.g. Data Cap)" />
             <JFXCheckBox fx:id="addToFavourites" checkedColor="#05c361" layoutX="505.0" layoutY="108.0" prefHeight="15.0" prefWidth="173.0" text="    Add to Favourites" unCheckedColor="BLACK" />
             <ComboBox fx:id="manualListInput" editable="true" layoutX="479.0" layoutY="164.0" prefHeight="25.0" prefWidth="226.0" promptText="Add to Selected/New List" />
             <Text layoutX="500.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Additional Options">
