@@ -62,7 +62,7 @@ public class RetailerDataHandler implements DataHandler, GeoCallback {
                 return;
             }
             callback.result(addSingleEntry(record[0], record[1], lat, lon, record[3], record[4], record[5], record[7], record[8]));
-        } else if (record.length == 9 || record.length == 18){
+        } else if (record.length == 9 || record.length == 18) {
             GeocodeOutcome outcome = new GeocodeOutcome(record, callback, this);
             Geocoder.addressToLatLonAsync(record[1] + ", " + record[3] + ", " + record[4] + ", " + record[5] + ", ", outcome);
         } else {

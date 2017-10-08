@@ -24,7 +24,6 @@ public class GeocodeOutcome implements PendingResult.Callback<GeocodingResult[]>
      * @param callback The object to call back with the latlong and record on success or fail.
      */
     public GeocodeOutcome(String[] record, Callback callback, GeoCallback geoCallback) {
-        System.out.println("6");
         this.record = record;
         this.callback = callback;
         this.geoCallback = geoCallback;
@@ -38,8 +37,6 @@ public class GeocodeOutcome implements PendingResult.Callback<GeocodingResult[]>
      */
     @Override
     public void onResult(GeocodingResult[] results) {
-        System.out.println("7");
-        System.out.println("Called back");
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
         if (results[0] == null) {
