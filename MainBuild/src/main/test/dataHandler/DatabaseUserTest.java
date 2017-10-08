@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import static org.junit.Assert.*;
 
 /**
- * Created by jto59 on 7/10/17.
+ * Testing class for the DatabaseUser.
  */
 public class DatabaseUserTest {
     private static SQLiteDB db;
@@ -117,14 +117,47 @@ public class DatabaseUserTest {
     }
 
     @Test
-    public void removeUserFromDatabase() throws Exception {
+    public void removeUserFromDatabase1() throws Exception {
+        // Checking the name is removed from the users table.
+        ListDataHandler l = new ListDataHandler(db, hu);
+        databaseUser.addUser("Tester", 1, 1, 2017, 1);
+        databaseUser.removeUserFromDatabase("Tester", hu);
+
+        ResultSet rs = db.executeQuerySQL("SELECT count(*) FROM users WHERE name = 'Tester';");
+        String result = rs.getString("count(*)");
+        assertEquals("0", result);
+    }
+
+    @Test
+    public void removeUserFromDatabase2() throws Exception {
+        // Checking that the name is removed from the favourite_wifi table as an example. The same delete clause is made for the
+        // for the other types of tables so it is unnecessary to test all of these.
         FavouriteWifiData f = new FavouriteWifiData(db);
         ListDataHandler l = new ListDataHandler(db, hu);
         f.addFavouriteWifi("Tester", "Wifi");
         databaseUser.addUser("Tester", 1, 1, 2017, 1);
         databaseUser.removeUserFromDatabase("Tester", hu);
 
-        ResultSet rs = db.executeQuerySQL("SELECT count(*) FROM users WHERE name = 'Tester';");
+        ResultSet rs = db.executeQuerySQL("SELECT count(*) FROM favourite_wifi WHERE name = 'Tester';");
+        String result = rs.getString("count(*)");
+        assertEquals("0", result);
+    }
+
+    @Test
+    public void removeUserFromDatabase3() throws Exception {
+        ListDataHandler l = new ListDataHandler(db, hu);
+
+        databaseUser.addUser("Tester", 1, 1, 2017, 1);
+        databaseUser.removeUserFromDatabase("Tester", hu);
+
+
+
+        // Insert test stuff here @MATT.
+
+
+
+
+        ResultSet rs = db.executeQuerySQL("SELECT count(*) FROM lists WHERE list_owner = 'Tester';");
         String result = rs.getString("count(*)");
         assertEquals("0", result);
     }
