@@ -45,7 +45,8 @@
                         </FXCollections>
                      </items>
                   </ComboBox>
-                  <Button layoutX="155.0" layoutY="206.0" mnemonicParsing="false" onAction="#updateProfile" text="Update Profile" />
+                  <Button layoutX="75.0" layoutY="207.0" mnemonicParsing="false" onAction="#updateProfile" prefHeight="25.0" prefWidth="129.0" text="Update Profile" />
+                  <Button layoutX="247.0" layoutY="207.0" mnemonicParsing="false" onAction="#deleteUser" text="Remove Account" />
                </children>
             </AnchorPane>
          </center>
@@ -69,11 +70,6 @@
             <JFXHamburger fx:id="hamburger" layoutX="24.0" layoutY="-13.0" onMouseClicked="#openDrawer" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0" />
          </children>
       </AnchorPane>
-      <Button mnemonicParsing="false" onAction="#deleteUser" prefHeight="236.0" prefWidth="163.0" text="Delete Account" GridPane.columnIndex="1" GridPane.rowIndex="2">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Button>
    </children>
    <columnConstraints>
       <ColumnConstraints maxWidth="800.0" minWidth="0.0" prefWidth="0.0" />

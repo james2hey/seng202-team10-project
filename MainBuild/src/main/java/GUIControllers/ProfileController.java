@@ -115,10 +115,12 @@ public class ProfileController extends Controller implements Initializable {
     }
 
     public void deleteUser(ActionEvent event) throws IOException {
-        Main.hu.logOutOfUser();
-        DatabaseUser d = new DatabaseUser(Main.getDB());
-        d.removeUserFromDatabase(Main.hu.currentCyclist.getName(), Main.hu);
-        navigateToStartUp(event);
+        if (makeConfirmationDialogueBox("Are you sure you want to delete this account?", "This cannot be undone.")) {
+            Main.hu.logOutOfUser();
+            DatabaseUser d = new DatabaseUser(Main.getDB());
+            d.removeUserFromDatabase(Main.hu.currentCyclist.getName(), Main.hu);
+            navigateToStartUp(event);
+        }
     }
 
     private void navigateToStartUp(ActionEvent event) throws IOException {
