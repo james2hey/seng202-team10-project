@@ -430,6 +430,7 @@ public class MapController extends Controller implements Initializable, MapCompo
     @FXML
     public void showNearbyWifi() {
         //Called by GUI when show nearby wifi button is pressed.
+        System.out.println("called");
         if (currentPoint == null) {
             makeErrorDialogueBox("Error", "Please select a point");
         } else {

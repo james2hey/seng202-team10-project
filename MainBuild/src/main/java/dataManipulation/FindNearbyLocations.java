@@ -121,7 +121,7 @@ public class FindNearbyLocations {
         while (nearbyWifi.size() < 100) {
             dist *= 2;
             if (dist > 360) {
-                return new ArrayList<>();
+                return nearbyWifi;
             }
             rs = getNearbyResults(statement, lat, lon, dist, fudge);
             generateWifiArray(rs);
@@ -154,7 +154,7 @@ public class FindNearbyLocations {
         while (nearbyRetail.size() < 100) {
             dist *= 2;
             if (dist > 360) {
-                return new ArrayList<>();
+                return nearbyRetail;
             }
             rs = getNearbyResults(statement, lat, lon, dist, fudge);
             generateRetailerArray(rs);
