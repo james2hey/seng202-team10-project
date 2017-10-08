@@ -2,6 +2,8 @@ package GUIControllers.ViewDataControllers;
 
 import com.jfoenix.controls.JFXTextField;
 import dataAnalysis.WifiLocation;
+import dataHandler.ListDataHandler;
+import dataHandler.SQLiteDB;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -9,9 +11,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import main.Main;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import static javafx.scene.paint.Color.*;
@@ -51,6 +55,8 @@ public class DetailedWifiInformation extends DataViewerController {
     @FXML
     private Button update;
     private WifiLocation currentWifi = null;
+    private ListDataHandler listDataHandler;
+    private SQLiteDB db;
 
     static public void setMainAppEvent(ActionEvent event) {
         mainAppEvent = event;
@@ -64,6 +70,11 @@ public class DetailedWifiInformation extends DataViewerController {
      */
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
+        db = Main.getDB();
+        listDataHandler = new ListDataHandler(db);
+        ArrayList<String> listNames = listDataHandler.getLists();
+        list.getItems().addAll(listNames);
+
         currentWifi = WifiDataViewerController.getWifi();
         wifiID.setText(currentWifi.getWifiID());
         address.setText(currentWifi.getAddress());
@@ -76,6 +87,7 @@ public class DetailedWifiInformation extends DataViewerController {
         SSID.setText(currentWifi.getSSID());
         suburb.getSelectionModel().select(currentWifi.getSuburb());
         Zip.setText(Integer.toString(currentWifi.getZip()));
+        list.getEditor().setText(currentWifi.getListName());
         addressListener();
         providerListener();
         latitudeListener();
@@ -84,6 +96,7 @@ public class DetailedWifiInformation extends DataViewerController {
         cityListener();
         SSIDListener();
         zipListener();
+        listListener();
     }
 
 
@@ -107,6 +120,8 @@ public class DetailedWifiInformation extends DataViewerController {
             currentWifi.setSSID(SSID.getText());
             currentWifi.setSuburb(suburb.getSelectionModel().getSelectedItem());
             currentWifi.setZip(Integer.parseInt(Zip.getText()));
+            listDataHandler.addList(list.getSelectionModel().getSelectedItem());
+            currentWifi.setListName(list.getSelectionModel().getSelectedItem());
 
             Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             currentStage.close();
@@ -271,6 +286,29 @@ public class DetailedWifiInformation extends DataViewerController {
             } else {
                 Zip.setFocusColor(DARKSLATEBLUE);
                 Zip.setUnFocusColor(GREEN);
+                update.setDisable(false);
+            }
+        }));
+    }
+
+
+    /**
+     * Error handler for list field. Uses a listener to see state of text. Sets color and makes confirm button
+     * un-selectable if text field incorrect.
+     */
+    private void listListener() {
+        list.getEditor().textProperty().addListener(((observable, oldValue, newValue) -> {
+            System.out.println("TextField Text Changed (newValue: " + newValue + ")");
+            if (list.getEditor().getText().length() > 25) {
+                String listName = list.getEditor().getText();
+                listName = listName.substring(0, 25);
+                list.getEditor().setText(listName);
+            } else if (listDataHandler.checkListName(list.getEditor().getText())) {
+                makeErrorDialogueBox("List name already exists", "This list name has already " +
+                        "been used by another\nuser. Please choose a new name.\n");
+                update.setDisable(true);
+            } else {
+                list.setPromptText("");
                 update.setDisable(false);
             }
         }));

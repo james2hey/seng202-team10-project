@@ -214,9 +214,6 @@ public class RetailerDataViewerController extends DataViewerController {
         DataFilterer filterer = new DataFilterer(Main.getDB());
         retailLocations = filterer.filterRetailers(name, address, primaryType, zip, list);
         System.out.println("Got data");
-        for (RetailLocation retailLocation : retailLocations) {
-            System.out.println(retailLocation.getName());
-        }
         tableView.getItems().clear();
         retailList.addAll(retailLocations);
     }

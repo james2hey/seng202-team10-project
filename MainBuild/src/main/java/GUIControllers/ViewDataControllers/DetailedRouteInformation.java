@@ -2,6 +2,8 @@ package GUIControllers.ViewDataControllers;
 
 import com.jfoenix.controls.JFXTextField;
 import dataAnalysis.Route;
+import dataHandler.ListDataHandler;
+import dataHandler.SQLiteDB;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -9,9 +11,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import main.Main;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import static javafx.scene.paint.Color.*;
@@ -72,6 +76,8 @@ public class DetailedRouteInformation extends RouteDataViewerController {
     @FXML
     private Button update;
     private Route currentRoute = null;
+    private ListDataHandler listDataHandler;
+    private SQLiteDB db;
 
     static public void setMainAppEvent(ActionEvent event) {
         mainAppEvent = event;
@@ -85,6 +91,11 @@ public class DetailedRouteInformation extends RouteDataViewerController {
      */
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
+        db = Main.getDB();
+        listDataHandler = new ListDataHandler(db);
+        ArrayList<String> listNames = listDataHandler.getLists();
+        list.getItems().addAll(listNames);
+
         currentRoute = RouteDataViewerController.getRoute();
         startAddress.setText(currentRoute.getStartAddress());
         endAddress.setText(currentRoute.getEndAddress());
@@ -107,6 +118,7 @@ public class DetailedRouteInformation extends RouteDataViewerController {
         gender.getSelectionModel().select(currentRoute.getGender());
         userType.setText(currentRoute.getUserType());
         bikeID.setText(currentRoute.getBikeID());
+        list.getEditor().setText(currentRoute.getListName());
         startAddressListener();
         endAddressListener();
         startLatListener();
@@ -122,6 +134,7 @@ public class DetailedRouteInformation extends RouteDataViewerController {
         tripDurationListener();
         userTypeListener();
         cyclistBirthYearListener();
+        listListener();
 
     }
 
@@ -153,6 +166,8 @@ public class DetailedRouteInformation extends RouteDataViewerController {
             currentRoute.setAge(Integer.parseInt(cyclistBirthYear.getText()));
             currentRoute.setGender(gender.getSelectionModel().getSelectedItem());
             currentRoute.setUserType(userType.getText());
+            listDataHandler.addList(list.getSelectionModel().getSelectedItem());
+            currentRoute.setListName(list.getSelectionModel().getSelectedItem());
 
             Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             currentStage.close();
@@ -161,6 +176,17 @@ public class DetailedRouteInformation extends RouteDataViewerController {
             makeErrorDialogueBox("Cannot update data.", "One (or more) field(s) is of an " +
                     "incorrect type.");
         }
+    }
+
+
+    @FXML
+    void checkIfEditable() throws IOException {
+//        ArrayList<String> lists = listDataHandler.getLists();
+//        if (!lists.contains(currentRoute.getListName())) {
+//            makeErrorDialogueBox("Cannot edit List", "This Route is part of another users " +
+//                    "list and\ncannot be changed");
+//            list.getEditor().setText(currentRoute.getListName());
+//        }
     }
 
 
@@ -462,6 +488,30 @@ public class DetailedRouteInformation extends RouteDataViewerController {
             }
         }));
     }
+
+
+    /**
+     * Error handler for list field. Uses a listener to see state of text. Sets color and makes confirm button
+     * un-selectable if text field incorrect.
+     */
+    private void listListener() {
+        list.getEditor().textProperty().addListener(((observable, oldValue, newValue) -> {
+            System.out.println("TextField Text Changed (newValue: " + newValue + ")");
+            if (list.getEditor().getText().length() > 25) {
+                String listName = list.getEditor().getText();
+                listName = listName.substring(0, 25);
+                list.getEditor().setText(listName);
+            } else if (listDataHandler.checkListName(list.getEditor().getText())) {
+                makeErrorDialogueBox("List name already exists", "This list name has already " +
+                        "been used by another\nuser. Please choose a new name.\n");
+                update.setDisable(true);
+            } else {
+                list.setPromptText("");
+                update.setDisable(false);
+            }
+        }));
+    }
+
 
     /**
      * Called when the delete retailer button is pressed. Does a popup check as to whether the user is sure he/she/other

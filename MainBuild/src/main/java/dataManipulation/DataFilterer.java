@@ -279,6 +279,7 @@ public class DataFilterer {
             setQueryParameters(pstmt);
 
             ResultSet rs = pstmt.executeQuery();
+            System.out.println("Got result set");
             generateRouteArray(rs);
 
         } catch (SQLException e) {
@@ -326,6 +327,7 @@ public class DataFilterer {
             setQueryParameters(pstmt);
 
             ResultSet rs = pstmt.executeQuery();
+            System.out.println("Got result set");
             generateRouteArray(rs);
 
         } catch (SQLException e) {
@@ -369,6 +371,7 @@ public class DataFilterer {
             pstmt = db.getPreparedStatement(queryString);
 
             ResultSet rs = pstmt.executeQuery();
+            System.out.println("Got result set");
             generateWifiArray(rs);
 
         } catch (SQLException e) {
@@ -436,6 +439,7 @@ public class DataFilterer {
             }
 
             ResultSet rs = pstmt.executeQuery();
+            System.out.println("Got result set");
             generateWifiArray(rs);
 
         } catch (SQLException e) {
@@ -479,6 +483,7 @@ public class DataFilterer {
             pstmt = db.getPreparedStatement(queryString);
 
             ResultSet rs = pstmt.executeQuery();
+            System.out.println("Got result set");
             generateRetailArray(rs);
 
         } catch (SQLException e) {
@@ -552,6 +557,7 @@ public class DataFilterer {
             }
 
             ResultSet rs = pstmt.executeQuery();
+            System.out.println("Got result set");
             generateRetailArray(rs);
 
         } catch (SQLException e) {

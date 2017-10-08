@@ -108,7 +108,6 @@ public class AddDataController extends Controller implements Initializable {
      * populates the list combobox.
      */
     public void initListCombobox() {
-        System.out.println("init comboBox");
         ArrayList<String> listNames = listDataHandler.getLists();
         listInput.getItems().clear();
         listInput.getItems().addAll(listNames);
@@ -423,6 +422,10 @@ public class AddDataController extends Controller implements Initializable {
             makeErrorDialogueBox("List name already exists", "This list name has been used by " +
                     "another user,\nplease choose another name");
         } else {
+            System.out.println(listInput.getSelectionModel().getSelectedItem());
+            listDataHandler.setListName(listInput.getSelectionModel().getSelectedItem());
+            listDataHandler.addList(listInput.getSelectionModel().getSelectedItem());
+            initListCombobox();
 
             FileChooser fileChooser = new FileChooser();
             FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV (*.csv)", "*.csv");
@@ -432,11 +435,6 @@ public class AddDataController extends Controller implements Initializable {
             if (file == null) {
                 return;
             }
-
-            System.out.println(listInput.getSelectionModel().getSelectedItem());
-            listDataHandler.setListName(listInput.getSelectionModel().getSelectedItem());
-            listDataHandler.addList(listInput.getSelectionModel().getSelectedItem());
-            initListCombobox();
 
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/progressPopup.fxml"));
             Parent progressParent = loader.load();
@@ -476,6 +474,10 @@ public class AddDataController extends Controller implements Initializable {
                     "another user,\nplease choose another name");
         } else {
 
+            listDataHandler.setListName(listInput.getSelectionModel().getSelectedItem());
+            listDataHandler.addList(listInput.getSelectionModel().getSelectedItem());
+            initListCombobox();
+
             boolean result = makeConfirmationDialogueBox("Warning! Depending on file size, this may take a few minutes.", "Are you sure you want to continue?");
             if (result) {
                 FileChooser fileChooser = new FileChooser();
@@ -486,11 +488,6 @@ public class AddDataController extends Controller implements Initializable {
                 if (file == null) {
                     return;
                 }
-
-                System.out.println(listInput.getSelectionModel().getSelectedItem());
-                listDataHandler.setListName(listInput.getSelectionModel().getSelectedItem());
-                listDataHandler.addList(listInput.getSelectionModel().getSelectedItem());
-                initListCombobox();
 
                 FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/progressPopup.fxml"));
                 Parent progressParent = loader.load();
@@ -528,6 +525,9 @@ public class AddDataController extends Controller implements Initializable {
             makeErrorDialogueBox("List name already exists", "This list name has been used by " +
                     "another user,\nplease choose another name");
         } else {
+            listDataHandler.setListName(listInput.getSelectionModel().getSelectedItem());
+            listDataHandler.addList(listInput.getSelectionModel().getSelectedItem());
+            initListCombobox();
 
             FileChooser fileChooser = new FileChooser();
             FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV (*.csv)", "*.csv");
@@ -537,11 +537,6 @@ public class AddDataController extends Controller implements Initializable {
             if (file == null) {
                 return;
             }
-
-            System.out.println(listInput.getSelectionModel().getSelectedItem());
-            listDataHandler.setListName(listInput.getSelectionModel().getSelectedItem());
-            listDataHandler.addList(listInput.getSelectionModel().getSelectedItem());
-            initListCombobox();
 
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/progressPopup.fxml"));
             Parent progressParent = loader.load();

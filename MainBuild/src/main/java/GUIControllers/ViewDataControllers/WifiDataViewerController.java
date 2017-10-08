@@ -202,9 +202,6 @@ public class WifiDataViewerController extends DataViewerController {
         DataFilterer filterer = new DataFilterer(Main.getDB());
         wifiLocations = filterer.filterWifi(name, suburb, cost, provider, list);
         System.out.println("Got data");
-        for (WifiLocation wifiLocation : wifiLocations) {
-            System.out.println(wifiLocation.getSSID());
-        }
 
         tableView.getItems().clear();
         wifiList.addAll(wifiLocations);

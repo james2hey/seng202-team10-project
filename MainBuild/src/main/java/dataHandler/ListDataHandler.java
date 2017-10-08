@@ -34,19 +34,6 @@ public class ListDataHandler {
 
 
     /**
-     * Constructor for ListDataHandler, creates new table in database and adds a list to the table from the given listName and
-     * the current user.
-     *
-     * @param db the database connection.
-     */
-    public ListDataHandler(SQLiteDB db, String listName) {
-        this.db = db;
-        db.addTable(tableName, tableFields, primaryKey);
-        addList(listName);
-    }
-
-
-    /**
      * gets the listName variable.
      *
      * @return listName of type String

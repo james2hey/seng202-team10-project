@@ -256,9 +256,6 @@ public class RouteDataViewerController extends DataViewerController {
                 bikeID, list);
         System.out.println("Got data");
         System.out.println(routes.size());
-        for (int i = 0; i < routes.size(); i++) {
-            System.out.println(routes.get(i).getBikeID());
-        }
         tableView.getItems().clear();
         routeList.addAll(routes);
 
