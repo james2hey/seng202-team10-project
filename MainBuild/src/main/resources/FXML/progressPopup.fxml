@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="240.0" prefWidth="400.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIControllers.ProgressPopupController">
+<VBox maxHeight="240.0" maxWidth="400.0" minHeight="240.0" minWidth="400.0" prefHeight="240.0" prefWidth="400.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIControllers.ProgressPopupController">
    <children>
       <VBox prefHeight="56.0" prefWidth="398.0">
          <children>

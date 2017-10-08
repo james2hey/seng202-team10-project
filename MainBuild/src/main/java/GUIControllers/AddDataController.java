@@ -466,10 +466,17 @@ public class AddDataController extends Controller implements Initializable {
                 ProgressPopupController controller = loader.getController();
                 Scene progressScene = new Scene(progressParent);
                 Stage dialogStage = new Stage();
-                dialogStage.initStyle(StageStyle.UTILITY);
                 dialogStage.setResizable(false);
+                System.out.println(dialogStage.isResizable());
+                dialogStage.setTitle("Import Status");
+                dialogStage.setMaxHeight(240);
+                dialogStage.setMaxWidth(400);
+                dialogStage.setMinHeight(240);
+                dialogStage.setMinWidth(400);
+                dialogStage.initStyle(StageStyle.UTILITY);
                 dialogStage.initModality(Modality.APPLICATION_MODAL);
                 dialogStage.setScene(progressScene);
+                dialogStage.setResizable(false);
                 dialogStage.show();
 
                 RouteDataHandler handler = new RouteDataHandler(db);
@@ -527,8 +534,12 @@ public class AddDataController extends Controller implements Initializable {
                 ProgressPopupController controller = loader.getController();
                 Scene progressScene = new Scene(progressParent);
                 Stage dialogStage = new Stage();
+                dialogStage.setTitle("Import Status");
+                dialogStage.setMaxHeight(240);
+                dialogStage.setMaxWidth(400);
+                dialogStage.setMinHeight(240);
+                dialogStage.setMinWidth(400);
                 dialogStage.initStyle(StageStyle.UTILITY);
-                dialogStage.setResizable(false);
                 dialogStage.initModality(Modality.APPLICATION_MODAL);
                 dialogStage.setScene(progressScene);
                 dialogStage.show();
@@ -588,8 +599,12 @@ public class AddDataController extends Controller implements Initializable {
                 ProgressPopupController controller = loader.getController();
                 Scene progressScene = new Scene(progressParent);
                 Stage dialogStage = new Stage();
+                dialogStage.setTitle("Import Status");
                 dialogStage.initStyle(StageStyle.UTILITY);
-                dialogStage.setResizable(false);
+                dialogStage.setMaxHeight(240);
+                dialogStage.setMaxWidth(400);
+                dialogStage.setMinHeight(240);
+                dialogStage.setMinWidth(400);
                 dialogStage.initModality(Modality.APPLICATION_MODAL);
                 dialogStage.setScene(progressScene);
                 dialogStage.show();
