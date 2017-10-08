@@ -44,6 +44,7 @@ public class Main extends Application {
 
 
         primaryStage.setTitle("Pedals");
+        primaryStage.setResizable(false);
 
         primaryStage.setScene(new Scene(root, 1100, 650));
         primaryStage.show();

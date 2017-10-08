@@ -28,8 +28,8 @@
       <RowConstraints maxHeight="475.0" minHeight="0.0" prefHeight="300.0" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="465.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="465.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="465.0" minHeight="0.0" prefHeight="43.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="465.0" minHeight="0.0" prefHeight="29.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="465.0" minHeight="0.0" prefHeight="42.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="465.0" minHeight="0.0" prefHeight="30.0" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
       <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Wifi Data Viewer" textAlignment="CENTER" wrappingWidth="953.193359375" GridPane.columnIndex="1" GridPane.columnSpan="6">
@@ -123,9 +123,19 @@
       </AnchorPane>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="4" GridPane.rowSpan="2">
          <children>
-            <Button layoutX="363.0" layoutY="2.0" mnemonicParsing="false" onAction="#displaySelectedDataOnMap" prefHeight="25.0" prefWidth="190.0" text="View Selected On Map" />
-            <Button fx:id="favouritesButton" layoutX="34.0" layoutY="26.0" mnemonicParsing="false" onAction="#addFavouriteWifi" prefHeight="25.0" prefWidth="190.0" text="Add to Favourites" />
-            <Button layoutX="363.0" layoutY="50.0" mnemonicParsing="false" onAction="#displayDataOnMap" prefHeight="25.0" prefWidth="190.0" text="View All On Map" />
+            <Button alignment="TOP_CENTER" layoutX="339.0" layoutY="37.0" mnemonicParsing="false" onAction="#displaySelectedDataOnMap" prefHeight="25.0" prefWidth="190.0" text="View Selected" />
+            <Button fx:id="favouritesButton" layoutX="54.0" layoutY="49.0" mnemonicParsing="false" onAction="#addFavouriteWifi" prefHeight="25.0" prefWidth="190.0" text="Add to Favourites" />
+            <Button alignment="TOP_CENTER" layoutX="339.0" layoutY="75.0" mnemonicParsing="false" onAction="#displayDataOnMap" prefHeight="25.0" prefWidth="190.0" text="View All" />
+            <Text layoutX="346.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Display Data on Map">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Text>
+            <Text layoutX="90.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Tracking">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Text>
          </children>
       </AnchorPane>
       <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" GridPane.rowSpan="7" />
