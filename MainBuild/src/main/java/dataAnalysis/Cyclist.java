@@ -103,7 +103,6 @@ public class Cyclist {
 
     /**
      * Adds a route to the cyclists favouriteRoute list.
-     *
      * @param route the route to be added
      */
     public void addTakenRouteInstance(Route route) {
@@ -113,7 +112,6 @@ public class Cyclist {
 
     /**
      * Adds a route to the cyclists favouriteRoute list.
-     *
      * @param route the route to be added
      */
     public void addFavouriteRouteInstance(Route route) {
@@ -123,7 +121,6 @@ public class Cyclist {
 
     /**
      * Adds a wifi location to the cyclists favouriteWifiLocation list.
-     *
      * @param wifi the wifi location to be added
      */
     public void addWifiInstance(WifiLocation wifi) {
@@ -133,8 +130,7 @@ public class Cyclist {
 
     /**
      * Adds a retail store to the cyclists favouriteRetailLocation list.
-     *
-     * @param retail
+     * @param retail the retail store to be added
      */
     public void addRetailInstance(RetailLocation retail) {
         favouriteRetailLocations.add(retail);

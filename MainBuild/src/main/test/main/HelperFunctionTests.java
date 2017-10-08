@@ -1,54 +1,57 @@
-package OtherFunctionTests;
+package main;
 
 import dataAnalysis.Cyclist;
 import dataAnalysis.Route;
+import dataHandler.SQLiteDB;
 import main.HelperFunctions;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
 public class HelperFunctionTests {
+    public double testingDistance1 = 11.12;
+    public double testingDistance2 = 55.6;
+    /**
+     * Helper class to populate the given cyclist with the given number of routes of distance 11.12km.
+     * @param cyclist cyclist to have routes populated
+     * @param numberOfRoutes number of routes to populate
+     * @return the same cyclist object with its TakenRoute list populated
+     */
+    public Cyclist addRoutesToCyclist(Cyclist cyclist, int numberOfRoutes) {
+            Route r = new Route(0, "0", "0", "0", "0", "0",
+                    "0", "0",
+                    "0", 0,
+                    0, 0,
+                    0.1, 0,
+                    0, "0",
+                    "0", "0",
+                    0, "0",
+                    0, "0");
 
-//    Route(int tripDuration, String stTime, String spTime, String stDay, String stMonth, String stYear,
-//          String spDay, String spMonth, String spYear, double stStationLat, double stStationLong,
-//          double endStationLat, double endStationLong, int stStationID, int endStationID, String stStationAdr,
-//          String endStationAdr, String bId, int riderGender, String riderType, int riderAge, String list,
-//          float rdistance)
+        for(int i =0; i < numberOfRoutes; i++) {cyclist.addTakenRouteInstance(r);}
 
-//    Route(rsRoute.getInt("tripduration"), rsRoute.getString("start_time"),
-//            rsRoute.getString("end_time"), rsRoute.getString("start_day"),
-//                                rsRoute.getString("start_month"), rsRoute.getString("start_year"),
-//                                rsRoute.getString("end_day"), rsRoute.getString("end_month"),
-//                                rsRoute.getString("end_year"), rsRoute.getDouble("start_latitude"),
-//                                rsRoute.getDouble("start_longitude"), rsRoute.getDouble("end_latitude"),
-//                                rsRoute.getDouble("end_longitude"), rsRoute.getInt("start_station_id"),
-//                                rsRoute.getInt("end_station_id"), rsRoute.getString("start_station_name"),
-//                                rsRoute.getString("end_station_name"), rsRoute.getString("bikeid"),
-//                                rsRoute.getInt("gender"), rsRoute.getString("usertype"),
-//                                rsRoute.getInt("birth_year"), rsRoute.getString("list_name"),
-//                                rsFavourites.getFloat("distance"));
+        return cyclist;
+    }
 
-    public Cyclist createCyclistWithRoutes() {
-        Cyclist cyclist = new Cyclist("Tester");
-
-        Route r1 = new Route(0, "0", "0", "0", "0", "0",
+    /**
+     * Helper class to populate the given cyclist with the given number of routes of distance 55.6.
+     * @param cyclist cyclist to have routes populated
+     * @param numberOfRoutes number of routes to populate
+     * @return the same cyclist object with its TakenRoute list populated
+     */
+    public Cyclist addHigherLengthRoutesToCyclist(Cyclist cyclist, int numberOfRoutes) {
+        Route r = new Route(0, "0", "0", "0", "0", "0",
                 "0", "0",
                 "0", 0,
                 0, 0,
-                0, 0,
+                0.5, 0,
                 0, "0",
                 "0", "0",
                 0, "0",
                 0, "0");
-        Route r2 = new Route(0, "0", "0", "0", "0", "0",
-                "0", "0",
-                "0", 0,
-                0, 0,
-                0, 0,
-                0, "0",
-                "0", "0",
-                0, "0",
-                0, "0");
+
+        for(int i =0; i < numberOfRoutes; i++) {cyclist.addTakenRouteInstance(r);}
+
         return cyclist;
     }
 
@@ -181,68 +184,126 @@ public class HelperFunctionTests {
         assertTrue(invalidDate);
     }
 
+
     @Test
     public void calculateDistanceCycled1() {
+        // NO ROUTES
         Cyclist cyclist = new Cyclist("Tester");
         double distance = HelperFunctions.calculateDistanceCycled(cyclist);
-        assertEquals(0, distance, 0.1);
+        assertEquals(0, distance, 0.001);
     }
 
     @Test
     public void calculateDistanceCycled2() {
-        Cyclist cyclist = new Cyclist("Tester"); //Need geocoding here.
+        // ONE ROUTE
+        Cyclist cyclist = addRoutesToCyclist(new Cyclist("Tester"), 1);
+        double distance = HelperFunctions.calculateDistanceCycled(cyclist);
+        assertEquals(testingDistance1, distance, 0.001);
     }
 
     @Test
     public void calculateDistanceCycled3() {
-        Cyclist cyclist = new Cyclist("Tester");
+        // MULTIPLE ROUTES
+        Cyclist cyclist = addRoutesToCyclist(new Cyclist("Tester"), 100);
+        double distance = HelperFunctions.calculateDistanceCycled(cyclist);
+        assertEquals(testingDistance1*100, distance, 0.001);
     }
-
 
     @Test
     public void cacluateAverageDistance1() {
-
+        SQLiteDB db = new SQLiteDB();
+        HandleUsers hu = new HandleUsers();
+        hu.init(db);
+        hu.currentCyclist = new Cyclist("Tester");
+        double distance = HelperFunctions.cacluateAverageDistance(hu.currentCyclist, hu);
+        assertEquals(0, distance, 0.001);
     }
 
     @Test
     public void cacluateAverageDistance2() {
-
+        SQLiteDB db = new SQLiteDB();
+        HandleUsers hu = new HandleUsers();
+        hu.init(db);
+        hu.currentCyclist = addRoutesToCyclist(new Cyclist("Tester"), 1);
+        double distance = HelperFunctions.cacluateAverageDistance(hu.currentCyclist, hu);
+        assertEquals(testingDistance1, distance, 0.001);
     }
 
     @Test
     public void cacluateAverageDistance3() {
-
+        SQLiteDB db = new SQLiteDB();
+        HandleUsers hu = new HandleUsers();
+        hu.init(db);
+        hu.currentCyclist = addRoutesToCyclist(new Cyclist("Tester"), 100);
+        double distance = HelperFunctions.cacluateAverageDistance(hu.currentCyclist, hu);
+        assertEquals(testingDistance1, distance, 0.001);
     }
 
     @Test
     public void calculateShortestRoute1() {
-
+        Cyclist cyclist = new Cyclist("Tester");
+        double distance = HelperFunctions.calculateShortestRoute(cyclist);
+        assertEquals(9999999.0, distance, 0.001); // Arbitrarily large number.
     }
 
     @Test
     public void calculateShortestRoute2() {
-
+        Cyclist cyclist = addRoutesToCyclist(new Cyclist("Tester"), 1);
+        cyclist = addHigherLengthRoutesToCyclist(cyclist, 1);
+        double distance = HelperFunctions.calculateShortestRoute(cyclist);
+        assertEquals(testingDistance1, distance, 0.001);
     }
 
     @Test
     public void calculateShortestRoute3() {
-
+        Cyclist cyclist = addRoutesToCyclist(new Cyclist("Tester"), 1);
+        cyclist = addHigherLengthRoutesToCyclist(cyclist, 1);
+        double distance = HelperFunctions.calculateShortestRoute(cyclist);
+        assertEquals(testingDistance1, distance, 0.001);
     }
 
 
     @Test
     public void calculateLongestRoute1() {
-
+        Cyclist cyclist = new Cyclist("Tester");
+        double distance = HelperFunctions.calculateLongestRoute(cyclist);
+        assertEquals(-1, distance, 0.001);
     }
 
     @Test
     public void calculateLongestRoute2() {
-
+        Cyclist cyclist = addRoutesToCyclist(new Cyclist("Tester"), 1);
+        double distance = HelperFunctions.calculateLongestRoute(cyclist);
+        assertEquals(testingDistance1, distance, 0.001);
     }
 
     @Test
     public void calculateLongestRoute3() {
+        Cyclist cyclist = addRoutesToCyclist(new Cyclist("Tester"), 1);
+        cyclist = addHigherLengthRoutesToCyclist(cyclist, 1);
+        double distance = HelperFunctions.calculateLongestRoute(cyclist);
+        assertEquals(testingDistance2, distance, 0.001);
+    }
 
+    @Test
+    public void format2dp1() {
+        double number = 1.1234212345452;
+        HelperFunctions.format2dp(number);
+        assertEquals(1.12, number, 0.1);
+    }
+
+    @Test
+    public void format2dp2() {
+        double number = 1;
+        HelperFunctions.format2dp(number);
+        assertEquals(1.0, number, 0.1);
+    }
+
+    @Test
+    public void format2dp3() {
+        double number = 10000000;
+        HelperFunctions.format2dp(number);
+        assertEquals(10000000.0, number, 0.1);
     }
 
 }

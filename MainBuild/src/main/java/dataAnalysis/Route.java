@@ -108,7 +108,7 @@ public class Route {
                  String spDay, String spMonth, String spYear, double stStationLat, double stStationLong,
                  double endStationLat, double endStationLong, int stStationID, int endStationID, String stStationAdr,
                  String endStationAdr, String bId, int riderGender, String riderType, int riderAge, String list,
-                 float rdistance) {
+                 double rdistance) {
         duration = tripDuration;
         startTime = stTime;
         startDay = stDay;

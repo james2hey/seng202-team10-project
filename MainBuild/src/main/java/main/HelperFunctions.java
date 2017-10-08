@@ -152,12 +152,13 @@ public class HelperFunctions {
 
 
     /**
-     * Calculates the total distance a user has cycled --------------------toTest----
+     * Calculates the total distance a user has cycled.
+     * @param cyclist the cyclist whose total distance cycled is to be calculated
+     * @return the total distance the cyclist has travelled
      */
     public static double calculateDistanceCycled(Cyclist cyclist) {
         ArrayList<Route> takenList = new ArrayList<>();
         takenList.addAll(cyclist.getTakenRoutes());
-        //takenList.addAll(Main.hu.currentCyclist.getTakenRoutes());
         double distanceCycled = 0;
         for (Route route : takenList) {
             distanceCycled += route.getDistance();
@@ -167,12 +168,14 @@ public class HelperFunctions {
 
 
     /**
-     * Calculates the average distance a user has travelled.--------------------toTest----
+     * Calculates the average distance a user has cycled.
+     * @param cyclist the cyclist whose total distance cycled is to be calculated
+     * @param hu the instance of the current users being handled in the program
      * @return average distance travelled
      */
-    public static double cacluateAverageDistance(Cyclist cyclist) {
+    public static double cacluateAverageDistance(Cyclist cyclist, HandleUsers hu) {
         ArrayList<Route> takenList = new ArrayList<>();
-        takenList.addAll(Main.hu.currentCyclist.getTakenRoutes());
+        takenList.addAll(hu.currentCyclist.getTakenRoutes());
         double averageDistance = 0;
         if (takenList.size() == 0) { // Avoid divide by 0 error.
             averageDistance = 0;
@@ -184,8 +187,9 @@ public class HelperFunctions {
 
 
     /**
-     * Calculates the users shortest distance, returns an arbritraily large number if there are no--------------------toTest----
+     * Calculates the users shortest distance, returns an arbitrarily large number if there are no--------------------toTest----
      * routes in the takenRouteList.
+     * @param cyclist the cyclist whose shortest route is to be found
      * @return shortest distance out of all taken routes
      */
     public static double calculateShortestRoute(Cyclist cyclist) {
@@ -204,6 +208,7 @@ public class HelperFunctions {
     /**
      * Calculates the users longest distance, returns -1 if there are no--------------------toTest----
      * routes in the takenRouteList.
+     * @param cyclist the cyclist whose shortest route is to be found
      * @return shortest distance out of all taken routes
      */
     public static double calculateLongestRoute(Cyclist cyclist) {
@@ -220,9 +225,10 @@ public class HelperFunctions {
 
 
     /**
-     * Formats a number to 2dp.
+     * Formats a number to 2dp without rounding.
      * @param number the double to be formatted ----------------------toTest---
-     * @return
+     * @return a 2dp format of the given number
+     *
      */
     public static double format2dp(double number) {
         number = Math.round(number * 100);
