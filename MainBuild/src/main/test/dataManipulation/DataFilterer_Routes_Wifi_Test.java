@@ -804,27 +804,30 @@ public class DataFilterer_Routes_Wifi_Test implements AddRouteCallback {
     @Test
     public void filterWifiTestSuburb_brooklyn_Provider_alticeusa_() throws Exception {
         ArrayList<String> wifiID = new ArrayList<>();
+        ArrayList<String> wifiIDff = new ArrayList<>();
         wifiID.add("3");
         wifiID.add("27");
         wifiID.add("49");
         wifiLocations = dataFilterer.filterWifi(null, "Brooklyn", null, "alticeusa", null);
-        for (int i = 0; i < wifiID.size(); i++) {
-            assertEquals(wifiID.get(i), (wifiLocations.get(i).getWifiID()));
+        for (WifiLocation w : wifiLocations) {
+            wifiIDff.add(w.getWifiID());
         }
+        assertArrayEquals(wifiID.toArray(), wifiIDff.toArray());
     }
-
 
     @Test
     public void filterWifiTestType_() throws Exception {
         ArrayList<String> wifiID = new ArrayList<>();
+        ArrayList<String> wifiIDff = new ArrayList<>();
         wifiID.add("3");
         wifiID.add("27");
         wifiID.add("49");
         wifiID.add("858");
         wifiLocations = dataFilterer.filterWifi(null, null, "Limited Free", "alticeusa", null);
-        for (int i = 0; i < wifiID.size(); i++) {
-            assertEquals(wifiID.get(i), (wifiLocations.get(i).getWifiID()));
+        for (WifiLocation w : wifiLocations) {
+            wifiIDff.add(w.getWifiID());
         }
+        assertArrayEquals(wifiID.toArray(), wifiIDff.toArray());
     }
 
 

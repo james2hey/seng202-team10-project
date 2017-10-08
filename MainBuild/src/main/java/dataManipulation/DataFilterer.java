@@ -66,6 +66,11 @@ public class DataFilterer {
      * @param db
      */
     public DataFilterer(SQLiteDB db) {
+        setVariables();
+        this.db = db;
+    }
+
+    private void setVariables() {
         //---Route Strings---
         routeCommand = "SELECT * FROM route_information WHERE ";
         genderCommand = "gender = ?";
@@ -99,7 +104,6 @@ public class DataFilterer {
         filterVariableStrings = new ArrayList<>();
         wifiLocations = new ArrayList<>();
         retailLocations = new ArrayList<>();
-        this.db = db;
     }
 
 
@@ -120,157 +124,6 @@ public class DataFilterer {
         }
         return queryCommand;
     }
-
-
-///////////////////////////////---ROUTE FILTERING---\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
-    /**
-     * GenerateRouteArray takes a result set (set of records received from a database query) and creates a Route from
-     * each result and adds them to an ArrayList.
-     *
-     * @param rs is a result set of data records from a query to the database
-     */
-    private void generateRouteArray(ResultSet rs) {
-        try {
-            while (rs.next()) {
-                routes.add(new Route(rs.getInt("tripduration"), rs.getString("start_time"),
-                        rs.getString("end_time"), rs.getString("start_day"),
-                        rs.getString("start_month"), rs.getString("start_year"),
-                        rs.getString("end_day"), rs.getString("end_month"),
-                        rs.getString("end_year"), rs.getDouble("start_latitude"),
-                        rs.getDouble("start_longitude"), rs.getDouble("end_latitude"),
-                        rs.getDouble("end_longitude"), rs.getInt("start_station_id"),
-                        rs.getInt("end_station_id"), rs.getString("start_station_name"),
-                        rs.getString("end_station_name"), rs.getString("bikeid"),
-                        rs.getInt("gender"), rs.getString("usertype"),
-                        rs.getInt("birth_year"), rs.getString("list_name")));
-            }
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-
-
-    /**
-     * convertDates takes an upper and lower bound of dates and converts them into a single number. The date format
-     * must be DD/MM/YYYY. The date will be converted into the format: YYYYMMDD. This allows the easy querying of dates
-     * in the database.
-     * <p>
-     * Ex. date: 21/01/2016 will be converted into 20160121
-     *
-     * @param dateLower of type String
-     * @param dateUpper of type String
-     */
-    private void convertDates(String dateLower, String dateUpper) {
-        filterVariableStrings.add(dateLower.substring(6) + dateLower.substring(3, 5) + dateLower.substring(0, 2));
-        filterVariableStrings.add(dateUpper.substring(6) + dateUpper.substring(3, 5) + dateUpper.substring(0, 2));
-    }
-
-
-    /**
-     * generateQueryString takes all the possible filter requirement values and appends the necessary strings onto the
-     * end of the database query statement. A value of -1 (int) or null (string) means the parameter has not been set
-     * by the user, and this will not be used in the query.
-     *
-     * @param gender        of type int. A value of -1 means not to filter by gender, 1 means filter by males and 2
-     *                      means filter by females
-     * @param dateLower     of type String. It is the lower limit that a route was started on, specified by
-     *                      the user
-     * @param dateUpper     dof type String. It is the upper limit that a route was started on, specified by
-     *                      the user
-     * @param timeLower     tof type String. It is the lower time limit of starting a route the user wants to
-     *                      filter by
-     * @param timeUpper     of type String. It is the upper time limit of starting a route the user wants to
-     *                      filter by
-     * @param startLocation of type String. It is the starting address of a route that the user wants
-     *                      to filter by
-     * @param endLocation   of type String. It is the ending address of a route that the user wants
-     *                      to filter by
-     * @param bikeID        of type String. It is the bikeID of a route that the user want to filter by.
-     * @param list          of type String. It is the list name of the list the user wants to filter by.
-     * @return queryCommand, of type String. This is the string that will be used as a query statement to the database
-     */
-    private String generateQueryString(int gender, String dateLower, String dateUpper, String timeLower,
-                                       String timeUpper, String startLocation, String endLocation, String bikeID,
-                                       String list) {
-        String queryCommand = routeCommand;
-        int queryLength = 0;
-
-        if (gender != -1) {
-            queryCommand = queryCommand + genderCommand;
-            filterVariables.add(gender);
-            queryLength += 1;
-        }
-        if (dateLower != null && dateUpper != null) {
-            convertDates(dateLower, dateUpper);
-            queryCommand = addAndToStmt(queryCommand, queryLength);
-            queryCommand = queryCommand + dateCommand;
-            queryLength += 1;
-        }
-        if (timeLower != null && timeUpper != null) {
-            queryCommand = addAndToStmt(queryCommand, queryLength);
-            queryCommand = queryCommand + timeCommand;
-            filterVariableStrings.add(timeLower);
-            filterVariableStrings.add(timeUpper);
-            queryLength += 1;
-        }
-        if (startLocation != null) {
-            queryCommand = addAndToStmt(queryCommand, queryLength);
-            queryCommand = queryCommand + startAddressCommand;
-            filterVariableStrings.add("%" + startLocation + "%");
-            queryLength += 1;
-        }
-        if (endLocation != null) {
-            queryCommand = addAndToStmt(queryCommand, queryLength);
-            queryCommand = queryCommand + endAddressCommand;
-            filterVariableStrings.add("%" + endLocation + "%");
-            queryLength += 1;
-        }
-        if (bikeID != null) {
-            queryCommand = addAndToStmt(queryCommand, queryLength);
-            queryCommand = queryCommand + bikeIDCommand;
-            filterVariableStrings.add(bikeID);
-            queryLength += 1;
-        }
-        if (list != null) {
-            queryCommand = addAndToStmt(queryCommand, queryLength);
-            queryCommand = queryCommand + listCommand;
-            filterVariableStrings.add(list);
-            queryLength += 1;
-        }
-        if (queryLength > 0) {
-            queryCommand = queryCommand + commandEnd;
-        }
-        System.out.println(queryCommand);
-        return queryCommand;
-    }
-
-    /**
-     * setQueryParameters takes a PreparedStatement as a parameter and uses the values in class ArrayList variables,
-     * filterVariables and filterVariableStrings, to set the parameters of the PreparedStatement.
-     *
-     * @param pstmt of type PreparedStatement. This is the query statement to be called to the database
-     */
-    private void setQueryParameters(PreparedStatement pstmt) {
-        try {
-            int i;
-            for (i = 0; i < filterVariables.size(); i++) {
-                pstmt.setInt(i + 1, filterVariables.get(i));
-            }
-
-            for (int j = 0; j < filterVariableStrings.size(); j++) {
-                pstmt.setString(i + 1, filterVariableStrings.get(j));
-                i++;
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-
-
 
 
 
@@ -302,6 +155,7 @@ public class DataFilterer {
      * ArrayList.
      */
     private void getAllWifiLocations() {
+        setVariables();
         String queryString = getAllWifiCommand;
         try {
             PreparedStatement pstmt;
@@ -328,6 +182,7 @@ public class DataFilterer {
      * @return ArrayList<WifiLocation>, an ArrayList that contains WifiLocation objects
      */
     public ArrayList<WifiLocation> filterWifi(String name, String suburb, String type, String provider, String list) {
+        setVariables();
         int queryLen = 0;
         String queryString = wifiCommand;
 
@@ -413,6 +268,7 @@ public class DataFilterer {
      * ArrayList.
      */
     private void getAllRetailLocations() {
+        setVariables();
         String queryString = getAllRetailersCommand;
         try {
             PreparedStatement pstmt;
@@ -439,6 +295,7 @@ public class DataFilterer {
      * @return ArrayList<RetailLocation>, this is an ArrayList of RetailLocations objects
      */
     public ArrayList<RetailLocation> filterRetailers(String name, String address, String primary, int zip, String list) {
+        setVariables();
         int queryLen = 0;
         String queryString = retailerCommand;
 

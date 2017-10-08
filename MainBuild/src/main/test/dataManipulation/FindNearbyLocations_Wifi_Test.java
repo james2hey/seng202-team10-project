@@ -14,8 +14,9 @@ import org.junit.runner.RunWith;
 
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Comparator;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 
 
@@ -51,19 +52,22 @@ public class FindNearbyLocations_Wifi_Test {
     @Test
     public void findNearbyWifiTest_40_71728_minus_74_000962() throws Exception {
         ArrayList<String> wifiID = new ArrayList<>();
+        ArrayList<String> wifiIDff = new ArrayList<>();
         wifiID.add("705");
         wifiID.add("2266");
         FindNearbyLocations nearbyLocations = new FindNearbyLocations(db);
         wifi = nearbyLocations.findNearbyWifi(40.717828, -74.000962);
-        for (int i = 0; i < wifi.size(); i++){
-            assertTrue(wifiID.get(i).equals(wifi.get(i).getWifiID()));
+        for (WifiLocation w : wifi) {
+            wifiIDff.add(w.getWifiID());
         }
+        assertArrayEquals(wifiID.toArray(), wifiIDff.toArray());
     }
 
 
     @Test
     public void findNearbyWifiTest_40_689319_minus_73_987162() throws Exception {
         ArrayList<String> wifiID = new ArrayList<>();
+        ArrayList<String> wifiIDff = new ArrayList<>();
         wifiID.add("105");
         wifiID.add("192");
         wifiID.add("215");
@@ -74,19 +78,22 @@ public class FindNearbyLocations_Wifi_Test {
         wifiID.add("2080");
         FindNearbyLocations nearbyLocations = new FindNearbyLocations(db);
         wifi = nearbyLocations.findNearbyWifi(40.689319, -73.987162);
-        for (int i = 0; i < wifi.size(); i++){
-            assertTrue(wifiID.get(i).equals(wifi.get(i).getWifiID()));
+        for (WifiLocation w : wifi) {
+            wifiIDff.add(w.getWifiID());
         }
+        assertArrayEquals(wifiID.toArray(), wifiIDff.toArray());
     }
 
 
     @Test
     public void findNearbyWifiTest_0_0_0_0() throws Exception {
         ArrayList<String> wifiID = new ArrayList<>();
+        ArrayList<String> wifiIDff = new ArrayList<>();
         FindNearbyLocations nearbyLocations = new FindNearbyLocations(db);
         wifi = nearbyLocations.findNearbyWifi(0.0, 0.0);
-        for (int i = 0; i < wifi.size(); i++){
-            assertTrue(wifiID.get(i).equals(wifi.get(i).getWifiID()));
+        for (WifiLocation w : wifi) {
+            wifiIDff.add(w.getWifiID());
         }
+        assertArrayEquals(wifiID.toArray(), wifiIDff.toArray());
     }
 }
