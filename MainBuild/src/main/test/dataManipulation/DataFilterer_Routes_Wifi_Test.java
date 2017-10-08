@@ -13,6 +13,7 @@
 //import java.util.ArrayList;
 //
 //import static org.junit.Assert.assertTrue;
+//import static org.mockito.Mockito.*;
 //
 //
 //////////////////////////ROUTE FILTERING TESTS\\\\\\\\\\\\\\\\\\\\\
@@ -64,6 +65,7 @@
 //        bikeID.add("18702");
 //        bikeID.add("17199");
 //        bikeID.add("19256");
+//        mock()
 //        routes = dataFilterer.filterRoutes(0, null, null, null, null,
 //                null, null, null, null);
 //        int size = bikeID.size();
