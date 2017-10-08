@@ -1,5 +1,8 @@
 package dataHandler;
 
+import main.HandleUsers;
+import main.Main;
+
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -77,12 +80,13 @@ public class DatabaseUser {
         db.executeQuerySQL("UPDATE favourite_retail SET name = '" + newName +"' " + "WHERE name = '" + oldName + "';");
     }
 
+
     /**
      * Deletes everything about the user from all tables in the database.
      * @param username name of the user to delete.
      */
-    public void removeUserFromDatabase(String username) {
-        ListDataHandler listDataHandler = new ListDataHandler(db);
+    public void removeUserFromDatabase(String username, HandleUsers hu) {
+        ListDataHandler listDataHandler = new ListDataHandler(db, hu);
         ArrayList<String> userLists = listDataHandler.getLists();
         for (int i = 0; i < userLists.size(); i++) {
             db.executeQuerySQL("UPDATE route_information SET list_name = null WHERE list_name = '" + userLists.get(i) + "';");

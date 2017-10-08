@@ -16,13 +16,16 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import main.Main;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public abstract class Controller {
 
@@ -96,7 +99,6 @@ public abstract class Controller {
      */
     @FXML
     private void openDrawer() throws IOException {
-//
         VBox box = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/SidePanel.fxml"));
         drawer.setSidePane(box);
 
@@ -161,7 +163,7 @@ public abstract class Controller {
     }
 
     /**
-     * Changes scene to the add data scene.
+     * Changes scene to the add data scene, specifically that so routes can be added.
      *
      * @param event Created when the method is called
      * @throws IOException Handles errors caused by an fxml not loading correctly
@@ -169,10 +171,10 @@ public abstract class Controller {
     @FXML
     public void changeToAddDataScene(ActionEvent event) throws IOException {
         doOnSceneChange();
-        Parent addDataParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/routeManualEntry.fxml"));
-        Scene addDataScene = new Scene(addDataParent);
+        Parent routeEntryParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/routeManualEntry.fxml"));
+        Scene routeEntryScene = new Scene(routeEntryParent);
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        currentStage.setScene(addDataScene);
+        currentStage.setScene(routeEntryScene);
     }
 
     /**
@@ -233,12 +235,12 @@ public abstract class Controller {
      * @throws IOException Handles errors caused by an fxml not loading correctly
      */
     @FXML
-    public void changeToStatisticsScene(ActionEvent event) throws IOException {
+    public void changeToCompletedRoutesScene(ActionEvent event) throws IOException {
         doOnSceneChange();
-        Parent statisticsParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/statistics.fxml"));
-        Scene statisticsScene = new Scene(statisticsParent);
+        Parent completedRoutesParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/statistics.fxml"));
+        Scene completedRoutesScene = new Scene(completedRoutesParent);
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        currentStage.setScene(statisticsScene);
+        currentStage.setScene(completedRoutesScene);
     }
 
     /**
@@ -278,6 +280,29 @@ public abstract class Controller {
         Scene popupScene = new Scene(popupParent);
         popup.setScene(popupScene);
         popup.show();
+    }
+
+
+    /**
+     * Creates a ChoiceDialog which prompts the user the input their ranking of the route.
+     * @return the users ranking for the route
+     */
+    @FXML
+    public void openRouteRankStage(Route routeToAdd, String name) {
+        ArrayList<Integer> a = new ArrayList<>();
+        a.add(5);
+        a.add(4);
+        a.add(3);
+        a.add(2);
+        a.add(1);
+        ChoiceDialog<Integer> c = new ChoiceDialog<>(5, a);
+        c.setTitle("Rank this route!");
+        c.setHeaderText("Rank this route!");
+        c.setContentText("Rating");
+        Optional<Integer> result = c.showAndWait();
+        if (result.isPresent()) {
+            Main.hu.currentCyclist.addFavouriteRoute(routeToAdd, name, result.get(), Main.getDB(), Main.hu);
+        }
     }
 
     protected void doOnSceneChange() {

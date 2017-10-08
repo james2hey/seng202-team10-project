@@ -13,7 +13,7 @@
       <Button fx:id="homeButton" mnemonicParsing="false" onAction="#changeToFavouritesScene" prefHeight="85.0" prefWidth="275.0" text="Favourites" />
       <VBox prefHeight="85.0" prefWidth="230.0">
          <children>
-            <Button fx:id="viewDataButton1" mnemonicParsing="false" onAction="#changeToStatisticsScene" prefHeight="85.0" prefWidth="275.0" text="Statistics" />
+            <Button fx:id="viewDataButton1" mnemonicParsing="false" onAction="#changeToCompletedRoutesScene" prefHeight="85.0" prefWidth="275.0" text="Completed Routes" />
          </children></VBox>
       <VBox prefHeight="46.0" prefWidth="230.0" />
       <VBox prefHeight="57.0" prefWidth="230.0" />

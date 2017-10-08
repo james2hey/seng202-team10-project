@@ -1,5 +1,6 @@
 package GUIControllers.ViewDataControllers;
 
+import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXTextField;
 import customExceptions.FilterByTimeException;
 import dataAnalysis.Route;
@@ -89,6 +90,7 @@ public class RouteDataViewerController extends DataViewerController implements A
 
     @FXML
     private Label favouritesError;
+
 
     private ObservableList<Route> routeList = FXCollections.observableArrayList();
 
@@ -313,29 +315,6 @@ public class RouteDataViewerController extends DataViewerController implements A
 
 
     /**
-     * Creates a ChoiceDialog which prompts the user the input their ranking of the route.
-     *
-     * @return the users ranking, 0 if exited
-     */
-    @FXML
-    private void openRouteRankStage(Route routeToAdd, String name) {
-        ArrayList<Integer> a = new ArrayList<>();
-        a.add(5);
-        a.add(4);
-        a.add(3);
-        a.add(2);
-        a.add(1);
-        ChoiceDialog<Integer> c = new ChoiceDialog<>(5, a);
-        c.setTitle("Rank this route!");
-        c.setHeaderText("Rank this route!");
-        c.setContentText("Rating");
-        Optional<Integer> result = c.showAndWait();
-        if (result.isPresent()) {
-            Main.hu.currentCyclist.addFavouriteRoute(routeToAdd, name, result.get(), Main.getDB(), Main.hu);
-        }
-    }
-
-    /**
      * Called when view all on map button is pressed. Changes the scene to the plan route with the given list of data
      * ready to be loaded in.
      *
@@ -382,6 +361,8 @@ public class RouteDataViewerController extends DataViewerController implements A
         } else {
             route = tableView.getSelectionModel().getSelectedItem();
             Stage popup = new Stage();
+            popup.setTitle("Detailed Route View");
+            popup.setResizable(false);
             popup.initModality(Modality.APPLICATION_MODAL);
             popup.initOwner(((Node) event.getSource()).getScene().getWindow());
             Parent popupParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/DataViewerFXMLs/detailedRouteInformation.fxml"));

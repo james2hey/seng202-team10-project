@@ -153,7 +153,11 @@ public class WifiLocation extends Location {
 
     public void setListName(String newList) {
         if (!newList.equals(listName)) {
-            listName = newList;
+            if (newList.equals("")) {
+                listName = null;
+            } else {
+                listName = newList;
+            }
             UpdateData.updateWifiField("list_name", newList, wifiID);
         }
     }

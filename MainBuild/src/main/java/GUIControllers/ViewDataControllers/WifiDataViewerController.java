@@ -239,6 +239,8 @@ public class WifiDataViewerController extends DataViewerController {
         } else {
             wifi = tableView.getSelectionModel().getSelectedItem();
             Stage popup = new Stage();
+            popup.setTitle("Detailed Wifi Location View");
+            popup.setResizable(false);
             popup.initModality(Modality.APPLICATION_MODAL);
             popup.initOwner(((Node) event.getSource()).getScene().getWindow());
             Parent popupParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/DataViewerFXMLs/detailedWifiLocationInformation.fxml"));

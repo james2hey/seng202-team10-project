@@ -22,7 +22,7 @@ public class Route {
     private Location startLocation, endLocation, viaLocation;
     private double averageTime, distance;
 
-    //Two types of constructors as there is not always a viaLocation.
+    // Two types of constructors as there is not always a viaLocation.
 
     public Route(Location start, Location end, String time, String stDay, String stMonth, String stYear) {
         startLocation = start;
@@ -399,7 +399,11 @@ public class Route {
 
     public void setListName(String newList) {
         if (!newList.equals(listName)) {
-            listName = newList;
+            if (newList.equals("")) {
+                listName = null;
+            } else {
+                listName = newList;
+            }
             UpdateData.updateRouteField("list_name", listName, bikeid, startYear, startMonth,
                     stopDay, startTime);
         }

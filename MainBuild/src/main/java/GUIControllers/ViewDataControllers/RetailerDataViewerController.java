@@ -252,6 +252,8 @@ public class RetailerDataViewerController extends DataViewerController {
         } else {
             retailer = tableView.getSelectionModel().getSelectedItem();
             Stage popup = new Stage();
+            popup.setTitle("Detailed Retailer View");
+            popup.setResizable(false);
             popup.initModality(Modality.APPLICATION_MODAL);
             popup.initOwner(((Node) event.getSource()).getScene().getWindow());
             Parent popupParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/DataViewerFXMLs/detailedRetailerInformation.fxml"));

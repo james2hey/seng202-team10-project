@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXTextField;
 import dataAnalysis.Route;
 import dataHandler.ListDataHandler;
 import dataHandler.SQLiteDB;
+import dataManipulation.DeleteData;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -94,7 +95,7 @@ public class DetailedRouteInformation extends RouteDataViewerController {
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
         db = Main.getDB();
-        listDataHandler = new ListDataHandler(db);
+        listDataHandler = new ListDataHandler(db, Main.hu);
         ArrayList<String> listNames = listDataHandler.getLists();
         list.getItems().addAll(listNames);
 
@@ -538,13 +539,31 @@ public class DetailedRouteInformation extends RouteDataViewerController {
     @FXML
     void deleteRoute(ActionEvent event)  throws IOException{
         if (makeConfirmationDialogueBox("Are you sure you want to delete this retailer?", "This cannot be undone.")) {
-            //MATT TO ADD CODE WHICH WILL REMOVE RETAILER FROM DATABASE
 
+            DeleteData deleteData = new DeleteData(db, Main.hu.currentCyclist.getName());
+            int deleteStatus = deleteData.checkRouteDeletionStatus(currentRoute.getStartTime(),
+                    currentRoute.getStartDay(), currentRoute.getStartMonth(), currentRoute.getStartYear(),
+                    currentRoute.getBikeID());
+            if (deleteStatus == 1) {
+                makeErrorDialogueBox("Failed to delete route", "Another user has this route " +
+                        "in a list they created.");
+            } else if (deleteStatus == 2) {
+                makeErrorDialogueBox("Failed to delete route", "Another user has this route " +
+                        "in their favourite\nroutes list.");
+            } else if (deleteStatus == 3) {
+                makeErrorDialogueBox("Failed to delete route", "Another user has this route " +
+                        "in their completed\nroutes list.");
+            } else {
+                System.out.println("OK to delete");
+                deleteData.deleteRoute(currentRoute.getStartTime(),
+                        currentRoute.getStartDay(), currentRoute.getStartMonth(), currentRoute.getStartYear(),
+                        currentRoute.getBikeID());
+            }
 
             //Closes popup
             Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             currentStage.close();
-            showWifiLocations(mainAppEvent);
-        };
+            showRoutes(mainAppEvent);
+        }
     }
 }
