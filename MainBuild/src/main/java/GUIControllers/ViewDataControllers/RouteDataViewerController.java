@@ -344,7 +344,7 @@ public class RouteDataViewerController extends DataViewerController implements A
     @FXML
     public void viewOnMap(ActionEvent event) throws IOException {
         //called when GUI button view on map button is pressed.
-        changeToPlanRouteScene(event, null, null, routes);
+        changeToPlanRouteScene(event, null, null, routeList.toArray(new Route[routeList.size()]));
     }
 
     /**
@@ -362,7 +362,7 @@ public class RouteDataViewerController extends DataViewerController implements A
             //Get it done...
             ArrayList<Route> route = new ArrayList<>();
             route.add(tableView.getSelectionModel().getSelectedItem());
-            changeToPlanRouteScene(event, null, null, route);
+            changeToPlanRouteScene(event, null, null, routeList.toArray(new Route[routeList.size()]));
         }
     }
 
@@ -401,6 +401,7 @@ public class RouteDataViewerController extends DataViewerController implements A
 
     @Override
     public void addRoutes(ArrayList<Route> routes) {
+        System.out.println(this);
         routeList.addAll(routes);
     }
 }

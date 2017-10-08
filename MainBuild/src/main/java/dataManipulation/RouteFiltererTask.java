@@ -144,8 +144,6 @@ public class RouteFiltererTask extends Task<Void> {
                     callback.addRoutes(routes);
                     routes.clear();
                 }
-
-
             }
             System.out.println(routes.size());
             callback.addRoutes(routes);
@@ -300,6 +298,7 @@ public class RouteFiltererTask extends Task<Void> {
 
     @Override
     protected Void call() throws Exception {
+        System.out.println(this);
         filterRoutesWithCallback();
         return null;
     }

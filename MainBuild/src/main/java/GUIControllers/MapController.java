@@ -356,7 +356,7 @@ public class MapController extends Controller implements Initializable, MapCompo
      *
      * @param wifiLocations A list of wifi locations
      */
-    public void addWifiLocations(ArrayList<WifiLocation> wifiLocations) {
+    public void addWifiLocations(WifiLocation[] wifiLocations) {
         if (wifiLocations == null) {
             return;
         }
@@ -377,7 +377,7 @@ public class MapController extends Controller implements Initializable, MapCompo
      *
      * @param retailLocations List of retailers to be added to the map
      */
-    public void addRetailLocations(ArrayList<RetailLocation> retailLocations) {
+    public void addRetailLocations(RetailLocation[] retailLocations) {
         if (retailLocations == null) {
             return;
         }
@@ -398,7 +398,8 @@ public class MapController extends Controller implements Initializable, MapCompo
      *
      * @param routes List of routes to be added to the map.
      */
-    public void addRoutes(ArrayList<Route> routes) {
+
+    public void addRoutes(Route[] routes) {
         if (routes == null) {
             return;
         }

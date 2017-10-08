@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Controller {
 
@@ -127,7 +128,7 @@ public abstract class Controller {
      * @throws IOException Catches error if fxml does not load correctly
      */
     @FXML
-    public void changeToPlanRouteScene(ActionEvent event, ArrayList<WifiLocation> wifiLocations, ArrayList<RetailLocation> retailLocations, ArrayList<Route> routes) throws IOException {
+    public void changeToPlanRouteScene(ActionEvent event, WifiLocation[] wifiLocations, RetailLocation[] retailLocations, Route[] routes) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/planRoute.fxml"));
         Scene planRouteScene = new Scene(loader.load());
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();

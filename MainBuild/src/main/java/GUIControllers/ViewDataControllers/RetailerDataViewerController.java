@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXTextField;
 import dataAnalysis.RetailLocation;
+import dataAnalysis.Route;
 import dataHandler.SQLiteDB;
 import dataManipulation.DataFilterer;
 import javafx.collections.FXCollections;
@@ -62,7 +63,6 @@ public class RetailerDataViewerController extends DataViewerController {
     @FXML
     private TableColumn<RetailLocation, String> PrimaryType;
     private ObservableList<RetailLocation> retailList = FXCollections.observableArrayList();
-    private ArrayList<RetailLocation> retailLocations = new ArrayList<RetailLocation>();
 
     static public RetailLocation getRetailer() {
         return retailer;
@@ -142,7 +142,7 @@ public class RetailerDataViewerController extends DataViewerController {
     @FXML
     void displayDataOnMap(ActionEvent event) throws IOException {
         //Called when GUI button View on map is pressed.
-        changeToPlanRouteScene(event, null, retailLocations, null);
+        changeToPlanRouteScene(event, null, retailList.toArray(new RetailLocation[retailList.size()]), null);
     }
 
     /**
@@ -160,7 +160,7 @@ public class RetailerDataViewerController extends DataViewerController {
             //Get it done.
             ArrayList<RetailLocation> retailLocation = new ArrayList<>();
             retailLocation.add(tableView.getSelectionModel().getSelectedItem());
-            changeToPlanRouteScene(event, null, retailLocation, null);
+            changeToPlanRouteScene(event, null, retailList.toArray(new RetailLocation[retailList.size()]), null);
         }
     }
 
@@ -212,10 +212,8 @@ public class RetailerDataViewerController extends DataViewerController {
         }
 
         DataFilterer filterer = new DataFilterer(Main.getDB());
-        retailLocations = filterer.filterRetailers(name, address, primaryType, zip, list);
-        System.out.println("Got data");
         tableView.getItems().clear();
-        retailList.addAll(retailLocations);
+        retailList.addAll(filterer.filterRetailers(name, address, primaryType, zip, list));
     }
 
 

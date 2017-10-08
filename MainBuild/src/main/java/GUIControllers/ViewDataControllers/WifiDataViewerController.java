@@ -65,7 +65,6 @@ public class WifiDataViewerController extends DataViewerController {
     @FXML
     private TableColumn<WifiLocation, String> Cost;
     private ObservableList<WifiLocation> wifiList = FXCollections.observableArrayList();
-    private ArrayList<WifiLocation> wifiLocations = new ArrayList<>();
 
     static public WifiLocation getWifi() {
         return wifi;
@@ -143,7 +142,7 @@ public class WifiDataViewerController extends DataViewerController {
      */
     @FXML
     void displayDataOnMap(ActionEvent event) throws IOException {
-        changeToPlanRouteScene(event, wifiLocations, null, null);
+        changeToPlanRouteScene(event, wifiList.toArray(new WifiLocation[wifiList.size()]), null, null);
     }
 
     /**
@@ -161,7 +160,7 @@ public class WifiDataViewerController extends DataViewerController {
             //Get it done...
             ArrayList<WifiLocation> wifiLocation = new ArrayList<>();
             wifiLocation.add(tableView.getSelectionModel().getSelectedItem());
-            changeToPlanRouteScene(event, wifiLocation, null, null);
+            changeToPlanRouteScene(event, wifiList.toArray(new WifiLocation[wifiList.size()]), null, null);
         }
     }
 
@@ -200,11 +199,10 @@ public class WifiDataViewerController extends DataViewerController {
         }
 
         DataFilterer filterer = new DataFilterer(Main.getDB());
-        wifiLocations = filterer.filterWifi(name, suburb, cost, provider, list);
-        System.out.println("Got data");
+
 
         tableView.getItems().clear();
-        wifiList.addAll(wifiLocations);
+        wifiList.addAll(filterer.filterWifi(name, suburb, cost, provider, list));
     }
 
     /**
