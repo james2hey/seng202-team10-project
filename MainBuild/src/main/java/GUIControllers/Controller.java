@@ -16,13 +16,16 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import main.Main;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public abstract class Controller {
 
@@ -278,6 +281,29 @@ public abstract class Controller {
         Scene popupScene = new Scene(popupParent);
         popup.setScene(popupScene);
         popup.show();
+    }
+
+
+    /**
+     * Creates a ChoiceDialog which prompts the user the input their ranking of the route.
+     * @return the users ranking for the route
+     */
+    @FXML
+    public void openRouteRankStage(Route routeToAdd, String name) {
+        ArrayList<Integer> a = new ArrayList<>();
+        a.add(5);
+        a.add(4);
+        a.add(3);
+        a.add(2);
+        a.add(1);
+        ChoiceDialog<Integer> c = new ChoiceDialog<>(5, a);
+        c.setTitle("Rank this route!");
+        c.setHeaderText("Rank this route!");
+        c.setContentText("Rating");
+        Optional<Integer> result = c.showAndWait();
+        if (result.isPresent()) {
+            Main.hu.currentCyclist.addFavouriteRoute(routeToAdd, name, result.get(), Main.getDB(), Main.hu);
+        }
     }
 
     protected void doOnSceneChange() {

@@ -22,7 +22,7 @@ public class Route {
     private Location startLocation, endLocation, viaLocation;
     private double averageTime, distance;
 
-    //Two types of constructors as there is not always a viaLocation.
+    // Two types of constructors as there is not always a viaLocation.
 
     public Route(Location start, Location end, String time, String stDay, String stMonth, String stYear) {
         startLocation = start;

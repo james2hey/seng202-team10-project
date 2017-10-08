@@ -117,7 +117,7 @@ public class ProfileController extends Controller implements Initializable {
     public void deleteUser(ActionEvent event) throws IOException {
         Main.hu.logOutOfUser();
         DatabaseUser d = new DatabaseUser(Main.getDB());
-        d.removeUserFromDatabase(Main.hu.currentCyclist.getName());
+        d.removeUserFromDatabase(Main.hu.currentCyclist.getName(), Main.hu);
         navigateToStartUp(event);
     }
 

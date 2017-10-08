@@ -5,6 +5,9 @@ import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXTextField;
 import dataAnalysis.RetailLocation;
+import dataAnalysis.Route;
+import dataAnalysis.StationLocation;
+import dataAnalysis.WifiLocation;
 import dataHandler.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -37,6 +40,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import static dataAnalysis.Cyclist.name;
+import static java.lang.Integer.parseInt;
 
 
 /**
@@ -89,7 +93,7 @@ public class AddDataController extends Controller implements Initializable {
         retailerDataHandler = new RetailerDataHandler(db);
         wifiDataHandler = new WifiDataHandler(db);
         routeDataHandler = new RouteDataHandler(db);
-        listDataHandler = new ListDataHandler(db);
+        listDataHandler = new ListDataHandler(db, Main.hu);
 
         initListCombobox();
     }
@@ -221,11 +225,11 @@ public class AddDataController extends Controller implements Initializable {
                 makeErrorDialogueBox("Something wrong with input", "Fill all required fields\nCheck entry is not already in database");
                 return;
             }
-            System.out.println(rSTime.getText());
-            System.out.println(rSTime.getText());
+
             int duration = HelperFunctions.getDuration(sDate[0], sDate[1], sDate[2], sTime,
                     eDate[0], eDate[1], eDate[2], eTime);
             RouteDataHandler newRoute = new RouteDataHandler(Main.getDB());
+
             Boolean fromHandler = newRoute.addSingleEntry(duration, sDate[0], sDate[1], sDate[2], sTime,
                     eDate[0], eDate[1], eDate[2], eTime, null,
                     rSAddress.getText(), SLatitude, SLongitude, null, rEAddress.getText(), ELatitude, ELongitude,
@@ -235,7 +239,29 @@ public class AddDataController extends Controller implements Initializable {
             if (!fromHandler) {
                 makeErrorDialogueBox("Something wrong with input", "Fill all required fields\nCheck entry is not already in database");
             } else {
-                makeSuccessDialogueBox("Successfully added route to Database", "You may add more entries");
+                Route routeToAdd = new Route(duration, sTime, eTime, sDate[2], sDate[1], sDate[0],
+                        eDate[2], eDate[1], eDate[0], SLatitude, SLongitude,
+                        ELatitude, ELongitude, 0, 1, rSAddress.getText(),
+                        rEAddress.getText(), username, Main.hu.currentCyclist.getGender(), "Custom", Main.hu.currentCyclist.getBYear(),
+                        listInput.getSelectionModel().getSelectedItem());
+
+                if (addToFavourites.isSelected() && addToCompletedRoutes.isSelected()) {
+                    openRouteRankStage(routeToAdd, Main.hu.currentCyclist.getName());
+                    Main.hu.currentCyclist.routeAlreadyInList(routeToAdd, "taken_route");
+                    Main.hu.currentCyclist.addTakenRoute(routeToAdd, name, Main.getDB(), Main.hu);
+                    makeSuccessDialogueBox("Successfully added this route to the database and favourite + completed routes", "You may add more entries");
+
+                } else if (addToFavourites.isSelected()) {
+                    openRouteRankStage(routeToAdd, Main.hu.currentCyclist.getName());
+                    makeSuccessDialogueBox("Successfully added this route to the database and your favourite routes", "You may add more entries");
+
+                } else if (addToCompletedRoutes.isSelected()) {
+                    Main.hu.currentCyclist.routeAlreadyInList(routeToAdd, "taken_route");
+                    Main.hu.currentCyclist.addTakenRoute(routeToAdd, name, Main.getDB(), Main.hu);
+                    makeSuccessDialogueBox("Successfully added this route to the database and your completed routes", "You may add more entries");
+                } else {
+                    makeSuccessDialogueBox("Successfully added this route to the database", "You may add more entries");
+                }
             }
         }
     }
@@ -303,7 +329,15 @@ public class AddDataController extends Controller implements Initializable {
                 if (!fromHandler) {
                     makeErrorDialogueBox("Something wrong with input", "Fill all required fields\nCheck entry is not already in database");
                 } else {
-                    makeSuccessDialogueBox("Successfully added to retailer to Database", "You may add more entries");
+                    if (addToFavourites.isSelected()) {
+                        RetailLocation retailToAdd = new RetailLocation(retailerName.getText(), retailerAddress.getText(), "",
+                                retailerPrim.getSelectionModel().getSelectedItem().toString(), retailerSec.getText(), "",
+                                0, latLon[0], latLon[1], listInput.getSelectionModel().getSelectedItem());
+                        Main.hu.currentCyclist.addFavouriteRetail(retailToAdd, name, Main.getDB());
+                        makeSuccessDialogueBox("Successfully added to this retailer to the database and your favourites list.", "You may add more entries");
+                    } else {
+                        makeSuccessDialogueBox("Successfully added to this retailer to the database", "You may add more entries");
+                    }
                 }
             } else {
                 makeErrorDialogueBox("Something wrong with input", "Fill all required fields\nCheck entry is not already in database");
@@ -366,7 +400,15 @@ public class AddDataController extends Controller implements Initializable {
                 if (!fromHandler) {
                     makeErrorDialogueBox("Something wrong with input", "Fill all required fields\nCheck entry is not already in database");
                 } else {
-                    makeSuccessDialogueBox("Successfully added Wifi to Database", "You may add more entries");
+                    if (addToFavourites.isSelected()) {
+                        WifiLocation wifiToAdd = new WifiLocation(wifiName.getText(), latLon[0], latLon[1], wifiAddress.getText(),
+                                wifiName.getText(), "", "", wifiComments.getText(), "", "",
+                                parseInt(wifiPostcode.getText()), listInput.getSelectionModel().getSelectedItem());
+                        Main.hu.currentCyclist.addFavouriteWifi(wifiToAdd, name, Main.getDB());
+                        makeSuccessDialogueBox("Successfully added this entry to the database and your favourite Wifi list.", "You may add more entries");
+                    } else {
+                        makeSuccessDialogueBox("Successfully added this entry to the database", "You may add more entries");
+                    }
                 }
             } else {
                 makeErrorDialogueBox("Something wrong with input", "Fill all required fields\nCheck entry is not already in database");

@@ -1,5 +1,6 @@
 package dataHandler;
 
+import main.HandleUsers;
 import main.Main;
 
 import java.sql.PreparedStatement;
@@ -14,6 +15,7 @@ public class ListDataHandler {
 
     private static String listName;
     private SQLiteDB db;
+    private HandleUsers hu;
     private static SQLiteDB staticDb = Main.getDB();
     private String tableName = "lists";
     private String[] tableFields = {"list_name    VARCHAR(50)",
@@ -27,8 +29,9 @@ public class ListDataHandler {
      *
      * @param db the database connection.
      */
-    public ListDataHandler(SQLiteDB db) {
+    public ListDataHandler(SQLiteDB db, HandleUsers hu) {
         this.db = db;
+        this.hu = hu;
         db.addTable(tableName, tableFields, primaryKey);
     }
 
@@ -82,7 +85,8 @@ public class ListDataHandler {
      */
     public ArrayList getLists() {
         ArrayList<String> lists = new ArrayList<>();
-        String userName = Main.hu.currentCyclist.getName();
+        System.out.println(hu.currentCyclist.getName());
+        String userName = hu.currentCyclist.getName();
         try {
             ResultSet rs = db.executeQuerySQL("SELECT list_name FROM lists WHERE list_owner = '" + userName + "';");
             while (rs.next()) {

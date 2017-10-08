@@ -2,6 +2,7 @@ package dataHandler;
 
 import dataAnalysis.Cyclist;
 import main.HandleUsers;
+import main.Main;
 import org.junit.*;
 
 import java.nio.file.Files;
@@ -115,6 +116,18 @@ public class DatabaseUserTest {
         db.executeQuerySQL("DROP TABLE favourite_wifi;");
     }
 
+    @Test
+    public void removeUserFromDatabase() throws Exception {
+        FavouriteWifiData f = new FavouriteWifiData(db);
+        ListDataHandler l = new ListDataHandler(db, hu);
+        f.addFavouriteWifi("Tester", "Wifi");
+        databaseUser.addUser("Tester", 1, 1, 2017, 1);
+        databaseUser.removeUserFromDatabase("Tester", hu);
+
+        ResultSet rs = db.executeQuerySQL("SELECT count(*) FROM users WHERE name = 'Tester';");
+        String result = rs.getString("count(*)");
+        assertEquals("0", result);
+    }
 
 
 }

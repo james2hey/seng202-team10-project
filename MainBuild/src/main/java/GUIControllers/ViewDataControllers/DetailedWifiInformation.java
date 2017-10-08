@@ -73,7 +73,7 @@ public class DetailedWifiInformation extends DataViewerController {
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
         db = Main.getDB();
-        listDataHandler = new ListDataHandler(db);
+        listDataHandler = new ListDataHandler(db, Main.hu);
         ArrayList<String> listNames = listDataHandler.getLists();
         list.getItems().addAll(listNames);
 
