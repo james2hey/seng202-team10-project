@@ -75,6 +75,12 @@ public class RetailerDataHandler implements DataHandler, GeoCallback {
         }
     }
 
+    /**
+     * Querys the database using a perepared statement with the primary keys to check if there is an existing entry.
+     * @param name Retailer Name
+     * @param address Retailer Address
+     * @return A boolean based on an entry being present
+     */
     private boolean inDatabase(String name, String address) {
         try {
             PreparedStatement ps = db.getPreparedStatement("select count(*) from retailer where RETAILER_NAME=? and ADDRESS=?");
