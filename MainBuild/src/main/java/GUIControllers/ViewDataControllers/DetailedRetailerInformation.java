@@ -3,6 +3,8 @@ package GUIControllers.ViewDataControllers;
 
 import com.jfoenix.controls.JFXTextField;
 import dataAnalysis.RetailLocation;
+import dataHandler.ListDataHandler;
+import dataHandler.SQLiteDB;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -10,9 +12,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import main.Main;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import static javafx.scene.paint.Color.*;
@@ -43,10 +47,14 @@ public class DetailedRetailerInformation extends DataViewerController {
     @FXML
     private JFXTextField longitude;
     @FXML
+    private Button delete;
+    @FXML
     private ComboBox<String> list;
     @FXML
     private Button update;
     private RetailLocation currentRetailer = null;
+    private ListDataHandler listDataHandler;
+    private SQLiteDB db;
 
     static public void setMainAppEvent(ActionEvent event) {
         mainAppEvent = event;
@@ -61,6 +69,11 @@ public class DetailedRetailerInformation extends DataViewerController {
      */
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
+        db = Main.getDB();
+        listDataHandler = new ListDataHandler(db);
+        ArrayList<String> listNames = listDataHandler.getLists();
+        list.getItems().addAll(listNames);
+
         currentRetailer = RetailerDataViewerController.getRetailer();
         retailerName.setText(currentRetailer.getName());
         address.setText(currentRetailer.getAddress());
@@ -71,12 +84,14 @@ public class DetailedRetailerInformation extends DataViewerController {
         zip.setText(Integer.toString(currentRetailer.getZip()));
         mainType.getSelectionModel().select(currentRetailer.getMainType());
         secondaryType.setText(currentRetailer.getSecondaryType());
+        list.getEditor().setText(currentRetailer.getListName());
         latitudeListener();
         longitudeListener();
         cityListener();
         stateListener();
         zipListener();
         secondaryListener();
+        listListener();
     }
 
     /**
@@ -97,6 +112,8 @@ public class DetailedRetailerInformation extends DataViewerController {
             currentRetailer.setZip(Integer.parseInt(zip.getText()));
             currentRetailer.setMainType(mainType.getSelectionModel().getSelectedItem());
             currentRetailer.setSecondaryType(secondaryType.getText());
+            listDataHandler.addList(list.getSelectionModel().getSelectedItem());
+            currentRetailer.setListName(list.getSelectionModel().getSelectedItem());
 
             Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             currentStage.close();
@@ -224,6 +241,47 @@ public class DetailedRetailerInformation extends DataViewerController {
                 update.setDisable(false);
             }
         }));
+    }
+
+
+    /**
+     * Error handler for list field. Uses a listener to see state of text. Sets color and makes confirm button
+     * un-selectable if text field incorrect.
+     */
+    private void listListener() {
+        list.getEditor().textProperty().addListener(((observable, oldValue, newValue) -> {
+            System.out.println("TextField Text Changed (newValue: " + newValue + ")");
+            if (list.getEditor().getText().length() > 25) {
+                String listName = list.getEditor().getText();
+                listName = listName.substring(0, 25);
+                list.getEditor().setText(listName);
+            } else if (listDataHandler.checkListName(list.getEditor().getText())) {
+                makeErrorDialogueBox("List name already exists", "This list name has already " +
+                        "been used by another\nuser. Please choose a new name.\n");
+                update.setDisable(true);
+            } else {
+                list.setPromptText("");
+                update.setDisable(false);
+            }
+        }));
+    }
+
+    /**
+     * Called when the delete retailer button is pressed. Does a popup check as to whether the user is sure he/she/other
+     * wants to delete the retailer and if so, removes it from the database.
+     * @param event Created when the method is called
+     */
+    @FXML
+    void deleteRetailer(ActionEvent event)  throws IOException{
+        if (makeConfirmationDialogueBox("Are you sure you want to delete this retailer?", "This cannot be undone.")) {
+            //MATT TO ADD CODE WHICH WILL REMOVE RETAILER FROM DATABASE
+
+
+            //Closes popup
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            currentStage.close();
+            showWifiLocations(mainAppEvent);
+        };
     }
 
 }

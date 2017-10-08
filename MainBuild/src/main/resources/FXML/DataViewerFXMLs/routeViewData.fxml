@@ -85,14 +85,14 @@
             </VBox>
          </children>
       </VBox>
-      <Button mnemonicParsing="false" onAction="#displayData" prefHeight="25.0" prefWidth="342.0" text="Filter" GridPane.columnIndex="5" GridPane.rowIndex="4">
+      <Button alignment="TOP_CENTER" mnemonicParsing="false" onAction="#displayData" prefHeight="25.0" prefWidth="342.0" text="Filter" GridPane.columnIndex="5" GridPane.rowIndex="4">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
       </Button>
-      <Button disable="true" mnemonicParsing="false" onAction="#showRoutes" prefHeight="25.0" prefWidth="163.0" text="View Routes" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <Button mnemonicParsing="false" onAction="#showWifiLocations" prefHeight="25.0" prefWidth="206.0" text="View Wifi Locations" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-      <Button mnemonicParsing="false" onAction="#showRetailers" prefHeight="25.0" prefWidth="170.0" text="View Retailers" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+      <Button alignment="TOP_CENTER" disable="true" mnemonicParsing="false" onAction="#showRoutes" prefHeight="25.0" prefWidth="163.0" text="View Routes" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <Button alignment="TOP_CENTER" mnemonicParsing="false" onAction="#showWifiLocations" prefHeight="25.0" prefWidth="206.0" text="View Wifi Locations" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+      <Button alignment="TOP_CENTER" mnemonicParsing="false" onAction="#showRetailers" prefHeight="25.0" prefWidth="170.0" text="View Retailers" GridPane.columnIndex="3" GridPane.rowIndex="1" />
       <Label fx:id="favouritesError" alignment="CENTER" prefHeight="15.0" prefWidth="221.0" text="Already in favourites!" textAlignment="CENTER" textFill="RED" visible="false" GridPane.columnIndex="5">
          <font>
             <Font size="16.0" />
