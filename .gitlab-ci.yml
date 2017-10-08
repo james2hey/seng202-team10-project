@@ -1,7 +1,7 @@
 junit:
  stage: test
  script:
-  - mvn -B -f MainBuild clean test -Dprism.verbose=true
+  - mvn -B -f MainBuild clean test
 generate_artifacts:
  stage: deploy
  script:
