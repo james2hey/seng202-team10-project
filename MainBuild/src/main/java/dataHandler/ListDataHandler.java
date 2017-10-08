@@ -80,7 +80,11 @@ public class ListDataHandler {
      * @param name type String
      */
     public static void setListName(String name) {
-        listName = name;
+        if (name == null || name.equals("")) {
+            listName = null;
+        } else {
+            listName = name;
+        }
     }
 
 
@@ -110,15 +114,21 @@ public class ListDataHandler {
      * @param listName type String. The name of the new list to be added to the database.
      */
     public void addList(String listName) {
-        try {
-            String user = Main.hu.currentCyclist.getName();
-            PreparedStatement pstmt = db.getPreparedStatement(addListCommand);
-            pstmt.setString(1, listName);
-            pstmt.setString(2, user);
-            pstmt.executeUpdate();
-            db.commit();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
+        if (listName == null) {
+            return;
+        } else if (listName.equals("")) {
+           return;
+        } else {
+            try {
+                String user = Main.hu.currentCyclist.getName();
+                PreparedStatement pstmt = db.getPreparedStatement(addListCommand);
+                pstmt.setString(1, listName);
+                pstmt.setString(2, user);
+                pstmt.executeUpdate();
+                db.commit();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 }
