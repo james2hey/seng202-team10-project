@@ -94,7 +94,6 @@
           <NumberAxis label="Distance (km)" side="LEFT" upperBound="1.0" />
         </yAxis>
       </BarChart>
-      <JFXHamburger fx:id="hamburger" onMouseClicked="#openDrawer" prefHeight="73.0" prefWidth="87.0" GridPane.columnIndex="5" />
       <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
          <children>
             <Text fx:id="errorText" layoutX="132.0" layoutY="218.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You need to add at least 3 completed routes for a graph to display." textAlignment="CENTER" wrappingWidth="253.26123046875">
@@ -110,6 +109,11 @@
             <Blend />
          </effect>
       </JFXDrawer>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.columnSpan="2">
+         <children>
+            <JFXHamburger fx:id="hamburger" layoutX="251.0" layoutY="29.0" onMouseClicked="#openDrawer" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0" />
+         </children>
+      </AnchorPane>
    </children>
    <columnConstraints>
       <ColumnConstraints maxWidth="800.0" minWidth="0.0" prefWidth="0.0" />
