@@ -23,7 +23,6 @@ public class DatabaseUser {
 
     /**
      * Initializes the database when creating an instance of the DatabaseUser.
-     *
      * @param db database the user data is added to
      */
     public DatabaseUser(SQLiteDB db) {
@@ -35,8 +34,11 @@ public class DatabaseUser {
 
     /**
      * Adds Name to the database.
-     *
      * @param name name of the user to add
+     * @param day users day of birth
+     * @param month users month of birth
+     * @param year users year of birth
+     * @param gender users gender
      */
     public void addUser(String name, int day, int month, int year, int gender) {
         try {
@@ -54,6 +56,17 @@ public class DatabaseUser {
         }
     }
 
+
+    /**
+     * Updates the name of the user in each of the tables where its previous name has been stored. It also updates the
+     * users date of birth or gender if to the given parameters.
+     * @param newName the new name of the user
+     * @param oldName the previous name of the user
+     * @param day users day of birth
+     * @param month users month of birth
+     * @param year users year of birth
+     * @param gender the users gender
+     */
     public void updateDetails(String newName, String oldName, int day, int month, int year, int gender) {
         db.executeQuerySQL("UPDATE users SET name = '" + newName + "', birth_day = " + day + ", birth_month = " + month + "" +
                 ", birth_year = " + year +", gender = " + gender);

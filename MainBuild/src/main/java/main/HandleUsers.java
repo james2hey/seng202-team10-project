@@ -118,7 +118,6 @@ public class HandleUsers {
                 ps.setString(4, rsFavourites.getString(5));
                 ps.setString(5, rsFavourites.getString(6));
                 rsRoute = ps.executeQuery();
-                System.out.println("HERE");
                 tempRoute = new Route(rsRoute.getInt("tripduration"), rsRoute.getString("start_time"),
                         rsRoute.getString("end_time"), rsRoute.getString("start_day"),
                         rsRoute.getString("start_month"), rsRoute.getString("start_year"),

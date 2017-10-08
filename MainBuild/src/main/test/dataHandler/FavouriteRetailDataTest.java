@@ -1,5 +1,9 @@
 package dataHandler;
 
+import dataAnalysis.Cyclist;
+import dataAnalysis.RetailLocation;
+import dataAnalysis.WifiLocation;
+import main.HandleUsers;
 import org.junit.*;
 
 import java.nio.file.Files;
@@ -14,6 +18,7 @@ import static org.junit.Assert.*;
 public class FavouriteRetailDataTest {
     private static SQLiteDB db;
     private static FavouriteRetailData favouriteRetailData;
+    private static HandleUsers hu;
 
     @AfterClass
     public static void clearDB() throws Exception {
@@ -26,7 +31,10 @@ public class FavouriteRetailDataTest {
     public static void setUp() throws Exception {
         String home = System.getProperty("user.home");
         java.nio.file.Path path = java.nio.file.Paths.get(home, "testdatabase.db");
-        db = new SQLiteDB(path.toString());
+        db = new SQLiteDB(path.toString());        hu = new HandleUsers();
+        hu.init(db);
+        hu.currentCyclist = new Cyclist("Tester");
+
     }
 
     @After
@@ -44,9 +52,25 @@ public class FavouriteRetailDataTest {
     public void addFavouriteRetail() throws Exception {
         favouriteRetailData.addFavouriteRetail("Tester", "Test shop", "1 Test Street");
         ResultSet rs;
-        rs = db.executeQuerySQL("SELECT * FROM favourite_retail WHERE name = 'Tester' AND RETAILER_NAME = 'Test shop'" +
+        rs = db.executeQuerySQL("SELECT count(*) FROM favourite_retail WHERE name = 'Tester' AND RETAILER_NAME = 'Test shop'" +
                 "AND ADDRESS = '1 Test Street';");
-        assertFalse(rs.isClosed());
+        int result = rs.getInt("count(*)");
+        assertEquals(1, result);
+    }
+
+    @Test
+    public void deleteFavouriteWifi() throws Exception {
+        RetailerDataHandler rdh = new RetailerDataHandler(db);
+        favouriteRetailData.addFavouriteRetail("Tester", "Shop", "Address");
+        RetailLocation retail = new RetailLocation("Shop", "Address", "", "", "",
+                "", 1, 1, 1, "");
+
+
+        favouriteRetailData.deleteFavouriteRetail(retail, hu);
+        ResultSet rs;
+        rs = db.executeQuerySQL("SELECT COUNT(*) FROM favourite_retail;");
+        int result = rs.getInt("count(*)");
+        assertEquals(0, result);
     }
 
 }

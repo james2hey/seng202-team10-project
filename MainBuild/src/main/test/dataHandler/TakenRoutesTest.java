@@ -52,10 +52,11 @@ public class TakenRoutesTest {
         takenRoutes.addTakenRoute("Tester", "2016", "01", "01",
                 "00:00:00", "10000", 1, hu);
         ResultSet rs;
-        rs = db.executeQuerySQL("SELECT * FROM taken_routes WHERE name = 'Tester' AND start_year = '2016' AND " +
+        rs = db.executeQuerySQL("SELECT count(*) FROM taken_routes WHERE name = 'Tester' AND start_year = '2016' AND " +
                 "start_month = '01' AND start_day = '01' AND start_time = '00:00:00' AND bikeid = '10000' " +
                 "AND distance = '1';");
-        assertFalse(rs.isClosed());
+        int result = rs.getInt("count(*)");
+        assertEquals(1, result);
     }
 
     @Test

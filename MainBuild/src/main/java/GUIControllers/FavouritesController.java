@@ -30,6 +30,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import static main.Main.hu;
+
 /**
  * Controller class for home.
  */
@@ -96,11 +98,11 @@ public class FavouritesController extends Controller implements Initializable {
      */
     public void initialize(URL location, ResourceBundle resources) {
 
-        routeList.addAll(Main.hu.currentCyclist.getFavouriteRouteList());
+        routeList.addAll(hu.currentCyclist.getFavouriteRouteList());
         routeListObservable.addAll(routeList);
-        wifiList.addAll(Main.hu.currentCyclist.getFavouriteWifiLocations());
+        wifiList.addAll(hu.currentCyclist.getFavouriteWifiLocations());
         wifiListObservable.addAll(wifiList);
-        retailerList.addAll(Main.hu.currentCyclist.getFavouriteRetailLocations());
+        retailerList.addAll(hu.currentCyclist.getFavouriteRetailLocations());
         retailerListObservable.addAll(retailerList);
 
         StartAddress.setCellValueFactory(new PropertyValueFactory<>("StartAddress"));
@@ -148,19 +150,19 @@ public class FavouritesController extends Controller implements Initializable {
     public void deleteFavourite(ActionEvent event) throws IOException {
         if (tableViewRoutes.getSelectionModel().getSelectedItem() != null) {
             FavouriteRouteData frd = new FavouriteRouteData(Main.getDB());
-            frd.deleteFavouriteRoute(tableViewRoutes.getSelectionModel().getSelectedItem());
+            frd.deleteFavouriteRoute(tableViewRoutes.getSelectionModel().getSelectedItem(), hu);
             routeList.remove(tableViewRoutes.getSelectionModel().getSelectedItem());
             routeListObservable.remove(tableViewRoutes.getSelectionModel().getSelectedItem());
 
         } else if (tableViewWifi.getSelectionModel().getSelectedItem() != null) {
             FavouriteWifiData fwd = new FavouriteWifiData(Main.getDB());
-            fwd.deleteFavouriteWifi(tableViewWifi.getSelectionModel().getSelectedItem());
+            fwd.deleteFavouriteWifi(tableViewWifi.getSelectionModel().getSelectedItem(), hu);
             wifiList.remove(tableViewWifi.getSelectionModel().getSelectedItem());
             wifiListObservable.remove(tableViewWifi.getSelectionModel().getSelectedItem());
 
         } else if (tableViewRetailers.getSelectionModel().getSelectedItem() != null) {
             FavouriteRetailData frd = new FavouriteRetailData(Main.getDB());
-            frd.deleteFavouriteRetail(tableViewRetailers.getSelectionModel().getSelectedItem());
+            frd.deleteFavouriteRetail(tableViewRetailers.getSelectionModel().getSelectedItem(), hu);
             retailerList.remove(tableViewRetailers.getSelectionModel().getSelectedItem());
             retailerListObservable.remove(tableViewRetailers.getSelectionModel().getSelectedItem());
 

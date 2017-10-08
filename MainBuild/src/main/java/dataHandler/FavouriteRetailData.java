@@ -1,6 +1,7 @@
 package dataHandler;
 
 import dataAnalysis.RetailLocation;
+import main.HandleUsers;
 import main.Main;
 
 import java.sql.PreparedStatement;
@@ -60,8 +61,8 @@ public class FavouriteRetailData {
      *
      * @param store retail store to be deleted
      */
-    public void deleteFavouriteRetail(RetailLocation store) {
-        db.executeQuerySQL("DELETE FROM favourite_retail WHERE name = '" + Main.hu.currentCyclist.name + "' AND RETAILER_NAME = '" + store.getName() + "' " +
+    public void deleteFavouriteRetail(RetailLocation store, HandleUsers hu) {
+        db.executeQuerySQL("DELETE FROM favourite_retail WHERE name = '" + hu.currentCyclist.name + "' AND RETAILER_NAME = '" + store.getName() + "' " +
                 "AND ADDRESS = '" + store.getAddress() + "';");
     }
 }

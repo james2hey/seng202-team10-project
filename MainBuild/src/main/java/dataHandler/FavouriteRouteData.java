@@ -49,6 +49,7 @@ public class FavouriteRouteData {
      * @param start_time  time the route started
      * @param bike_id     identification number of the bike
      * @param rank        rating of the route that the user has chosen
+     * @param hu          the programs current HandleUser object
      */
     public void addFavouriteRoute(String name, String start_year, String start_month, String start_day,
                                   String start_time, String bike_id, int rank, HandleUsers hu) {
@@ -76,8 +77,8 @@ public class FavouriteRouteData {
      *
      * @param route the route to be deleted
      */
-    public void deleteFavouriteRoute(Route route) {
-        db.executeQuerySQL("DELETE FROM favourite_routes WHERE name = '" + Main.hu.currentCyclist.name + "' " +
+    public void deleteFavouriteRoute(Route route, HandleUsers hu) {
+        db.executeQuerySQL("DELETE FROM favourite_routes WHERE name = '" + hu.currentCyclist.name + "' " +
                 "AND start_year = '" + route.getStartYear() + "' AND start_month = '" + route.getStartMonth() + "' " +
                 "AND start_day = '" + route.getStartDay() + "' AND start_time = '" + route.getStartTime() + "' " +
                 "AND bikeid = '" + route.getBikeID() + "';");

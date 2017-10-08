@@ -1,6 +1,8 @@
 package dataHandler;
 
 import dataAnalysis.Cyclist;
+import dataAnalysis.Route;
+import dataAnalysis.WifiLocation;
 import main.HandleUsers;
 import org.junit.*;
 
@@ -17,6 +19,7 @@ public class FavouriteRouteDataTest {
     private static SQLiteDB db;
     private static FavouriteRouteData favouriteRouteData;
     private static HandleUsers hu;
+
 
     @AfterClass
     public static void clearDB() throws Exception {
@@ -51,9 +54,29 @@ public class FavouriteRouteDataTest {
         favouriteRouteData.addFavouriteRoute("Tester", "2016", "01", "01",
                 "00:00:00", "10000", 1, hu);
         ResultSet rs;
-        rs = db.executeQuerySQL("SELECT * FROM favourite_routes WHERE name = 'Tester' AND start_year = '2016' AND " +
+        rs = db.executeQuerySQL("SELECT count(*) FROM favourite_routes WHERE name = 'Tester' AND start_year = '2016' AND " +
                         "start_month = '01' AND start_day = '01' AND start_time = '00:00:00' AND bikeid = '10000' " +
                         "AND rank = '1';");
-        assertFalse(rs.isClosed());
+        int result = rs.getInt("count(*)");
+        assertEquals(1, result);
     }
+
+    @Test
+    public void deleteFavouriteRoute() throws Exception {
+        RouteDataHandler wdh = new RouteDataHandler(db);
+        favouriteRouteData.addFavouriteRoute("Tester", "2016", "01", "01",
+                "00:00:00", "10000", 1, hu);
+
+        Route route = new Route(10, "00:00:00", "00:00:00", "01", "01", "2016",
+                "01", "01", "2016", 0.0, 0.0,
+                0.0, 0.0, 1, 2, "Test Street",
+                "Test2 Street", "10000", 1, "Subscriber", 20, null, 1);
+
+        favouriteRouteData.deleteFavouriteRoute(route, hu);
+        ResultSet rs;
+        rs = db.executeQuerySQL("SELECT COUNT(*) FROM favourite_routes;");
+        int result = rs.getInt("count(*)");
+        assertEquals(0, result);
+    }
+
 }
