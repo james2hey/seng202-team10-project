@@ -10,10 +10,10 @@
 <?import javafx.scene.text.*?>
 <?import javafx.collections.FXCollections?>
 
-<GridPane alignment="center" hgap="30.0" prefHeight="650.0" prefWidth="1100.0" style="-fx-background-color: Grey; -fx-background-image: url(Images/sky.jpg);" vgap="20.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIControllers.StatisticsController">
+<GridPane alignment="center" hgap="30.0" prefHeight="650.0" prefWidth="1100.0" style="-fx-background-color: Grey; -fx-background-image: url(Images/sky.jpg);" vgap="20.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIControllers.CompletedRoutesController">
    <children>
       <Text fx:id="buttonPressedText" strokeType="OUTSIDE" strokeWidth="0.0" text="Button Pressed" textAlignment="CENTER" visible="false" wrappingWidth="269.6552734375" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-      <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Statistics" textAlignment="CENTER" wrappingWidth="957.7294921875" GridPane.columnIndex="2" GridPane.columnSpan="2">
+      <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Completed Routes" textAlignment="CENTER" wrappingWidth="957.7294921875" GridPane.columnIndex="2" GridPane.columnSpan="2">
          <font>
             <Font size="60.0" />
          </font>
