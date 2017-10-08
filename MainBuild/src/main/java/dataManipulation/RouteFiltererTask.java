@@ -128,6 +128,9 @@ public class RouteFiltererTask extends Task<Void> {
             int scalefactor = 1;
             ArrayList<Route> routes = new ArrayList<>();
             while (rs.next()) {
+                if (this.isCancelled()) {
+                    break;
+                }
                 routes.add(new Route(rs.getInt("tripduration"), rs.getString("start_time"),
                         rs.getString("end_time"), rs.getString("start_day"),
                         rs.getString("start_month"), rs.getString("start_year"),

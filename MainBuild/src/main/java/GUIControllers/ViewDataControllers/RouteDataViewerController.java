@@ -254,19 +254,11 @@ public class RouteDataViewerController extends DataViewerController implements A
             list = null;
         }
 
-//        DataFilterer filterer = new DataFilterer(Main.getDB());
-//        routes = filterer.filterRoutes(gender, dateLower, dateUpper, timeLower, timeUpper, startLocation, endLocation,
-//                bikeID, list);
-//        System.out.println("Got data");
-//        System.out.println(routes.size());
-//        tableView.getItems().clear();
-//        routeList.addAll(routes);
 
-        RouteFiltererTask task = new RouteFiltererTask(Main.getDB(), gender, dateLower, dateUpper, timeLower, timeUpper, startLocation, endLocation,
+        dataViewTask = new RouteFiltererTask(Main.getDB(), gender, dateLower, dateUpper, timeLower, timeUpper, startLocation, endLocation,
                 bikeID, list, this);
-        Thread thread = new Thread(task);
+        Thread thread = new Thread(dataViewTask);
         thread.start();
-
 
         System.out.println("done");
     }

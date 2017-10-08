@@ -5,6 +5,8 @@ import com.jfoenix.controls.JFXHamburger;
 import dataAnalysis.RetailLocation;
 import dataAnalysis.Route;
 import dataAnalysis.WifiLocation;
+import javafx.concurrent.Task;
+import javafx.concurrent.Worker;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -43,6 +45,8 @@ public abstract class Controller {
     private JFXHamburger hamburger;
 
     private Stage currentStage;
+
+    protected Task<Void> dataViewTask;
 
 
     /**
@@ -111,6 +115,7 @@ public abstract class Controller {
      */
     @FXML
     public void changeToPlanRouteScene(ActionEvent event) throws IOException {
+        doOnSceneChange();
         Parent planRouteParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/planRoute.fxml"));
         Scene planRouteScene = new Scene(planRouteParent);
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -129,6 +134,7 @@ public abstract class Controller {
      */
     @FXML
     public void changeToPlanRouteScene(ActionEvent event, WifiLocation[] wifiLocations, RetailLocation[] retailLocations, Route[] routes) throws IOException {
+        doOnSceneChange();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/planRoute.fxml"));
         Scene planRouteScene = new Scene(loader.load());
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -147,6 +153,7 @@ public abstract class Controller {
      */
     @FXML
     public void changeToFavouritesScene(ActionEvent event) throws IOException {
+        doOnSceneChange();
         Parent homeParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/favourites.fxml"));
         Scene homeScene = new Scene(homeParent);
         currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -161,6 +168,7 @@ public abstract class Controller {
      */
     @FXML
     public void changeToAddDataScene(ActionEvent event) throws IOException {
+        doOnSceneChange();
         Parent addDataParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/addData.fxml"));
         Scene addDataScene = new Scene(addDataParent);
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -177,6 +185,7 @@ public abstract class Controller {
      */
     @FXML
     void changeToAddDataScene(ActionEvent event, String startAddress, String endAddress) throws IOException {
+        doOnSceneChange();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/addData.fxml"));
         Scene addDataScene = new Scene(loader.load());
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -195,6 +204,7 @@ public abstract class Controller {
      */
     @FXML
     public void changeToViewDataScene(ActionEvent event) throws IOException {
+        doOnSceneChange();
         Parent viewDataParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/DataViewerFXMLs/routeViewData.fxml"));
         Scene viewDataScene = new Scene(viewDataParent);
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -209,6 +219,7 @@ public abstract class Controller {
      */
     @FXML
     public void changeToProfileScene(ActionEvent event) throws IOException {
+        doOnSceneChange();
         Parent profileParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/profile.fxml"));
         Scene profileScene = new Scene(profileParent);
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -223,6 +234,7 @@ public abstract class Controller {
      */
     @FXML
     public void changeToStatisticsScene(ActionEvent event) throws IOException {
+        doOnSceneChange();
         Parent statisticsParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/statistics.fxml"));
         Scene statisticsScene = new Scene(statisticsParent);
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -266,5 +278,11 @@ public abstract class Controller {
         Scene popupScene = new Scene(popupParent);
         popup.setScene(popupScene);
         popup.show();
+    }
+
+    protected void doOnSceneChange() {
+        if (dataViewTask != null) {
+            dataViewTask.cancel();
+        }
     }
 }

@@ -33,6 +33,7 @@ public abstract class DataViewerController extends Controller implements Initial
      */
     @FXML
     void showRoutes(ActionEvent event) throws IOException {
+        doOnSceneChange();
         Parent routeViewerParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/DataViewerFXMLs/routeViewData.fxml"));
         Scene routeViewerScene = new Scene(routeViewerParent);
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -50,6 +51,7 @@ public abstract class DataViewerController extends Controller implements Initial
      */
     @FXML
     void showWifiLocations(ActionEvent event) throws IOException {
+        doOnSceneChange();
         Parent wifiViewerParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/DataViewerFXMLs/wifiViewData.fxml"));
         Scene wifiViewerScene = new Scene(wifiViewerParent);
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -64,6 +66,7 @@ public abstract class DataViewerController extends Controller implements Initial
      */
     @FXML
     void showRetailers(ActionEvent event) throws IOException {
+        doOnSceneChange();
         Parent retailerViewerParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/DataViewerFXMLs/retailerViewData.fxml"));
         Scene retailerViewerScene = new Scene(retailerViewerParent);
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
