@@ -59,13 +59,11 @@ public class AddDataController extends Controller implements Initializable {
     @FXML // Wifi Fields
     private JFXTextField wifiName, wifiAddress, wifiPostcode, wifiComments;
     @FXML
-    private JFXDrawer drawer;
-    @FXML
     private Text selectMessage;
     @FXML
     private Text selectListMessage;
     @FXML
-    private ComboBox<String> listInput;
+    private ComboBox<String> listInput, manualListInput;
     @FXML
     private JFXCheckBox addToFavourites, addToCompletedRoutes;
 
@@ -74,8 +72,8 @@ public class AddDataController extends Controller implements Initializable {
     private WifiDataHandler wifiDataHandler;
     private RouteDataHandler routeDataHandler;
     private ListDataHandler listDataHandler;
-    public static String startAddress = "";
-    public static String endAddress = "";
+    public String startAddress = "";
+    public String endAddress = "";
 
 
     /**
@@ -86,13 +84,6 @@ public class AddDataController extends Controller implements Initializable {
      * @param resources Locale-specific data required for the method to run automatically
      */
     public void initialize(URL location, ResourceBundle resources) {
-        if (location.equals(getClass().getClassLoader().getResource("FXML/routeManualEntry.fxml"))) {
-            System.out.println(rSAddress.getText());
-            System.out.println(startAddress);
-            rSAddress.setText(startAddress);
-            rEAddress.setText(endAddress);
-        }
-
         System.out.println(location);
         db = Main.getDB();
         retailerDataHandler = new RetailerDataHandler(db);
@@ -116,12 +107,12 @@ public class AddDataController extends Controller implements Initializable {
     /**
      * Sets values of address from the PlanRoute scene.
      *
-     * @param newStartAddress Starting address for route.
-     * @param newEndAddress Starting address for route.
+     * @param startAddress Starting address for route.
+     * @param endAddress End address for route.
      */
-    public static void setRouteVals(String newStartAddress, String newEndAddress) {
-        startAddress = newStartAddress;
-        endAddress = newEndAddress;
+    public void setRouteVals(String startAddress, String endAddress) {
+        rSAddress.setText(startAddress);
+        rEAddress.setText(endAddress);
     }
 
     /**
@@ -382,27 +373,6 @@ public class AddDataController extends Controller implements Initializable {
             }
         }
 
-    }
-
-
-    /**
-     * Simple function to make the separate import buttons
-     * (Routes, Retailers and Wifi Hot-spots)
-     * visible to the user.
-     *
-     * @param event Clicking the File Import Button.
-     * @throws IOException
-     */
-    @FXML
-    void chooseFile(ActionEvent event) throws IOException {
-        if (!importRoute.isVisible()) {
-            selectListMessage.setVisible(true);
-            listInput.setVisible(true);
-            selectMessage.setVisible(true);
-            importRoute.setVisible(true);
-            importRetailer.setVisible(true);
-            importWifi.setVisible(true);
-        }
     }
 
 
