@@ -86,7 +86,7 @@ public class DatabaseUser {
      * @param username name of the user to delete.
      */
     public void removeUserFromDatabase(String username, HandleUsers hu) {
-        ListDataHandler listDataHandler = new ListDataHandler(db, hu);
+        ListDataHandler listDataHandler = new ListDataHandler(db, hu.currentCyclist.getName());
         ArrayList<String> userLists = listDataHandler.getLists();
         for (int i = 0; i < userLists.size(); i++) {
             db.executeQuerySQL("UPDATE route_information SET list_name = null WHERE list_name = '" + userLists.get(i) + "';");

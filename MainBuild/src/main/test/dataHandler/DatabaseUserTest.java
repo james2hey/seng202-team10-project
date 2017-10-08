@@ -1,8 +1,8 @@
 package dataHandler;
 
 import dataAnalysis.Cyclist;
+import javafx.concurrent.Task;
 import main.HandleUsers;
-import main.Main;
 import org.junit.*;
 
 import java.nio.file.Files;
@@ -42,6 +42,7 @@ public class DatabaseUserTest {
         db.executeQuerySQL("DROP TABLE favourite_routes;");
         db.executeQuerySQL("DROP TABLE favourite_retail;");
         db.executeQuerySQL("DROP TABLE favourite_wifi;");
+        db.executeQuerySQL("DROP TABLE lists;");
     }
 
     @Before
@@ -119,7 +120,7 @@ public class DatabaseUserTest {
     @Test
     public void removeUserFromDatabase1() throws Exception {
         // Checking the name is removed from the users table.
-        ListDataHandler l = new ListDataHandler(db, hu);
+        ListDataHandler l = new ListDataHandler(db, hu.currentCyclist.getName());
         databaseUser.addUser("Tester", 1, 1, 2017, 1);
         databaseUser.removeUserFromDatabase("Tester", hu);
 
@@ -133,7 +134,7 @@ public class DatabaseUserTest {
         // Checking that the name is removed from the favourite_wifi table as an example. The same delete clause is made for the
         // for the other types of tables so it is unnecessary to test all of these.
         FavouriteWifiData f = new FavouriteWifiData(db);
-        ListDataHandler l = new ListDataHandler(db, hu);
+        ListDataHandler l = new ListDataHandler(db, hu.currentCyclist.getName());
         f.addFavouriteWifi("Tester", "Wifi");
         databaseUser.addUser("Tester", 1, 1, 2017, 1);
         databaseUser.removeUserFromDatabase("Tester", hu);
@@ -145,21 +146,47 @@ public class DatabaseUserTest {
 
     @Test
     public void removeUserFromDatabase3() throws Exception {
-        ListDataHandler l = new ListDataHandler(db, hu);
+        // Checking that the users lists are removed. Messy test due to populated route, wifi and retail tables needed.
+        ListDataHandler l = new ListDataHandler(db, hu.currentCyclist.getName());
+        String testList = "test list";
+        ListDataHandler.setListName(testList);
+        l.addList(testList);
+
+        ClassLoader loader = DatabaseUserTest.class.getClassLoader();
+        Task<Void> task;
+
+        WifiDataHandler wifiDataHandler = new WifiDataHandler(db);
+        RouteDataHandler routeDataHandler = new RouteDataHandler(db);
+
+        task = new CSVImporter(db, loader.getResource("CSV/NYC_Free_Public_WiFi_03292017-test.csv").getFile(), wifiDataHandler);
+        task.run();
+
+        task = new CSVImporter(db, loader.getResource("CSV/201601-citibike-tripdata-test.csv").getFile(), routeDataHandler);
+        task.run();
+        RetailerDataHandlerFake handler = new RetailerDataHandlerFake(db);
+
+        task = new CSVImporter(db, loader.getResource("CSV/Lower_Manhattan_Retailers-test.csv").getFile(), handler);
+        task.run();
+        System.out.println("here");
 
         databaseUser.addUser("Tester", 1, 1, 2017, 1);
         databaseUser.removeUserFromDatabase("Tester", hu);
 
 
-
-        // Insert test stuff here @MATT.
-
-
-
-
+        ResultSet rsRoute = db.executeQuerySQL("SELECT count(*) FROM route_information WHERE list_name != null");
+        String resultRoute = rsRoute.getString("count(*)");
+        ResultSet rsWifi = db.executeQuerySQL("SELECT count(*) FROM wifi_location WHERE list_name != null");
+        String resultWifi = rsWifi.getString("count(*)");
+        ResultSet rsRetail = db.executeQuerySQL("SELECT count(*) FROM retailer WHERE list_name != null");
+        String resultRetail = rsRetail.getString("count(*)");
         ResultSet rs = db.executeQuerySQL("SELECT count(*) FROM lists WHERE list_owner = 'Tester';");
         String result = rs.getString("count(*)");
+
+
         assertEquals("0", result);
+        assertEquals("0", resultRoute);
+        assertEquals("0", resultWifi);
+        assertEquals("0", resultRetail);
     }
 
 
