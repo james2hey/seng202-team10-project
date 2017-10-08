@@ -102,7 +102,6 @@ public class ProfileController extends Controller implements Initializable {
     }
 
 
-
     /**
      * Runs when the log out button is pressed. Changes the scene to the log in scene and signs out the current user.
      *
@@ -111,11 +110,22 @@ public class ProfileController extends Controller implements Initializable {
      */
     @FXML
     public void logout(ActionEvent event) throws IOException {
+        Main.hu.logOutOfUser();
+        navigateToStartUp(event);
+    }
+
+    public void deleteUser(ActionEvent event) throws IOException {
+        Main.hu.logOutOfUser();
+        DatabaseUser d = new DatabaseUser(Main.getDB());
+        d.removeUserFromDatabase(Main.hu.currentCyclist.getName());
+        navigateToStartUp(event);
+    }
+
+    private void navigateToStartUp(ActionEvent event) throws IOException {
         Parent logInParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/startUp.fxml"));
         Scene logInScene = new Scene(logInParent);
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.setScene(logInScene);
-        Main.hu.logOutOfUser();
     }
 
 }

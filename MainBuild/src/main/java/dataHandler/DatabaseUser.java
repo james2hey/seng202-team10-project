@@ -75,4 +75,18 @@ public class DatabaseUser {
         db.executeQuerySQL("UPDATE favourite_wifi SET name = '" + newName +"' " + "WHERE name = '" + oldName + "';");
         db.executeQuerySQL("UPDATE favourite_retail SET name = '" + newName +"' " + "WHERE name = '" + oldName + "';");
     }
+
+    /**
+     * Deletes everything about the user from all tables in the database.
+     * @param username name of the user to delete.
+     */
+    public void removeUserFromDatabase(String username) {
+        db.executeQuerySQL("DELETE FROM users WHERE name = '" + username + "';");
+        db.executeQuerySQL("DELETE FROM taken_routes WHERE name = '" + username + "';");
+        db.executeQuerySQL("DELETE FROM favourite_routes WHERE name = '" + username + "';");
+        db.executeQuerySQL("DELETE FROM favourite_wifi WHERE name = '" + username + "';");
+        db.executeQuerySQL("DELETE FROM favourite_retail WHERE name = '" + username + "';");
+        db.executeQuerySQL("DELETE FROM lists WHERE list_owner = '" + username + "';");
+        //MATT NEEDS TO DO SOME KIND OF FURTHER DELETING FOR THE LIST OWNER @MATTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+    }
 }
