@@ -270,71 +270,7 @@ public class DataFilterer {
     }
 
 
-<<<<<<< HEAD
 
-=======
-    /**
-     * getAllRoutes gets all routes from the database and returns these as Route objects in an ArrayList.
-     */
-    private void getAllRoutes() {
-        try {
-            String queryString = getAllRoutesCommand;
-            PreparedStatement pstmt;
-            pstmt = db.getPreparedStatement(queryString);
-            setQueryParameters(pstmt);
-
-            ResultSet rs = pstmt.executeQuery();
-            System.out.println("Got result set");
-            generateRouteArray(rs);
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-
-    /**
-     * filterRoutes takes all the possible filter values for routes and returns a ArrayList of Routes that meet the
-     * filter requirements.
-     *
-     * @param gender        of type int. A value of -1 means not to filter by gender, 1 means filter by males and 2
-     *                      means filter by females
-     * @param dateLower     of type String. It is the lower limit that a route was started on, specified by
-     *                      the user
-     * @param dateUpper     of type String. It is the upper limit that a route was started on, specified by
-     *                      the user
-     * @param timeLower     of type String. It is the lower time limit of starting a route the user wants to
-     *                      filter by
-     * @param timeUpper     of type String. It is the upper time limit of starting a route the user wants to
-     *                      filter by
-     * @param startLocation of type String. It is the starting address of a route that the user wants
-     *                      to filter by
-     * @param endLocation   of type String. It is the ending address of a route that the user wants
-     *                      to filter by
-     * @param bikeID        of type String. It is the bikeID of a route that the user want to filter by
-     * @param list          of type String. It is the list name of the list the user wants to filter by
-     * @return ArrayList<Route>, this is an ArrayList that contains all filtered routes
-     */
-    public ArrayList<Route> filterRoutes(int gender, String dateLower, String dateUpper, String timeLower,
-                                         String timeUpper, String startLocation, String endLocation, String bikeID,
-                                         String list) {
-        String queryString;
-        queryString = generateQueryString(gender, dateLower, dateUpper, timeLower, timeUpper, startLocation,
-                endLocation, bikeID, list);
-        if (queryString.equals(routeCommand)) {
-            getAllRoutes();
-            return routes;
-        }
-        try {
-
-            PreparedStatement pstmt;
-            pstmt = db.getPreparedStatement(queryString);
-            setQueryParameters(pstmt);
-
-            ResultSet rs = pstmt.executeQuery();
-            System.out.println("Got result set");
-            generateRouteArray(rs);
->>>>>>> origin/master
 
 
 
@@ -433,22 +369,14 @@ public class DataFilterer {
         }
 
         try {
-            System.out.println(1);
             PreparedStatement pstmt;
             pstmt = db.getPreparedStatement(queryString);
-            System.out.println(2);
             for (int i = 0; i < queryLen; i++) {
                 pstmt.setString(i + 1, filterVariableStrings.get(i));
             }
-            System.out.println(3);
             ResultSet rs = pstmt.executeQuery();
-<<<<<<< HEAD
-            System.out.println(4);
-=======
             System.out.println("Got result set");
->>>>>>> origin/master
             generateWifiArray(rs);
-            System.out.println(5);
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());

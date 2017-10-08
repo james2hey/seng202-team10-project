@@ -44,7 +44,7 @@ public class UpdateData_Routes_Wifi_Test {
     @BeforeClass
     @TestInJfxThread
     public static void setUp() throws Exception {
-        ClassLoader loader = DataFilterer_Routes_Wifi_Test.class.getClassLoader();
+        ClassLoader loader = UpdateData_Routes_Wifi_Test.class.getClassLoader();
         Task<Void> task;
 
         String home = System.getProperty("user.home");

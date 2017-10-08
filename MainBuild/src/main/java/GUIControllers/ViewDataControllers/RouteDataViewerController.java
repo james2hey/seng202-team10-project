@@ -251,34 +251,19 @@ public class RouteDataViewerController extends DataViewerController implements A
             list = null;
         }
 
-<<<<<<< HEAD
-=======
-        DataFilterer filterer = new DataFilterer(Main.getDB());
-        routes = filterer.filterRoutes(gender, dateLower, dateUpper, timeLower, timeUpper, startLocation, endLocation,
-                bikeID, list);
-        System.out.println("Got data");
-        System.out.println(routes.size());
-        tableView.getItems().clear();
-        routeList.addAll(routes);
->>>>>>> origin/master
+//        DataFilterer filterer = new DataFilterer(Main.getDB());
+//        routes = filterer.filterRoutes(gender, dateLower, dateUpper, timeLower, timeUpper, startLocation, endLocation,
+//                bikeID, list);
+//        System.out.println("Got data");
+//        System.out.println(routes.size());
+//        tableView.getItems().clear();
+//        routeList.addAll(routes);
 
         RouteFiltererTask task = new RouteFiltererTask(Main.getDB(), gender, dateLower, dateUpper, timeLower, timeUpper, startLocation, endLocation,
                 bikeID, list, this);
-        System.out.println(1);
         Thread thread = new Thread(task);
-        System.out.println(2);
         thread.start();
-        System.out.println(3);
 
-        //DataFilterer filterer = new DataFilterer(Main.getDB());
-        //routes = filterer.filterRoutes(gender, dateLower, dateUpper, timeLower, timeUpper, startLocation, endLocation, bikeID, list);
-        System.out.println("Got data");
-        //System.out.println(routes.size());
-       // for (Route route : routes) {
-            //System.out.println(route.getBikeID());
-        //}
-        //tableView.getItems().clear();
-        //routeList.addAll(routes);
 
         System.out.println("done");
     }
