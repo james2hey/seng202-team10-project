@@ -19,17 +19,6 @@ import java.util.ArrayList;
  */
 public class DataFilterer {
 
-    //---Route Strings---
-    private String routeCommand;
-    private String genderCommand;
-    private String timeCommand;
-    private String dateCommand;
-    private String startAddressCommand;
-    private String endAddressCommand;
-    private String bikeIDCommand;
-    private String listCommand;
-    private String getAllRoutesCommand;
-
     //---Wifi Strings---
     private String wifiCommand;
     private String wifiNameCommand;
@@ -47,6 +36,7 @@ public class DataFilterer {
     private String getAllRetailersCommand;
 
     //---Other---
+    private String listCommand;
     private String andCommand;
     private String commandEnd;
 
@@ -71,16 +61,6 @@ public class DataFilterer {
     }
 
     private void setVariables() {
-        //---Route Strings---
-        routeCommand = "SELECT * FROM route_information WHERE ";
-        genderCommand = "gender = ?";
-        dateCommand = "start_year || start_month || start_day BETWEEN ? AND ?";
-        timeCommand = "start_time BETWEEN ? AND ?";
-        startAddressCommand = "start_station_name LIKE ?";
-        endAddressCommand = "end_station_name LIKE ?";
-        bikeIDCommand = "bikeid = ?";
-        listCommand = "list_name = ?";
-        getAllRoutesCommand = "SELECT * FROM route_information;";
         //---Wifi Strings---
         wifiCommand = "SELECT * FROM wifi_location WHERE ";
         wifiNameCommand = "SSID LIKE ?";
@@ -97,6 +77,7 @@ public class DataFilterer {
         getAllRetailersCommand = "SELECT * FROM retailer;";
 
         //---Other---
+        listCommand = "list_name = ?";
         andCommand = " AND ";
         commandEnd = ";";
         routes = new ArrayList<>();

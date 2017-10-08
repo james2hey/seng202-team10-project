@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXTextField;
 import dataAnalysis.WifiLocation;
 import dataHandler.ListDataHandler;
 import dataHandler.SQLiteDB;
+import dataManipulation.DeleteData;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -351,14 +352,24 @@ public class DetailedWifiInformation extends DataViewerController {
     @FXML
     void deleteWifi(ActionEvent event) throws IOException{
         if (makeConfirmationDialogueBox("Are you sure you want to delete this Wifi Location?", "This cannot be undone.")) {
-            //MATT TO ADD CODE WHICH WILL REMOVE RETAILER FROM DATABASE
-
+            DeleteData deleteData = new DeleteData(db, Main.hu.currentCyclist.getName());
+            int deleteStatus = deleteData.checkWifiDeletionStatus(currentWifi.getWifiID());
+            if (deleteStatus == 1) {
+                makeErrorDialogueBox("Failed to delete wifi location", "Another user has this " +
+                        "wifi location in a list\nthey created.");
+            } else if (deleteStatus == 2) {
+                makeErrorDialogueBox("Failed to delete wifi location", "Another user has this " +
+                        "wifi location in their\nfavourite wifi list.");
+            } else {
+                System.out.println("OK to delete");
+                deleteData.deleteWifiLocation(currentWifi.getWifiID());
+            }
 
             //Closes popup
             Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             currentStage.close();
             showWifiLocations(mainAppEvent);
-        };
+        }
     }
 
 }

@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXTextField;
 import dataAnalysis.RetailLocation;
 import dataHandler.ListDataHandler;
 import dataHandler.SQLiteDB;
+import dataManipulation.DeleteData;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -304,13 +305,24 @@ public class DetailedRetailerInformation extends DataViewerController {
     @FXML
     void deleteRetailer(ActionEvent event)  throws IOException{
         if (makeConfirmationDialogueBox("Are you sure you want to delete this retailer?", "This cannot be undone.")) {
-            //MATT TO ADD CODE WHICH WILL REMOVE RETAILER FROM DATABASE
-
+            DeleteData deleteData = new DeleteData(db, Main.hu.currentCyclist.getName());
+            int deleteStatus = deleteData.checkRetailDeletionStatus(currentRetailer.getName(),
+                    currentRetailer.getAddress());
+            if (deleteStatus == 1) {
+                makeErrorDialogueBox("Failed to delete retailer", "Another user has this " +
+                        "retail location in a list\nthey created.");
+            } else if (deleteStatus == 2) {
+                makeErrorDialogueBox("Failed to delete retailer", "Another user has this " +
+                        "retail location in their\nfavourite retail list.");
+            } else {
+                System.out.println("OK to delete");
+                deleteData.deleteRetailer(currentRetailer.getName(), currentRetailer.getAddress());
+            }
 
             //Closes popup
             Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             currentStage.close();
-            showWifiLocations(mainAppEvent);
+            showRetailers(mainAppEvent);
         }
     }
 

@@ -399,7 +399,11 @@ public class Route {
 
     public void setListName(String newList) {
         if (!newList.equals(listName)) {
-            listName = newList;
+            if (newList.equals("")) {
+                listName = null;
+            } else {
+                listName = newList;
+            }
             UpdateData.updateRouteField("list_name", listName, bikeid, startYear, startMonth,
                     stopDay, startTime);
         }
