@@ -2,15 +2,11 @@ package GUIControllers;
 
 import com.google.maps.errors.ApiException;
 import com.jfoenix.controls.JFXCheckBox;
-import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXTextField;
 import dataAnalysis.RetailLocation;
 import dataAnalysis.Route;
-import dataAnalysis.StationLocation;
 import dataAnalysis.WifiLocation;
 import dataHandler.*;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -34,8 +30,6 @@ import main.Main;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -95,17 +89,19 @@ public class AddDataController extends Controller implements Initializable {
         routeDataHandler = new RouteDataHandler(db);
         listDataHandler = new ListDataHandler(db, Main.hu.currentCyclist.getName());
 
-        initListCombobox();
+        initListComboboxes();
     }
 
 
     /**
      * populates the list combobox.
      */
-    public void initListCombobox() {
+    public void initListComboboxes() {
         ArrayList<String> listNames = listDataHandler.getLists();
         listInput.getItems().clear();
         listInput.getItems().addAll(listNames);
+        manualListInput.getItems().clear();
+        manualListInput.getItems().addAll(listNames);
     }
 
     /**
@@ -139,13 +135,13 @@ public class AddDataController extends Controller implements Initializable {
         double[] sLatLon;
         double[] eLatLon;
 
-        if (listDataHandler.checkListName(listInput.getSelectionModel().getSelectedItem())) {
+        if (listDataHandler.checkListName(manualListInput.getSelectionModel().getSelectedItem())) {
             makeErrorDialogueBox("List name already exists", "This list name has been used by " +
                     "another user,\nplease choose another name");
         } else {
-            ListDataHandler.setListName(listInput.getSelectionModel().getSelectedItem());
-            listDataHandler.addList(listInput.getSelectionModel().getSelectedItem());
-            initListCombobox();
+            ListDataHandler.setListName(manualListInput.getSelectionModel().getSelectedItem());
+            listDataHandler.addList(manualListInput.getSelectionModel().getSelectedItem());
+            initListComboboxes();
 
             try {
                 if (rSAddress.getText().length() != 0 || rEAddress.getText().length() != 0) {
@@ -243,7 +239,7 @@ public class AddDataController extends Controller implements Initializable {
                         eDate[2], eDate[1], eDate[0], SLatitude, SLongitude,
                         ELatitude, ELongitude, 0, 1, rSAddress.getText(),
                         rEAddress.getText(), username, Main.hu.currentCyclist.getGender(), "Custom", Main.hu.currentCyclist.getBYear(),
-                        listInput.getSelectionModel().getSelectedItem());
+                        ListDataHandler.getListName());
 
                 if (addToFavourites.isSelected() && addToCompletedRoutes.isSelected()) {
                     openRouteRankStage(routeToAdd, Main.hu.currentCyclist.getName());
@@ -279,13 +275,13 @@ public class AddDataController extends Controller implements Initializable {
         Boolean errorOccured = false;
         double[] latLon;
 
-        if (listDataHandler.checkListName(listInput.getSelectionModel().getSelectedItem()) == true) {
+        if (listDataHandler.checkListName(manualListInput.getSelectionModel().getSelectedItem()) == true) {
             makeErrorDialogueBox("List name already exists", "This list name has been used by " +
                     "another user,\nplease choose another name");
         } else {
-            listDataHandler.setListName(listInput.getSelectionModel().getSelectedItem());
-            listDataHandler.addList(listInput.getSelectionModel().getSelectedItem());
-            initListCombobox();
+            listDataHandler.setListName(manualListInput.getSelectionModel().getSelectedItem());
+            listDataHandler.addList(manualListInput.getSelectionModel().getSelectedItem());
+            initListComboboxes();
 
             try {
                 if (retailerAddress.getText().length() != 0) {
@@ -332,7 +328,7 @@ public class AddDataController extends Controller implements Initializable {
                     if (addToFavourites.isSelected()) {
                         RetailLocation retailToAdd = new RetailLocation(retailerName.getText(), retailerAddress.getText(), "",
                                 retailerPrim.getSelectionModel().getSelectedItem().toString(), retailerSec.getText(), "",
-                                0, latLon[0], latLon[1], listInput.getSelectionModel().getSelectedItem());
+                                0, latLon[0], latLon[1], ListDataHandler.getListName());
                         Main.hu.currentCyclist.addFavouriteRetail(retailToAdd, name, Main.getDB());
                         makeSuccessDialogueBox("Successfully added to this retailer to the database and your favourites list.", "You may add more entries");
                     } else {
@@ -357,15 +353,14 @@ public class AddDataController extends Controller implements Initializable {
     void wifiCSVLine(ActionEvent event) throws IOException {
         Boolean errorOccured = false;
         double[] latLon;
-        String currentListInput;
-        currentListInput = listInput.getSelectionModel().getSelectedItem();
-        if (listDataHandler.checkListName(currentListInput) == true) {
+
+        if (listDataHandler.checkListName(manualListInput.getSelectionModel().getSelectedItem()) == true) {
             makeErrorDialogueBox("List name already exists", "This list name has been used by " +
                     "another user,\nplease choose another name");
         } else {
-            listDataHandler.setListName(listInput.getSelectionModel().getSelectedItem());
-            listDataHandler.addList(listInput.getSelectionModel().getSelectedItem());
-            initListCombobox();
+            listDataHandler.setListName(manualListInput.getSelectionModel().getSelectedItem());
+            listDataHandler.addList(manualListInput.getSelectionModel().getSelectedItem());
+            initListComboboxes();
 
             try {
                 if (wifiAddress.getText().length() != 0) {
@@ -404,7 +399,7 @@ public class AddDataController extends Controller implements Initializable {
                     if (addToFavourites.isSelected()) {
                         WifiLocation wifiToAdd = new WifiLocation(wifiName.getText(), latLon[0], latLon[1], wifiAddress.getText(),
                                 wifiName.getText(), "", "", wifiComments.getText(), "", "",
-                                0, listInput.getSelectionModel().getSelectedItem());
+                                0, ListDataHandler.getListName());
                         Main.hu.currentCyclist.addFavouriteWifi(wifiToAdd, name, Main.getDB());
                         makeSuccessDialogueBox("Successfully added this entry to the database and your favourite Wifi list.", "You may add more entries");
                     } else {
@@ -450,7 +445,7 @@ public class AddDataController extends Controller implements Initializable {
                 System.out.println(currentList);
                 listDataHandler.setListName(currentList);
                 listDataHandler.addList(currentList);
-                initListCombobox();
+                initListComboboxes();
 
                 FileChooser fileChooser = new FileChooser();
                 FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV (*.csv)", "*.csv");
@@ -518,7 +513,7 @@ public class AddDataController extends Controller implements Initializable {
             if (result) {
                 listDataHandler.setListName(currentList);
                 listDataHandler.addList(currentList);
-                initListCombobox();
+                initListComboboxes();
 
                 FileChooser fileChooser = new FileChooser();
                 FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV (*.csv)", "*.csv");
@@ -583,7 +578,7 @@ public class AddDataController extends Controller implements Initializable {
             if (result) {
                 listDataHandler.setListName(currentList);
                 listDataHandler.addList(currentList);
-                initListCombobox();
+                initListComboboxes();
 
                 FileChooser fileChooser = new FileChooser();
                 FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV (*.csv)", "*.csv");
