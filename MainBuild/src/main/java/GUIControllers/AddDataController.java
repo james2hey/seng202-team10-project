@@ -93,7 +93,7 @@ public class AddDataController extends Controller implements Initializable {
         retailerDataHandler = new RetailerDataHandler(db);
         wifiDataHandler = new WifiDataHandler(db);
         routeDataHandler = new RouteDataHandler(db);
-        listDataHandler = new ListDataHandler(db, Main.hu);
+        listDataHandler = new ListDataHandler(db, Main.hu.currentCyclist.getName());
 
         initListCombobox();
     }

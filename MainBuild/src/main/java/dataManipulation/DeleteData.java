@@ -10,6 +10,7 @@ import java.sql.SQLException;
  * DeleteData class handles the deletion of routes, wifi locations and retailers from the database.
  */
 public class DeleteData {
+
     private SQLiteDB db;
     private String userName;
 
