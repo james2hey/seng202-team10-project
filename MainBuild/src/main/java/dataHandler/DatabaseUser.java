@@ -2,6 +2,7 @@ package dataHandler;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * Handles all of the user data, ensuring that each username is unique when adding names.
@@ -81,12 +82,19 @@ public class DatabaseUser {
      * @param username name of the user to delete.
      */
     public void removeUserFromDatabase(String username) {
+        ListDataHandler listDataHandler = new ListDataHandler(db);
+        ArrayList<String> userLists = listDataHandler.getLists();
+        for (int i = 0; i < userLists.size(); i++) {
+            db.executeQuerySQL("UPDATE route_information SET list_name = null WHERE list_name = '" + userLists.get(i) + "';");
+            db.executeQuerySQL("UPDATE wifi_location SET list_name = null WHERE list_name = '" + userLists.get(i) + "';");
+            db.executeQuerySQL("UPDATE retailer SET list_name = null WHERE list_name = '" + userLists.get(i) + "';");
+            db.executeQuerySQL("DELETE FROM lists WHERE list_owner = '" + username + "' AND list_name = '" + userLists.get(i) + "';");
+        }
         db.executeQuerySQL("DELETE FROM users WHERE name = '" + username + "';");
         db.executeQuerySQL("DELETE FROM taken_routes WHERE name = '" + username + "';");
         db.executeQuerySQL("DELETE FROM favourite_routes WHERE name = '" + username + "';");
         db.executeQuerySQL("DELETE FROM favourite_wifi WHERE name = '" + username + "';");
         db.executeQuerySQL("DELETE FROM favourite_retail WHERE name = '" + username + "';");
         db.executeQuerySQL("DELETE FROM lists WHERE list_owner = '" + username + "';");
-        //MATT NEEDS TO DO SOME KIND OF FURTHER DELETING FOR THE LIST OWNER @MATTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
     }
 }

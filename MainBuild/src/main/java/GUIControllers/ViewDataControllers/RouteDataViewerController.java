@@ -157,7 +157,7 @@ public class RouteDataViewerController extends DataViewerController implements A
                         editData(ae);
                     } catch (IOException e) {
                         //do nothing
-                        System.out.println("this shits fucked");
+                        System.out.println("Failed to load detailed route information scene");
                     }
 
                 } else {

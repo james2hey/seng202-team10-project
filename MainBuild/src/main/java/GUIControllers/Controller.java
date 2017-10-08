@@ -169,7 +169,7 @@ public abstract class Controller {
     @FXML
     public void changeToAddDataScene(ActionEvent event) throws IOException {
         doOnSceneChange();
-        Parent addDataParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/addData.fxml"));
+        Parent addDataParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/routeManualEntry.fxml"));
         Scene addDataScene = new Scene(addDataParent);
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.setScene(addDataScene);
@@ -186,14 +186,14 @@ public abstract class Controller {
     @FXML
     void changeToAddDataScene(ActionEvent event, String startAddress, String endAddress) throws IOException {
         doOnSceneChange();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/addData.fxml"));
-        Scene addDataScene = new Scene(loader.load());
-        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        AddDataController controller = loader.<AddDataController>getController();
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/routeManualEntry.fxml"));
+        Scene routeManualEntryScene = new Scene(loader.load());
 
-        AddDataController.setRouteVals(startAddress, endAddress);
-        System.out.println(endAddress);
-        controller.changeToRouteEntryScene(event);
+        AddDataController controller = loader.getController();
+        controller.setRouteVals(startAddress, endAddress);
+
+        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        currentStage.setScene(routeManualEntryScene);
     }
 
     /**

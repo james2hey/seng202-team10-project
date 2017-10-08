@@ -247,6 +247,18 @@ public class RouteFiltererTask extends Task<Void> {
         filterVariableStrings.add(dateUpper.substring(6) + dateUpper.substring(3, 5) + dateUpper.substring(0, 2));
     }
 
+
+    /**
+     * addAndToStmt checks if the query statement has at least one other filter requirement included. If it does the
+     * andCommand string is appended to the end of the query command. Takes a string, queryCommand, and a int,
+     * queryLength, as parameters. Returns the query command.
+     *
+     * @param queryCommand of type String. This is the string that will be used as the query statement to
+     *                     the database
+     * @param queryLength  of type int. This is the number of filter requirements that have been added to the
+     *                     queryCommand already
+     * @return queryCommand, of type String. This is the string that will be used as a query statement to the database
+     */
     private String addAndToStmt(String queryCommand, int queryLength) {
         if (queryLength > 0) {
             queryCommand = queryCommand + andCommand;

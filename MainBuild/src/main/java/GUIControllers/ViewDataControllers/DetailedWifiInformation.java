@@ -5,10 +5,12 @@ import dataAnalysis.WifiLocation;
 import dataHandler.ListDataHandler;
 import dataHandler.SQLiteDB;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import main.Main;
@@ -97,6 +99,18 @@ public class DetailedWifiInformation extends DataViewerController {
         SSIDListener();
         zipListener();
         listListener();
+
+        list.getEditor().setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(javafx.scene.input.MouseEvent event) {
+                ArrayList<String> lists = listDataHandler.getLists();
+                if (!lists.contains(currentWifi.getListName()) && currentWifi.getListName() != null) {
+                    makeErrorDialogueBox("Cannot edit List", "This Route is part of another users " +
+                            "list and\ncannot be changed");
+                    list.setDisable(true);
+                }
+            }
+        });
     }
 
 
@@ -121,13 +135,29 @@ public class DetailedWifiInformation extends DataViewerController {
             currentWifi.setSuburb(suburb.getSelectionModel().getSelectedItem());
             currentWifi.setZip(Integer.parseInt(Zip.getText()));
             listDataHandler.addList(list.getSelectionModel().getSelectedItem());
-            currentWifi.setListName(list.getSelectionModel().getSelectedItem());
+            currentWifi.setListName(list.getEditor().getText());
 
             Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             currentStage.close();
             showWifiLocations(mainAppEvent);
         } catch (Exception exception) {
             makeErrorDialogueBox("Cannot update data.", "One (or more) field(s) is of an incorrect type.");
+        }
+    }
+
+
+    /**
+     * Checks if list is owned by current user. If not creates an error popup and disables the list field
+     *
+     * @throws IOException IOException Handles errors caused by an fxml not loading correctly
+     */
+    @FXML
+    void checkIfEditable() throws IOException {
+        ArrayList<String> lists = listDataHandler.getLists();
+        if (!lists.contains(currentWifi.getListName()) && currentWifi.getListName() != null) {
+            makeErrorDialogueBox("Cannot edit List", "This Route is part of another users " +
+                    "list and\ncannot be changed");
+            list.setDisable(true);
         }
     }
 
@@ -293,8 +323,8 @@ public class DetailedWifiInformation extends DataViewerController {
 
 
     /**
-     * Error handler for list field. Uses a listener to see state of text. Sets color and makes confirm button
-     * un-selectable if text field incorrect.
+     * Error handler for list field. Uses a listener to see state of text. Makes confirm button
+     * un-selectable if text field incorrect. Stops strings over 25 char long from being entered.
      */
     private void listListener() {
         list.getEditor().textProperty().addListener(((observable, oldValue, newValue) -> {
@@ -308,7 +338,6 @@ public class DetailedWifiInformation extends DataViewerController {
                         "been used by another\nuser. Please choose a new name.\n");
                 update.setDisable(true);
             } else {
-                list.setPromptText("");
                 update.setDisable(false);
             }
         }));
