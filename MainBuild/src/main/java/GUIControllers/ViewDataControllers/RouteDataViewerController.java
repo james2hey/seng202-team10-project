@@ -4,7 +4,8 @@ import com.jfoenix.controls.JFXTextField;
 import customExceptions.FilterByTimeException;
 import dataAnalysis.Route;
 import dataHandler.SQLiteDB;
-import dataManipulation.DataFilterer;
+import dataManipulation.AddRouteCallback;
+import dataManipulation.RouteFiltererTask;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,7 +22,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.Main;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -37,7 +37,7 @@ import java.util.ResourceBundle;
  * Controller class for the route data viewer.
  */
 
-public class RouteDataViewerController extends DataViewerController {
+public class RouteDataViewerController extends DataViewerController implements AddRouteCallback {
 
     static private Route route = null;
 
@@ -113,7 +113,7 @@ public class RouteDataViewerController extends DataViewerController {
         try {
             initialiseEditListener();
         } catch (IOException e) {
-            //do nothing
+            e.printStackTrace();
         }
         SQLiteDB db = Main.getDB();
         try {
@@ -123,7 +123,7 @@ public class RouteDataViewerController extends DataViewerController {
             }
             routeLists.getItems().add("No Selection");
         } catch (SQLException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
 
 
@@ -251,17 +251,26 @@ public class RouteDataViewerController extends DataViewerController {
             list = null;
         }
 
-        DataFilterer filterer = new DataFilterer(Main.getDB());
-        routes = filterer.filterRoutes(gender, dateLower, dateUpper, timeLower, timeUpper, startLocation, endLocation,
-                bikeID, list);
-        System.out.println("Got data");
-        System.out.println(routes.size());
-        for (int i = 0; i < routes.size(); i++) {
-            System.out.println(routes.get(i).getBikeID());
-        }
-        tableView.getItems().clear();
-        routeList.addAll(routes);
 
+        RouteFiltererTask task = new RouteFiltererTask(Main.getDB(), gender, dateLower, dateUpper, timeLower, timeUpper, startLocation, endLocation,
+                bikeID, list, this);
+        System.out.println(1);
+        Thread thread = new Thread(task);
+        System.out.println(2);
+        thread.start();
+        System.out.println(3);
+
+        //DataFilterer filterer = new DataFilterer(Main.getDB());
+        //routes = filterer.filterRoutes(gender, dateLower, dateUpper, timeLower, timeUpper, startLocation, endLocation, bikeID, list);
+        System.out.println("Got data");
+        //System.out.println(routes.size());
+       // for (Route route : routes) {
+            //System.out.println(route.getBikeID());
+        //}
+        //tableView.getItems().clear();
+        //routeList.addAll(routes);
+
+        System.out.println("done");
     }
 
 
@@ -387,5 +396,16 @@ public class RouteDataViewerController extends DataViewerController {
             popup.show();
             DetailedRouteInformation.setMainAppEvent(event);
         }
+    }
+
+    @Override
+    public void addRoute(Route route) {
+        System.out.println("added");
+        routeList.add(route);
+    }
+
+    @Override
+    public void addRoutes(ArrayList<Route> routes) {
+        routeList.addAll(routes);
     }
 }
