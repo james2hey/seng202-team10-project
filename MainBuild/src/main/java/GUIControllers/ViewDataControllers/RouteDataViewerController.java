@@ -254,7 +254,13 @@ public class RouteDataViewerController extends DataViewerController implements A
             list = null;
         }
 
-        routeList.clear();
+
+
+        if (dataViewTask != null)
+            dataViewTask.cancel();
+
+        routeList.removeAll(routeList);
+
         dataViewTask = new RouteFiltererTask(Main.getDB(), gender, dateLower, dateUpper, timeLower, timeUpper, startLocation, endLocation,
                 bikeID, list, this);
         Thread thread = new Thread(dataViewTask);
@@ -354,10 +360,8 @@ public class RouteDataViewerController extends DataViewerController implements A
         if (tableView.getSelectionModel().getSelectedItem() == null) {
             makeErrorDialogueBox("No route selected.", "Please select a route from the table.");
         } else {
-            //Get it done...
-            ArrayList<Route> route = new ArrayList<>();
-            route.add(tableView.getSelectionModel().getSelectedItem());
-            changeToPlanRouteScene(event, null, null, routeList.toArray(new Route[routeList.size()]));
+            Route[] route = {tableView.getSelectionModel().getSelectedItem()};
+            changeToPlanRouteScene(event, null, null, route);
         }
     }
 
@@ -398,5 +402,6 @@ public class RouteDataViewerController extends DataViewerController implements A
     public void addRoutes(ArrayList<Route> routes) {
         System.out.println(this);
         routeList.addAll(routes);
+        tableView.refresh();
     }
 }

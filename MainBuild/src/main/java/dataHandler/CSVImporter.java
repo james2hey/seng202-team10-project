@@ -66,6 +66,11 @@ public class CSVImporter extends Task<Void> implements Callback {
         }
         while (resulted < totalCount) {
             Thread.sleep(50);
+            if (isCancelled()) {
+                db.rollback();
+                db.setAutoCommit(true);
+                return null;
+            }
         }
         db.commit();
         db.setAutoCommit(true);
@@ -81,11 +86,13 @@ public class CSVImporter extends Task<Void> implements Callback {
             failed ++;
         }
 
-        updateProgress(successful + failed, totalCount);
+        updateProgress(resulted, totalCount);
 
         updateMessage(String.format("Currently processed %d records out of %d.\n" +
                 "Successfully imported: %d records\n" +
                 "Failed to import: %d records.", resulted, totalCount, successful, failed));
     }
+
+
 }
 

@@ -505,6 +505,7 @@ public class AddDataController extends Controller implements Initializable {
                 controller.activateProgressBar(task);
                 Thread thread = new Thread(task);
                 thread.start();
+
                 dialogStage.setOnCloseRequest(e -> task.cancel());
             }
         }
