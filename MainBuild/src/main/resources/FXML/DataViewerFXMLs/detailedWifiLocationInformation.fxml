@@ -36,7 +36,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <JFXTextField fx:id="wifiID" editable="false" prefHeight="23.0" prefWidth="200.0" />
+                        <Text fx:id="wifiID" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
                      </children>
                   </HBox>
                </children>
@@ -207,10 +207,14 @@
                <children>
                   <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="131.0">
                      <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="List:  " />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" />
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" />
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <ComboBox fx:id="list" editable="true" prefHeight="25.0" prefWidth="175.0" />
+                     </children></HBox>
                </children>
             </HBox>
          </children>

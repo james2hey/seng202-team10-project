@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -25,15 +26,15 @@ public class DetailedRouteInformation extends RouteDataViewerController {
     @FXML
     private ComboBox<String> gender;
     @FXML
-    private JFXTextField startMonth;
+    private Text startMonth;
     @FXML
     private JFXTextField startAddress;
     @FXML
-    private JFXTextField startDay;
+    private Text startDay;
     @FXML
-    private JFXTextField startYear;
+    private Text startYear;
     @FXML
-    private JFXTextField bikeID;
+    private Text bikeID;
     @FXML
     private JFXTextField endLatitude;
     @FXML
@@ -49,7 +50,7 @@ public class DetailedRouteInformation extends RouteDataViewerController {
     @FXML
     private JFXTextField endStationID;
     @FXML
-    private JFXTextField startTime;
+    private Text startTime;
     @FXML
     private JFXTextField userType;
     @FXML
@@ -64,6 +65,8 @@ public class DetailedRouteInformation extends RouteDataViewerController {
     private JFXTextField endMonth;
     @FXML
     private JFXTextField endAddress;
+    @FXML
+    private ComboBox<String> list;
     @FXML
     private Button update;
     private Route currentRoute = null;

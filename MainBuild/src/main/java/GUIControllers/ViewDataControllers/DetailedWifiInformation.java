@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -32,7 +33,7 @@ public class DetailedWifiInformation extends DataViewerController {
     @FXML
     private JFXTextField city;
     @FXML
-    private JFXTextField wifiID;
+    private Text wifiID;
     @FXML
     private JFXTextField longitude;
     @FXML
@@ -43,6 +44,8 @@ public class DetailedWifiInformation extends DataViewerController {
     private JFXTextField SSID;
     @FXML
     private JFXTextField remarks;
+    @FXML
+    private ComboBox<String> list;
     @FXML
     private Button update;
     private WifiLocation currentWifi = null;

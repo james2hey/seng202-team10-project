@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -28,9 +29,9 @@ public class DetailedRetailerInformation extends DataViewerController {
     @FXML
     private JFXTextField secondaryType;
     @FXML
-    private JFXTextField address;
+    private Text address;
     @FXML
-    private JFXTextField retailerName;
+    private Text retailerName;
     @FXML
     private JFXTextField latitude;
     @FXML
@@ -41,6 +42,8 @@ public class DetailedRetailerInformation extends DataViewerController {
     private ComboBox<String> mainType;
     @FXML
     private JFXTextField longitude;
+    @FXML
+    private ComboBox<String> list;
     @FXML
     private Button update;
     private RetailLocation currentRetailer = null;
@@ -68,7 +71,6 @@ public class DetailedRetailerInformation extends DataViewerController {
         zip.setText(Integer.toString(currentRetailer.getZip()));
         mainType.getSelectionModel().select(currentRetailer.getMainType());
         secondaryType.setText(currentRetailer.getSecondaryType());
-        addressListener();
         latitudeListener();
         longitudeListener();
         cityListener();
@@ -102,26 +104,6 @@ public class DetailedRetailerInformation extends DataViewerController {
         } catch (Exception exception) {
             makeErrorDialogueBox("Cannot update data.", "One (or more) field(s) is of an incorrect type.");
         }
-    }
-
-
-    /**
-     * Error handler for address field. Uses a listener to see state of text. Sets color and makes confirm button
-     * un-selectable if text field incorrect.
-     */
-    private void addressListener() {
-        address.textProperty().addListener(((observable, oldValue, newValue) -> {
-            System.out.println("TextField Text Changed (newValue: " + newValue + ")");
-            if (address.getText().length() > 50) {
-                address.setFocusColor(RED);
-                address.setUnFocusColor(RED);
-                update.setDisable(true);
-            } else {
-                address.setFocusColor(DARKSLATEBLUE);
-                address.setUnFocusColor(GREEN);
-                update.setDisable(false);
-            }
-        }));
     }
 
 

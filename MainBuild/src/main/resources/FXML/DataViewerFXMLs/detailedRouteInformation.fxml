@@ -87,7 +87,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <JFXTextField fx:id="startTime" editable="false" prefHeight="23.0" prefWidth="200.0" />
+                        <Text fx:id="startTime" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
                      </children>
                   </HBox>
                </children>
@@ -101,7 +101,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <JFXTextField fx:id="startDay" editable="false" prefHeight="23.0" prefWidth="200.0" />
+                        <Text fx:id="startDay" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
                      </children>
                   </HBox>
                </children>
@@ -115,7 +115,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <JFXTextField fx:id="startMonth" editable="false" prefHeight="23.0" prefWidth="200.0" />
+                        <Text fx:id="startMonth" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
                      </children>
                   </HBox>
                </children>
@@ -129,7 +129,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <JFXTextField fx:id="startYear" editable="false" prefHeight="23.0" prefWidth="200.0" />
+                        <Text fx:id="startYear" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
                      </children>
                   </HBox>
                </children>
@@ -309,8 +309,14 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="131.0" />
-                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" />
+                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="131.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="List:  " />
+                     </children></HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <ComboBox fx:id="list" editable="true" prefHeight="25.0" prefWidth="172.0" />
+                     </children></HBox>
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
@@ -345,7 +351,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <JFXTextField fx:id="bikeID" editable="false" prefHeight="23.0" prefWidth="171.0" />
+                        <Text fx:id="bikeID" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
                      </children>
                   </HBox>
                </children>

@@ -13,7 +13,7 @@
 <?import javafx.collections.FXCollections?>
 <?import java.lang.String?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="555.0" prefWidth="600.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIControllers.ViewDataControllers.DetailedRetailerInformation">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="555.0" prefWidth="600.0" style="-fx-background-color: grey;" xmlns:Text="http://java.sun.com/xml/ns/persistence/orm" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIControllers.ViewDataControllers.DetailedRetailerInformation">
    <children>
       <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Detailed Retailer Information" textAlignment="CENTER" wrappingWidth="597.7294921875">
          <font>
@@ -36,7 +36,8 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <JFXTextField fx:id="retailerName" editable="false" prefHeight="23.0" prefWidth="200.0" />
+                        <Text id="retailerName" />
+                        <Text fx:id="retailerName" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
                      </children>
                   </HBox>
                </children>
@@ -110,7 +111,8 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <JFXTextField fx:id="address" editable="false" prefHeight="23.0" prefWidth="172.0" />
+                        <Text fx:id="address" />
+                        <Text fx:id="address" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
                      </children>
                   </HBox>
                </children>
@@ -173,10 +175,14 @@
                <children>
                   <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="131.0">
                      <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="List:  " />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" />
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" />
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <ComboBox fx:id="list" editable="true" prefHeight="25.0" prefWidth="176.0" />
+                     </children></HBox>
                </children>
             </HBox>
          </children>
