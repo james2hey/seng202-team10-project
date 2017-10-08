@@ -23,6 +23,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import main.HandleUsers;
 import main.HelperFunctions;
 import main.Main;
 import javafx.scene.chart.XYChart;
@@ -91,7 +92,7 @@ public class StatisticsController extends Controller implements Initializable {
      */
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
-        findStatistics(Main.getDB());
+        findStatistics(Main.hu);
         loadGraph();
 
         //Initialise routes completed table.
@@ -106,15 +107,15 @@ public class StatisticsController extends Controller implements Initializable {
     /**
      * Finds all of the most recent statistics for the user and displays them.
      */
-    private void findStatistics(SQLiteDB db) {
-        double total = HelperFunctions.calculateDistanceCycled(Main.hu.currentCyclist);
-        double average = HelperFunctions.cacluateAverageDistance(Main.hu.currentCyclist);
+    private void findStatistics(HandleUsers hu) {
+        double total = HelperFunctions.calculateDistanceCycled(hu.currentCyclist);
+        double average = HelperFunctions.cacluateAverageDistance(hu.currentCyclist, hu);
 
-        double shortest = HelperFunctions.calculateShortestRoute(Main.hu.currentCyclist);
+        double shortest = HelperFunctions.calculateShortestRoute(hu.currentCyclist);
         if (shortest == 9999999) {
             shortest = 0;
         }
-        double longest = HelperFunctions.calculateLongestRoute(Main.hu.currentCyclist);
+        double longest = HelperFunctions.calculateLongestRoute(hu.currentCyclist);
         if (longest == -1) {
             longest = 0;
         }
@@ -201,7 +202,7 @@ public class StatisticsController extends Controller implements Initializable {
             routeList.remove(removingRoute);
             routeListObservable.remove(removingRoute);
             Main.hu.currentCyclist.getTakenRoutes().remove(removingRoute);
-            findStatistics(Main.getDB());
+            findStatistics(Main.hu);
             loadGraph();
         } else {
             makeErrorDialogueBox("No route selected", "No route was selected to delete." +
