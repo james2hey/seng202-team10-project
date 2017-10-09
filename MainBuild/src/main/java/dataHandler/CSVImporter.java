@@ -7,10 +7,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.List;
 
-/**
- * Created by jes143 on 18/09/17.
- */
-
 public class CSVImporter extends Task<Void> implements Callback {
 
     private final String url;
