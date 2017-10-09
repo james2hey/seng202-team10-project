@@ -9,10 +9,10 @@ import com.lynden.gmapsfx.service.directions.*;
 import com.lynden.gmapsfx.service.geocoding.GeocodingService;
 import com.lynden.gmapsfx.shapes.Polyline;
 import com.lynden.gmapsfx.shapes.PolylineOptions;
+import dataManipulation.FindNearbyLocations;
 import dataObjects.RetailLocation;
 import dataObjects.Route;
 import dataObjects.WifiLocation;
-import dataManipulation.FindNearbyLocations;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
@@ -166,7 +166,7 @@ public class MapController extends Controller implements Initializable, MapCompo
         options.position(latLong)
                 .title(location.getName())
                 .visible(true)
-                .icon("http://maps.google.com/mapfiles/ms/icons/orange-dot.png");
+                .icon("https://i.imgur.com/4WWeG4S.png");
         Marker marker = new Marker(options);
         wifiMarkers.add(marker);
         map.addMarker(marker);
@@ -209,7 +209,7 @@ public class MapController extends Controller implements Initializable, MapCompo
         options.position(latLong)
                 .title(location.getName())
                 .visible(true)
-                .icon("http://maps.google.com/mapfiles/ms/icons/blue-dot.png");
+                .icon("https://i.imgur.com/nPCouZN.png");
         Marker marker = new Marker(options);
         retailerMarkers.add(marker);
         map.addMarker(marker);
@@ -289,7 +289,7 @@ public class MapController extends Controller implements Initializable, MapCompo
                 options.position(latLong)
                         .title(route.getName())
                         .visible(true)
-                        .icon("http://maps.google.com/mapfiles/ms/icons/green-dot.png");
+                        .icon("https://i.imgur.com/pxqx0G9.png");
                 Marker marker = new Marker(options);
 
                 tripMarkers.add(marker);
@@ -316,7 +316,7 @@ public class MapController extends Controller implements Initializable, MapCompo
                 options2.position(latLong2)
                         .title(route.getName())
                         .visible(true)
-                        .icon("http://maps.google.com/mapfiles/ms/icons/red-dot.png");
+                        .icon("https://i.imgur.com/Ha4m8R6.png");
                 Marker marker2 = new Marker(options2);
 
                 tripMarkers.add(marker2);
