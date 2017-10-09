@@ -215,8 +215,9 @@ public class Route {
         return HelperFunctions.format2dp(distance);
     }
 
-
-
+    //-----THIS GETTER IS USED DO NOT DELETE------
+    public int getRank() {return rank;}
+    //--------------------------------------------
 
     // Setters
     private void setDistance() {
