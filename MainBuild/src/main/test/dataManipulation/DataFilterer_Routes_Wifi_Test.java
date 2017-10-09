@@ -1,33 +1,19 @@
 package dataManipulation;
 
-import GUIControllers.ProgressPopupController;
 import dataAnalysis.Cyclist;
 import dataAnalysis.Route;
 import dataAnalysis.WifiLocation;
 import dataHandler.*;
 import javafx.concurrent.Task;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.layout.Pane;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import main.HandleUsers;
 import main.Main;
 import org.junit.*;
-import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
-import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit.ApplicationTest;
 
 import java.nio.file.Files;
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
 
 
 ////////////////////////ROUTE FILTERING TESTS\\\\\\\\\\\\\\\\\\\\\

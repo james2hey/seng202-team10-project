@@ -93,7 +93,5 @@ public class CSVImporter extends Task<Void> implements Callback {
                 "Successfully imported: %d records\n" +
                 "Failed to import: %d records.", resulted, totalCount, successful, failed));
     }
-
-
 }
 
