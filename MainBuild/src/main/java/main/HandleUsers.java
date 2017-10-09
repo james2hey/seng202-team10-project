@@ -221,7 +221,7 @@ public class HandleUsers {
             String name = capitalizeFully(username);
             DatabaseUser d = new DatabaseUser(db);
             int genderInt = convertGender(gender);
-            currentCyclist = new Cyclist(name, day, month, year, genderInt); // JAMES SORT
+            currentCyclist = new Cyclist(name, day, month, year, genderInt);
             d.addUser(name, day, month, year, genderInt);
             created = true;
         }

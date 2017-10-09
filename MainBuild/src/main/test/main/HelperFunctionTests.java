@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+
 public class HelperFunctionTests {
     public double testingDistance1 = 11.12;
     public double testingDistance2 = 55.6;

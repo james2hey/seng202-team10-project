@@ -11,9 +11,7 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by jto59 on 6/10/17.
- */
+
 public class TakenRoutesTest {
     private static SQLiteDB db;
     private static TakenRoutes takenRoutes;

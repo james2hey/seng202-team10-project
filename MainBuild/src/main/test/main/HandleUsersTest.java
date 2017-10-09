@@ -13,9 +13,6 @@ import java.sql.ResultSet;
 import static org.junit.Assert.assertEquals;
 
 
-/**
- * Tests for the HandleUser class.
- */
 public class HandleUsersTest {
 
     private static SQLiteDB db;

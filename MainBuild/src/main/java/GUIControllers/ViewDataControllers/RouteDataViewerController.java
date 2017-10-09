@@ -261,14 +261,13 @@ public class RouteDataViewerController extends DataViewerController implements A
         if (dataViewTask != null)
             dataViewTask.cancel();
 
-        routeList.removeAll(routeList);
+        routeList.clear();
 
         dataViewTask = new RouteFiltererTask(Main.getDB(), gender, dateLower, dateUpper, timeLower, timeUpper, startLocation, endLocation,
                 bikeID, list, this);
         Thread thread = new Thread(dataViewTask);
         thread.start();
 
-        System.out.println("done");
     }
 
 
@@ -375,14 +374,11 @@ public class RouteDataViewerController extends DataViewerController implements A
 
     @Override
     public void addRoute(Route route) {
-        System.out.println("added");
         routeList.add(route);
     }
 
     @Override
     public void addRoutes(ArrayList<Route> routes) {
-        System.out.println(this);
         routeList.addAll(routes);
-        tableView.refresh();
     }
 }

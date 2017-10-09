@@ -12,9 +12,7 @@ import java.sql.ResultSet;
 
 import static org.junit.Assert.*;
 
-/**
- * Tests for the Cyclist class.
- */
+
 public class CyclistTest {
     private static SQLiteDB db;
     private Cyclist testCyclist;

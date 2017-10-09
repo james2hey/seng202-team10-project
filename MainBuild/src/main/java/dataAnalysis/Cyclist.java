@@ -15,7 +15,6 @@ public class Cyclist {
     static public String name;
     static private int bday, bmonth, byear;
     static private int gender;   // gender either 0 other, 1 male, or 2 female.
-    private double distanceCycled;
     private ArrayList<Route> favouriteRouteList = new ArrayList<Route>();
     private ArrayList<RetailLocation> favouriteRetailLocations = new ArrayList<RetailLocation>();
     private ArrayList<WifiLocation> favouriteWifiLocations = new ArrayList<WifiLocation>();
@@ -28,12 +27,12 @@ public class Cyclist {
         name = cName;
     }
 
-    public Cyclist(String uname, int day, int month, int year, int ugender) {
-        name = uname;
+    public Cyclist(String username, int day, int month, int year, int usergender) {
+        name = username;
         bday = day;
         bmonth = month;
         byear = year;
-        gender = ugender;
+        gender = usergender;
     }
 
     //Getters
@@ -89,16 +88,6 @@ public class Cyclist {
     }
 
     public ArrayList<Route> getTakenRoutes() {return takenRoutesList;}
-
-    public double getDistanceCycled() {
-        return distanceCycled;
-    }
-
-
-    public void setDistanceCycled(double distance) {
-        distanceCycled = distance;
-    }
-
 
 
     /**
