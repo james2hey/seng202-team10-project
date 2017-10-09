@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXDrawer?>
 <?import com.jfoenix.controls.JFXHamburger?>
 <?import com.jfoenix.controls.JFXTextField?>
@@ -20,7 +25,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane alignment="TOP_CENTER" hgap="40.0" prefHeight="650.0" prefWidth="1100.0" style="-fx-background-color: grey; -fx-background-image: url(Images/sky.jpg);" vgap="30.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIControllers.ViewDataControllers.RouteDataViewerController">
+<GridPane alignment="TOP_CENTER" hgap="40.0" prefHeight="650.0" prefWidth="1100.0" style="-fx-background-color: grey; -fx-background-image: url(Images/sky.jpg);" vgap="30.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIControllers.ViewDataControllers.RouteDataViewerController">
   <columnConstraints>
      <ColumnConstraints hgrow="SOMETIMES" maxWidth="269.0" minWidth="10.0" prefWidth="29.0" />
      <ColumnConstraints hgrow="SOMETIMES" maxWidth="269.0" minWidth="10.0" prefWidth="165.0" />
@@ -49,10 +54,10 @@
          <columns>
             <TableColumn fx:id="StartLocation" prefWidth="156.0" text="Start Location" />
             <TableColumn fx:id="EndLocation" prefWidth="156.0" text="End Location" />
-            <TableColumn fx:id="Date" prefWidth="81.0" text="Date" />
-            <TableColumn fx:id="StartTime" prefWidth="95.0" text="Start Time" />
-            <TableColumn fx:id="EndTime" prefWidth="90.0" text="End Time" />
-            <TableColumn fx:id="Distance" prefWidth="75.0" text="Distance (km)" />
+            <TableColumn fx:id="Distance" prefWidth="90.0" text="Distance (km)" />
+            <TableColumn fx:id="Date" prefWidth="75.0" text="Date" />
+            <TableColumn fx:id="StartTime" prefWidth="104.0" text="Start Time" />
+            <TableColumn fx:id="EndTime" prefWidth="72.0" text="End Time" />
          </columns>
       </TableView>
       <VBox prefHeight="326.0" prefWidth="262.0" GridPane.columnIndex="5" GridPane.rowIndex="2">

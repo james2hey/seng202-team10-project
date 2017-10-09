@@ -35,7 +35,6 @@
             </font>
         </Text>
         <ClusteredGoogleMapView fx:id="mapView" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-      <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" GridPane.rowSpan="4" />
         <AnchorPane prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="6">
            <children>
                <JFXHamburger fx:id="hamburger" onMouseClicked="#openDrawer" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0" />
@@ -60,13 +59,15 @@
                   <Font size="14.0" />
                </font>
             </Button>
-            <Button alignment="CENTER" layoutX="619.0" layoutY="1.0" mnemonicParsing="false" onAction="#addRouteToDatabase" prefHeight="25.0" prefWidth="275.0" text="Add Current Route to Database" textAlignment="CENTER">
+            <Button alignment="CENTER" layoutX="676.0" layoutY="1.0" mnemonicParsing="false" onAction="#addRouteToDatabase" prefHeight="28.0" prefWidth="165.0" text="Save Route" textAlignment="CENTER">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
          </children>
       </AnchorPane>
+        <!--<ClusteredGoogleMapView fx:id="mapView" GridPane.columnIndex="2" GridPane.rowIndex="1" />-->
+      <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" GridPane.rowSpan="4" />
 
     </children>
 </GridPane>

@@ -18,11 +18,39 @@
             <Font size="60.0" />
          </font>
       </Text>
-      <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
-         <center>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <BarChart fx:id="graph" animated="false" title="Title" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
+        <xAxis>
+          <CategoryAxis label="Most Recent Routes" side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis label="Distance (km)" side="LEFT" upperBound="1.0" />
+        </yAxis>
+      </BarChart>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
+         <children>
+            <Text fx:id="errorText" layoutX="132.0" layoutY="218.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You need to add at least 3 completed routes for a graph to display." textAlignment="CENTER" wrappingWidth="253.26123046875">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Text>
+            <BorderPane fx:id="errorBorder" layoutX="116.0" layoutY="179.0" prefHeight="151.0" prefWidth="276.0" style="-fx-border-color: black;" />
+         </children>
+      </AnchorPane>
+      <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" style="-fx-background-color: grey;" GridPane.rowSpan="4">
+         <effect>
+            <Blend />
+         </effect>
+      </JFXDrawer>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.columnSpan="2">
+         <children>
+            <JFXHamburger fx:id="hamburger" layoutX="251.0" layoutY="29.0" onMouseClicked="#openDrawer" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0" />
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+         <children>
+            <AnchorPane layoutY="-113.0" prefHeight="511.0" prefWidth="455.0">
                <children>
-                  <Text layoutX="17.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Statistics" textAlignment="CENTER" wrappingWidth="414.7294921875">
+                  <Text layoutX="18.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Statistics" textAlignment="CENTER" wrappingWidth="414.7294921875">
                      <font>
                         <Font size="38.0" />
                      </font>
@@ -81,37 +109,10 @@
                   <Button layoutX="76.0" layoutY="461.0" mnemonicParsing="false" onAction="#deleteTakenRoute" prefHeight="24.0" prefWidth="298.0" text="Remove Selected From Completed Routes">
                      <font>
                         <Font size="12.0" />
-                     </font></Button>
+                     </font>
+                  </Button>
                </children>
             </AnchorPane>
-         </center>
-      </BorderPane>
-      <BarChart fx:id="graph" animated="false" title="Title" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
-        <xAxis>
-          <CategoryAxis label="Most Recent Routes" side="BOTTOM" />
-        </xAxis>
-        <yAxis>
-          <NumberAxis label="Distance (km)" side="LEFT" upperBound="1.0" />
-        </yAxis>
-      </BarChart>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
-         <children>
-            <Text fx:id="errorText" layoutX="132.0" layoutY="218.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You need to add at least 3 completed routes for a graph to display." textAlignment="CENTER" wrappingWidth="253.26123046875">
-               <font>
-                  <Font size="25.0" />
-               </font>
-            </Text>
-            <BorderPane fx:id="errorBorder" layoutX="116.0" layoutY="179.0" prefHeight="151.0" prefWidth="276.0" style="-fx-border-color: black;" />
-         </children>
-      </AnchorPane>
-      <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" style="-fx-background-color: grey;" GridPane.rowSpan="4">
-         <effect>
-            <Blend />
-         </effect>
-      </JFXDrawer>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.columnSpan="2">
-         <children>
-            <JFXHamburger fx:id="hamburger" layoutX="251.0" layoutY="29.0" onMouseClicked="#openDrawer" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0" />
          </children>
       </AnchorPane>
    </children>
