@@ -29,12 +29,9 @@ public class RouteFiltererTask extends Task<Void> {
     private String andCommand;
     private String commandEnd;
 
-    private ArrayList<Route> routes;
     private ArrayList<Integer> filterVariables;
     private ArrayList<String> filterVariableStrings;
 
-    private ArrayList<WifiLocation> wifiLocations;
-    private ArrayList<RetailLocation> retailLocations;
 
     private SQLiteDB db;
     private int gender;
@@ -79,11 +76,8 @@ public class RouteFiltererTask extends Task<Void> {
         //---Other---
         andCommand = " AND ";
         commandEnd = ";";
-        routes = new ArrayList<>();
         filterVariables = new ArrayList<>();
         filterVariableStrings = new ArrayList<>();
-        wifiLocations = new ArrayList<>();
-        retailLocations = new ArrayList<>();
         this.db = db;
         this.gender = gender;
         this.dateLower = dateLower;
@@ -98,7 +92,7 @@ public class RouteFiltererTask extends Task<Void> {
 
     }
 
-    public void filterRoutesWithCallback() {
+    private void filterRoutesWithCallback() {
         String queryString;
         queryString = generateQueryString(gender, dateLower, dateUpper, timeLower, timeUpper, startLocation,
                 endLocation, bikeID, list);
@@ -128,6 +122,9 @@ public class RouteFiltererTask extends Task<Void> {
             int scalefactor = 1;
             ArrayList<Route> routes = new ArrayList<>();
             while (rs.next()) {
+                if (isCancelled()) {
+                    return;
+                }
                 routes.add(new Route(rs.getInt("tripduration"), rs.getString("start_time"),
                         rs.getString("end_time"), rs.getString("start_day"),
                         rs.getString("start_month"), rs.getString("start_year"),
@@ -149,6 +146,7 @@ public class RouteFiltererTask extends Task<Void> {
             }
             System.out.println(routes.size());
             callback.addRoutes(routes);
+            routes.clear();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -279,9 +277,8 @@ public class RouteFiltererTask extends Task<Void> {
                 pstmt.setInt(i + 1, filterVariables.get(i));
             }
 
-            for (int j = 0; j < filterVariableStrings.size(); j++) {
-                pstmt.setString(i + 1, filterVariableStrings.get(j));
-                i++;
+            for (String filterVariableString : filterVariableStrings) {
+                pstmt.setString(++i, filterVariableString);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());

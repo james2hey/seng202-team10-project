@@ -25,6 +25,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.Main;
 
+import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -64,6 +65,8 @@ public class RetailerDataViewerController extends DataViewerController {
     private TableColumn<RetailLocation, String> PrimaryType;
     private ObservableList<RetailLocation> retailList = FXCollections.observableArrayList();
 
+    private DataFilterer filterer;
+
     static public RetailLocation getRetailer() {
         return retailer;
     }
@@ -102,6 +105,7 @@ public class RetailerDataViewerController extends DataViewerController {
         PrimaryType.setCellValueFactory(new PropertyValueFactory<>("MainType"));
         tableView.setItems(retailList);
         tableView.getColumns().setAll(Name, Address, Zip, PrimaryType);
+        filterer = new DataFilterer(Main.getDB());
 
         ActionEvent event = new ActionEvent();
         try {
@@ -209,7 +213,7 @@ public class RetailerDataViewerController extends DataViewerController {
             list = null;
         }
 
-        DataFilterer filterer = new DataFilterer(Main.getDB());
+
         tableView.getItems().clear();
         retailList.addAll(filterer.filterRetailers(name, address, primaryType, zip, list));
     }

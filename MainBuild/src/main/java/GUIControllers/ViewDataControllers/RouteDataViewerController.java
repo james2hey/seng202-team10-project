@@ -6,6 +6,7 @@ import customExceptions.FilterByTimeException;
 import dataAnalysis.Route;
 import dataHandler.SQLiteDB;
 import dataManipulation.AddRouteCallback;
+import dataManipulation.DataFilterer;
 import dataManipulation.RouteFiltererTask;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -99,6 +100,7 @@ public class RouteDataViewerController extends DataViewerController implements A
     static public Route getRoute() {
         return route;
     }
+
 
     private int getRank() {
         return 0;
