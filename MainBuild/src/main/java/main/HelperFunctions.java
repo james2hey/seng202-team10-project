@@ -10,7 +10,6 @@ import java.util.ArrayList;
 
 
 /**
- * Created by jes143 on 22/09/17.
  * Includes some useful static helper functions that may be applicable to multiple classes and that don't fit anywhere
  */
 public class HelperFunctions {
@@ -187,7 +186,7 @@ public class HelperFunctions {
 
 
     /**
-     * Calculates the users shortest distance, returns an arbitrarily large number if there are no--------------------toTest----
+     * Calculates the users shortest distance, returns an arbitrarily large number if there are no
      * routes in the takenRouteList.
      * @param cyclist the cyclist whose shortest route is to be found
      * @return shortest distance out of all taken routes
@@ -206,7 +205,7 @@ public class HelperFunctions {
 
 
     /**
-     * Calculates the users longest distance, returns -1 if there are no--------------------toTest----
+     * Calculates the users longest distance, returns -1 if there are no
      * routes in the takenRouteList.
      * @param cyclist the cyclist whose shortest route is to be found
      * @return shortest distance out of all taken routes
@@ -226,7 +225,7 @@ public class HelperFunctions {
 
     /**
      * Formats a number to 2dp without rounding.
-     * @param number the double to be formatted ----------------------toTest---
+     * @param number the double to be formatted
      * @return a 2dp format of the given number
      *
      */

@@ -46,6 +46,7 @@ public class HandleUsers {
 
     /**
      * Finds all of the users birth details and gender information then sets these to the current cyclists properties.
+     * @param username the username of the user whose details are being retrieved
      */
     public void getUserDetails(String username) {
         ResultSet rs;
@@ -220,9 +221,9 @@ public class HandleUsers {
         } catch (SQLException e) {
             e.getMessage();
             String name = capitalizeFully(username);
-            DatabaseUser d = new DatabaseUser(db);
             int genderInt = convertGender(gender);
             currentCyclist = new Cyclist(name, day, month, year, genderInt);
+            DatabaseUser d = new DatabaseUser(db);
             d.addUser(name, day, month, year, genderInt);
             created = true;
         }
