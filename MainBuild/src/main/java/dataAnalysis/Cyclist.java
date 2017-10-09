@@ -1,8 +1,7 @@
 package dataAnalysis;
 
 import dataHandler.*;
-import main.HandleUsers;
-import main.Main;
+import main.HandleUsers;;
 
 import java.util.ArrayList;
 
@@ -13,7 +12,7 @@ import java.util.ArrayList;
  */
 public class Cyclist {
     static public String name;
-    static private int bday, bmonth, byear;
+    static private int birthDay, birthMonth, birthYear;
     static private int gender;   // gender either 0 other, 1 male, or 2 female.
     private ArrayList<Route> favouriteRouteList = new ArrayList<Route>();
     private ArrayList<RetailLocation> favouriteRetailLocations = new ArrayList<RetailLocation>();
@@ -29,28 +28,28 @@ public class Cyclist {
 
     public Cyclist(String username, int day, int month, int year, int usergender) {
         name = username;
-        bday = day;
-        bmonth = month;
-        byear = year;
+        birthDay = day;
+        birthMonth = month;
+        birthYear = year;
         gender = usergender;
     }
 
     //Getters
 
-    static public int getBYear() {
-        return byear;
+    static public int getBirthYear() {
+        return birthYear;
     }
 
-    static public int getBmonth() {
-        return bmonth;
+    static public int getBirthMonth() {
+        return birthMonth;
     }
 
-    static public int getBDay() {
-        return bday;
+    static public int getBirthDay() {
+        return birthDay;
     }
 
-    static public String getBirthDay() {
-        return bday + "/" + bmonth + "/" + byear;
+    static public String getBirthDate() {
+        return birthDay + "/" + birthMonth + "/" + birthYear;
     }
 
     static public int getGender() {
@@ -70,9 +69,9 @@ public class Cyclist {
     }
 
     static public void setBirthday(int day, int month, int year) {
-        bday = day;
-        bmonth = month;
-        byear = year;
+        birthDay = day;
+        birthMonth = month;
+        birthYear = year;
     }
 
     public ArrayList<WifiLocation> getFavouriteWifiLocations() {
@@ -152,7 +151,8 @@ public class Cyclist {
      * @param route the route to be added
      * @param name  the username of whose favourite route this is
      * @param rank  the rank score which the user gives. If none is given it is set to 0
-     * @param db    the database's favourite_route table that is to have the row added.
+     * @param db    the database's favourite_route table that is to have the row added
+     * @param hu    the current HandleUsers object that is accessing the cyclists information
      */
     public void addFavouriteRoute(Route route, String name, int rank, SQLiteDB db, HandleUsers hu) {
         favouriteRouteList.add(route);
@@ -181,6 +181,7 @@ public class Cyclist {
      * Checks to see if a route is already in the cyclists favouriteRoute list.------------------------------test---------
      *
      * @param route the route to be checked if it is already in the list
+     * @param type the type of table to add the route to, either favourite_routes or taken_routes
      * @return true if it is already in the list, otherwise false
      */
     public boolean routeAlreadyInList(Route route, String type) {
@@ -213,6 +214,7 @@ public class Cyclist {
      *
      * @param retail Retail to be added
      * @param name   name of the user
+     * @param db the database whose tables are to be accessed
      * @return true if the Retail is already in the favouriteRetail list, false otherwise
      */
     public boolean addFavouriteRetail(RetailLocation retail, String name, SQLiteDB db) {
@@ -237,6 +239,7 @@ public class Cyclist {
      *
      * @param wifi wifi object to be added to favouriteWifi
      * @param name name of the user
+     * @param db the database whose tables are to be accessed
      * @return true if the Wifi is already in the favouriteWifi, false otherwise
      */
     public boolean addFavouriteWifi(WifiLocation wifi, String name, SQLiteDB db) {

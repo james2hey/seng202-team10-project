@@ -84,6 +84,7 @@ public class DatabaseUser {
     /**
      * Deletes everything about the user from all tables in the database.
      * @param username name of the user to delete.
+     * @param hu the current HandleUsers object that is accessing the cyclists information
      */
     public void removeUserFromDatabase(String username, HandleUsers hu) {
         ListDataHandler listDataHandler = new ListDataHandler(db, hu.currentCyclist.getName());

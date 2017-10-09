@@ -91,7 +91,7 @@ public class HandleUsersTest {
         testCyclist.setBirthday(0, 0, 0);
         testCyclist.setGender(0);
         hu.getUserDetails(testCyclist.getName());
-        assertEquals("0/0/0", currentCyclist.getBirthDay());
+        assertEquals("0/0/0", currentCyclist.getBirthDate());
     }
 
 

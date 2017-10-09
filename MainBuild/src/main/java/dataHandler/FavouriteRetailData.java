@@ -25,7 +25,6 @@ public class FavouriteRetailData {
 
     /**
      * Initializes the database when creating an instance of the FavouriteRetailData.
-     *
      * @param db database the retail data is added to
      */
     public FavouriteRetailData(SQLiteDB db) {
@@ -37,7 +36,6 @@ public class FavouriteRetailData {
 
     /**
      * Adds the given name, retail name and address to the table.
-     *
      * @param name        name of the user
      * @param retail_name name of the retail store
      * @param address     address of the retail store
@@ -58,8 +56,8 @@ public class FavouriteRetailData {
 
     /**
      * Deletes the given store from the database.
-     *
      * @param store retail store to be deleted
+     * @param hu the current HandleUsers object that is accessing the cyclists information
      */
     public void deleteFavouriteRetail(RetailLocation store, HandleUsers hu) {
         db.executeQuerySQL("DELETE FROM favourite_retail WHERE name = '" + hu.currentCyclist.name + "' AND RETAILER_NAME = '" + store.getName() + "' " +
