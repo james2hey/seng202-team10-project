@@ -34,45 +34,7 @@
                 <Font size="60.0" />
             </font>
         </Text>
-      <ClusteredGoogleMapView fx:id="mapView" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
-         <children>
-            <VBox alignment="CENTER_RIGHT" prefHeight="77.0" prefWidth="199.0">
-               <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Start Address:   " textAlignment="RIGHT" wrappingWidth="173.35889434814453">
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Text>
-               </children>
-            </VBox>
-            <VBox alignment="CENTER" prefHeight="77.0" prefWidth="281.0">
-               <children>
-                  <JFXTextField fx:id="startAddressField" focusColor="#2f4890" onAction="#addressTextFieldAction" promptText="Start Address" />
-               </children>
-            </VBox>
-            <VBox alignment="CENTER_RIGHT" prefHeight="77.0" prefWidth="176.0">
-               <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="End Address:   " textAlignment="RIGHT" wrappingWidth="156.35889434814453">
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Text>
-               </children>
-            </VBox>
-            <JFXTextField fx:id="endAddressField" onAction="#addressTextFieldAction" prefHeight="23.0" prefWidth="272.0" promptText="End Address">
-               <HBox.margin>
-                  <Insets top="10.0" />
-               </HBox.margin>
-            </JFXTextField>
-         </children>
-      </HBox>
+        <ClusteredGoogleMapView fx:id="mapView" GridPane.columnIndex="2" GridPane.rowIndex="1" />
       <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="3">
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -114,6 +76,13 @@
                <JFXHamburger fx:id="hamburger" onMouseClicked="#openDrawer" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0" />
            </children>
         </AnchorPane>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+         <children>
+            <JFXTextField fx:id="startAddressField" focusColor="#2f4890" layoutX="14.0" layoutY="12.0" onAction="#addressTextFieldAction" prefHeight="23.0" prefWidth="253.0" promptText="Start Address" />
+            <JFXTextField fx:id="endAddressField" layoutX="279.0" layoutY="12.0" onAction="#addressTextFieldAction" prefHeight="23.0" prefWidth="272.0" promptText="End Address" />
+            <Button layoutX="627.0" layoutY="11.0" mnemonicParsing="false" onAction="#addressTextFieldAction" prefHeight="25.0" prefWidth="275.0" text="Search" />
+         </children>
+      </AnchorPane>
 
     </children>
 </GridPane>

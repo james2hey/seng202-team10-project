@@ -126,7 +126,8 @@ public class MapController extends Controller implements Initializable, MapCompo
 
 
     /**
-     * Called when enter key is pressed from inside the address textfields. Requests a route and loads it on the map.
+     * Called when enter key is pressed from inside the address textfields or the search button is pressed. Requests a
+     * route and loads it on the map.
      *
      * @param event Created when the method is called
      */
