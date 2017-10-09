@@ -31,6 +31,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import static javafx.scene.paint.Color.GREEN;
+
 /**
  * Controller class for wifi data viewer.
  */
@@ -104,6 +106,9 @@ public class WifiDataViewerController extends DataViewerController {
         Cost.setCellValueFactory(new PropertyValueFactory<>("Cost"));
         tableView.setItems(wifiList);
         tableView.getColumns().setAll(Name, Provider, Address, Suburb, Cost);
+
+        nameInputListener();
+        providerInputListener();
 
         ActionEvent event = new ActionEvent();
         try {
@@ -249,5 +254,28 @@ public class WifiDataViewerController extends DataViewerController {
             popup.show();
             DetailedWifiInformation.setMainAppEvent(event);
         }
+    }
+
+    /**
+     * Listener for nameInput field. Uses a listener to see state of text. Sets focus colour when text is changed.
+     */
+    private void nameInputListener() {
+        nameInput.textProperty().addListener(((observable, oldValue, newValue) -> {
+            System.out.println("TextField Text Changed (newValue: " + newValue + ")");
+            nameInput.setFocusColor(GREEN);
+            nameInput.setUnFocusColor(GREEN);
+        }));
+    }
+
+
+    /**
+     * Listener for providerInput field. Uses a listener to see state of text. Sets focus colour when text is changed.
+     */
+    private void providerInputListener() {
+        providerInput.textProperty().addListener(((observable, oldValue, newValue) -> {
+            System.out.println("TextField Text Changed (newValue: " + newValue + ")");
+            providerInput.setFocusColor(GREEN);
+            providerInput.setUnFocusColor(GREEN);
+        }));
     }
 }

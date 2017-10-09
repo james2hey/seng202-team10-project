@@ -32,6 +32,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import static javafx.scene.paint.Color.DARKSLATEBLUE;
+import static javafx.scene.paint.Color.GREEN;
+import static javafx.scene.paint.Color.RED;
+
 /**
  * Controller class for retailer data viewer.
  */
@@ -102,6 +106,10 @@ public class RetailerDataViewerController extends DataViewerController {
         PrimaryType.setCellValueFactory(new PropertyValueFactory<>("MainType"));
         tableView.setItems(retailList);
         tableView.getColumns().setAll(Name, Address, Zip, PrimaryType);
+
+        nameInputListener();
+        streetInputListener();
+        zipInputListener();
 
         ActionEvent event = new ActionEvent();
         try {
@@ -265,4 +273,43 @@ public class RetailerDataViewerController extends DataViewerController {
     }
 
 
+    /**
+     * Listener for nameInput field. Uses a listener to see state of text. Sets focus colour when text is changed.
+     */
+    private void nameInputListener() {
+        nameInput.textProperty().addListener(((observable, oldValue, newValue) -> {
+            System.out.println("TextField Text Changed (newValue: " + newValue + ")");
+            nameInput.setFocusColor(GREEN);
+            nameInput.setUnFocusColor(GREEN);
+        }));
+    }
+
+
+    /**
+     * Listener for streetInput field. Uses a listener to see state of text. Sets focus colour when text is changed.
+     */
+    private void streetInputListener() {
+        streetInput.textProperty().addListener(((observable, oldValue, newValue) -> {
+            System.out.println("TextField Text Changed (newValue: " + newValue + ")");
+            streetInput.setFocusColor(GREEN);
+            streetInput.setUnFocusColor(GREEN);
+        }));
+    }
+
+
+    /**
+     * Error handler for zipInput field. Uses a listener to see state of text. Sets focus color if text field incorrect.
+     */
+    private void zipInputListener() {
+        zipInput.textProperty().addListener(((observable, oldValue, newValue) -> {
+            System.out.println("TextField Text Changed (newValue: " + newValue + ")");
+            if (!zipInput.getText().matches("[0-9]*|^$") || zipInput.getText().length() > 8) {
+                zipInput.setFocusColor(RED);
+                zipInput.setUnFocusColor(RED);
+            } else {
+                zipInput.setFocusColor(GREEN);
+                zipInput.setUnFocusColor(GREEN);
+            }
+        }));
+    }
 }

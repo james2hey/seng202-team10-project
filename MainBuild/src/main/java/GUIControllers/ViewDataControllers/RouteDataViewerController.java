@@ -1,6 +1,5 @@
 package GUIControllers.ViewDataControllers;
 
-import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXTextField;
 import customExceptions.FilterByTimeException;
 import dataAnalysis.Route;
@@ -30,8 +29,9 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Optional;
 import java.util.ResourceBundle;
+
+import static javafx.scene.paint.Color.*;
 
 
 /**
@@ -78,6 +78,9 @@ public class RouteDataViewerController extends DataViewerController implements A
 
     @FXML
     private TableColumn<Route, String> EndTime;
+
+    @FXML
+    private TableColumn<Route, String> Distance;
 
     @FXML
     private DatePicker startDateInput;
@@ -135,8 +138,16 @@ public class RouteDataViewerController extends DataViewerController implements A
         Date.setCellValueFactory(new PropertyValueFactory<>("StartDate"));
         StartTime.setCellValueFactory(new PropertyValueFactory<>("StartTime"));
         EndTime.setCellValueFactory(new PropertyValueFactory<>("StopTime"));
+        Distance.setCellValueFactory(new PropertyValueFactory<>("Distance"));
         tableView.setItems(routeList);
-        tableView.getColumns().setAll(StartLocation, EndLocation, Date, StartTime, EndTime);
+        tableView.getColumns().setAll(StartLocation, EndLocation, Date, StartTime, EndTime, Distance);
+
+        startLocationInputListener();
+        endLocationInputListener();
+        endTimeInputListener();
+        startTimeInputListener();
+        bikeIDInputListener();
+
         ActionEvent event = new ActionEvent();
         try {
             displayData(event);
@@ -371,6 +382,82 @@ public class RouteDataViewerController extends DataViewerController implements A
             DetailedRouteInformation.setMainAppEvent(event);
         }
     }
+
+
+    /**
+     * Listener for startLocationInput field. Uses a listener to see state of text. Sets focus colour when text is
+     * changed.
+     */
+    private void startLocationInputListener() {
+        startLocationInput.textProperty().addListener(((observable, oldValue, newValue) -> {
+            System.out.println("TextField Text Changed (newValue: " + newValue + ")");
+            startLocationInput.setFocusColor(GREEN);
+            startLocationInput.setUnFocusColor(GREEN);
+        }));
+    }
+
+
+    /**
+     * Listener for endLocationInput field. Uses a listener to see state of text. Sets focus colour when text is
+     * changed.
+     */
+    private void endLocationInputListener() {
+        endLocationInput.textProperty().addListener(((observable, oldValue, newValue) -> {
+            System.out.println("TextField Text Changed (newValue: " + newValue + ")");
+            endLocationInput.setFocusColor(GREEN);
+            endLocationInput.setUnFocusColor(GREEN);
+        }));
+    }
+
+
+    /**
+     * Error handler for endTimeInput field. Uses a listener to see state of text. Sets focus color if text field
+     * incorrect.
+     */
+    private void endTimeInputListener() {
+        endTimeInput.textProperty().addListener(((observable, oldValue, newValue) -> {
+            System.out.println("TextField Text Changed (newValue: " + newValue + ")");
+            if (!endTimeInput.getText().matches("([0-1][0-9]|2[0-4]):[0-5][0-9](:[0-5][0-9])?|^$")) {
+                endTimeInput.setFocusColor(RED);
+                endTimeInput.setUnFocusColor(RED);
+            } else {
+                endTimeInput.setFocusColor(GREEN);
+                endTimeInput.setUnFocusColor(GREEN);
+            }
+        }));
+    }
+
+
+    /**
+     * Error handler for startTimeInput field. Uses a listener to see state of text. Sets focus color if text field
+     * incorrect.
+     */
+    private void startTimeInputListener() {
+        startTimeInput.textProperty().addListener(((observable, oldValue, newValue) -> {
+            System.out.println("TextField Text Changed (newValue: " + newValue + ")");
+            if (!startTimeInput.getText().matches("([0-1][0-9]|2[0-4]):[0-5][0-9](:[0-5][0-9])?|^$")) {
+                startTimeInput.setFocusColor(RED);
+                startTimeInput.setUnFocusColor(RED);
+            } else {
+                startTimeInput.setFocusColor(GREEN);
+                startTimeInput.setUnFocusColor(GREEN);
+            }
+        }));
+    }
+
+
+    /**
+     * Listener for bikeIDInputListener field. Uses a listener to see state of text. Sets focus colour when text is
+     * changed.
+     */
+    private void bikeIDInputListener() {
+        bikeIDInput.textProperty().addListener(((observable, oldValue, newValue) -> {
+            System.out.println("TextField Text Changed (newValue: " + newValue + ")");
+            bikeIDInput.setFocusColor(GREEN);
+            bikeIDInput.setUnFocusColor(GREEN);
+        }));
+    }
+
 
     @Override
     public void addRoute(Route route) {

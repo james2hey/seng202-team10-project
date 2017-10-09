@@ -11,37 +11,13 @@ import java.text.DecimalFormat;
 /**
  * Has methods for all main functionality of the routing.
  */
-
-//Users should be able to search for trips based on search criteria. We need
-//to find out what this search criteria is and find a Trip.
-
 public class Route {
-    private int duration, timesTaken = 1, rank, age;
+    private int duration, age, rank;
     private String name, startTime, stopTime, startDate, stopDate, startDay, startMonth, startYear, stopDay, stopMonth,
             stopYear, bikeid, gender, userType, listName;
-    private Location startLocation, endLocation, viaLocation;
-    private double averageTime, distance;
+    private Location startLocation, endLocation;
+    private double distance;
 
-    // Two types of constructors as there is not always a viaLocation.
-
-    public Route(Location start, Location end, String time, String stDay, String stMonth, String stYear) {
-        startLocation = start;
-        endLocation = end;
-        startTime = time;
-        startDay = stDay;
-        startMonth = stMonth;
-        startYear = stYear;
-    }
-
-    public Route(Location start, Location end, Location via, String time, String stDay, String stMonth, String stYear) {
-        startLocation = start;
-        endLocation = end;
-        viaLocation = via;
-        startTime = time;
-        startDay = stDay;
-        startMonth = stMonth;
-        startYear = stYear;
-    }
 
     /**
      * Constructor for Route class, used by Datafilterer class when filtering records from the database.
@@ -68,6 +44,7 @@ public class Route {
         endLocation = new StationLocation(endStationID, endStationLat, endStationLong, endStationAdr);
         startDate = getDateString(startDay, startMonth, startYear);
         stopDate = getDateString(stopDay, stopMonth, stopYear);
+        setDistance();
     }
 
 
@@ -131,17 +108,6 @@ public class Route {
     }
 
 
-    public Route(int stStationID, double stStationLat, double stStationLong, int endStationID, double endStationLat,
-                 double endStationLong, String stStationAdr, String endStationAdr, String time, String stDay,
-                 String stMonth, String stYear) {
-        startLocation = new StationLocation(stStationID, stStationLat, stStationLong, stStationAdr);
-        endLocation = new StationLocation(endStationID, endStationLat, endStationLong, endStationAdr);
-        startTime = time;
-        startDay = stDay;
-        startMonth = stMonth;
-        startYear = stYear;
-    }
-
     //Getters for primary key info
     public String getBikeID() {
         return bikeid;
@@ -167,10 +133,6 @@ public class Route {
     // Getters
     public int getDuration() {
         return duration;
-    }
-
-    public int getRank() {
-        return rank;
     }
 
     public int getStartStationID() {
@@ -225,10 +187,6 @@ public class Route {
         return endLocation.getAddress();
     }
 
-    public String getViaLocation() {
-        return viaLocation.getAddress();
-    }
-
     public String getGender() {
         return gender;
     }
@@ -255,18 +213,19 @@ public class Route {
         return endLocation.getLongitude();
     }
 
-    public double getAverageTime() {
-        return averageTime;
-    }
-
     public double getDistance() {
-        distance = HelperFunctions.getDistance(getStartLatitude(), getStartLongitude(), getEndLatitude(), getEndLongitude());
         return HelperFunctions.format2dp(distance);
     }
 
 
+
+
     // Setters
-    public void setStopDate() {
+    private void setDistance() {
+        distance = HelperFunctions.getDistance(getStartLatitude(), getStartLongitude(), getEndLatitude(), getEndLongitude());
+    }
+
+    private void setStopDate() {
         stopDate = getDateString(stopDay, stopMonth, stopYear);
     }
 
