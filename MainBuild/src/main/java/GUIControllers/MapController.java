@@ -9,9 +9,9 @@ import com.lynden.gmapsfx.service.directions.*;
 import com.lynden.gmapsfx.service.geocoding.GeocodingService;
 import com.lynden.gmapsfx.shapes.Polyline;
 import com.lynden.gmapsfx.shapes.PolylineOptions;
-import dataAnalysis.RetailLocation;
-import dataAnalysis.Route;
-import dataAnalysis.WifiLocation;
+import dataObjects.RetailLocation;
+import dataObjects.Route;
+import dataObjects.WifiLocation;
 import dataManipulation.FindNearbyLocations;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -19,12 +19,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import main.HelperFunctions;
 import main.Main;
 import netscape.javascript.JSObject;
 
-import javax.print.attribute.standard.Fidelity;
 import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
@@ -126,7 +124,8 @@ public class MapController extends Controller implements Initializable, MapCompo
 
 
     /**
-     * Called when enter key is pressed from inside the address textfields. Requests a route and loads it on the map.
+     * Called when enter key is pressed from inside the address textfields or the search button is pressed. Requests a
+     * route and loads it on the map.
      *
      * @param event Created when the method is called
      */

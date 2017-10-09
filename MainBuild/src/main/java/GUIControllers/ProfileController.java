@@ -20,7 +20,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-import static dataAnalysis.Cyclist.*;
+import static dataObjects.Cyclist.*;
 
 
 /**

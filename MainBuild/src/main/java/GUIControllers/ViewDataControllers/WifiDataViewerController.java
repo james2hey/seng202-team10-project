@@ -3,7 +3,7 @@ package GUIControllers.ViewDataControllers;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXTextField;
-import dataAnalysis.WifiLocation;
+import dataObjects.WifiLocation;
 import dataHandler.SQLiteDB;
 import dataManipulation.DataFilterer;
 import javafx.collections.FXCollections;
@@ -28,8 +28,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
+
+import static javafx.scene.paint.Color.GREEN;
 
 /**
  * Controller class for wifi data viewer.
@@ -70,6 +71,7 @@ public class WifiDataViewerController extends DataViewerController {
         return wifi;
     }
 
+
     /**
      * Runs on startup of the fxml. It gets the wifi information from the database and display it in the table.
      * A call of displayData is used to refresh the GUI.
@@ -105,6 +107,9 @@ public class WifiDataViewerController extends DataViewerController {
         tableView.setItems(wifiList);
         tableView.getColumns().setAll(Name, Provider, Address, Suburb, Cost);
 
+        nameInputListener();
+        providerInputListener();
+
         ActionEvent event = new ActionEvent();
         try {
             displayData(event);
@@ -134,6 +139,7 @@ public class WifiDataViewerController extends DataViewerController {
         });
     }
 
+
     /**
      * Called when the display all on map button is pressed. Changes the scene to the plan route one.
      *
@@ -162,6 +168,7 @@ public class WifiDataViewerController extends DataViewerController {
         }
     }
 
+
     /**
      * Called when the filter button is pressed. It checks the user input and filters the data by those fields. It then
      * refreshes the table so it can be viewed visually.
@@ -171,37 +178,86 @@ public class WifiDataViewerController extends DataViewerController {
     @FXML
     public void displayData(ActionEvent event) {
 
-        String name = nameInput.getText();
-        if (name.equals("")) {
-            name = null;
-        }
-
-        String provider = providerInput.getText();
-        if (provider.equals("")) {
-            provider = null;
-        }
-
-        String suburb = boroughInput.getSelectionModel().getSelectedItem();
-        if (suburb == null || suburb.equals("No Selection")) {
-            suburb = null;
-        }
-
-        String cost = typeInput.getSelectionModel().getSelectedItem();
-        if (cost == null || cost.equals("No Selection")) {
-            cost = null;
-        }
-
-        String list = wifiLists.getSelectionModel().getSelectedItem();
-        if (list == null || list.equals("No Selection")) {
-            list = null;
-        }
+        String name =checkIfNameInputValid();
+        String provider = checkIfProviderInputValid();
+        String suburb = checkSuburbInput();
+        String cost = checkTypeInput();
+        String list = checkListInput();
 
         DataFilterer filterer = new DataFilterer(Main.getDB());
-
-
         tableView.getItems().clear();
         wifiList.addAll(filterer.filterWifi(name, suburb, cost, provider, list));
     }
+
+
+    /**
+     * Checks if wifi location name input is valid.
+     *
+     * @return name of type String. The wifi location name to filter by.
+     */
+    private String checkIfNameInputValid() {
+        String name = nameInput.getText();
+        if (name.equals("")) {
+            return null;
+        }
+        return name;
+    }
+
+
+    /**
+     * Checks if wifi location provider input is valid.
+     *
+     * @return provider of type String. The wifi location provider to filter by.
+     */
+    private String checkIfProviderInputValid() {
+        String provider = providerInput.getText();
+        if (provider.equals("")) {
+            return null;
+        }
+        return provider;
+    }
+
+
+    /**
+     * Checks if wifi location suburb input is valid.
+     *
+     * @return suburb of type String. The wifi location suburb to filter by.
+     */
+    private String checkSuburbInput() {
+        String suburb = boroughInput.getSelectionModel().getSelectedItem();
+        if (suburb == null || suburb.equals("No Selection")) {
+            return null;
+        }
+        return suburb;
+    }
+
+    /**
+     * Checks if wifi location type input is valid.
+     *
+     * @return type of type String. The wifi location type to filter by.
+     */
+    private String checkTypeInput() {
+        String cost = typeInput.getSelectionModel().getSelectedItem();
+        if (cost == null || cost.equals("No Selection")) {
+            return null;
+        }
+        return cost;
+    }
+
+
+    /**
+     * Checks if wifi location list input is valid.
+     *
+     * @return list of type String. The wifi location list to filter by.
+     */
+    private String checkListInput() {
+        String list = wifiLists.getSelectionModel().getSelectedItem();
+        if (list == null || list.equals("No Selection")) {
+            return null;
+        }
+        return list;
+    }
+
 
     /**
      * Adds the wifi location to the users favourites list if it is not already in their favourites, otherwise it
@@ -223,6 +279,7 @@ public class WifiDataViewerController extends DataViewerController {
             }
         }
     }
+
 
     /**
      * Called when view/edit wifi location button is pressed. If nothing is selected, it will prompt the user, otherwise,
@@ -249,5 +306,29 @@ public class WifiDataViewerController extends DataViewerController {
             popup.show();
             DetailedWifiInformation.setMainAppEvent(event);
         }
+    }
+
+
+    /**
+     * Listener for nameInput field. Uses a listener to see state of text. Sets focus colour when text is changed.
+     */
+    private void nameInputListener() {
+        nameInput.textProperty().addListener(((observable, oldValue, newValue) -> {
+            System.out.println("TextField Text Changed (newValue: " + newValue + ")");
+            nameInput.setFocusColor(GREEN);
+            nameInput.setUnFocusColor(GREEN);
+        }));
+    }
+
+
+    /**
+     * Listener for providerInput field. Uses a listener to see state of text. Sets focus colour when text is changed.
+     */
+    private void providerInputListener() {
+        providerInput.textProperty().addListener(((observable, oldValue, newValue) -> {
+            System.out.println("TextField Text Changed (newValue: " + newValue + ")");
+            providerInput.setFocusColor(GREEN);
+            providerInput.setUnFocusColor(GREEN);
+        }));
     }
 }

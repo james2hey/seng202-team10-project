@@ -1,6 +1,6 @@
 package dataManipulation;
 
-import dataAnalysis.Route;
+import dataObjects.Route;
 
 import java.util.ArrayList;
 

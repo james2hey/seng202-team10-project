@@ -1,8 +1,7 @@
 package dataHandler;
 
-import dataAnalysis.Cyclist;
-import dataAnalysis.RetailLocation;
-import dataAnalysis.WifiLocation;
+import dataObjects.Cyclist;
+import dataObjects.RetailLocation;
 import main.HandleUsers;
 import org.junit.*;
 

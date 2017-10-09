@@ -3,8 +3,7 @@ package GUIControllers.ViewDataControllers;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXTextField;
-import dataAnalysis.RetailLocation;
-import dataAnalysis.Route;
+import dataObjects.RetailLocation;
 import dataHandler.SQLiteDB;
 import dataManipulation.DataFilterer;
 import javafx.collections.FXCollections;
@@ -25,13 +24,14 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.Main;
 
-import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
+
+import static javafx.scene.paint.Color.GREEN;
+import static javafx.scene.paint.Color.RED;
 
 /**
  * Controller class for retailer data viewer.
@@ -64,8 +64,6 @@ public class RetailerDataViewerController extends DataViewerController {
     @FXML
     private TableColumn<RetailLocation, String> PrimaryType;
     private ObservableList<RetailLocation> retailList = FXCollections.observableArrayList();
-
-    private DataFilterer filterer;
 
     static public RetailLocation getRetailer() {
         return retailer;
@@ -105,7 +103,10 @@ public class RetailerDataViewerController extends DataViewerController {
         PrimaryType.setCellValueFactory(new PropertyValueFactory<>("MainType"));
         tableView.setItems(retailList);
         tableView.getColumns().setAll(Name, Address, Zip, PrimaryType);
-        filterer = new DataFilterer(Main.getDB());
+
+        nameInputListener();
+        streetInputListener();
+        zipInputListener();
 
         ActionEvent event = new ActionEvent();
         try {
@@ -175,20 +176,56 @@ public class RetailerDataViewerController extends DataViewerController {
     @FXML
     void displayData(ActionEvent event) {
 
+        String name = checkIfNameInputValid();
+        String address = checkIfAddressInputValid();
+        int zip = checkIfZipInputValid();
+        String primaryType = checkPrimaryTypeInput();
+        String list = checkListInput();
+
+        DataFilterer filterer = new DataFilterer(Main.getDB());
+        tableView.getItems().clear();
+        retailList.addAll(filterer.filterRetailers(name, address, primaryType, zip, list));
+    }
+
+
+    /**
+     * Checks if retailer name input is valid.
+     *
+     * @return name of type String. The retailer name to filter by.
+     */
+    private String checkIfNameInputValid() {
         String name = nameInput.getText();
         if (name.equals("")) {
-            name = null;
+            return null;
         }
+        return name;
+    }
 
+
+    /**
+     * Checks if retailer address input is valid.
+     *
+     * @return address of type String. The retailer address to filter by.
+     */
+    private String checkIfAddressInputValid() {
         String address = streetInput.getText();
         if (address.equals("")) {
-            address = null;
+            return null;
         }
+        return address;
+    }
 
+
+    /**
+     * Checks if retailer zip input is valid.
+     *
+     * @return zip of type int. The retailer zip to filter by.
+     */
+    private int checkIfZipInputValid() {
         int zip;
         try {
             if (zipInput.getText().equals("")) {
-                zip = -1;
+                return -1;
             } else {
                 if (Integer.valueOf(zipInput.getText()) <= 0) {
                     throw new NumberFormatException();
@@ -200,22 +237,37 @@ public class RetailerDataViewerController extends DataViewerController {
             }
         } catch (NumberFormatException e) {
             makeErrorDialogueBox("Incorrect input for zip number", "Please enter a positive number between 1 and 8\ndigits long.");
-            zip = -1;
+            return -1;
         }
+        return zip;
+    }
 
+
+    /**
+     * Checks if retailer primary type input is valid.
+     *
+     * @return primaryType of type String. The retailer primary type to filter by.
+     */
+    private String checkPrimaryTypeInput() {
         String primaryType = primaryInput.getSelectionModel().getSelectedItem();
         if (primaryType == null || primaryType.equals("No Selection")) {
-            primaryType = null;
+            return null;
         }
+        return primaryType;
+    }
 
+
+    /**
+     * Checks if retailer list input is valid.
+     *
+     * @return list of type String. The retailer list to filter by.
+     */
+    private String checkListInput() {
         String list = retailerLists.getSelectionModel().getSelectedItem();
         if (list == null || list.equals("No Selection")) {
-            list = null;
+            return null;
         }
-
-
-        tableView.getItems().clear();
-        retailList.addAll(filterer.filterRetailers(name, address, primaryType, zip, list));
+        return list;
     }
 
 
@@ -269,4 +321,43 @@ public class RetailerDataViewerController extends DataViewerController {
     }
 
 
+    /**
+     * Listener for nameInput field. Uses a listener to see state of text. Sets focus colour when text is changed.
+     */
+    private void nameInputListener() {
+        nameInput.textProperty().addListener(((observable, oldValue, newValue) -> {
+            System.out.println("TextField Text Changed (newValue: " + newValue + ")");
+            nameInput.setFocusColor(GREEN);
+            nameInput.setUnFocusColor(GREEN);
+        }));
+    }
+
+
+    /**
+     * Listener for streetInput field. Uses a listener to see state of text. Sets focus colour when text is changed.
+     */
+    private void streetInputListener() {
+        streetInput.textProperty().addListener(((observable, oldValue, newValue) -> {
+            System.out.println("TextField Text Changed (newValue: " + newValue + ")");
+            streetInput.setFocusColor(GREEN);
+            streetInput.setUnFocusColor(GREEN);
+        }));
+    }
+
+
+    /**
+     * Error handler for zipInput field. Uses a listener to see state of text. Sets focus color if text field incorrect.
+     */
+    private void zipInputListener() {
+        zipInput.textProperty().addListener(((observable, oldValue, newValue) -> {
+            System.out.println("TextField Text Changed (newValue: " + newValue + ")");
+            if (!zipInput.getText().matches("[0-9]*|^$") || zipInput.getText().length() > 8) {
+                zipInput.setFocusColor(RED);
+                zipInput.setUnFocusColor(RED);
+            } else {
+                zipInput.setFocusColor(GREEN);
+                zipInput.setUnFocusColor(GREEN);
+            }
+        }));
+    }
 }

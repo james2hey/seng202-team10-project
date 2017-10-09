@@ -1,7 +1,7 @@
 package main;
 
-import dataAnalysis.Cyclist;
-import dataAnalysis.Route;
+import dataObjects.Cyclist;
+import dataObjects.Route;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.Duration;

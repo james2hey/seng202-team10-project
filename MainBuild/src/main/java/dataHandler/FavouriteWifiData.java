@@ -1,8 +1,7 @@
 package dataHandler;
 
-import dataAnalysis.WifiLocation;
+import dataObjects.WifiLocation;
 import main.HandleUsers;
-import main.Main;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;

@@ -1,8 +1,8 @@
 package dataManipulation;
 
-import dataAnalysis.Cyclist;
-import dataAnalysis.Route;
-import dataAnalysis.WifiLocation;
+import dataObjects.Cyclist;
+import dataObjects.Route;
+import dataObjects.WifiLocation;
 import dataHandler.*;
 import javafx.concurrent.Task;
 import main.HandleUsers;

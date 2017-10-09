@@ -1,9 +1,8 @@
 package GUIControllers.ViewDataControllers;
 
-import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXTextField;
 import customExceptions.FilterByTimeException;
-import dataAnalysis.Route;
+import dataObjects.Route;
 import dataHandler.SQLiteDB;
 import dataManipulation.AddRouteCallback;
 import dataManipulation.DataFilterer;
@@ -31,8 +30,9 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Optional;
 import java.util.ResourceBundle;
+
+import static javafx.scene.paint.Color.*;
 
 
 /**
@@ -79,6 +79,9 @@ public class RouteDataViewerController extends DataViewerController implements A
 
     @FXML
     private TableColumn<Route, String> EndTime;
+
+    @FXML
+    private TableColumn<Route, String> Distance;
 
     @FXML
     private DatePicker startDateInput;
@@ -134,11 +137,19 @@ public class RouteDataViewerController extends DataViewerController implements A
 
         StartLocation.setCellValueFactory(new PropertyValueFactory<>("StartAddress"));
         EndLocation.setCellValueFactory(new PropertyValueFactory<>("EndAddress"));
+        Distance.setCellValueFactory(new PropertyValueFactory<>("Distance"));
         Date.setCellValueFactory(new PropertyValueFactory<>("StartDate"));
         StartTime.setCellValueFactory(new PropertyValueFactory<>("StartTime"));
         EndTime.setCellValueFactory(new PropertyValueFactory<>("StopTime"));
         tableView.setItems(routeList);
-        tableView.getColumns().setAll(StartLocation, EndLocation, Date, StartTime, EndTime);
+        tableView.getColumns().setAll(StartLocation, EndLocation, Distance, Date, StartTime, EndTime);
+
+        startLocationInputListener();
+        endLocationInputListener();
+        endTimeInputListener();
+        startTimeInputListener();
+        bikeIDInputListener();
+
         ActionEvent event = new ActionEvent();
         try {
             displayData(event);
@@ -182,14 +193,48 @@ public class RouteDataViewerController extends DataViewerController implements A
     @FXML
     void displayData(ActionEvent event) throws IOException {
 
-        int gender;
+        int gender = checkGenderInput();
+        String[] dates = checkIfDateInputValid();
+        String[] times = checkIfTimeInputValid();
+        String startLocation = checkIfStartLocationInputValid();
+        String endLocation = checkIfEndLocationInputValid();
+        String bikeID = checkIfBikeIDInputValid();
+        String list = checkListInput();
+
+
+        if (dataViewTask != null)
+            dataViewTask.cancel();
+
+        routeList.clear();
+        System.gc();
+        dataViewTask = new RouteFiltererTask(Main.getDB(), gender, dates[0], dates[1], times[0], times[1], startLocation, endLocation,
+                bikeID, list, this);
+        Thread thread = new Thread(dataViewTask);
+        thread.start();
+    }
+
+
+    /**
+     * Checks if route rider gender input is valid.
+     *
+     * @return type int. The rider gender to filter by.
+     */
+    private int checkGenderInput() {
         System.out.println(genderGroup.getSelectedToggle());
         if (genderGroup.getSelectedToggle() == null) {
-            gender = -1;
+            return -1;
         } else {
-            gender = Integer.parseInt(genderGroup.getSelectedToggle().getUserData().toString());
+            return Integer.parseInt(genderGroup.getSelectedToggle().getUserData().toString());
         }
+    }
 
+
+    /**
+     * Checks if route start and end date input is valid.
+     *
+     * @return dates of type String[]. The start and end dates to filter by.
+     */
+    private String[] checkIfDateInputValid() {
         String dateLower;
         String dateUpper;
         String pattern = "dd/MM/yyyy";
@@ -198,7 +243,6 @@ public class RouteDataViewerController extends DataViewerController implements A
         LocalDate endDate = endDateInput.getValue();
         if (startDate != null) {
             dateLower = startDate.format(dateFormatter);
-            System.out.println(dateLower);
         } else {
             dateLower = null;
         }
@@ -207,7 +251,23 @@ public class RouteDataViewerController extends DataViewerController implements A
         } else {
             dateUpper = null;
         }
+        if ((dateLower == null && dateUpper != null) || (dateLower != null && dateUpper == null)) {
+            makeErrorDialogueBox("Missing date field", "Please enter both a lower and upper date" +
+                    "\nto filter by.");
+            dateLower = null;
+            dateUpper = null;
+        }
+        String[] dates = {dateLower, dateUpper};
+        return dates;
+    }
 
+
+    /**
+     * Checks if route start and end time input is valid.
+     *
+     * @return times of type String[]. The start and end times to filter by.
+     */
+    private String[] checkIfTimeInputValid() {
         String timeLower = startTimeInput.getText() + ":00";
         String timeUpper = endTimeInput.getText() + ":00";
         try {
@@ -231,45 +291,72 @@ public class RouteDataViewerController extends DataViewerController implements A
         } catch (FilterByTimeException e) {
             String errorMessage = e.getMessage();
             if (errorMessage.equals("Missing time field")) {
-                makeErrorDialogueBox("Missing time field", "Please enter both a lower and upper time limit\nto filter by.");
+                makeErrorDialogueBox("Missing time field", "Please enter both a lower and " +
+                        "upper time limit\nto filter by.");
             } else {
                 makeErrorDialogueBox(errorMessage, "Please use the format HH:SS.");
             }
             timeLower = null;
             timeUpper = null;
         }
+        String[] times = {timeLower, timeUpper};
+        return times;
+    }
 
+
+    /**
+     * Checks if route start location name input is valid.
+     *
+     * @return startLocation of type String. The start location name to filter by.
+     */
+    private String checkIfStartLocationInputValid() {
         String startLocation = startLocationInput.getText();
-        String endLocation = endLocationInput.getText();
         if ("".equals(startLocation)) {
-            startLocation = null;
+            return null;
         }
-        if ("".equals(endLocation)) {
-            endLocation = null;
-        }
+        return startLocation;
+    }
 
+
+    /**
+     * Checks if route end location name input is valid.
+     *
+     * @return endLocation of type String. The end location name to filter by.
+     */
+    private String checkIfEndLocationInputValid() {
+        String endLocation = endLocationInput.getText();
+        if ("".equals(endLocation)) {
+            return null;
+        }
+        return endLocation;
+    }
+
+
+    /**
+     * Checks if route bikeID input is valid.
+     *
+     * @return bikeID of type String. The bikeID to filter by.
+     */
+    private String checkIfBikeIDInputValid() {
         String bikeID = bikeIDInput.getText();
         if ("".equals(bikeID)) {
-            bikeID = null;
+            return null;
         }
+        return bikeID;
+    }
 
+
+    /**
+     * Checks if route list name input is valid.
+     *
+     * @return list of type String. The list name to filter by.
+     */
+    private String checkListInput() {
         String list = routeLists.getSelectionModel().getSelectedItem();
         if (list == null || list.equals("No Selection")) {
-            list = null;
+            return null;
         }
-
-
-
-        if (dataViewTask != null)
-            dataViewTask.cancel();
-
-        routeList.clear();
-
-        dataViewTask = new RouteFiltererTask(Main.getDB(), gender, dateLower, dateUpper, timeLower, timeUpper, startLocation, endLocation,
-                bikeID, list, this);
-        Thread thread = new Thread(dataViewTask);
-        thread.start();
-
+        return list;
     }
 
 
@@ -373,6 +460,82 @@ public class RouteDataViewerController extends DataViewerController implements A
             DetailedRouteInformation.setMainAppEvent(event);
         }
     }
+
+
+    /**
+     * Listener for startLocationInput field. Uses a listener to see state of text. Sets focus colour when text is
+     * changed.
+     */
+    private void startLocationInputListener() {
+        startLocationInput.textProperty().addListener(((observable, oldValue, newValue) -> {
+            System.out.println("TextField Text Changed (newValue: " + newValue + ")");
+            startLocationInput.setFocusColor(GREEN);
+            startLocationInput.setUnFocusColor(GREEN);
+        }));
+    }
+
+
+    /**
+     * Listener for endLocationInput field. Uses a listener to see state of text. Sets focus colour when text is
+     * changed.
+     */
+    private void endLocationInputListener() {
+        endLocationInput.textProperty().addListener(((observable, oldValue, newValue) -> {
+            System.out.println("TextField Text Changed (newValue: " + newValue + ")");
+            endLocationInput.setFocusColor(GREEN);
+            endLocationInput.setUnFocusColor(GREEN);
+        }));
+    }
+
+
+    /**
+     * Error handler for endTimeInput field. Uses a listener to see state of text. Sets focus color if text field
+     * incorrect.
+     */
+    private void endTimeInputListener() {
+        endTimeInput.textProperty().addListener(((observable, oldValue, newValue) -> {
+            System.out.println("TextField Text Changed (newValue: " + newValue + ")");
+            if (!endTimeInput.getText().matches("([0-1][0-9]|2[0-4]):[0-5][0-9]|^$")) {
+                endTimeInput.setFocusColor(RED);
+                endTimeInput.setUnFocusColor(RED);
+            } else {
+                endTimeInput.setFocusColor(GREEN);
+                endTimeInput.setUnFocusColor(GREEN);
+            }
+        }));
+    }
+
+
+    /**
+     * Error handler for startTimeInput field. Uses a listener to see state of text. Sets focus color if text field
+     * incorrect.
+     */
+    private void startTimeInputListener() {
+        startTimeInput.textProperty().addListener(((observable, oldValue, newValue) -> {
+            System.out.println("TextField Text Changed (newValue: " + newValue + ")");
+            if (!startTimeInput.getText().matches("([0-1][0-9]|2[0-4]):[0-5][0-9]|^$")) {
+                startTimeInput.setFocusColor(RED);
+                startTimeInput.setUnFocusColor(RED);
+            } else {
+                startTimeInput.setFocusColor(GREEN);
+                startTimeInput.setUnFocusColor(GREEN);
+            }
+        }));
+    }
+
+
+    /**
+     * Listener for bikeIDInputListener field. Uses a listener to see state of text. Sets focus colour when text is
+     * changed.
+     */
+    private void bikeIDInputListener() {
+        bikeIDInput.textProperty().addListener(((observable, oldValue, newValue) -> {
+            System.out.println("TextField Text Changed (newValue: " + newValue + ")");
+            bikeIDInput.setFocusColor(GREEN);
+            bikeIDInput.setUnFocusColor(GREEN);
+        }));
+    }
+
 
     @Override
     public void addRoute(Route route) {

@@ -1,8 +1,8 @@
 package dataManipulation;
 
 
-import dataAnalysis.Cyclist;
-import dataAnalysis.RetailLocation;
+import dataObjects.Cyclist;
+import dataObjects.RetailLocation;
 import dataHandler.*;
 import javafx.concurrent.Task;
 import main.HandleUsers;

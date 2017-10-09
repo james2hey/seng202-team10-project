@@ -1,14 +1,14 @@
-package dataAnalysis;
+package dataObjects;
 
 import dataHandler.*;
-import main.HandleUsers;;
+import main.HandleUsers;
 
 import java.util.ArrayList;
 
 
 /**
- * The user of the program gets an instance of this is created for each user. It contains all the users
- * favourite routes, stations, retail stores and wifi locations.
+ * The user of the program gets an instance of this is created when they log in. It contains all the users
+ * taken routes, favourite routes, retail stores and wifi locations.
  */
 public class Cyclist {
     static public String name;

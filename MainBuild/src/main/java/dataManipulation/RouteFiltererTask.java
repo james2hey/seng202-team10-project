@@ -1,8 +1,8 @@
 package dataManipulation;
 
-import dataAnalysis.RetailLocation;
-import dataAnalysis.Route;
-import dataAnalysis.WifiLocation;
+import dataObjects.RetailLocation;
+import dataObjects.Route;
+import dataObjects.WifiLocation;
 import dataHandler.SQLiteDB;
 import javafx.concurrent.Task;
 
@@ -37,6 +37,7 @@ public class RouteFiltererTask extends Task<Void> {
     private int gender;
     private String dateLower, dateUpper, timeLower, timeUpper, startLocation, endLocation, bikeID, list;
     private AddRouteCallback callback;
+
 
     /**
      * filterRoutes takes all the possible filter values for routes and returns a ArrayList of Routes that meet the
@@ -98,24 +99,28 @@ public class RouteFiltererTask extends Task<Void> {
                 endLocation, bikeID, list);
         if (queryString.equals(routeCommand)) {
             getAllRoutesWithCallback(callback);
-        }
-        try {
-            System.out.println(1);
-            PreparedStatement pstmt;
-            System.out.println(2);
-            System.out.println(queryString);
-            pstmt = db.getPreparedStatement(queryString);
-            System.out.println(3);
-            setQueryParameters(pstmt);
-            System.out.println(4);
-            ResultSet rs = pstmt.executeQuery();
-            System.out.println(5);
-            generateRoutesWithCallback(rs, callback);
-            System.out.println(6);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
+        } else {
+            try {
+                System.out.println(1);
+                PreparedStatement pstmt;
+                System.out.println(2);
+                System.out.println(queryString);
+                pstmt = db.getPreparedStatement(queryString);
+                System.out.println(3);
+                setQueryParameters(pstmt);
+                System.out.println(4);
+                ResultSet rs = pstmt.executeQuery();
+                System.out.println(5);
+                generateRoutesWithCallback(rs, callback);
+                System.out.println(6);
+                rs.close();
+                System.out.println("thread done!");
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
+
 
     private void generateRoutesWithCallback(ResultSet rs, AddRouteCallback callback) {
         try {
@@ -123,6 +128,7 @@ public class RouteFiltererTask extends Task<Void> {
             ArrayList<Route> routes = new ArrayList<>();
             while (rs.next()) {
                 if (isCancelled()) {
+                    routes.clear();
                     return;
                 }
                 routes.add(new Route(rs.getInt("tripduration"), rs.getString("start_time"),
@@ -151,6 +157,7 @@ public class RouteFiltererTask extends Task<Void> {
             System.out.println(e.getMessage());
         }
     }
+
 
     /**
      * generateQueryString takes all the possible filter requirement values and appends the necessary strings onto the
@@ -230,6 +237,7 @@ public class RouteFiltererTask extends Task<Void> {
         return queryCommand;
     }
 
+
     /**
      * convertDates takes an upper and lower bound of dates and converts them into a single number. The date format
      * must be DD/MM/YYYY. The date will be converted into the format: YYYYMMDD. This allows the easy querying of dates
@@ -264,6 +272,7 @@ public class RouteFiltererTask extends Task<Void> {
         return queryCommand;
     }
 
+
     /**
      * setQueryParameters takes a PreparedStatement as a parameter and uses the values in class ArrayList variables,
      * filterVariables and filterVariableStrings, to set the parameters of the PreparedStatement.
@@ -285,6 +294,7 @@ public class RouteFiltererTask extends Task<Void> {
         }
     }
 
+
     private void getAllRoutesWithCallback(AddRouteCallback callback) {
         try {
             System.out.println(1);
@@ -301,6 +311,8 @@ public class RouteFiltererTask extends Task<Void> {
             System.out.println(6);
             generateRoutesWithCallback(rs, callback);
             System.out.println(7);
+            rs.close();
+            System.out.println("thread done!");
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());

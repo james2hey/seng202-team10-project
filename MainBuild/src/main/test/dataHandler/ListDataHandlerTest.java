@@ -1,6 +1,6 @@
 package dataHandler;
 
-import dataAnalysis.Cyclist;
+import dataObjects.Cyclist;
 import main.HandleUsers;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;

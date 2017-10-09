@@ -1,4 +1,4 @@
-package dataAnalysis;
+package dataObjects;
 
 /**
  * Stores data about a bike station.

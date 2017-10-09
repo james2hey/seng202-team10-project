@@ -34,86 +34,40 @@
                 <Font size="60.0" />
             </font>
         </Text>
-      <ClusteredGoogleMapView fx:id="mapView" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
-         <children>
-            <VBox alignment="CENTER_RIGHT" prefHeight="77.0" prefWidth="199.0">
-               <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Start Address:   " textAlignment="RIGHT" wrappingWidth="173.35889434814453">
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Text>
-               </children>
-            </VBox>
-            <VBox alignment="CENTER" prefHeight="77.0" prefWidth="281.0">
-               <children>
-                  <JFXTextField fx:id="startAddressField" focusColor="#2f4890" onAction="#addressTextFieldAction" promptText="Start Address" />
-               </children>
-            </VBox>
-            <VBox alignment="CENTER_RIGHT" prefHeight="77.0" prefWidth="176.0">
-               <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="End Address:   " textAlignment="RIGHT" wrappingWidth="156.35889434814453">
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Text>
-               </children>
-            </VBox>
-            <JFXTextField fx:id="endAddressField" onAction="#addressTextFieldAction" prefHeight="23.0" prefWidth="272.0" promptText="End Address">
-               <HBox.margin>
-                  <Insets top="10.0" />
-               </HBox.margin>
-            </JFXTextField>
-         </children>
-      </HBox>
-      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="3">
-         <padding>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-         </padding>
-         <children>
-            <VBox alignment="TOP_RIGHT" prefHeight="43.0" prefWidth="280.0">
-               <children>
-                  <Button fx:id="nearbyWifiButton" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#showNearbyWifi" prefHeight="29.0" prefWidth="276.0" text="Show Nearby Wifi Locations" textAlignment="CENTER">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Button>
-               </children>
-            </VBox>
-            <VBox alignment="TOP_RIGHT" prefHeight="63.0" prefWidth="316.0">
-               <children>
-                  <Button fx:id="nearbyRetailerButton" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#showNearbyRetailers" prefHeight="25.0" prefWidth="275.0" text="Show Nearby Retailers" textAlignment="CENTER">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Button>
-               </children>
-            </VBox>
-            <VBox prefHeight="63.0" prefWidth="60.0" />
-            <VBox alignment="TOP_RIGHT" prefHeight="43.0" prefWidth="343.0">
-               <children>
-                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#addRouteToDatabase" prefHeight="25.0" prefWidth="275.0" text="Add Current Route to Database" textAlignment="CENTER">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Button>
-               </children>
-            </VBox>
-         </children>
-      </HBox>
-      <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" GridPane.rowSpan="4" />
+        <ClusteredGoogleMapView fx:id="mapView" GridPane.columnIndex="2" GridPane.rowIndex="1" />
         <AnchorPane prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="6">
            <children>
                <JFXHamburger fx:id="hamburger" onMouseClicked="#openDrawer" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0" />
            </children>
         </AnchorPane>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+         <children>
+            <JFXTextField fx:id="startAddressField" focusColor="#2f4890" layoutX="84.0" layoutY="12.0" onAction="#addressTextFieldAction" prefHeight="23.0" prefWidth="253.0" promptText="Start Address" />
+            <JFXTextField fx:id="endAddressField" layoutX="375.0" layoutY="12.0" onAction="#addressTextFieldAction" prefHeight="23.0" prefWidth="272.0" promptText="End Address" />
+            <Button layoutX="677.0" layoutY="11.0" mnemonicParsing="false" onAction="#addressTextFieldAction" prefHeight="25.0" prefWidth="165.0" text="Search" />
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
+         <children>
+            <Button fx:id="nearbyWifiButton" alignment="CENTER" disable="true" layoutX="8.0" mnemonicParsing="false" onAction="#showNearbyWifi" prefHeight="29.0" prefWidth="276.0" text="Show Closest Wifi Location" textAlignment="CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="nearbyRetailerButton" alignment="CENTER" disable="true" layoutX="310.0" layoutY="1.0" mnemonicParsing="false" onAction="#showNearbyRetailers" prefHeight="25.0" prefWidth="275.0" text="Show Closest Retailer" textAlignment="CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Button alignment="CENTER" layoutX="676.0" layoutY="1.0" mnemonicParsing="false" onAction="#addRouteToDatabase" prefHeight="28.0" prefWidth="165.0" text="Save Route" textAlignment="CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+        <!--<ClusteredGoogleMapView fx:id="mapView" GridPane.columnIndex="2" GridPane.rowIndex="1" />-->
+      <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" GridPane.rowSpan="4" />
 
     </children>
 </GridPane>
