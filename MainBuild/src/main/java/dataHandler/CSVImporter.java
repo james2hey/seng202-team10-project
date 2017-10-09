@@ -37,6 +37,7 @@ public class CSVImporter extends Task<Void> implements Callback {
     @Override
     protected Void call() throws Exception {
         System.out.println("here");
+        updateProgress(0, 1);
         db.setAutoCommit(false);
         CSVReader reader;
         try {
