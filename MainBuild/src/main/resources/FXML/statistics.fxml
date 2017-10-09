@@ -36,11 +36,6 @@
             <BorderPane fx:id="errorBorder" layoutX="116.0" layoutY="179.0" prefHeight="151.0" prefWidth="276.0" style="-fx-border-color: black;" />
          </children>
       </AnchorPane>
-      <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" style="-fx-background-color: grey;" GridPane.rowSpan="4">
-         <effect>
-            <Blend />
-         </effect>
-      </JFXDrawer>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.columnSpan="2">
          <children>
             <JFXHamburger fx:id="hamburger" layoutX="251.0" layoutY="29.0" onMouseClicked="#openDrawer" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0" />
@@ -115,6 +110,11 @@
             </AnchorPane>
          </children>
       </AnchorPane>
+      <JFXDrawer fx:id="drawer" defaultDrawerSize="230.0" style="-fx-background-color: grey;" GridPane.rowSpan="4">
+         <effect>
+            <Blend />
+         </effect>
+      </JFXDrawer>
    </children>
    <columnConstraints>
       <ColumnConstraints maxWidth="800.0" minWidth="0.0" prefWidth="0.0" />
