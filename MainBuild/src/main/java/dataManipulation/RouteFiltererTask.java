@@ -11,9 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-/**
- * Created by jes143 on 8/10/17.
- */
+
 public class RouteFiltererTask extends Task<Void> {
 
     private String routeCommand;
@@ -297,22 +295,14 @@ public class RouteFiltererTask extends Task<Void> {
 
     private void getAllRoutesWithCallback(AddRouteCallback callback) {
         try {
-            System.out.println(1);
             String queryString = getAllRoutesCommand;
-            System.out.println(2);
             PreparedStatement pstmt;
-            System.out.println(3);
             pstmt = db.getPreparedStatement(queryString);
-            System.out.println(4);
             setQueryParameters(pstmt);
-            System.out.println(5);
 
             ResultSet rs = pstmt.executeQuery();
-            System.out.println(6);
             generateRoutesWithCallback(rs, callback);
-            System.out.println(7);
             rs.close();
-            System.out.println("thread done!");
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());

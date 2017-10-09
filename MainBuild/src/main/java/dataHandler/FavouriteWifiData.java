@@ -14,12 +14,14 @@ public class FavouriteWifiData {
     private SQLiteDB db;
     private String[] fields =
             {"name         VARCHAR(12)",
-                    "wifi_id    VARCHAR(12)"};
+             "wifi_id      VARCHAR(12)"};
+
     private String primaryKey = "name, wifi_id";
+
     private String tableName = "favourite_wifi";
+
     private PreparedStatement addWifi;
     private String addWifiStatement = "insert or fail into favourite_wifi values(?,?)";
-
 
     /**
      * Initializes the database when creating an instance of the FavouriteWifiData.
@@ -30,7 +32,6 @@ public class FavouriteWifiData {
         db.addTable(tableName, fields, primaryKey);
         addWifi = db.getPreparedStatement(addWifiStatement);
     }
-
 
     /**
      * Adds the given name and wifi id to the table.

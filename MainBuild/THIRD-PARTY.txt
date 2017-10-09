@@ -37,7 +37,6 @@ Lists of 33 third-party dependencies.
 
 
      (MIT License) SLF4J API Module (org.slf4j:slf4j-api:1.7.23 - http://www.slf4j.org)
-     (MIT license) Animal Sniffer Annotations (org.codehaus.mojo:animal-sniffer-annotations:1.14 - http://mojo.codehaus.org/animal-sniffer/animal-sniffer-annotations)
      (The MIT License) mockito-core (org.mockito:mockito-core:2.10.0 - https://github.com/mockito/mockito)
         -Permissive
 

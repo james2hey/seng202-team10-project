@@ -4,9 +4,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/**
- * Created by jes143 on 18/09/17.
- */
 
 public class RetailerDataHandler implements DataHandler, GeoCallback {
 

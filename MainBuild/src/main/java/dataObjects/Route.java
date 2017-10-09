@@ -75,7 +75,6 @@ public class Route {
         rank = routeRank;
     }
 
-
     /**
      * Constructor used when a user adds a route as a taken route, inputting the routes distance.
      */
