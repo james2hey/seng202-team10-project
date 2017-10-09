@@ -7,9 +7,9 @@
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="230.0" style="-fx-background-color: lightGrey;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIControllers.SidePanelController">
    <children>
-      <Button fx:id="planRouteButton" mnemonicParsing="false" onAction="#changeToPlanRouteScene" prefHeight="85.0" prefWidth="275.0" text="Plan Route" />
-      <Button fx:id="addDataButton" mnemonicParsing="false" onAction="#changeToAddDataScene" prefHeight="85.0" prefWidth="275.0" text="Add Data" />
-      <Button fx:id="viewDataButton" mnemonicParsing="false" onAction="#changeToViewDataScene" prefHeight="85.0" prefWidth="275.0" text="View Data" />
+      <Button fx:id="planRouteButton" mnemonicParsing="false" onAction="#changeToPlanRouteScene" prefHeight="85.0" prefWidth="275.0" text="Route Planner" />
+      <Button fx:id="addDataButton" mnemonicParsing="false" onAction="#changeToAddDataScene" prefHeight="85.0" prefWidth="275.0" text="Data Adder" />
+      <Button fx:id="viewDataButton" mnemonicParsing="false" onAction="#changeToViewDataScene" prefHeight="85.0" prefWidth="275.0" text="Data Viewer" />
       <Button fx:id="homeButton" mnemonicParsing="false" onAction="#changeToFavouritesScene" prefHeight="85.0" prefWidth="275.0" text="Favourites" />
       <VBox prefHeight="85.0" prefWidth="230.0">
          <children>

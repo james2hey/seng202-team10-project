@@ -69,7 +69,7 @@
             <JFXHamburger fx:id="hamburger" layoutX="42.0" layoutY="45.0" onMouseClicked="#openDrawer" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0" />
          </children>
       </AnchorPane>
-      <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Retailer Data Entry" textAlignment="CENTER" wrappingWidth="861.193359375" GridPane.columnIndex="2">
+      <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Retailer Data Adder" textAlignment="CENTER" wrappingWidth="861.193359375" GridPane.columnIndex="2">
          <font>
             <Font size="60.0" />
          </font>
