@@ -278,6 +278,7 @@ public class RouteDataViewerController extends DataViewerController implements A
                 bikeID, list, this);
         Thread thread = new Thread(dataViewTask);
         thread.start();
+        System.gc();
 
     }
 

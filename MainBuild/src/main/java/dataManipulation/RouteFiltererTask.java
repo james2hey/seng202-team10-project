@@ -33,13 +33,11 @@ public class RouteFiltererTask extends Task<Void> {
     private ArrayList<Integer> filterVariables;
     private ArrayList<String> filterVariableStrings;
 
-    private ArrayList<WifiLocation> wifiLocations;
-    private ArrayList<RetailLocation> retailLocations;
-
     private SQLiteDB db;
     private int gender;
     private String dateLower, dateUpper, timeLower, timeUpper, startLocation, endLocation, bikeID, list;
     private AddRouteCallback callback;
+
 
     /**
      * filterRoutes takes all the possible filter values for routes and returns a ArrayList of Routes that meet the
@@ -82,8 +80,6 @@ public class RouteFiltererTask extends Task<Void> {
         routes = new ArrayList<>();
         filterVariables = new ArrayList<>();
         filterVariableStrings = new ArrayList<>();
-        wifiLocations = new ArrayList<>();
-        retailLocations = new ArrayList<>();
         this.db = db;
         this.gender = gender;
         this.dateLower = dateLower;
@@ -97,6 +93,7 @@ public class RouteFiltererTask extends Task<Void> {
         this.callback = callback;
 
     }
+
 
     public void filterRoutesWithCallback() {
         String queryString;
@@ -122,6 +119,7 @@ public class RouteFiltererTask extends Task<Void> {
             System.out.println(e.getMessage());
         }
     }
+
 
     private void generateRoutesWithCallback(ResultSet rs, AddRouteCallback callback) {
         try {
@@ -153,6 +151,7 @@ public class RouteFiltererTask extends Task<Void> {
             System.out.println(e.getMessage());
         }
     }
+
 
     /**
      * generateQueryString takes all the possible filter requirement values and appends the necessary strings onto the
@@ -232,6 +231,7 @@ public class RouteFiltererTask extends Task<Void> {
         return queryCommand;
     }
 
+
     /**
      * convertDates takes an upper and lower bound of dates and converts them into a single number. The date format
      * must be DD/MM/YYYY. The date will be converted into the format: YYYYMMDD. This allows the easy querying of dates
@@ -266,6 +266,7 @@ public class RouteFiltererTask extends Task<Void> {
         return queryCommand;
     }
 
+
     /**
      * setQueryParameters takes a PreparedStatement as a parameter and uses the values in class ArrayList variables,
      * filterVariables and filterVariableStrings, to set the parameters of the PreparedStatement.
@@ -288,6 +289,7 @@ public class RouteFiltererTask extends Task<Void> {
         }
     }
 
+
     private void getAllRoutesWithCallback(AddRouteCallback callback) {
         try {
             System.out.println(1);
@@ -304,6 +306,8 @@ public class RouteFiltererTask extends Task<Void> {
             System.out.println(6);
             generateRoutesWithCallback(rs, callback);
             System.out.println(7);
+            rs.close();
+            System.out.println("thread done!");
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());

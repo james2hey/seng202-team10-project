@@ -213,6 +213,7 @@ public class DataFilterer {
             ResultSet rs = pstmt.executeQuery();
             System.out.println("Got result set");
             generateWifiArray(rs);
+            rs.close();
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -333,6 +334,7 @@ public class DataFilterer {
             ResultSet rs = pstmt.executeQuery();
             System.out.println("Got result set");
             generateRetailArray(rs);
+            rs.close();
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
