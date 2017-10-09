@@ -1,7 +1,7 @@
 package GUIControllers.ViewDataControllers;
 
 import com.jfoenix.controls.JFXTextField;
-import dataAnalysis.Route;
+import dataObjects.Route;
 import dataHandler.ListDataHandler;
 import dataHandler.SQLiteDB;
 import dataManipulation.DeleteData;
@@ -15,7 +15,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import main.Main;
 
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;

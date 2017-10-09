@@ -2,11 +2,10 @@ package GUIControllers;
 
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
-import dataAnalysis.RetailLocation;
-import dataAnalysis.Route;
-import dataAnalysis.WifiLocation;
+import dataObjects.RetailLocation;
+import dataObjects.Route;
+import dataObjects.WifiLocation;
 import javafx.concurrent.Task;
-import javafx.concurrent.Worker;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,7 +23,6 @@ import main.Main;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 public abstract class Controller {

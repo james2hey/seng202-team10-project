@@ -3,9 +3,9 @@ package GUIControllers;
 import com.google.maps.errors.ApiException;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXTextField;
-import dataAnalysis.RetailLocation;
-import dataAnalysis.Route;
-import dataAnalysis.WifiLocation;
+import dataObjects.RetailLocation;
+import dataObjects.Route;
+import dataObjects.WifiLocation;
 import dataHandler.*;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -33,7 +33,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import static dataAnalysis.Cyclist.name;
+import static dataObjects.Cyclist.name;
 import static java.lang.Integer.parseInt;
 
 

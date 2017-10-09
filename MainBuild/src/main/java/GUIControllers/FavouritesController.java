@@ -1,9 +1,9 @@
 package GUIControllers;
 
 
-import dataAnalysis.RetailLocation;
-import dataAnalysis.Route;
-import dataAnalysis.WifiLocation;
+import dataObjects.RetailLocation;
+import dataObjects.Route;
+import dataObjects.WifiLocation;
 import dataHandler.FavouriteRetailData;
 import dataHandler.FavouriteRouteData;
 import dataHandler.FavouriteWifiData;
@@ -22,12 +22,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.text.Text;
 import main.Main;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import static main.Main.hu;

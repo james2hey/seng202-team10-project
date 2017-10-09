@@ -1,14 +1,13 @@
 package dataManipulation;
 
-import dataAnalysis.RetailLocation;
-import dataAnalysis.WifiLocation;
+import dataObjects.RetailLocation;
+import dataObjects.WifiLocation;
 import dataHandler.*;
 import main.HelperFunctions;
 import main.Main;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.testfx.framework.junit.ApplicationTest;
 
 import java.nio.file.Files;

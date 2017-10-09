@@ -3,7 +3,7 @@ package GUIControllers.ViewDataControllers;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXTextField;
-import dataAnalysis.RetailLocation;
+import dataObjects.RetailLocation;
 import dataHandler.SQLiteDB;
 import dataManipulation.DataFilterer;
 import javafx.collections.FXCollections;
