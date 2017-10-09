@@ -2,7 +2,7 @@ package GUIControllers.ViewDataControllers;
 
 import com.jfoenix.controls.JFXTextField;
 import customExceptions.FilterByTimeException;
-import dataAnalysis.Route;
+import dataObjects.Route;
 import dataHandler.SQLiteDB;
 import dataManipulation.AddRouteCallback;
 import dataManipulation.RouteFiltererTask;

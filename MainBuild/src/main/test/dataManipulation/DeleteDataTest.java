@@ -1,12 +1,11 @@
 package dataManipulation;
 
-import dataAnalysis.Cyclist;
+import dataObjects.Cyclist;
 import dataHandler.*;
 import javafx.concurrent.Task;
 import main.HandleUsers;
 import main.Main;
 import org.junit.*;
-import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.testfx.framework.junit.ApplicationTest;

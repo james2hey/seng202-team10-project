@@ -1,6 +1,6 @@
 package dataHandler;
 
-import dataAnalysis.Cyclist;
+import dataObjects.Cyclist;
 import dataManipulation.AddRouteCallback;
 import javafx.concurrent.Task;
 import main.HandleUsers;

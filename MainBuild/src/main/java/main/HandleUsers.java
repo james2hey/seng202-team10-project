@@ -1,9 +1,9 @@
 package main;
 
-import dataAnalysis.Cyclist;
-import dataAnalysis.RetailLocation;
-import dataAnalysis.Route;
-import dataAnalysis.WifiLocation;
+import dataObjects.Cyclist;
+import dataObjects.RetailLocation;
+import dataObjects.Route;
+import dataObjects.WifiLocation;
 import dataHandler.DatabaseUser;
 import dataHandler.SQLiteDB;
 

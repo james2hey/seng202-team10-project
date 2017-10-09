@@ -1,9 +1,8 @@
 package dataManipulation;
 
-import dataAnalysis.RetailLocation;
-import dataAnalysis.WifiLocation;
+import dataObjects.RetailLocation;
+import dataObjects.WifiLocation;
 import dataHandler.SQLiteDB;
-import main.HelperFunctions;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

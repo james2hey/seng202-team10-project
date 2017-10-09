@@ -1,9 +1,8 @@
 package main;
 
-import dataAnalysis.Cyclist;
-import dataAnalysis.Route;
+import dataObjects.Cyclist;
+import dataObjects.Route;
 import dataHandler.SQLiteDB;
-import main.HelperFunctions;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

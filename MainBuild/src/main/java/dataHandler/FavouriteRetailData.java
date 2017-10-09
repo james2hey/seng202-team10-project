@@ -1,8 +1,7 @@
 package dataHandler;
 
-import dataAnalysis.RetailLocation;
+import dataObjects.RetailLocation;
 import main.HandleUsers;
-import main.Main;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;

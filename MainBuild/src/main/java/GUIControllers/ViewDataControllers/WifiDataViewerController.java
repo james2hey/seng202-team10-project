@@ -3,7 +3,7 @@ package GUIControllers.ViewDataControllers;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXTextField;
-import dataAnalysis.WifiLocation;
+import dataObjects.WifiLocation;
 import dataHandler.SQLiteDB;
 import dataManipulation.DataFilterer;
 import javafx.collections.FXCollections;
@@ -28,7 +28,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import static javafx.scene.paint.Color.GREEN;
