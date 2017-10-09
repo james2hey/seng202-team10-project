@@ -101,22 +101,25 @@ public class RouteFiltererTask extends Task<Void> {
                 endLocation, bikeID, list);
         if (queryString.equals(routeCommand)) {
             getAllRoutesWithCallback(callback);
-        }
-        try {
-            System.out.println(1);
-            PreparedStatement pstmt;
-            System.out.println(2);
-            System.out.println(queryString);
-            pstmt = db.getPreparedStatement(queryString);
-            System.out.println(3);
-            setQueryParameters(pstmt);
-            System.out.println(4);
-            ResultSet rs = pstmt.executeQuery();
-            System.out.println(5);
-            generateRoutesWithCallback(rs, callback);
-            System.out.println(6);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
+        } else {
+            try {
+                System.out.println(1);
+                PreparedStatement pstmt;
+                System.out.println(2);
+                System.out.println(queryString);
+                pstmt = db.getPreparedStatement(queryString);
+                System.out.println(3);
+                setQueryParameters(pstmt);
+                System.out.println(4);
+                ResultSet rs = pstmt.executeQuery();
+                System.out.println(5);
+                generateRoutesWithCallback(rs, callback);
+                System.out.println(6);
+                rs.close();
+                System.out.println("thread done!");
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 
