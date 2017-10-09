@@ -30,19 +30,19 @@ public class UpdateData {
      * @param day    of type String, this is the startDay value for the route to be updated
      * @param time   of type String, this is the startTime value for the route to be updated
      */
-    public static void updateRouteField(String field, String value, String bikeID, String year, String month, String day, String time) {
+    public static void updateRouteField(Object field, Object value, Object bikeID, Object year, Object month, Object day, Object time) {
         String sqlCommand = "UPDATE route_information SET " + field + " = ? WHERE " +
                 "bikeid = ? AND start_year = ? AND start_month = ? AND start_day = ? AND start_time = ?;";
 
         try {
             System.out.println(sqlCommand);
             PreparedStatement pstmt = db.getPreparedStatement(sqlCommand);
-            pstmt.setString(1, value);
-            pstmt.setString(2, bikeID);
-            pstmt.setString(3, year);
-            pstmt.setString(4, month);
-            pstmt.setString(5, day);
-            pstmt.setString(6, time);
+            pstmt.setObject(1, value);
+            pstmt.setObject(2, bikeID);
+            pstmt.setObject(3, year);
+            pstmt.setObject(4, month);
+            pstmt.setObject(5, day);
+            pstmt.setObject(6, time);
 
             pstmt.executeUpdate();
 
@@ -61,14 +61,14 @@ public class UpdateData {
      * @param value  of type String, this is the new value that will replace the current value in the stated field
      * @param wifiID of type String, this is the wifiID field for the wifi location to be updated
      */
-    public static void updateWifiField(String field, String value, String wifiID) {
+    public static void updateWifiField(Object field, Object value, Object wifiID) {
         String sqlCommand = "UPDATE wifi_location SET " + field + " = ? WHERE wifi_id = ?;";
 
         try {
             PreparedStatement pstmt = db.getPreparedStatement(sqlCommand);
             System.out.println(sqlCommand);
-            pstmt.setString(1, value);
-            pstmt.setString(2, wifiID);
+            pstmt.setObject(1, value);
+            pstmt.setObject(2, wifiID);
 
             pstmt.executeUpdate();
 
@@ -88,15 +88,15 @@ public class UpdateData {
      * @param name    of type String, this is the name value of the retail location to be updated
      * @param address of type String, this is the address value of the retail location to be updated
      */
-    public static void updateRetailerField(String field, String value, String name, String address) {
+    public static void updateRetailerField(Object field, Object value, Object name, Object address) {
         String sqlCommand = "UPDATE retailer SET " + field + " = ? WHERE retailer_name = ? AND address = ?;";
 
         try {
             PreparedStatement pstmt = db.getPreparedStatement(sqlCommand);
             System.out.println(sqlCommand);
-            pstmt.setString(1, value);
-            pstmt.setString(2, name);
-            pstmt.setString(3, address);
+            pstmt.setObject(1, value);
+            pstmt.setObject(2, name);
+            pstmt.setObject(3, address);
 
             pstmt.executeUpdate();
 

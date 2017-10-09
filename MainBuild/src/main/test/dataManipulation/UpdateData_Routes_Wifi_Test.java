@@ -24,23 +24,6 @@ public class UpdateData_Routes_Wifi_Test {
     }
 
 
-
-
-//    @Before
-//    public void setUp() throws Exception {
-//        String home = System.getProperty("user.home");
-//        java.nio.file.Path path = java.nio.file.Paths.get(home, "testdatabase.db");
-//        db = new SQLiteDB(path.toString());
-//        UpdateData.init(db);
-//
-//
-//        WifiDataHandler wdh = new WifiDataHandler(db);
-//        //wdh.processCSV(getClass().getClassLoader().getResource("CSV/NYC_Free_Public_WiFi_03292017-test.csv").getFile());
-//
-//        RouteDataHandler rdh = new RouteDataHandler(db);
-//        //rdh.processCSV(getClass().getClassLoader().getResource("CSV/201601-citibike-tripdata-test.csv").getFile());
-//
-//    }
     @BeforeClass
     public static void setUp() throws Exception {
         ApplicationTest.launch(Main.class);

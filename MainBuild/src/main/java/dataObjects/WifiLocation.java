@@ -41,7 +41,7 @@ public class WifiLocation extends Location {
     public void setZip(int newZip) {
         if (newZip != zip) {
             zip = newZip;
-            UpdateData.updateWifiField("zip", Integer.toString(zip), wifiID);
+            UpdateData.updateWifiField("zip", zip, wifiID);
         }
     }
 
@@ -133,7 +133,7 @@ public class WifiLocation extends Location {
     public void setLatitude(double newLat) {
         if (newLat != latitude) {
             latitude = newLat;
-            UpdateData.updateWifiField("lat", Double.toString(latitude), wifiID);
+            UpdateData.updateWifiField("lat", latitude, wifiID);
         }
     }
 
@@ -144,7 +144,7 @@ public class WifiLocation extends Location {
     public void setLongitude(double newLong) {
         if (newLong != longitude) {
             longitude = newLong;
-            UpdateData.updateWifiField("lon", Double.toString(longitude), wifiID);
+            UpdateData.updateWifiField("lon", longitude, wifiID);
         }
     }
 
