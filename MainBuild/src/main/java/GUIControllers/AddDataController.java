@@ -275,11 +275,11 @@ public class AddDataController extends Controller implements Initializable {
         Boolean errorOccured = false;
         double[] latLon;
 
-        if (listDataHandler.checkListName(manualListInput.getSelectionModel().getSelectedItem()) == true) {
+        if (listDataHandler.checkListName(manualListInput.getSelectionModel().getSelectedItem())) {
             makeErrorDialogueBox("List name already exists", "This list name has been used by " +
                     "another user,\nplease choose another name");
         } else {
-            listDataHandler.setListName(manualListInput.getSelectionModel().getSelectedItem());
+            ListDataHandler.setListName(manualListInput.getSelectionModel().getSelectedItem());
             listDataHandler.addList(manualListInput.getSelectionModel().getSelectedItem());
             initListComboboxes();
 
@@ -354,11 +354,11 @@ public class AddDataController extends Controller implements Initializable {
         Boolean errorOccured = false;
         double[] latLon;
 
-        if (listDataHandler.checkListName(manualListInput.getSelectionModel().getSelectedItem()) == true) {
+        if (listDataHandler.checkListName(manualListInput.getSelectionModel().getSelectedItem())) {
             makeErrorDialogueBox("List name already exists", "This list name has been used by " +
                     "another user,\nplease choose another name");
         } else {
-            listDataHandler.setListName(manualListInput.getSelectionModel().getSelectedItem());
+            ListDataHandler.setListName(manualListInput.getSelectionModel().getSelectedItem());
             listDataHandler.addList(manualListInput.getSelectionModel().getSelectedItem());
             initListComboboxes();
 
