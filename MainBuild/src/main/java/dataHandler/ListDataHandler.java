@@ -1,6 +1,5 @@
 package dataHandler;
 
-import main.HandleUsers;
 import main.Main;
 
 import java.sql.PreparedStatement;
@@ -16,7 +15,6 @@ public class ListDataHandler {
     private static String listName;
     private SQLiteDB db;
     private String userName;
-    private static SQLiteDB staticDb = Main.getDB();
     private String tableName = "lists";
     private String[] tableFields = {"list_name    VARCHAR(50)",
                                     "list_owner   VARCHAR(12)"};
@@ -49,11 +47,11 @@ public class ListDataHandler {
     /**
      * checks name of list to be created hasn't all ready been created by another user.
      */
-    public boolean checkListName(String name) {
+    public boolean checkListName(String listName) {
         try {
-            ResultSet rs = staticDb.executeQuerySQL("SELECT list_name FROM lists WHERE list_owner != '" + userName + "';");
+            ResultSet rs = db.executeQuerySQL("SELECT list_name FROM lists WHERE list_owner != '" + userName + "';");
             while (rs.next()) {
-                if (rs.getString("list_name").equals(name)) {
+                if (rs.getString("list_name").equals(listName)) {
                     return true;
                 }
             }
