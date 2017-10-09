@@ -229,7 +229,7 @@ public class AddDataController extends Controller implements Initializable {
             Boolean fromHandler = newRoute.addSingleEntry(duration, sDate[0], sDate[1], sDate[2], sTime,
                     eDate[0], eDate[1], eDate[2], eTime, null,
                     rSAddress.getText(), SLatitude, SLongitude, null, rEAddress.getText(), ELatitude, ELongitude,
-                    username, "Custom", Main.hu.currentCyclist.getBYear(), Main.hu.currentCyclist.getGender());
+                    username, "Custom", Main.hu.currentCyclist.getBirthYear(), Main.hu.currentCyclist.getGender());
             //get distance
 
             if (!fromHandler) {
@@ -238,7 +238,7 @@ public class AddDataController extends Controller implements Initializable {
                 Route routeToAdd = new Route(duration, sTime, eTime, sDate[2], sDate[1], sDate[0],
                         eDate[2], eDate[1], eDate[0], SLatitude, SLongitude,
                         ELatitude, ELongitude, 0, 1, rSAddress.getText(),
-                        rEAddress.getText(), username, Main.hu.currentCyclist.getGender(), "Custom", Main.hu.currentCyclist.getBYear(),
+                        rEAddress.getText(), username, Main.hu.currentCyclist.getGender(), "Custom", Main.hu.currentCyclist.getBirthYear(),
                         ListDataHandler.getListName());
 
                 if (addToFavourites.isSelected() && addToCompletedRoutes.isSelected()) {

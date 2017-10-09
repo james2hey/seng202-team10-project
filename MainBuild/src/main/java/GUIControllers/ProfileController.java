@@ -52,7 +52,7 @@ public class ProfileController extends Controller implements Initializable {
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
         name.setText(getName());
-        dob.setValue(LocalDate.of(getBYear(), getBmonth(), getBDay())); //this is broken
+        dob.setValue(LocalDate.of(getBirthYear(), getBirthMonth(), getBirthDay()));
         System.out.println(getGender());
         if (getGender() == 1) {
             gender.getSelectionModel().select("Male");
@@ -104,7 +104,6 @@ public class ProfileController extends Controller implements Initializable {
 
     /**
      * Runs when the log out button is pressed. Changes the scene to the log in scene and signs out the current user.
-     *
      * @param event Created when the method is called
      * @throws IOException Handles errors caused by an fxml not loading correctly
      */
@@ -114,6 +113,11 @@ public class ProfileController extends Controller implements Initializable {
         navigateToStartUp(event);
     }
 
+    /**
+     * Deletes the user completely from the database.
+     * @param event
+     * @throws IOException
+     */
     public void deleteUser(ActionEvent event) throws IOException {
         if (makeConfirmationDialogueBox("Are you sure you want to delete this account?", "This cannot be undone.")) {
             Main.hu.logOutOfUser();
@@ -123,6 +127,11 @@ public class ProfileController extends Controller implements Initializable {
         }
     }
 
+    /**
+     * Navigates the user to the start up screen.
+     * @param event
+     * @throws IOException
+     */
     private void navigateToStartUp(ActionEvent event) throws IOException {
         Parent logInParent = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/startUp.fxml"));
         Scene logInScene = new Scene(logInParent);

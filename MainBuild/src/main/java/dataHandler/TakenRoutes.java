@@ -31,7 +31,6 @@ public class TakenRoutes {
 
     /**
      * Initializes the database when creating an instance of the FavouriteRouteData.
-     *
      * @param db database the retail data is added to
      */
     public TakenRoutes(SQLiteDB db) {
@@ -50,6 +49,7 @@ public class TakenRoutes {
      * @param start_time  time the route started
      * @param bike_id     identification number of the bike
      * @param distance    distance of  the route
+     * @param hu          the current HandleUsers object that is accessing the cyclists information
      */
     public void addTakenRoute(String name, String start_year, String start_month, String start_day,
                                   String start_time, String bike_id, double distance, HandleUsers hu) {//---------------test
@@ -73,9 +73,8 @@ public class TakenRoutes {
 
     /**
      * Deletes the given route from the taken_routes table.
-     *
      * @param route the route to be deleted
-     * @param hu the programs current HandleUsers object
+     * @param hu the current HandleUsers object that is accessing the cyclists information
      */
     public void deleteTakenRoute(Route route, HandleUsers hu) {
         db.executeQuerySQL("DELETE FROM taken_routes WHERE name = '" + hu.currentCyclist.name + "' " +
@@ -87,7 +86,7 @@ public class TakenRoutes {
 
     /**
      * Finds the five (or less) most recently taken routes found from the users taken_route table.
-     * @param hu the programs current HandleUsers object
+     * @param hu the current HandleUsers object that is accessing the cyclists information
      * @return up to five of the most recently taken routes in the string format "year month day time|distance"
      */
     public ArrayList<String> findFiveRecentRoutes(HandleUsers hu) {

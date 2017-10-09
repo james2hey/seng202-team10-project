@@ -24,7 +24,6 @@ public class FavouriteWifiData {
 
     /**
      * Initializes the database when creating an instance of the FavouriteWifiData.
-     *
      * @param db database the wifi data is added to
      */
     public FavouriteWifiData(SQLiteDB db) {
@@ -36,7 +35,6 @@ public class FavouriteWifiData {
 
     /**
      * Adds the given name and wifi id to the table.
-     *
      * @param name    name of the user
      * @param WIFI_ID identification number of the wifi service
      */
@@ -55,8 +53,8 @@ public class FavouriteWifiData {
 
     /**
      * Deletes the given wifi hotspot from the database.
-     *
      * @param hotspot the wifi hotspot to be deleted
+     * @param hu the current HandleUsers object that is accessing the cyclists information
      */
     public void deleteFavouriteWifi(WifiLocation hotspot, HandleUsers hu) {
         db.executeQuerySQL("DELETE FROM favourite_wifi WHERE name = '" + hu.currentCyclist.name + "' " +

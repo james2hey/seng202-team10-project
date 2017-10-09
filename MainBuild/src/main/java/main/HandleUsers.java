@@ -25,7 +25,6 @@ public class HandleUsers {
 
     /**
      * Initializes the database.
-     *
      * @param sqLiteDB database to be initialized.
      */
     public void init(SQLiteDB sqLiteDB) {
@@ -34,7 +33,6 @@ public class HandleUsers {
 
     /**
      * Logs into the user whose parameter is handed into the function.
-     *
      * @param username user to be logged in
      */
     public void logIn(String username) {
@@ -206,8 +204,11 @@ public class HandleUsers {
 
     /**
      * Checks if the username already exists, if not it creates a new user and adds them to the users list.
-     *
-     * @param username the user who is getting an instance created for them
+     * @param username the users name they want to use
+     * @param day the users day of birth
+     * @param month the users month of birth
+     * @param year the users year of birth
+     * @param gender the users gender
      */
     public boolean createNewUser(String username, int day, int month, int year, String gender) {
         ResultSet rs;
@@ -230,7 +231,6 @@ public class HandleUsers {
 
     /**
      * Converts a gender to a string so that it can correctly be entered into the database.
-     *
      * @param gender string to be converted into an integer
      * @return 0 for other, 1 for male, 2 for female.
      */
