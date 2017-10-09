@@ -425,10 +425,10 @@ public class AddDataController extends Controller implements Initializable {
     @FXML
     // Import file -> only allows *.csv and prints location afterwards for now...
     void chooseRoute(ActionEvent event) throws IOException {
-        String currentList = null;
+        String currentList;
         currentList = listInput.getSelectionModel().getSelectedItem();
 
-        if (listDataHandler.checkListName(currentList) == true) {
+        if (listDataHandler.checkListName(currentList)) {
             makeErrorDialogueBox("List name already exists", "This list name has been used by " +
                     "another user,\nplease choose another name");
         } else {
@@ -442,11 +442,6 @@ public class AddDataController extends Controller implements Initializable {
 
             if (result) {
 
-                System.out.println(currentList);
-                listDataHandler.setListName(currentList);
-                listDataHandler.addList(currentList);
-                initListComboboxes();
-
                 FileChooser fileChooser = new FileChooser();
                 FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV (*.csv)", "*.csv");
                 fileChooser.getExtensionFilters().add(extFilter);
@@ -455,6 +450,10 @@ public class AddDataController extends Controller implements Initializable {
                 if (file == null) {
                     return;
                 }
+
+                ListDataHandler.setListName(currentList);
+                listDataHandler.addList(currentList);
+                initListComboboxes();
 
                 FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/progressPopup.fxml"));
                 Parent progressParent = loader.load();
@@ -497,7 +496,7 @@ public class AddDataController extends Controller implements Initializable {
     //Specifies file types.
     void chooseRetailer(ActionEvent event) throws IOException {
 
-        if (listDataHandler.checkListName(listInput.getSelectionModel().getSelectedItem()) == true) {
+        if (listDataHandler.checkListName(listInput.getSelectionModel().getSelectedItem())) {
             makeErrorDialogueBox("List name already exists", "This list name has been used by " +
                     "another user,\nplease choose another name");
         } else {
@@ -511,9 +510,6 @@ public class AddDataController extends Controller implements Initializable {
             }
 
             if (result) {
-                listDataHandler.setListName(currentList);
-                listDataHandler.addList(currentList);
-                initListComboboxes();
 
                 FileChooser fileChooser = new FileChooser();
                 FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV (*.csv)", "*.csv");
@@ -523,6 +519,10 @@ public class AddDataController extends Controller implements Initializable {
                 if (file == null) {
                     return;
                 }
+
+                ListDataHandler.setListName(currentList);
+                listDataHandler.addList(currentList);
+                initListComboboxes();
 
                 FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/progressPopup.fxml"));
                 Parent progressParent = loader.load();
@@ -563,7 +563,7 @@ public class AddDataController extends Controller implements Initializable {
 
         String currentList = listInput.getSelectionModel().getSelectedItem();
 
-        if (listDataHandler.checkListName(currentList) == true) {
+        if (listDataHandler.checkListName(currentList)) {
             makeErrorDialogueBox("List name already exists", "This list name has been used by " +
                     "another user,\nplease choose another name");
         } else {
@@ -576,9 +576,6 @@ public class AddDataController extends Controller implements Initializable {
             }
 
             if (result) {
-                listDataHandler.setListName(currentList);
-                listDataHandler.addList(currentList);
-                initListComboboxes();
 
                 FileChooser fileChooser = new FileChooser();
                 FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV (*.csv)", "*.csv");
@@ -588,6 +585,10 @@ public class AddDataController extends Controller implements Initializable {
                 if (file == null) {
                     return;
                 }
+
+                ListDataHandler.setListName(currentList);
+                listDataHandler.addList(currentList);
+                initListComboboxes();
 
                 FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/progressPopup.fxml"));
                 Parent progressParent = loader.load();

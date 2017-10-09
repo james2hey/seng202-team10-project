@@ -56,10 +56,11 @@ public class DeleteData {
                 pstmt.setString(3, startDay);
                 pstmt.setString(4, startMonth);
                 pstmt.setString(5, startYear);
-                if (i > 1) {
+                if (i > 0) {
                     pstmt.setString(6, userName);
                 }
                 pstmt.executeUpdate();
+
                 System.out.println("delete attempted " + i);
             }
         } catch (SQLException e) {
