@@ -1,11 +1,11 @@
 junit:
  stage: test
- script:
-  - mvn -B -f MainBuild clean test
+ script: 
+  - mvn -B -f MainBuild clean test -Djava.awt.headless=true -Dtestfx.robot=glass -Dtestfx.headless=true -Dprism.order=sw -Dprism.text=t2k
 generate_artifacts:
  stage: deploy
  script:
-  - mvn -B -f MainBuild clean site package
+  - mvn -B -f MainBuild clean site package -Djava.awt.headless=true -Dtestfx.robot=glass -Dtestfx.headless=true -Dprism.order=sw -Dprism.text=t2k
  artifacts:
   paths:
    - MainBuild/target/MainBuild*.jar
