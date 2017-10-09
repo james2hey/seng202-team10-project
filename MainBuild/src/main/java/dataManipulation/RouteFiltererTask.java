@@ -1,8 +1,6 @@
 package dataManipulation;
 
-import dataObjects.RetailLocation;
 import dataObjects.Route;
-import dataObjects.WifiLocation;
 import dataHandler.SQLiteDB;
 import javafx.concurrent.Task;
 
@@ -12,6 +10,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 
+/**
+ * route filterer class.
+ */
 public class RouteFiltererTask extends Task<Void> {
 
     private String routeCommand;
@@ -38,8 +39,7 @@ public class RouteFiltererTask extends Task<Void> {
 
 
     /**
-     * filterRoutes takes all the possible filter values for routes and returns a ArrayList of Routes that meet the
-     * filter requirements.
+     * RouteFilterTask constructor.
      *
      * @param gender        of type int. A value of -1 means not to filter by gender, 1 means filter by males and 2
      *                      means filter by females
@@ -91,6 +91,11 @@ public class RouteFiltererTask extends Task<Void> {
 
     }
 
+
+    /**
+     * filterRoutesWithCallback takes all the possible filter values for routes and creates a prepared statement to
+     * query the database.
+     */
     private void filterRoutesWithCallback() {
         String queryString;
         queryString = generateQueryString(gender, dateLower, dateUpper, timeLower, timeUpper, startLocation,
@@ -120,6 +125,12 @@ public class RouteFiltererTask extends Task<Void> {
     }
 
 
+    /**
+     * generates ArrayList of Routes using the results from the Result Set.
+     *
+     * @param rs Result Set of Routes from database
+     * @param callback
+     */
     private void generateRoutesWithCallback(ResultSet rs, AddRouteCallback callback) {
         try {
             int scalefactor = 1;
@@ -293,6 +304,11 @@ public class RouteFiltererTask extends Task<Void> {
     }
 
 
+    /**
+     * Called if there is no filter options. Gets all routes from database.
+     *
+     * @param callback
+     */
     private void getAllRoutesWithCallback(AddRouteCallback callback) {
         try {
             String queryString = getAllRoutesCommand;
@@ -309,6 +325,13 @@ public class RouteFiltererTask extends Task<Void> {
         }
     }
 
+
+    /**
+     * Starts new thread to filter routes.
+     *
+     * @return null
+     * @throws Exception
+     */
     @Override
     protected Void call() throws Exception {
         System.out.println(this);
