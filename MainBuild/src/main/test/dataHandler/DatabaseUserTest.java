@@ -1,9 +1,15 @@
 package dataHandler;
 
 import dataAnalysis.Cyclist;
+import dataManipulation.AddRouteCallback;
+import de.saxsys.javafx.test.JfxRunner;
+import de.saxsys.javafx.test.TestInJfxThread;
 import javafx.concurrent.Task;
 import main.HandleUsers;
 import org.junit.*;
+import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 
 import java.nio.file.Files;
 import java.sql.ResultSet;
@@ -13,6 +19,7 @@ import static org.junit.Assert.*;
 /**
  * Testing class for the DatabaseUser.
  */
+@RunWith(JfxRunner.class)
 public class DatabaseUserTest {
     private static SQLiteDB db;
     private static DatabaseUser databaseUser;
@@ -49,6 +56,10 @@ public class DatabaseUserTest {
     public void init() throws Exception {
         databaseUser = new DatabaseUser(db);
     }
+
+
+    @Captor
+    ArgumentCaptor<AddRouteCallback> callbackCaptor;
 
     @Test
     public void addUser() throws Exception {
@@ -145,6 +156,7 @@ public class DatabaseUserTest {
     }
 
     @Test
+    @TestInJfxThread
     public void removeUserFromDatabase3() throws Exception {
         // Checking that the users lists are removed. Messy test due to populated route, wifi and retail tables needed.
         ListDataHandler l = new ListDataHandler(db, hu.currentCyclist.getName());
@@ -157,15 +169,15 @@ public class DatabaseUserTest {
 
         WifiDataHandler wifiDataHandler = new WifiDataHandler(db);
         RouteDataHandler routeDataHandler = new RouteDataHandler(db);
+        RetailerDataHandlerFake retailerDataHandler = new RetailerDataHandlerFake(db);
 
         task = new CSVImporter(db, loader.getResource("CSV/NYC_Free_Public_WiFi_03292017-test.csv").getFile(), wifiDataHandler);
         task.run();
 
         task = new CSVImporter(db, loader.getResource("CSV/201601-citibike-tripdata-test.csv").getFile(), routeDataHandler);
         task.run();
-        RetailerDataHandlerFake handler = new RetailerDataHandlerFake(db);
 
-        task = new CSVImporter(db, loader.getResource("CSV/Lower_Manhattan_Retailers-test.csv").getFile(), handler);
+        task = new CSVImporter(db, loader.getResource("CSV/Lower_Manhattan_Retailers-test.csv").getFile(), retailerDataHandler);
         task.run();
         System.out.println("here");
 
