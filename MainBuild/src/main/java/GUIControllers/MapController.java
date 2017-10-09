@@ -164,7 +164,7 @@ public class MapController extends Controller implements Initializable, MapCompo
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
         alert.setHeaderText("Could not get directions");
-        alert.setContentText("Either there was an error with one of your\naddresses, or there was a problem with\nthe connection");
+        alert.setContentText("Either there was an error with one of your\naddresses, or there was a problem with\nthe connection.");
 
         alert.show();
     }
@@ -489,7 +489,7 @@ public class MapController extends Controller implements Initializable, MapCompo
     public void showNearbyRetailers() {
         //Called by GUI when show nearby retails button is pressed.
         if (currentPoint == null) {
-            makeErrorDialogueBox("Error", "Please select a point");
+            makeErrorDialogueBox("Error", "Please select a point.");
         } else {
             boolean newPoint = false;
             ArrayList<RetailLocation> locations = nearbyFinder.findNearbyRetail(currentPoint.getLatitude(), currentPoint.getLongitude());
@@ -501,7 +501,7 @@ public class MapController extends Controller implements Initializable, MapCompo
                 }
             }
             if (!newPoint) {
-                makeErrorDialogueBox("Error", "There aren't any more points nearby");
+                makeErrorDialogueBox("Error", "There aren't any more points nearby.");
             }
         }
     }

@@ -88,8 +88,7 @@ public class StartUpController extends Controller implements Initializable {
             noNullEntries = false;
         }
         if (usergender.getValue() == null) {
-            makeErrorDialogueBox("Select a gender", "No gender was selected. Please select " +
-                    "a gender\n from the drop down box or 'other' if you would rather not specify this.");
+            makeErrorDialogueBox("Select a gender", "No gender was selected.");
             noNullEntries = false;
         }
         System.out.println(userday.getSelectionModel().getSelectedItem());

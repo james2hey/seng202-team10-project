@@ -41,8 +41,6 @@
             <JFXTextField fx:id="rSAddress" layoutX="-18.0" layoutY="94.0" prefHeight="23.0" prefWidth="210.0" promptText="Start Address" AnchorPane.topAnchor="94.0" />
             <JFXTextField fx:id="rSTime" layoutX="-18.0" layoutY="142.0" prefHeight="23.0" prefWidth="210.0" promptText="Start Time (HH:MM)" />
             <DatePicker fx:id="rSDate" layoutX="-18.0" layoutY="188.0" prefHeight="25.0" prefWidth="210.0" promptText="Start Date " />
-            <Text fx:id="sTimeError" fill="RED" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ERROR: Type Error" visible="false" AnchorPane.topAnchor="113.93310546875" />
-            <Text fx:id="sDateError" fill="RED" layoutY="178.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ERROR: Type Error" visible="false" AnchorPane.topAnchor="165.93310546875" />
          </children>
          <GridPane.margin>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -58,8 +56,6 @@
             <JFXTextField fx:id="rEAddress" layoutX="-135.0" layoutY="100.0" prefHeight="23.0" prefWidth="210.0" promptText="End Address" AnchorPane.topAnchor="100.0" />
             <JFXTextField fx:id="rETime" layoutX="-135.0" layoutY="148.0" prefHeight="23.0" prefWidth="210.0" promptText="End Time (HH:MM)" />
             <DatePicker fx:id="rEDate" layoutX="-135.0" layoutY="195.0" prefHeight="25.0" prefWidth="210.0" promptText="End Date" />
-            <Text fx:id="eTimeError" fill="RED" layoutX="268.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ERROR: Type Error" visible="false" />
-            <Text fx:id="eDateError" fill="RED" layoutX="274.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ERROR: Type Error" visible="false" />
             <JFXCheckBox fx:id="addToFavourites" checkedColor="#05c361" layoutX="200.0" layoutY="102.0" prefHeight="15.0" prefWidth="173.0" text="    Add to Favourites" unCheckedColor="BLACK" />
             <JFXCheckBox fx:id="addToCompletedRoutes" checkedColor="#05c361" layoutX="200.0" layoutY="150.0" prefHeight="15.0" prefWidth="226.0" text="    Add to Completed Routes" unCheckedColor="BLACK" />
             <ComboBox fx:id="manualListInput" editable="true" layoutX="200.0" layoutY="193.0" prefHeight="25.0" prefWidth="226.0" promptText="Add to Seleted/New List" />

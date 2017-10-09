@@ -42,10 +42,7 @@ import static java.lang.Integer.parseInt;
  */
 public class AddDataController extends Controller implements Initializable {
 
-    @FXML //This importButton reveals other buttons
-    private Button importRoute, importRetailer, importWifi;
-    @FXML // Route Errors
-    private Text sTimeError, sDateError, eTimeError, eDateError;
+
     @FXML //Route Fields
     private JFXTextField rSAddress, rEAddress, rSTime, rETime;
     @FXML // Retailer Fields
@@ -179,42 +176,33 @@ public class AddDataController extends Controller implements Initializable {
             }
 
             try { //Start Date
-                sDateError.setVisible(false);
                 sDate = HelperFunctions.convertDates(rSDate.getValue().toString());
                 if (sDate == null) {
                     errorOccurred = true;
-                    sDateError.setVisible(true);
                 }
             } catch (Exception e) {
-                sDateError.setVisible(true);
                 errorOccurred = true;
             }
 
             try { // End Date
-                eDateError.setVisible(false);
                 eDate = HelperFunctions.convertDates(rEDate.getValue().toString());
                 if (eDate == null) {
                     errorOccurred = true;
                     //eDateError.setVisible(true);
                 }
             } catch (Exception e) {
-                eDateError.setVisible(true);
                 errorOccurred = true;
             }
 
             if (HelperFunctions.checkTime(rSTime.getText())) {
                 sTime = rSTime.getText() + ":00";
-                sTimeError.setVisible(false);
             } else {
                 errorOccurred = true;
-                sTimeError.setVisible(true);
             }
 
             if (HelperFunctions.checkTime(rETime.getText())) {
                 eTime = rETime.getText() + ":00";
-                eTimeError.setVisible(false);
             } else {
-                eTimeError.setVisible(true);
                 errorOccurred = true;
             }
             if (errorOccurred) {
