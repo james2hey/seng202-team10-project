@@ -13,12 +13,19 @@ import dataManipulation.FindNearbyLocations;
 import dataObjects.RetailLocation;
 import dataObjects.Route;
 import dataObjects.WifiLocation;
+import javafx.animation.KeyFrame;
+import javafx.animation.PauseTransition;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.util.*;
+import javafx.util.Duration;
 import main.HelperFunctions;
 import main.Main;
 import netscape.javascript.JSObject;
@@ -27,6 +34,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.ResourceBundle;
 
@@ -66,6 +74,7 @@ public class MapController extends Controller implements Initializable, MapCompo
     private InfoWindow currentInfoWindow;
     private String currentStart;
     private String currentEnd;
+    private boolean hasResulted;
 
     private HashSet<WifiLocation> wifiLocations = new HashSet<>();
     private HashSet<RetailLocation> retailLocations = new HashSet<>();
@@ -95,6 +104,7 @@ public class MapController extends Controller implements Initializable, MapCompo
 
         map = mapView.createMap(mapOptions);
         directionsService = new DirectionsService();
+
         directionsPane = mapView.getDirec();
         directionsRenderer = new DirectionsRenderer(true, mapView.getMap(), directionsPane);
         directionsRenderer.setOptions("true, suppressBicyclingLayer: true");
@@ -131,12 +141,32 @@ public class MapController extends Controller implements Initializable, MapCompo
      */
     @FXML
     public void addressTextFieldAction(ActionEvent event) {
+        hasResulted = false;
         String start = startAddress.get().replace("'", "\'");
         String end = endAddress.get().replace("'", "\'");
         DirectionsRequest request = new DirectionsRequest(start, end, TravelModes.BICYCLING);
         directionsService.getRoute(request, this, directionsRenderer);
         currentStart = startAddress.get();
         currentEnd = endAddress.get();
+
+        PauseTransition delay = new PauseTransition(Duration.seconds(2));
+        delay.setOnFinished( e -> {
+            if (!hasResulted) {
+                makeDirectionsError();
+            }
+        });
+        delay.play();
+
+    }
+    private void makeDirectionsError() {
+
+
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText("Could not get directions");
+        alert.setContentText("Either there was an error with one of your\naddresses, or there was a problem with\nthe connection");
+
+        alert.show();
     }
 
     /**
@@ -148,6 +178,8 @@ public class MapController extends Controller implements Initializable, MapCompo
      */
     @Override
     public void directionsReceived(DirectionsResult results, DirectionStatus status) {
+        hasResulted = true;
+        System.out.println("Recvd");
         nearbyRetailerButton.setDisable(false);
         nearbyWifiButton.setDisable(false);
         System.out.println(results.getRoutes().size());
