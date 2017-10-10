@@ -22,14 +22,14 @@ https://maven.apache.org/install.html
 
 ### Installing
 
-A step by step series of examples that tell you have to get a development env running
-
-Say what the step will be
+Start by cloning the repository to your PC using
 
 ```
 git clone https://eng-git.canterbury.ac.nz/jes143/seng202-team10-project.git
-or
-download: https://eng-git.canterbury.ac.nz/jes143/seng202-team10-project/repository/archive.zip
+```
+or download and extract the zip
+```
+https://eng-git.canterbury.ac.nz/jes143/seng202-team10-project/repository/archive.zip
 ```
 ```
 cd seng202-team10-project/MainBuild
