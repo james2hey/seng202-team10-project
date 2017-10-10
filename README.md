@@ -14,11 +14,11 @@ java.version
 ```
 If java is not recognized or the version is not at least “1.8.XXX” then go to the following website to install Java 8.
 https://java.com/en/download/
-```
+
 This is a maven project, so make sure maven is installed on your
 computer. Information about installing maven can be found here:
 https://maven.apache.org/install.html
-```
+
 
 ### Installing
 
