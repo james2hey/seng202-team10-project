@@ -136,8 +136,12 @@ public class AddDataController extends Controller implements Initializable {
             makeErrorDialogueBox("List name already exists", "This list name has been used by " +
                     "another user,\nplease choose another name");
         } else {
-            ListDataHandler.setListName(manualListInput.getSelectionModel().getSelectedItem());
-            listDataHandler.addList(manualListInput.getSelectionModel().getSelectedItem());
+            if (manualListInput.getSelectionModel().getSelectedItem() == null) {
+                ListDataHandler.setListName(null);
+            } else {
+                ListDataHandler.setListName(manualListInput.getSelectionModel().getSelectedItem());
+                listDataHandler.addList(manualListInput.getSelectionModel().getSelectedItem());
+            }
             initListComboboxes();
 
             try {
@@ -215,8 +219,8 @@ public class AddDataController extends Controller implements Initializable {
             RouteDataHandler newRoute = new RouteDataHandler(Main.getDB());
 
             Boolean fromHandler = newRoute.addSingleEntry(duration, sDate[0], sDate[1], sDate[2], sTime,
-                    eDate[0], eDate[1], eDate[2], eTime, null,
-                    rSAddress.getText(), SLatitude, SLongitude, null, rEAddress.getText(), ELatitude, ELongitude,
+                    eDate[0], eDate[1], eDate[2], eTime, "",
+                    rSAddress.getText(), SLatitude, SLongitude, "", rEAddress.getText(), ELatitude, ELongitude,
                     username, "Custom", Main.hu.currentCyclist.getBirthYear(), Main.hu.currentCyclist.getGender());
             //get distance
 
@@ -267,8 +271,12 @@ public class AddDataController extends Controller implements Initializable {
             makeErrorDialogueBox("List name already exists", "This list name has been used by " +
                     "another user,\nplease choose another name");
         } else {
-            ListDataHandler.setListName(manualListInput.getSelectionModel().getSelectedItem());
-            listDataHandler.addList(manualListInput.getSelectionModel().getSelectedItem());
+            if (manualListInput.getSelectionModel().getSelectedItem() == null) {
+                ListDataHandler.setListName(null);
+            } else {
+                ListDataHandler.setListName(manualListInput.getSelectionModel().getSelectedItem());
+                listDataHandler.addList(manualListInput.getSelectionModel().getSelectedItem());
+            }
             initListComboboxes();
 
             try {
@@ -308,8 +316,8 @@ public class AddDataController extends Controller implements Initializable {
             }
             if (!errorOccured) {
                 RetailerDataHandler newRetailer = new RetailerDataHandler(Main.getDB());
-                Boolean fromHandler = newRetailer.addSingleEntry(retailerName.getText(), retailerAddress.getText(), latLon[0], latLon[1], null,
-                        null, null, retailerPrim.getValue().toString(), retailerSec.getText());
+                Boolean fromHandler = newRetailer.addSingleEntry(retailerName.getText(), retailerAddress.getText(), latLon[0], latLon[1], "",
+                        "", "0", retailerPrim.getValue().toString(), retailerSec.getText());
                 if (!fromHandler) {
                     makeErrorDialogueBox("Something wrong with input", "Fill all required fields\nCheck entry is not already in database");
                 } else {
@@ -341,13 +349,16 @@ public class AddDataController extends Controller implements Initializable {
     void wifiCSVLine(ActionEvent event) throws IOException {
         Boolean errorOccured = false;
         double[] latLon;
-
         if (listDataHandler.checkListName(manualListInput.getSelectionModel().getSelectedItem())) {
             makeErrorDialogueBox("List name already exists", "This list name has been used by " +
                     "another user,\nplease choose another name");
         } else {
-            ListDataHandler.setListName(manualListInput.getSelectionModel().getSelectedItem());
-            listDataHandler.addList(manualListInput.getSelectionModel().getSelectedItem());
+            if (manualListInput.getSelectionModel().getSelectedItem() == null) {
+                ListDataHandler.setListName(null);
+            } else {
+                ListDataHandler.setListName(manualListInput.getSelectionModel().getSelectedItem());
+                listDataHandler.addList(manualListInput.getSelectionModel().getSelectedItem());
+            }
             initListComboboxes();
 
             try {
@@ -380,7 +391,7 @@ public class AddDataController extends Controller implements Initializable {
 
                 WifiDataHandler newWifi = new WifiDataHandler(Main.getDB());
                 Boolean fromHandler = newWifi.addSingleEntry(wifiName.getText(), "", "", wifiAddress.getText(), latLon[0], latLon[1],
-                        wifiComments.getText(), "", wifiName.getText(), "", null);
+                        wifiComments.getText(), "", wifiName.getText(), "", "0");
                 if (!fromHandler) {
                     makeErrorDialogueBox("Something wrong with input", "Fill all required fields\nCheck entry is not already in database");
                 } else {

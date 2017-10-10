@@ -135,8 +135,10 @@ public class DetailedWifiInformation extends DataViewerController {
             currentWifi.setSSID(SSID.getText());
             currentWifi.setSuburb(suburb.getSelectionModel().getSelectedItem());
             currentWifi.setZip(Integer.parseInt(Zip.getText()));
-            listDataHandler.addList(list.getSelectionModel().getSelectedItem());
-            currentWifi.setListName(list.getEditor().getText());
+            if (list.getEditor().getText() != null) {
+                listDataHandler.addList(list.getSelectionModel().getSelectedItem());
+                currentWifi.setListName(list.getEditor().getText());
+            }
 
             Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             currentStage.close();
@@ -310,7 +312,7 @@ public class DetailedWifiInformation extends DataViewerController {
     private void zipListener() {
         Zip.textProperty().addListener(((observable, oldValue, newValue) -> {
             System.out.println("TextField Text Changed (newValue: " + newValue + ")");
-            if (!Zip.getText().matches("[0-9]*") || Zip.getText().length() > 8) {
+            if (!Zip.getText().matches("[0-9]+") || Zip.getText().length() > 8) {
                 Zip.setFocusColor(RED);
                 Zip.setUnFocusColor(RED);
                 update.setDisable(true);

@@ -127,9 +127,10 @@ public class DetailedRetailerInformation extends DataViewerController {
             currentRetailer.setZip(Integer.parseInt(zip.getText()));
             currentRetailer.setMainType(mainType.getSelectionModel().getSelectedItem());
             currentRetailer.setSecondaryType(secondaryType.getText());
-            listDataHandler.addList(list.getSelectionModel().getSelectedItem());
-            currentRetailer.setListName(list.getEditor().getText());
-
+            if (list.getEditor().getText() != null) {
+                listDataHandler.addList(list.getSelectionModel().getSelectedItem());
+                currentRetailer.setListName(list.getEditor().getText());
+            }
             Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             currentStage.close();
             showRetailers(mainAppEvent);
@@ -162,7 +163,7 @@ public class DetailedRetailerInformation extends DataViewerController {
      */
     private void latitudeListener() {
         latitude.textProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.println("TextField Text Changed (newValue: " + newValue + ")");
+            System.out.println("TextField lat Changed (newValue: " + newValue + ")");
             if (!latitude.getText().matches("-?[0-9]?[0-9]?[0-9].[0-9]+")) {
                 latitude.setFocusColor(RED);
                 latitude.setUnFocusColor(RED);
@@ -182,7 +183,7 @@ public class DetailedRetailerInformation extends DataViewerController {
      */
     private void longitudeListener() {
         longitude.textProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.println("TextField Text Changed (newValue: " + newValue + ")");
+            System.out.println("TextField long Changed (newValue: " + newValue + ")");
             if (!longitude.getText().matches("-?[0-9]?[0-9]?[0-9].[0-9]+")) {
                 longitude.setFocusColor(RED);
                 longitude.setUnFocusColor(RED);
@@ -202,7 +203,7 @@ public class DetailedRetailerInformation extends DataViewerController {
      */
     private void cityListener() {
         city.textProperty().addListener(((observable, oldValue, newValue) -> {
-            System.out.println("TextField Text Changed (newValue: " + newValue + ")");
+            System.out.println("TextField city Changed (newValue: " + newValue + ")");
             if (city.getText().length() > 50) {
                 city.setFocusColor(RED);
                 city.setUnFocusColor(RED);
@@ -222,7 +223,7 @@ public class DetailedRetailerInformation extends DataViewerController {
      */
     private void stateListener() {
         state.textProperty().addListener(((observable, oldValue, newValue) -> {
-            System.out.println("TextField Text Changed (newValue: " + newValue + ")");
+            System.out.println("TextField state Changed (newValue: " + newValue + ")");
             if (state.getText().length() > 12) {
                 state.setFocusColor(RED);
                 state.setUnFocusColor(RED);
@@ -242,8 +243,8 @@ public class DetailedRetailerInformation extends DataViewerController {
      */
     private void zipListener() {
         zip.textProperty().addListener(((observable, oldValue, newValue) -> {
-            System.out.println("TextField Text Changed (newValue: " + newValue + ")");
-            if (!zip.getText().matches("[0-9]*") || zip.getText().length() > 8) {
+            System.out.println("TextField zip Changed (newValue: " + newValue + ")");
+            if (!zip.getText().matches("[0-9]+") || zip.getText().length() > 8) {
                 zip.setFocusColor(RED);
                 zip.setUnFocusColor(RED);
                 update.setDisable(true);
@@ -262,7 +263,7 @@ public class DetailedRetailerInformation extends DataViewerController {
      */
     private void secondaryListener() {
         secondaryType.textProperty().addListener(((observable, oldValue, newValue) -> {
-            System.out.println("TextField Text Changed (newValue: " + newValue + ")");
+            System.out.println("TextField secondary Changed (newValue: " + newValue + ")");
             if (secondaryType.getText().length() > 50) {
                 secondaryType.setFocusColor(RED);
                 secondaryType.setUnFocusColor(RED);
@@ -282,7 +283,7 @@ public class DetailedRetailerInformation extends DataViewerController {
      */
     private void listListener() {
         list.getEditor().textProperty().addListener(((observable, oldValue, newValue) -> {
-            System.out.println("TextField Text Changed (newValue: " + newValue + ")");
+            System.out.println("TextField list Changed (newValue: " + newValue + ")");
             if (list.getEditor().getText().length() > 25) {
                 String listName = list.getEditor().getText();
                 listName = listName.substring(0, 25);

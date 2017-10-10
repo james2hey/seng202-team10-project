@@ -179,8 +179,10 @@ public class DetailedRouteInformation extends RouteDataViewerController {
             currentRoute.setAge(Integer.parseInt(cyclistBirthYear.getText()));
             currentRoute.setGender(gender.getSelectionModel().getSelectedItem());
             currentRoute.setUserType(userType.getText());
-            listDataHandler.addList(list.getSelectionModel().getSelectedItem());
-            currentRoute.setListName(list.getEditor().getText());
+            if (list.getEditor().getText() != null) {
+                listDataHandler.addList(list.getSelectionModel().getSelectedItem());
+                currentRoute.setListName(list.getEditor().getText());
+            }
 
             Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             currentStage.close();
@@ -355,7 +357,7 @@ public class DetailedRouteInformation extends RouteDataViewerController {
     private void endDayListener() {
         endDay.textProperty().addListener((observable, oldValue, newValue) -> {
             System.out.println("TextField Text Changed (newValue: " + newValue + ")");
-            if (!endDay.getText().matches("[0-9]*") || endDay.getText().length() > 2) {
+            if (!endDay.getText().matches("[0-2]?[0-9]|3[0-1]")) {
                 endDay.setFocusColor(RED);
                 endDay.setUnFocusColor(RED);
                 update.setDisable(true);
@@ -375,7 +377,7 @@ public class DetailedRouteInformation extends RouteDataViewerController {
     private void endMonthListener() {
         endMonth.textProperty().addListener((observable, oldValue, newValue) -> {
             System.out.println("TextField Text Changed (newValue: " + newValue + ")");
-            if (!endMonth.getText().matches("[0-9]*") || endMonth.getText().length() > 2) {
+            if (!endMonth.getText().matches("0?[0-9]|1[0-2]")) {
                 endMonth.setFocusColor(RED);
                 endMonth.setUnFocusColor(RED);
                 update.setDisable(true);
