@@ -3,9 +3,6 @@ package dataHandler;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-/**
- * Created by jes143 on 17/09/17.
- */
 public class WifiDataHandler implements DataHandler {
     private SQLiteDB db;
 
@@ -46,7 +43,7 @@ public class WifiDataHandler implements DataHandler {
      * Processes a CSV line and adds to the database if valid.
      *
      * @param record A string array of object corresponding to the CSV
-     * @return A bool stating the success state of the process.
+     * @param callback Used to callback a bool stating the success state of the process.
      */
     public void processLine(String[] record, Callback callback) {
         try {

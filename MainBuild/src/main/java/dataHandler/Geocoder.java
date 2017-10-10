@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Created by jes143 on 18/09/17.
+ * Creates a GeoApiContext for geocoding. There should never be two instances of this class active at one time
  */
 public class Geocoder {
 

@@ -283,7 +283,7 @@ public abstract class Controller {
 
     /**
      * Creates a ChoiceDialog which prompts the user the input their ranking of the route.
-     * @return the users ranking for the route
+     * Adds the result directly to the Cyclist
      */
     @FXML
     public void openRouteRankStage(Route routeToAdd, String name) {

@@ -8,7 +8,7 @@ public class FilterByTimeException extends Exception {
     /**
      * Defines custom exception. thrown when user inputs data to filter by incorrectly.
      *
-     * @param message;
+     * @param message
      */
     public FilterByTimeException(String message) {
         super(message);

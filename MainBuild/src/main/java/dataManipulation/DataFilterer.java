@@ -10,8 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-////////////////////////////////
-
 
 /**
  * DataFilterer class contains methods that sent requests to the database and return a array of data based on what

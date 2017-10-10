@@ -14,9 +14,6 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-/**
- * Created by jes143 on 30/09/17.
- */
 public class ProgressPopupController extends Controller implements Initializable {
 
     @FXML

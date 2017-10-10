@@ -38,10 +38,6 @@ public class StartUpController extends Controller implements Initializable {
     @FXML
     private ComboBox<String> usergender;
 
-    /**
-     * @param location;
-     * @param resources;
-     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         SQLiteDB db = Main.getDB();

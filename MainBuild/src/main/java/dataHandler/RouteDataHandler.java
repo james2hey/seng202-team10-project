@@ -5,9 +5,6 @@ import org.apache.commons.lang3.StringUtils;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-/**
- * Created by jes143 on 17/09/17.
- */
 public class RouteDataHandler implements DataHandler {
     private SQLiteDB db;
 

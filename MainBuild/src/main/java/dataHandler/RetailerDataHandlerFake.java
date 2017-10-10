@@ -4,7 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /**
- * A fake RetailerDataHandler that overrides the process line function to remove the geocoder
+ * A fake RetailerDataHandler that overrides the process line function to remove the geocoder for unit tests
  */
 
 public class RetailerDataHandlerFake extends RetailerDataHandler {
