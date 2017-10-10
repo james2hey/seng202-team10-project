@@ -32,11 +32,11 @@ or
 download: https://eng-git.canterbury.ac.nz/jes143/seng202-team10-project/repository/archive.zip
 ```
 
-```
+
 To import the project into your IDE, extract the ZIP, and open an existing project.
 Select the Source Code/MainBuild folder, if you're using IntelliJ the project should load right up.
 If your IDE fails to recognize the settings, ensure that your build version is Java Oracle 8, and that your run configuration is on main.Main
-```
+
 
 Run main.Main to launch the application
 
