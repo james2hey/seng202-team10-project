@@ -118,7 +118,7 @@ public class HelpController implements Initializable {
         aboutSection.setText(aboutMessage);
         String legalMessage = "\nDisclaimer\n\n\n" +
                 "This software is licenced under the Eclipse Public License - v 1.0. (https://www.eclipse.org/legal/epl-v10.html)\n\n" +
-                "Any third party libraries can be accessed and installed within the LICENCE and NOTICE files.(http://www.github.com/jackodsteel/pedals)\n\n" +
+                "Any third party libraries can be accessed and installed within the LICENCE and NOTICE files.(https://eng-git.canterbury.ac.nz/jes143/seng202-team10-project)\n\n" +
                 "By using this software you agree to abide by the Google Maps TOS. (https://developers.google.com/maps/terms)\n\n" +
                 "Feel free to modify and distribute this code as you please, just remember to reference us, and abide by the respective dependency licences.";
         legalSection.setText(legalMessage);
