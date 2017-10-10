@@ -8,5 +8,6 @@ generate_artifacts:
   - mvn -B -f MainBuild clean site package -Djava.awt.headless=true -Dtestfx.robot=glass -Dtestfx.headless=true -Dprism.order=sw -Dprism.text=t2k
  artifacts:
   paths:
-   - MainBuild/target/MainBuild*.jar
+   - MainBuild/target/Pedals*.jar
    - MainBuild/src/main/java/seng202/team10/Main.java
+   - MainBuild/target/site/*
