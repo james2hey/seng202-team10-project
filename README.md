@@ -31,6 +31,9 @@ git clone https://eng-git.canterbury.ac.nz/jes143/seng202-team10-project.git
 or
 download: https://eng-git.canterbury.ac.nz/jes143/seng202-team10-project/repository/archive.zip
 ```
+```
+cd seng202-team10-project/MainBuild
+```
 
 
 To import the project into your IDE, extract the ZIP, and open an existing project.
@@ -42,7 +45,7 @@ Run main.Main to launch the application
 
 ## Running the tests
 
-This project uses JUnit for testing. Run the tests using
+This project uses JUnit for testing. Run the tests using this command, from the MainBuild directory
 
 ```
 mvn test
@@ -50,7 +53,7 @@ mvn test
 
 ## Deployment
 
-To build the executable JAR run the command
+To build the executable JAR run this command, from the MainBuild directory
 ```
 mvn package
 ```
@@ -66,7 +69,7 @@ This will have created a jar file called
 
 ## Documentation
 
-Javadocs can be generated using
+Javadocs can be generated using this command, from the MainBuild directory
 ```
 mvn javadoc:javadoc
 ```
