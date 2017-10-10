@@ -1,2 +1,0 @@
-Test push
-Test push using intelliJ
