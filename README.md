@@ -81,11 +81,9 @@ There are a precompiled set of Javadocs in the main directory under 'Javadoc'. O
 * **Matthew King** - *Core developer* - []()
 * **Lewis White** - *Core developer* - []()
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-
 ## License
 
-This project is licensed under the Eclipse Public License 1.0 - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the Eclipse Public License 1.0 - see the [LICENSE.md](LICENCE.md) file for details
 
 ## Acknowledgments
 
