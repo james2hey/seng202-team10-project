@@ -27,9 +27,9 @@ A step by step series of examples that tell you have to get a development env ru
 Say what the step will be
 
 ```
-git clone this
+git clone https://eng-git.canterbury.ac.nz/jes143/seng202-team10-project.git
 or
-download: https://github.com/rterp/GMapsFX/archive/master.zip
+download: https://eng-git.canterbury.ac.nz/jes143/seng202-team10-project/repository/archive.zip
 ```
 
 ```
@@ -90,5 +90,3 @@ This project is licensed under the Eclipse Public License 1.0 - see the [LICENSE
 ## Acknowledgments
 
 * University of Canterbury
-
-
